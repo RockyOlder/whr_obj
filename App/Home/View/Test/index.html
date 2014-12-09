@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Index</title>
+        <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
+        <script src='__PUBLIC__/Js/jquery.js'></script>
+        <script src='__PUBLIC__/Js/jquery.uploadify.min.js'></script>
+    </head>
+    <body>
+        <form enctype="multipart/form-data" method="post" action="{:U('moreup')}">
+            <!-- <img id="img" src="http://www.thinkphp.cn/Public/new/img/header_logo.png" width="130" height="130" border="0" /> -->
+            <div id="imgs"></div>
+            <div id="city_list"></div>
+            <!-- <input id="file_upload" name="file_upload" type="file" multiple="true" value="" /> -->
+            <input type = "file" name = "phone[]" value="">
+            <input type = "file" name = "phone[]" value="">
+            <input type = "file" name = "phone[]" value="">
+            <input type = "file" name = "phone[]" value="">
+            <input type="submit" value="提交">
+        </form>
+       
+    </body>
+    <script>
+
+    //     var img = "";
+    //    $('#file_upload').uploadify({
+    //     'swf'      : '__PUBLIC__/Images/uploadify.swf',
+    //     'uploader' : '{:U("Test/upload")}',
+    //     'cancelImage':'__PUBLIC__/Images/uploadify-cancel.png',
+    //     'buttonText' : '缩略图上传',
+    //     'onUploadSuccess' : function(file, v, response) {
+    //           obj= $.parseJSON(v);
+    //           alert(obj.path);
+    //         // alert(v);
+    //          // img += "<img width='200px' src='"+data.path+"'>";
+    //          // img += "<img width='200px' src='"+data.mid+"'>";
+    //          // img += "<img width='200px' src='"+data.min+"'>";
+    //             // $('#imgs').html(img);
+    //         // if(data != null){
+    //         //     var str=""
+    //         //     $.each(data,function(key,val){
+    //         //         // alert(key)
+    //         //         str += "<input type = 'text' name = '' value='"+val[0]+"'/>";
+    //         //     })
+    //         //     $('#city_list').html(str);
+    //         // }
+    //         $.each(obj,function(a,b){
+    //             img += "<img width='200px' src='"+b+"' name ='"+a+"'>";
+    //         })
+    //          $('#imgs').html(img);
+    //     }
+    // });
+    </script>
+</html>

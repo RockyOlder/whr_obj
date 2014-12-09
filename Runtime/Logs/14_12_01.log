@@ -1,0 +1,741 @@
+[ 2014-12-01T09:09:00+08:00 ] ::1 /whr/index.php?s=/Home/Property/index
+ERR: 无法加载控制器:Property
+
+[ 2014-12-01T09:09:01+08:00 ] ::1 /whr/index.php?s=/Home/Property/add
+ERR: 无法加载控制器:Property
+
+[ 2014-12-01T09:09:02+08:00 ] ::1 /whr/index.php?s=/Home/Property/index
+ERR: 无法加载控制器:Property
+
+[ 2014-12-01T09:09:48+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000432s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000731s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2332 [ RunTime:0.000258s ]
+
+[ 2014-12-01T09:09:48+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000434s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000736s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003902s ]
+
+[ 2014-12-01T09:09:48+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000722s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003902s ]
+
+[ 2014-12-01T09:09:48+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000514s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000838s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.003741s ]
+
+[ 2014-12-01T09:09:48+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000565s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000968s ]
+
+[ 2014-12-01T09:09:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000707s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000337s ]
+
+[ 2014-12-01T09:09:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000420s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000696s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003712s ]
+
+[ 2014-12-01T09:09:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000407s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000688s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003567s ]
+
+[ 2014-12-01T09:09:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000522s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000814s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003791s ]
+
+[ 2014-12-01T09:09:55+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000749s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001209s ]
+
+[ 2014-12-01T09:10:00+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000414s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000724s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000813s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000894s ]
+
+[ 2014-12-01T09:10:00+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000449s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000734s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000440s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000489s ]
+
+[ 2014-12-01T09:10:00+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000477s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000798s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000481s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000521s ]
+
+[ 2014-12-01T09:10:00+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000505s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000794s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000430s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000482s ]
+
+[ 2014-12-01T09:10:00+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000690s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001024s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000427s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000473s ]
+
+[ 2014-12-01T09:10:49+08:00 ] ::1 /whr/index.php?s=/Home/Admin/index
+ERR: 无法加载控制器:Admin
+
+[ 2014-12-01T09:12:01+08:00 ] ::1 /whr/index.php?s=/Home/Admin/add
+ERR: 无法加载控制器:Admin
+
+[ 2014-12-01T09:12:01+08:00 ] ::1 /whr/index.php?s=/Home/Admin/index
+ERR: 无法加载控制器:Admin
+
+[ 2014-12-01T09:12:24+08:00 ] ::1 /whr/index.php?s=/Home/Developer/selectDeveloper.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000391s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000656s ]
+SQL: select * from wrt_developer_sum limit 0,20 [ RunTime:0.000330s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000539s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000573s ]
+
+[ 2014-12-01T09:16:42+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000413s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000702s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000851s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000910s ]
+
+[ 2014-12-01T09:16:42+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000529s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000854s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000504s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000553s ]
+
+[ 2014-12-01T09:16:42+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000520s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000851s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000501s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000547s ]
+
+[ 2014-12-01T09:16:42+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002361s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003187s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000548s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000592s ]
+
+[ 2014-12-01T09:16:42+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000627s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001134s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000535s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000574s ]
+
+[ 2014-12-01T09:16:45+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000395s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000673s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2336 [ RunTime:0.000227s ]
+
+[ 2014-12-01T09:16:45+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000675s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003784s ]
+
+[ 2014-12-01T09:16:45+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000386s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000659s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.003766s ]
+
+[ 2014-12-01T09:16:45+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000470s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000764s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004169s ]
+
+[ 2014-12-01T09:16:45+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000398s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000691s ]
+
+[ 2014-12-01T09:16:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000446s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000738s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003887s ]
+
+[ 2014-12-01T09:16:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000426s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000706s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000219s ]
+
+[ 2014-12-01T09:16:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000446s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000736s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003939s ]
+
+[ 2014-12-01T09:16:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000465s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000745s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003875s ]
+
+[ 2014-12-01T09:16:55+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000425s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000848s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 2 [ RunTime:0.000431s ]
+
+[ 2014-12-01T09:17:09+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000428s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000726s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000295s ]
+
+[ 2014-12-01T09:17:09+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000431s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000734s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003753s ]
+
+[ 2014-12-01T09:17:09+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000415s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000713s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003863s ]
+
+[ 2014-12-01T09:17:09+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000408s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000694s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.005090s ]
+
+[ 2014-12-01T09:17:09+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000425s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000736s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 2 [ RunTime:0.000457s ]
+
+[ 2014-12-01T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000404s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000674s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000220s ]
+
+[ 2014-12-01T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000412s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000693s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004052s ]
+
+[ 2014-12-01T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000438s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000745s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 2 [ RunTime:0.000445s ]
+
+[ 2014-12-01T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000672s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000984s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003768s ]
+
+[ 2014-12-01T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000467s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000798s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003853s ]
+
+[ 2014-12-01T09:18:22+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000443s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000739s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003728s ]
+
+[ 2014-12-01T09:18:22+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000417s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000694s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003977s ]
+
+[ 2014-12-01T09:18:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000540s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000913s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003733s ]
+
+[ 2014-12-01T09:18:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000486s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000941s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000251s ]
+
+[ 2014-12-01T09:18:22+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000445s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000777s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 10 [ RunTime:0.000546s ]
+
+[ 2014-12-01T09:18:40+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000441s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000748s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003820s ]
+
+[ 2014-12-01T09:18:40+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000443s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000728s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003870s ]
+
+[ 2014-12-01T09:18:40+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000490s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000794s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 3 [ RunTime:0.000557s ]
+
+[ 2014-12-01T09:18:40+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000482s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000797s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000248s ]
+
+[ 2014-12-01T09:18:40+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000455s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000887s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003807s ]
+
+[ 2014-12-01T09:18:42+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000714s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000266s ]
+
+[ 2014-12-01T09:18:42+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000415s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000705s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003806s ]
+
+[ 2014-12-01T09:18:42+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000696s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001058s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003721s ]
+
+[ 2014-12-01T09:18:42+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000449s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000779s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 3 [ RunTime:0.000407s ]
+
+[ 2014-12-01T09:18:42+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000695s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001158s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003741s ]
+
+[ 2014-12-01T09:19:23+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000539s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000867s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000269s ]
+
+[ 2014-12-01T09:19:23+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000537s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000895s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003817s ]
+
+[ 2014-12-01T09:19:23+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000610s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001113s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003890s ]
+
+[ 2014-12-01T09:19:23+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000410s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000700s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 3 [ RunTime:0.000454s ]
+
+[ 2014-12-01T09:19:23+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000551s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001018s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003729s ]
+
+[ 2014-12-01T09:19:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000435s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000719s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000227s ]
+
+[ 2014-12-01T09:19:25+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000413s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000705s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003869s ]
+
+[ 2014-12-01T09:19:25+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000403s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000698s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003970s ]
+
+[ 2014-12-01T09:19:25+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000414s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000697s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 3 [ RunTime:0.000448s ]
+
+[ 2014-12-01T09:19:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000452s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000918s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003848s ]
+
+[ 2014-12-01T09:19:26+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000417s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000735s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000220s ]
+
+[ 2014-12-01T09:19:26+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000401s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000683s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003870s ]
+
+[ 2014-12-01T09:19:26+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000438s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000724s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003700s ]
+
+[ 2014-12-01T09:19:26+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000411s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000715s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 3 [ RunTime:0.000419s ]
+
+[ 2014-12-01T09:19:26+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000512s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000818s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003700s ]
+
+[ 2014-12-01T09:19:32+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000841s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.004100s ]
+
+[ 2014-12-01T09:19:32+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000436s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000719s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000407s ]
+
+[ 2014-12-01T09:19:32+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000427s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000761s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000212s ]
+
+[ 2014-12-01T09:19:32+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000443s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000760s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003865s ]
+
+[ 2014-12-01T09:19:32+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000570s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000913s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003782s ]
+
+[ 2014-12-01T09:19:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000711s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000251s ]
+
+[ 2014-12-01T09:19:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000428s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000727s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003906s ]
+
+[ 2014-12-01T09:19:55+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000420s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000717s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003627s ]
+
+[ 2014-12-01T09:19:55+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000557s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000853s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003806s ]
+
+[ 2014-12-01T09:19:55+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000631s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001007s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000423s ]
+
+[ 2014-12-01T09:27:04+08:00 ] ::1 /whr/index.php?s=/Home/Business/index
+ERR: 表达式错误:parent_type
+
+[ 2014-12-01T09:33:02+08:00 ] ::1 /whr/index.php?s=/Home/Developer/selectDeveloper.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000530s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000875s ]
+SQL: select * from wrt_developer_sum limit 0,20 [ RunTime:0.000385s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000620s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000651s ]
+
+[ 2014-12-01T10:34:22+08:00 ] ::1 /whr/index.php?s=/Home/public
+ERR: 无法加载控制器:Public
+
+[ 2014-12-01T10:34:31+08:00 ] ::1 /whr/index.php?s=/Home/view/public
+ERR: 无法加载控制器:View
+
+[ 2014-12-01T10:36:44+08:00 ] ::1 /whr/index.php?s=/Home/view/public
+ERR: 无法加载控制器:View
+
+[ 2014-12-01T10:36:46+08:00 ] ::1 /whr/index.php?s=/Home/public
+ERR: 无法加载控制器:Public
+
+[ 2014-12-01T10:51:32+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000513s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000795s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000455s ]
+
+[ 2014-12-01T10:51:32+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000538s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000905s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003954s ]
+
+[ 2014-12-01T10:51:32+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000548s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001099s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003797s ]
+
+[ 2014-12-01T10:51:32+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000873s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001201s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000383s ]
+
+[ 2014-12-01T10:51:32+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000780s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001193s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.004168s ]
+
+[ 2014-12-01T10:51:45+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000505s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000798s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2307 [ RunTime:0.000375s ]
+
+[ 2014-12-01T10:51:45+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000470s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000877s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003798s ]
+
+[ 2014-12-01T10:51:45+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000490s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000794s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003785s ]
+
+[ 2014-12-01T10:51:45+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000547s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000890s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000455s ]
+
+[ 2014-12-01T10:51:45+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000413s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000707s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003944s ]
+
+[ 2014-12-01T10:51:49+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000480s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000777s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2307 [ RunTime:0.000294s ]
+
+[ 2014-12-01T10:51:49+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000445s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000744s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003916s ]
+
+[ 2014-12-01T10:51:49+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000420s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000754s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.004062s ]
+
+[ 2014-12-01T10:51:49+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000758s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002528s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000421s ]
+
+[ 2014-12-01T10:51:49+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000441s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000793s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003803s ]
+
+[ 2014-12-01T10:52:02+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000454s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000763s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004378s ]
+
+[ 2014-12-01T10:52:02+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000572s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000926s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003921s ]
+
+[ 2014-12-01T10:52:02+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000531s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000824s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000731s ]
+
+[ 2014-12-01T10:52:02+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000499s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000879s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003826s ]
+
+[ 2014-12-01T10:52:02+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000763s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001182s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2307 [ RunTime:0.000206s ]
+
+[ 2014-12-01T10:53:12+08:00 ] ::1 /whr/index.php?s=/Home/Admin/index
+ERR: 无法加载控制器:Admin
+
+[ 2014-12-01T10:53:14+08:00 ] ::1 /whr/index.php?s=/Home/Developer/selectDeveloper.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000411s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000687s ]
+SQL: select * from wrt_developer_sum limit 0,20 [ RunTime:0.000258s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000538s ]
+
+[ 2014-12-01T10:53:25+08:00 ] ::1 /whr/index.php?s=/Home/Admin/index
+ERR: 无法加载控制器:Admin
+
+[ 2014-12-01T10:54:39+08:00 ] ::1 /whr/index.php?s=/Home/Developer/selectDeveloper.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000508s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000855s ]
+SQL: select * from wrt_developer_sum limit 0,20 [ RunTime:0.000286s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000532s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000564s ]
+
+[ 2014-12-01T11:40:23+08:00 ] ::1 /whr/index.php?s=/Home/Developer/selectDeveloper.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000446s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000760s ]
+SQL: select * from wrt_developer_sum limit 0,20 [ RunTime:0.000310s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000502s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000539s ]
+
+[ 2014-12-01T11:41:06+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000435s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000751s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000419s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000459s ]
+
+[ 2014-12-01T11:41:06+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001639s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001982s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000636s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000684s ]
+
+[ 2014-12-01T11:41:06+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000542s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001081s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000520s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000561s ]
+
+[ 2014-12-01T11:41:06+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000656s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001067s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000754s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000812s ]
+
+[ 2014-12-01T11:41:06+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000637s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000962s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000653s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000709s ]
+

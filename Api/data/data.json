@@ -1,0 +1,930 @@
+{
+    "title"  : "BEABOW",
+    "author" : "xu jun",
+
+    "server" :
+    {
+        "development" : "/wrt/api.php",
+        "test"        : "/wrt/api.php",
+        "production"  : "/wrt/api.php"
+    },
+
+	"enum" :
+	{
+		"ERROR_CODE" :
+		{
+			"OK"           : 0
+		},
+		"SEARCH_ORDER" :
+		{
+			"BY_EXPENSIVE" : "price_desc",
+			"BY_CHEAPEST"  : "price_asc",
+			"BY_HOT"       : "is_hot"
+		},
+		"ATTR_TYPE" : 
+		{
+			"UNIQUE"       : 0,
+			"SINGLE"       : 1,
+			"MULTI"        : 2
+		},
+		"GOOD_TYPE" :
+		{
+			"NORMAL"       : 0,
+			"GROUP"        : 1,
+			"AUCTION"      : 2,
+			"RAIDERS"      : 3
+		},
+		"ORDER_LIST" :
+		{
+			"AWAIT_PAY"    : "await_pay",
+			"AWAIT_SHIP"   : "await_ship",
+			"SHIPPED"      : "shipped",
+			"FINISHED"     : "finished"
+		}
+	},
+
+    "model" :
+    {
+    	// 请求头
+		"SESSION" :
+		{
+			"uid"        : 1000,
+			"sid"        : "01234567890ABCDEF"
+		},
+		
+		 // 回应头
+		"FILES" :
+		{
+			"name"    : "word.png",	              // 是否成功
+			"type" : "image/png",               // 错误代码
+			"tmp_name" : "E:\\word.png",  // 错误描述
+			"error":0,
+			"size":7268
+		},
+        // 回应头
+		"STATUS" :
+		{
+			"succeed"    : 1,	              // 是否成功
+			"error_code" : 100,               // 错误代码
+			"error_desc" : "Invalid session" // 错误描述
+		},
+
+		// 翻页参数
+		"PAGINATION" :
+		{
+			"page"       : "1",										// 页码
+			"count"      : 100										// 每页条数
+		},
+		
+		// 翻页结果
+		"PAGINATED" :
+		{
+			"total"      : 100000,									// 总数
+			"count"      : 100,										// 返回条数
+			"more"       : 1										// 是否还有更多
+		},
+
+		// 用户
+		"USER" :
+		{
+			"! id"            : 3,     
+			"name"            : "tom",
+			"rank_name" 	  : "VIP",
+			"rank_level"	  : "0",		// 0初级, 1其他
+			"collection_num"  : 12,
+			"order_num"       :
+			{
+				"await_pay"   : 1,
+				"await_ship"  : 2,
+				"shipped"     : 3,
+				"finished"    : 4
+			}
+		},
+
+		// 区域
+		"REGION" :
+		{
+			"! id"                    : 1,
+			"parent_id"               : 2,
+			"name"                    : "中国",
+			"more"                    : 1
+		},
+
+		// 结算
+		"TOTAL" :
+		{
+			"goods_price"             : "￥5998.00元",				// 实际总价
+			"market_price"            : "￥7197.60元",				// 市场总价
+			"saving"                  : "￥1199.60元",				// 差价
+			"save_rate"               : "17%",						// 差价比
+			"goods_amount"            : "5998",						// 数量
+			"real_goods_count"        : 2,							// 实物物品数
+			"virtual_goods_count"     : 0							// 虚拟物品数
+		},
+
+		// 图片
+		"PHOTO" :
+		{
+			"url"           : "",	// 大图
+			"thumb"         : ""	// 小图
+		},
+		
+		// 联系地址
+		"ADDRESS" :
+		{
+			"! id"            : 15,
+			"name"            : "曲强",								// 收件人姓名
+			"email"           : "77347042@qq.com",					// 邮箱
+			"country"         : 1,									// 国家
+			"province"        : 2,									// 省
+			"city"            : 52,									// 市
+			"district"        : 500,								// 区
+			"address"         : "地址",								// 地址
+			"zipcode"         : "",									// 邮政编码
+			"tel"             : "12123123123",						// 座机
+			"mobile"          : "",									// 手机号
+			"sign_building"   : "标志建筑",							// 标志建筑
+			"best_time"       : "",									// 最佳时间
+			"default_address" : 1 									
+		},
+
+		// 商品
+		"SIMPLE_GOODS" : 
+		{
+			"! goods_id"              :  32,						// 商品ID
+			"name"                    :  "标题",						// 商品名称
+			"market_price"            : "商场价格",					// 商场价格
+			"shop_price"              : "商店价格",					// 商店价格
+			"promote_price"           : "促销价格",					// 促销价格
+			"brief"                   : "简要",						// 简要
+			"img"                     : "{PHOTO}"					// 图片
+		},
+
+		// 收藏的商品
+		"COLLECT_GOODS < SIMPLE_GOODS" :
+		{
+			"! rec_id"                :  32							// 收藏ID
+		},
+
+		// 商品属性
+		"GOOD_ATTR" :
+		{
+			"name"       : "属性名称",								// key
+			"value"      : "属性值"									// value
+		},
+
+		// 商品详情（购物车）
+		"CART_GOODS" :
+		{
+			"! rec_id"                  : 0,							// ?????????????
+			"goods_id"                :  32,						// 商品ID
+			"goods_sn"                : "商品sn",					// 商品编码
+			"goods_name"              : "商品名称",					// 商品名称
+			"market_price"            : "商场价格",					// 商场价格
+			"goods_price"             : "配件价格",					// 配件价格
+			"goods_number"            : "商品数量",					// 剩余数量
+			"goods_attr"              : ["{GOOD_ATTR}"],		// 属性
+			"extension_code"          : "10000",					// 虚拟商品扩展码
+			"parent_id"               : 13,							// 该商品的父商品ID，没有该值为0，有的话那该商品就是该id的配件
+			"rec_type"                : "<GOOD_TYPE>",				// 购物车商品类型，0普通，1团够，2拍卖，3夺宝奇兵
+			"is_real"                 : 0,							// 是否是实物，1是，0否；比如虚拟卡就为0，不是实物
+			"is_gift"                 : 0,							// 是否赠品，0否，其他, 是参加优惠活动的id
+			"is_shipping"             : 0,							// 是否免邮费: 0 - 不免邮费, 1 - 免邮费
+			"can_handsel"             : 0,							// 能否处理 ???????????
+			"goods_attr_id"           : 1000,						// 属性ID
+			"subtotal"                : "￥2298.00元",				// 总价
+			"pid"                     : "",							// ?????????
+			"img"                     : "{PHOTO}",					// 大图
+	        "formated_market_price"   : "￥24.00元",	
+	        "formated_goods_price"    : "￥20.00元",
+	        "formated_subtotal"       : "￥20.00元"
+		},
+
+		// 订单商品
+		"ORDER_GOODS" :
+		{
+			"! goods_id"            : 9,
+			"name"                : "诺基亚E66",
+			"goods_number"        : 1,
+			"subtotal"            : "￥2183.10元 商品单价*数量的价格",
+			"formated_shop_price" : "￥2183.10元 商品价格",
+			"img"                 : "{PHOTO}"
+		},
+
+		"GOOD_RANK_PRICE" :
+		{
+			"id"                  :  1,
+			"rank_name"           : "注册用户",
+			"price"               : "￥833元"
+		},
+
+		"GOOD_VALUE" :
+		{
+			"id"                 : 212,
+			"label"              : "白色",
+			"price"              : 0,
+			"format_price"       : "￥0.00元"
+		},
+
+		"GOOD_SPEC" :
+		{
+			"attr_type"           : "<ATTR_TYPE>",
+			"name"                : "颜色",
+			"value"               : ["{GOOD_VALUE}"]
+		},
+
+		"BRAND" :
+		{
+			"url" : "http://shop.ecmobile.me/data/brandlogo/1240803062307572427.gif",
+			"brand_name"  : "NOKIA",
+			"brand_id"    : "1"
+		},
+
+		"GOODS" :
+		{
+			"! id"                :  32,
+     		"collected" 		  : 0,
+			"cat_id"              : 0,
+			"goods_sn"            : "商品sn",
+		    "goods_name"          : "商品名称",
+			"market_price"        : "商场价格",
+			"shop_price"          : "价格",
+			"integral"            : 0,
+			"click_count"         : 64,
+			"brand_id"            : 0,
+			"goods_number"        : "商品数量",
+			"goods_weight"        : "商品重量",
+			"promote_price"       : "促销价格",
+			"promote_start_date"  : "促销价格开始时间",
+			"promote_end_date"    : "促销价格结束时间",
+			"is_shipping"         : 0,
+			"img"                 : "{PHOTO}",
+			"rank_prices"         : ["{RANK_PRICE}"],
+			"pictures"            : ["{PHOTO}"],
+			"properties"          : ["{GOOD_ATTR}"],
+			"specification"       : ["{GOOD_SPEC}"]
+		},
+
+		// 订单
+		"ORDER" :
+		{
+			"! order_id"     : 46,
+			"order_sn"     : "2013060483541",
+			"order_time"   : "1970/01/01 08:30:46 +0830",
+			"total_fee"    : "￥2198.10元",
+			"goods_list"   : ["{ORDER_GOODS}"],
+			"order_info": {
+			            "pay_code": "alipay",
+			            "order_amount": "2219.00",
+			            "order_id": 246,
+			            "subject": "夏新N7等2种商品",
+			            "desc": "夏新N7等2种商品"
+			        }
+		},
+
+		// 过滤选项
+		"FILTER" :
+		{
+			"keywords"                : "关键词",					// 关键字
+			"category_id"             : 100,						// "分类id"
+			"price_range" : "{PRICE_RANGE}",
+			"brand_id"				  : 1,
+			"sort_by"                 : "id_desc"			// 排序
+		},
+		
+		// 全局配置
+		"CONFIG" :
+		{
+			"service_phone"   : "18611163715",
+			"site_url"        : "",
+			"shop_desc"       : "关于本店铺",
+			"shop_closed"     : 0,
+			"close_comment"   : "关闭原因",
+			"shop_reg_closed" : 0
+		},
+
+		"PRICE_RANGE" :
+		{
+		    "price_min": 390,
+		    "price_max": 400
+		},
+
+		// 轮播banner
+		"BANNER" :
+		{
+			"photo"                   : "{PHOTO}",					// 大图
+			"description"             : "今天特价",					// 描述
+			"url"                     : ""		// 外链URL
+		},
+
+		// 商品分类
+		"CATEGORY" :
+		{
+			"! id"                    : 1,							// 分类id
+			"name"                    : "鞋子",						// 分类名称
+			"goods"                   : ["{SIMPLE_GOODS}"]			// 推荐商品
+		},
+	
+	
+		
+		// 首页帮助
+		"ARTICLE" :
+		{
+			"! id"                    : 1,							// 文章ID
+			"title"                   : "用户指引",					// 文章标题
+			"short_title"             : ""							// 文章短标题
+		},
+		
+		// 首页帮助组
+		"ARTICLE_GROUP" :
+		{
+			"name"                    : "用户指引",					// 文章标题
+			"article"                 : ["{ARTICLE}"]				// 文章短标题
+		},
+
+		// 评论
+		"COMMENT" :
+		{
+			"! id"                    : 100,						// 评论ID
+			"author"                  : "Hongyu",					// 评论人
+			"created"                 : "2010/05/21 16:34:42 -0400",	// 时间
+			"content"                 : "不好不好不好不好不好",		// 评论内容
+			"re_content"              : "不好别买!"					// 评论回复
+		},
+		
+		// 配送方式
+		"SHIPPING" :
+		{
+			"! shipping_id"           : 0,							// 配送方式id
+			"shipping_code"           : "",							// 配送方式的字符串代号
+			"shipping_name"           : "",							// 配送方式的名称
+			"shipping_desc"           : "",							// 配送方式描述
+			"insure"                  : "",							// 保价费用，单位元，或者是百分数，该值直接输出为报价费用
+			"support_cod"             : 0,							// 是否支持货到付款，1，支持；0，不支持
+			"format_shipping_fee"     : "",							// 配送费用
+			"shipping_fee"            : "15",						// 配送费用
+			"free_money"              : "",							// 订单达到此金额可以免除该包装费用
+			"insure_formated"         : ""							// 保价费用
+		},
+		
+		// 支付方式
+		"PAYMENT" :
+		{
+			"! pay_id"                : 0,							// 支付方式自增id
+			"pay_code"                : "",							// 支付方式 的英文缩写
+			"pay_name"                : "",							// 余额支付
+			"pay_fee"                 : "",							// 支付费用
+			"pay_desc"                : "",							// 支付方式简介
+			"is_cod"                  : 0,							// 是否货到付款, 0否;1是
+			"format_pay_fee"          : "￥0.00元"					// 支付费用
+		},
+
+		// 红包
+		"BONUS" :
+		{
+			"type_id"                 : 0,							// 红包发送类型.0,按用户如会员等级,会员名称发放;1,按商品类别发送;2,按订单金额所达到的额度发送;3,线下发送
+			"type_name"               : "",							// 红包名称
+			"type_money"              : "",							// 红包金额
+			"bonus_id"                : "",							// 红包的流水号
+			"bonus_money_formated"    : "￥2.00元"					// 红包金额
+		},
+
+		// 发票
+		"INVOICE" :
+		{
+			"! id"                    :	0,							// id
+			"title"                   : ""							// 内容
+		},
+
+		"SIGNUP_FIELD" :
+		{
+			"! id"                    : 2,
+			"name"                    : "名称",
+			"need"                    : 1
+		},
+
+		"SIGNUP_FIELD_VALUE" :
+		{
+			"! id"                    : 2,
+			"value"                   : ""
+		}
+	},
+	
+    "controller" :
+    {
+    	// 获取验证码
+		"POST User/verify" :
+		{
+			"__desc__" : "获取验证码",
+			"request" :
+			{
+				"phone"  : "用户手机号码",								// 手机号码
+				"version":"1",
+				"type":"1 注册，2找回密码，3修改手机号码"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		},"POST User/register" :
+		{
+			"__desc__" : "用户注册",
+			"request" :
+			{ 
+				"version":"1",
+				"phone"  : "junjun",								// 手机号码				
+				"password":"password"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		},"POST User/login" :
+		{
+			"__desc__" : "用户登录",
+			"request" :
+			{
+				"version":"1",
+				"phone"  : "junjun",							// 手机号码				
+				"password":"password",
+				"type":"1安卓，2苹果"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/checkname" :
+		{
+			"__desc__" : "检查手机号码是否已经使用",
+			"request" :
+			{
+				"version":"1",
+				"phone"  : "junjun"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Cate/topCate" :
+		{
+			"__desc__" : "获取顶级分类",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Cate/allCate" :
+		{
+			"__desc__" : "所有分类列表",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Cate/sonCate" :
+		{
+			"__desc__" : "获取次级分类",
+			"request" :
+			{
+				"version":"1",
+				"parent_id":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Cate/sonCate" :
+		{
+			"__desc__" : "获取次级分类",
+			"request" :
+			{
+				"version":"1",
+				"parent_id":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/city" :
+		{
+			"__desc__" : "获取城市信息",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/home" :
+		{
+			"__desc__" : "首页商品推荐",
+			"request" :
+			{
+				"version":"1",
+				"user_id":"用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/ad" :
+		{
+			"__desc__" : "获取广告信息",
+			"request" :
+			{
+				"version":"1",
+				"type":"1生活导航，2vip特享，3家园"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}	
+		,"POST Home/adCount" :
+		{
+			"__desc__" : "广告统计接口",
+			"request" :
+			{
+				"version":"1",
+				"uid":"用户id",
+				"adid":"广告id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}	
+		,"POST Home/cityArea" :
+		{
+			"__desc__" : "获取城市地区",
+			"request" :
+			{
+				"version":"1",
+				"cityid":"234"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}		
+		,"POST Home/getcityid" :
+		{
+			"__desc__" : "获取城市id",
+			"request" :
+			{
+				"version":"1",
+				"cityname":"城市名字"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Shop/slist" :
+		{
+			"__desc__" : "获取商店列表",
+			"request" :
+			{
+				"version":"1",
+				"type":"0全部商品，1美食，2便民，3旅游景点，4体育，5车生活 6休闲娱乐 7教育培训，8家装家电，9宠物花鸟",
+				"city_id":"城市id",
+				"area_id":"地区id",
+				"page":"1",
+				"pageSize":"20"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		
+		,"POST Shop/shopinfo" :
+		{
+			"__desc__" : "获取商店详情",
+			"request" :
+			{
+				"version":"1",
+				"shopid":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Shop/goods" :
+		{
+			"__desc__" : "获取商店商品列表",
+			"request" :
+			{
+				"version":"1",
+				"shopid":"1",
+				"page":"1",
+				"pageSize":"20"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Shop/goodinfo" :
+		{
+			"__desc__" : "获取生活商品详情",
+			"request" :
+			{
+				"version":"1",
+				"goodid":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Upload/upFace" :
+		{
+			"__desc__" : "修改用户头像",
+			"request" :
+			{
+				"version":"1",
+				"user_id":"0",
+				"files"    : "要上传的文件"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Upload/upLoad" :
+		{
+			"__desc__" : "上传图片",
+			"request" :
+			{
+				"version":"1",
+				"files"    : "E:\\word.png"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Search/cate" :
+		{
+			"__desc__" : "首页爱好搜索商品",
+			"request" :
+			{
+				"version":"1",
+				"cate_id"    : "分类的id",
+				"page"    : "页码",
+				"pageSize"    : "显示条数"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Comment/add" :
+		{
+			"__desc__" : "对商品评论",
+			"request" :
+			{
+				"version":"1",
+				"goodid"    : "商品id",
+				"userid"    : "用户id",
+				"shopid":"商店id",
+				"content":"评论内容",
+				"star":"评论星级"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Comment/shop" :
+		{
+			"__desc__" : "商店的所有评论",
+			"request" :
+			{
+				"version":"1",
+				"shopid"    : "商铺id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Comment/good" :
+		{
+			"__desc__" : "商品的所有评论",
+			"request" :
+			{
+				"version":"1",
+				"goodid"    : "商品id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Collect/addshop" :
+		{
+			"__desc__" : "添加商店收藏",
+			"request" :
+			{
+				"version":"1",
+				"shopid"    : "商店id",
+				"userid"    : "用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Collect/delshop" :
+		{
+			"__desc__" : "删除商店收藏",
+			"request" :
+			{
+				"version":"1",
+				"id"    : "编号id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Collect/addgood" :
+		{
+			"__desc__" : "添加商品收藏",
+			"request" :
+			{
+				"version":"1",
+				"goodid"    : "商品id",
+				"userid"    : "用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Collect/delgood" :
+		{
+			"__desc__" : "删除商品收藏",
+			"request" :
+			{
+				"version":"1",
+				"id"    : "编号id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/address" :
+		{
+			"__desc__" : "添加收货地址",
+			"request" :
+			{
+				"version":"1",
+				"userid":"用户的id",
+				"address"    : "地址详情",
+				"username"    : "收货人姓名",
+				"phone"    : "电话",
+				"notice"	:"备注信息"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+	}
+}

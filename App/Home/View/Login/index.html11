@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<script type="Text/Javascript" src="__PUBLIC__/Js/jquery-1.8.1.min.js"></script>
+<script type="Text/Javascript">
+	$(function(){
+		
+		//简单验证
+		var validate = {
+			'username' : false,
+			'password' : false,
+			'verify' : false
+		};
+		$('#username').blur(function(){
+			if($.trim($(this).val()) == ''){
+				$('#username_info').text('用户名不能为空');
+				validate.username = false;
+			}else{
+				$('#username_info').text('');
+				validate.username = true;
+			}
+		});
+		$('#password').blur(function(){
+			if($.trim($(this).val()) == ''){
+				$('#password_info').text('密码不能为空');
+				validate.password = false;
+			}else{
+				$('#password_info').text('');
+				validate.password = true;
+			}
+		});
+		//验证码每敲键盘都检查，不能用blur事件，因为用blur的话，当点击提交按钮时可以得到异步来的结果，而用回车提交
+		//的话，异步数据延迟，在提交之后获取到异步结果，导致即使是输入正确，validate.verify还是false，以致提交不了
+		$('#verify').keyup(function(){
+			var code = $(this).val();
+			// alert(code);
+			if($.trim(code) == ''){
+				$('#verify_info').text('验证码不能为空');
+				validate.verify = false;
+			}
+
+			if(code.length == 4){
+				// 如果验证码输入是四位，当失焦时发异步看输入是否正确
+				$.ajax({
+					url : "{:U('Login/check','','')}",
+					type : "post",
+					data : "code="+code,
+					dataType : "json",
+					success : function(data){
+						if(data){
+							validate.verify = true;
+							$('#verify_info').text('');	
+						}else{
+							$('#verify_info').text('验证码输入错误');
+							validate.verify = false;
+						}
+					}
+				});
+			}else{
+				$('#verify_info').text('验证码位数错误');
+				validate.verify = false;
+			}
+			
+		});
+		// 当点击登录按钮时验证输入是否为空
+		$('form').submit(function(){
+			$('#username').trigger('blur');
+			$('#password').trigger('blur');
+			$('#verify').trigger('keyup');
+
+			var isOK = validate.username && validate.password && validate.verify;
+			if(!isOK){
+				
+				return false;
+			}
+
+				return true;
+			
+		});
+
+
+
+	})
+</script>
+<title>{$title}</title>
+
+
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	margin: 0 auto;
+	background: url(__PUBLIC__/Images/bg.jpg) no-repeat center center
+		#01559b;
+	background-attachment: fixed;
+	font-family: "微软雅黑";
+}
+
+#login {
+	width: 550px;
+	height: 240px;
+	margin: 0 auto;
+	margin-top: 330px;
+}
+
+#tit {
+	width: 550px;
+	height: 45px;
+	line-height: 45px;
+	margin: 0 auto;
+	margin-top: 5px;
+}
+
+#tit h1 {
+	color: #FFF;
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+}
+
+#lg {
+	width: 550px;
+	height: auto;
+	margin: 0 auto;
+	margin-left: 100px;
+	margin-top: 10px;
+}
+
+#lg p {
+	color: #FFF;
+	font-size: 14px;
+	height: 35px;
+	line-height: 35px;
+}
+
+#lg p a {
+	color: #FFF;
+	text-decoration: none;
+	height: 22px;
+	line-height: 22px;
+}
+
+#lg p a:hover {
+	text-decoration: underline;
+}
+
+#lg p input {
+	height: 22px;
+	line-height: 22px;
+	width: 200px;
+	border: 1px solid #39F;
+	background: #F8F8F8;
+}
+
+#lg p img {
+	height: 22px;
+	line-height: 22px;
+	width: 110px;
+	border: 1px solid #39F;
+	background: #F8F8F8;
+}
+
+#lg p.but input {
+	width: 80px;
+	height: 32px;
+	margin: 0 auto;
+	background: url(__PUBLIC__/Images/deng.png) no-repeat;
+	border: 0px;
+}
+
+#lg p.but {
+	padding: 15px 0px 0px 90px;
+}
+</style>
+</head>
+
+<body>
+	<div id="login">
+		<div id="tit">
+			<h1>慧锐通后台管理系统</h1>
+		</div>
+		<div id="lg">
+			<form name="form" method="post" action="">
+
+				<p>
+					用户名：<input id="username" name="username" type="text" name="userid" /><span id="username_info"></span>
+				</p>
+
+				<p>
+					密<span style="margin-left: 15px;">码</sapn>：<input id="password"
+						name="password" type="password" class="alltxt" name="pwd"/ ><span id="password_info"></span>
+				</p>
+
+				<p>
+					验证码：<input type="text" id="verify" class="yzm" name="verify"
+						style="text-transform: uppercase; width: 80px;" /> <img
+						id="vdimgck" align="absmiddle"
+						onClick="this.src=this.src+'&'+Math.random()"
+						style="cursor: pointer;" alt="看不清？点击更换"
+						src="{:U('Home/Login/verify','','')}"> <span id="verify_info"></span>
+				</p>
+
+				<p class="but">
+					<input type="submit" value="" onclick="javascript:;">
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
