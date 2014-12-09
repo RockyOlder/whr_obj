@@ -8,7 +8,7 @@ class UserController extends IsloginController {
 
     public function index() {
         $data = $this->getdata();
-      //  print_r($data);exit;
+        //  print_r($data);exit;
         $this->assign('data', $data);
         $this->display();
     }
@@ -24,8 +24,7 @@ class UserController extends IsloginController {
 
     public function add() {
         //echo change();
-        
-       // print_r($salt);exit;
+        // print_r($salt);exit;
         $data['action'] = 'add';
         $data['title'] = "添加";
         $data['btn'] = "添加会员";
@@ -37,11 +36,17 @@ class UserController extends IsloginController {
         $this->assign('prolist', $propertyList);
         if (IS_POST) {
             if ($action == "add") {
-               $salt = rand(999,9999);
-                $Village = D('User');
-                if ($data = $Village->create()) {
-                  //  $data["add_time"] = time();
-                    if ($Village->add($data)) {
+
+                $user = D('User');
+
+                if ($data = $user->create()) {
+                    $salt = rand(999, 9999);
+                    $data['salt']=$salt;
+                    $md_pw = md5(I('post.password', 1));
+                    $password = change($md_pw, $salt);
+                    $data['password'] = $password;
+                    $data["reg_time"] = time();
+                    if ($user->add($data)) {
                         $url = U('/Home/village/index');
                         $this->success("用户添加成功！", $url);
                     } else {
@@ -50,16 +55,16 @@ class UserController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-                $village = D("village");
-                if ($villageData = $village->create()) {
-                    if ($village->save($villageData)) {
+                $user = D('User');
+                if ($data = $user->create()) {
+                    if ($village->save($data)) {
                         $url = U('/Home/village/index');
                         $this->success("修改成功！", $url);
                     } else {
                         $this->error("用户修改失败！", 'index');
                     }
                 } else {
-                    $this->error($village->getError());
+                    $this->error($user->getError());
                 }
             }
         }
@@ -68,13 +73,14 @@ class UserController extends IsloginController {
             $data['action'] = 'edit';
             $data['title'] = "编辑会员";
             $data['btn'] = "编辑";
-            $village = M("User");
+            $user = M("User");
             $region = M("region");
-            $villageList = $village->where("id=" . id)->find();
-            $provine = $villageList['province'];
+            $userlist = $user->where("user_id=" . $id)->find();
+         //   print_r($userlist);exit;
+            $provine = $userlist['province'];
             $regionProv = $region->where("REGION_ID=" . $provine)->find();
             $this->assign("region", $regionProv);
-            $this->assign('info', $villageList);
+            $this->assign('info', $userlist);
         }
         $this->assign('data', $data);
         $this->display();
