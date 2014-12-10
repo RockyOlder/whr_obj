@@ -18,10 +18,7 @@
 
                     <script type="text/javascript">
                         $(function(){
-                            
-                            
-                            
-                            
+                                      
                             function checkInput(){
                                 var bValid = true;
                                 bValid = bValid && checkLength( $("#name"), "用户名", 2, 16 );
@@ -45,8 +42,6 @@
                             }
                             $('form').submit(function(){
                                 if(!checkInput()){
-                                    $('.validateTips').text()
-                                    $('#skuNotice').show();
                                     setout();
                                     return false;
                                 }
@@ -56,11 +51,12 @@
                                 $(this).addClass("focus");
                                 if($(this).hasClass("ui-state-error")){
                                     $(this).removeClass( "ui-state-error" );
-                                    $(".validateTips").removeClass("errorTip").hide();		
+                                    $(".validateTips").removeClass("errorTip").hide();	
+                                    
                                 }
                             }).bind("blur",function(){
                                 $(this).removeClass("focus");
-                                setout()
+                               if($(this).val()==''){  setout();   }
                                 checkInput();
                             });
                         })

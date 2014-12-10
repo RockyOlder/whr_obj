@@ -102,7 +102,9 @@ class GoodsController extends IsloginController {
     }
 
     public function details() {
-        $id = I('get.id', 0);
+        $id = I('post.id', 0);
+       // echo 1;;exit;
+      //  echo $id;exit;
         if ($id) {
             //  $data['action'] = 'edit';
             $data['title'] = "编辑商品";
@@ -114,12 +116,13 @@ class GoodsController extends IsloginController {
                     ->join('wrt_region AS r ON g.province=r.REGION_ID')
                     ->where('g.goods_id=' . $id)
                     ->find();
-            $this->assign('info', $goodsFind);
+         //   $this->assign('info', $goodsFind);
         } else {
             $this->error($goods->getError());
         }
-        $this->assign('data', $data);
-        $this->display();
+      $this->ajaxReturn($goodsFind);
+      //  $this->assign('data', $data);
+    //    $this->display();
     }
 
 }

@@ -5,47 +5,109 @@
         <title>无标题文档</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
 
-        <script language="javascript">
-            KE.show({
-                id : 'content7',
-                cssPath : './index.css'
-            });
-            function deleteSum(id){
-                if(confirm("确认删除"))
-                    location.href="/whr/index.php?s=/Home/Business/del/id/"+id
-            }
-        </script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script language="javascript">
+                KE.show({
+                    id : 'content7',
+                    cssPath : './index.css'
+                });
+                function deleteSum(id){
+                    if(confirm("确认删除"))
+                        location.href="/whr/index.php?s=/Home/Business/del/id/"+id
+                }
+            </script>
 
-        <script type="text/javascript">
-            $(document).ready(function(e) {
-                $(".select1").uedSelect({
-                    width : 345           
+            <script type="text/javascript">
+                $(document).ready(function(e) {
+                    $(".select1").uedSelect({
+                        width : 345           
+                    });
+                    $(".select2").uedSelect({
+                        width : 167  
+                    });
+                    $(".select3").uedSelect({
+                        width : 100
+                    });
                 });
-                $(".select2").uedSelect({
-                    width : 167  
-                });
-                $(".select3").uedSelect({
-                    width : 100
-                });
-            });
-            $(function(){
-                $('.scbtn').bind('click',function(){
-                    $('#from_sub').submit();
-                });
+                $(function(){
+                    $('.scbtn').bind('click',function(){
+                        $('#from_sub').submit();
+                    
+                    });
+                    $("#detailDialog").draggable({
+                        cancel:"table"
+                    });
+                    $("#close").bind("click",function(){
+                 // $(this).parent().removeAttr("id");   
+                   //   $(this).parent().removeClass();  
+                   
+                         $("#detailDialog").css({
+                               'top':'0px',
+                               "left":'0px'
+                           })
+                        $(this).parent().hide(1000);  
+                    })
+        
                
-            });
-        </script>
+                });
+                function showDetail(teacherId){
+                    var xtop= $("#showlist"+teacherId).position().top;
+                    var xleft=$("#showlist"+teacherId).position().left;
+                    $("#detailDialog").position(
+                    {
+                        my: xtop+"px",
+                        at: xleft+"px",
+                        of: window
+                    });
+                    $.ajax({ 
+                        url:$("#url_getTeacher").val(),
+                        type:"post",
+                        dataType:"json",
+                        cache:false,
+                        data: {"id":teacherId},
+                        timeout:30000,
+                        error:function(data, msg){
+                            alert("error:"+msg);
+                        },
+                        success:function(data){
+                            $("#goods_name").text(data.goods_name?data.goods_name:"");
+                            $("#price").text(data.price?data.price:"");
+                            $("#show_sex").text(data.sex==1?"男":data.sex==0?"女":"保密");
+                            $("#show_mobile").text(data.mobile?data.mobile:"");
+                            $("#show_officePhone").text(data.office_phone?data.office_phone:"");
+                            $("#show_homePhone").text(data.home_phone?data.home_phone:"");
+                            $("#show_entryTime").text(data.qq?data.qq:"");
+                            $("#show_teacherPid").text(data.qq?data.qq:"");
+                            $("#show_qq").text(data.qq?data.qq:"");
+                            $("#show_email").text(data.email?data.email:"");
+                            $("#show_wechatNo").text(data.wechat_no?data.wechat_no:"");
+                            $("#show_homePage").text(data.home_page?data.home_page:"");
+                            $("#show_idcardNumber").text(data.idcard_number?data.idcard_number:"");
+                            $("#show_officeAddress").text(data.office_address?data.office_address:"");
+                            $("#show_homeAddress").text(data.home_address?data.home_address:"");
+                            //$("#photo_path").attr("src",data.photo_path);
+                            $("#detailDialog").fadeIn(1000);
+                        }
+                    });
+                }
+            </script>
+            <style>
+                #close{ font-size: 16px; border: 2px solid;}
+
+            </style>
     </head>
 
 
     <body style="background: none;">
-
+        <input type="hidden" value="/whr/index.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
         <div class="place">
             <span>位置：</span>
             <ul class="placeul">
@@ -70,6 +132,7 @@
                         <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" id="like"/></li>
                     </ul>
                 </div>
+
                 <table class="imgtable">
                     <thead>
                         <tr>
@@ -90,7 +153,7 @@
                                 <td><?php echo ($vo["number"]); ?></td>
                                 <td><?php echo ($vo["inventory"]); ?></td>
                                 <td><?php echo ($vo["description"]); ?></td>
-                                   <td><a href="<?php echo U('details',array(id=>$vo['goods_id']),'');?>">详情</a>
+                                <td><a id="showlist<?php echo ($vo["goods_id"]); ?>" href="javascript:showDetail(<?php echo ($vo["goods_id"]); ?>)" title="详情">详情</a>
                                     <a href="<?php echo U('add',array(id=>$vo['goods_id']),'');?>">编辑</a>
                                     <a class="tablelink" onclick="deleteSum('<?php echo ($vo["goods_id"]); ?>')"> 删除</a>
                                 </td>
@@ -99,6 +162,61 @@
                     </tbody>
 
                 </table>
+                <div id="detailDialog">
+                    <div id="close" title="关闭">X</div>
+                    <table cellpadding="0" cellspacing="0" border="1">
+                        <tr>
+                            <td width="80px" class="label">商品名字</td>
+                            <td width="120px"><span id="goods_name"></span></td>
+                            <td width="80px" class="label">价 格</td>
+                            <td width="120px"><span id="price"></span></td>
+                            <td rowspan="3" style="text-align:center" width="120px"><img src="http://img1.3lian.com/gif/more/11/201211/72c8280fdd1c9c0d228c37891eb388b5.jpg" width="100px" height="110px"/></td>
+                        </tr>
+                        <tr>
+                            <td class="label">库 存</td>
+                            <td><span id="show_sex"></span></td>
+                            <td class="label">地 址</td>
+                            <td><span id="show_mobile"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">是否上架</td>
+                            <td><span id="if_show"></span></td>
+                            <td class="label">销售数量</td>
+                            <td><span id="number"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">分类</td>
+                            <td><span id="cat_id"></span></td>
+                            <td class="label">商家名称</td>
+                            <td colspan="2"><span id="store_id"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">促销价</td>
+                            <td><span id="markdown"></span></td>
+                            <td class="label">添加时间</td>
+                            <td colspan="2"><span id="add_time"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">商品赠送积分</td>
+                            <td><span id="points"></span></td>
+                            <td class="label">品牌</td>
+                            <td colspan="2"><span id="brand"></span></td>
+                        </tr>	
+                        <!-- <tr>
+                             <td class="label">身份证号</td>
+                             <td colspan="4"><span id="show_idcardNumber"></span></td>
+                         </tr>
+                         <tr>
+                             <td class="label">办公地址</td>
+                             <td colspan="4"><span id="show_officeAddress"></span></td>
+                         </tr>
+                         <tr>
+                             <td class="label">家庭地址</td>
+                             <td colspan="4"><span id="show_homeAddress"></span></td>
+                         </tr> 
+                        -->
+                    </table>
+                </div>
                 <div class="pagin">
                     <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
                     <ul class="paginList">
@@ -113,8 +231,6 @@
                         <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
                     </ul>
                 </div>
-
-
                 <div class="tip">
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
