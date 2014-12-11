@@ -45,26 +45,28 @@
                     $("#detailDialog").draggable({
                         cancel:"table"
                     });
-                    $("#close").bind("click",function(){
-                 // $(this).parent().removeAttr("id");   
-                   //   $(this).parent().removeClass();  
-                   
-                         $("#detailDialog").css({
-                               'top':'0px',
-                               "left":'0px'
-                           })
+                    $("#close").bind("click",function(e){
+                        // $(this).parent().removeAttr("id");   
+                        //   $(this).parent().removeClass();  
+                  // var xtop= $("#detailDialog").position().top;
+                   //alert(xtop)
+                 //  console.log(e.clientY)
+                        $("#detailDialog").css({
+                            //'top':"'"+e.clientY+"'px",
+                            'top':'50px',
+                            "left":'0px'
+                        })
                         $(this).parent().hide(1000);  
                     })
-        
-               
                 });
                 function showDetail(teacherId){
                     var xtop= $("#showlist"+teacherId).position().top;
                     var xleft=$("#showlist"+teacherId).position().left;
+                 //   alert(xtop)
                     $("#detailDialog").position(
                     {
-                        my: xtop+"px",
-                        at: xleft+"px",
+                        my: "top"+xtop+"px",
+                       // at: xleft+"px",
                         of: window
                     });
                     $.ajax({ 
@@ -80,8 +82,8 @@
                         success:function(data){
                             $("#goods_name").text(data.goods_name?data.goods_name:"");
                             $("#price").text(data.price?data.price:"");
-                            $("#show_sex").text(data.sex==1?"男":data.sex==0?"女":"保密");
                             $("#show_mobile").text(data.mobile?data.mobile:"");
+                            $("#if_show").text(data.sex==1?"是":data.sex==0?"否":"保密");
                             $("#show_officePhone").text(data.office_phone?data.office_phone:"");
                             $("#show_homePhone").text(data.home_phone?data.home_phone:"");
                             $("#show_entryTime").text(data.qq?data.qq:"");
@@ -136,7 +138,7 @@
                 <table class="imgtable">
                     <thead>
                         <tr>
-                            <th width="100px;">缩略图</th>
+                            <th width="100px;">列表图片</th>
                             <th>商品名字</th>
                             <th>销售数量：</th>
                             <th>库存:</th>
@@ -148,7 +150,7 @@
                     <tbody>
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                                 <!--  /whr/ -->
-                                <td class="imgtd"><img src="<?php echo ($vo["goods_img"]); ?>" width="50px"/></td>
+                                <td class="imgtd"><img src="<?php echo ($vo["list_img"]); ?>" width="50px"/></td>
                                 <td><?php echo ($vo["goods_name"]); ?></a></td>
                                 <td><?php echo ($vo["number"]); ?></td>
                                 <td><?php echo ($vo["inventory"]); ?></td>

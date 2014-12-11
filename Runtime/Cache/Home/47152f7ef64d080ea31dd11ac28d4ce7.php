@@ -56,9 +56,7 @@
                                 }
                             }).bind("blur",function(){
                                 $(this).removeClass("focus");
-                               if($(this).val()==''){
-                                    setout(); 
-                               }
+                               if($(this).val()==''){  setout();   }
                                 checkInput();
                             });
                         })

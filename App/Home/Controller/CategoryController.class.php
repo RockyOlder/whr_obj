@@ -9,6 +9,7 @@ class CategoryController extends IsloginController {
     public function index() {
         $list = $this->getdata();
         $tree = $this->getCatTree($list, 0);
+   //     print_r($tree);exit;
         $this->assign('data', $tree);
         $this->display();
     }
@@ -30,8 +31,13 @@ class CategoryController extends IsloginController {
         $action = I('post.action');
         if (IS_POST) {
             if ($action == "add") {
+                // //thumb_pic
+             //  print_r(I('post.thumb_pic'));
                 $user = D('Category');
                 if ($data = $user->create()) {
+                    if($data["parent_id"]!==0){
+                       $data['cat_img']=I('post.thumb_pic'); 
+                    }
                     $data['add_time'] = time();
                     if ($user->add($data)) {
                         $url = U('/Home/category/index');
@@ -43,9 +49,8 @@ class CategoryController extends IsloginController {
             } elseif ($action == "edit") {
                 $cat = D("Category");
                 $cat_id = I('get.id', 0);
-             // print_r($_REQUEST);exit;
-                if ($data = $cat->create()) {
-                    
+          //   print_r($_REQUEST);exit;
+                if ($data = $cat->create()) {   
                     $trees = $this->getTree($cat, I('get.parent_id', 0));
                     $flag = true;
                     foreach ($trees as $v) {
@@ -54,8 +59,10 @@ class CategoryController extends IsloginController {
                             break;
                         }
                     }
-                  
+                                      
                     if (!$flag) {   $url = U('/Home/category/add', '', false);  $this->error('父栏目选择错误!'); }
+                    
+                    if($data["parent_id"]!==0){ $data['cat_img']=I('post.thumb_pic');  }
                     
                     if ($cat->save($data)) {  $url = U('/Home/category/index');  $this->success("修改成功！", $url);
                     } else {
@@ -78,12 +85,13 @@ class CategoryController extends IsloginController {
             $arr = array();
             $selected = 'selected';
             foreach ($cattree as $v) {
-                if ($v['cat_id'] == $catfind['cat_id']) {
+                if ($v['cat_id'] == $catfind['parent_id']) {
                     array_push($arr, array('cat_id' => $v['cat_id'], 'selected' => $selected, 'cat_name' => str_repeat('&nbsp', $v['lev']) . $v['cat_name']));
                 } else {
                     array_push($arr, array('cat_id' => $v['cat_id'], 'cat_name' => str_repeat('&nbsp', $v['lev']) . $v['cat_name']));
                 }
             }
+        //    print_r($arr);exit;
             $this->assign('arr', $arr);
             $this->assign('info', $catfind);
         } else {

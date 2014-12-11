@@ -13,10 +13,8 @@
             <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script> -->
             <script type="text/javascript">
                 $(function(){
-  
-                    if($(".pro_into").val()==''){ 
-                      
-                        $(".pro_into").text("请选择"); }
+
+                    if($(".pro_into").val()==''){  $(".pro_into").text("请选择"); }
                     if($(".cheng_in").val()==''){ $(".cheng_in").text("请选择"); }
                     if($(".house_into").val()==''){ $(".house_into").text("请选择"); }
                     
@@ -134,7 +132,6 @@
                             }
                         }
                     });
-
                 }
             </script>
     </head>
@@ -154,6 +151,7 @@
             </ul>
         </div>
         <form action="" method="post" name ="vform">
+         <input type ="hidden" name="add_time">
           <input type ="hidden" name="id" value="<?php echo ($info["id"]); ?>">
             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>

@@ -41,7 +41,7 @@ class BusinessController extends IsloginController {
         $this->assign('pro', $pro);
         if (IS_POST) {
             // 提交过来的时候讲列表图片组合为一个数组
-            //     print_r($_REQUEST);exit;
+             //   print_r($_REQUEST);exit;
             $path = I('post.path');
             $mid = I('post.mid');
             $name = I('post.pic_name');
@@ -55,6 +55,7 @@ class BusinessController extends IsloginController {
             }
             //   exit;
             $more_pic = json_encode($path);
+            
             //  dump($more_pic);exit;
             $city = I('post.city', 0);
             $id = I('post.id');

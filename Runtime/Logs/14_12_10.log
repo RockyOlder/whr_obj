@@ -7957,3 +7957,39 @@ ERR: 1064:You have an error in your SQL syntax; check the manual that correspond
  [ SQL语句 ] : SHOW COLUMNS FROM wrt_goods g
 SQL: SELECT g.*,c.cat_id,v.store_id,v.store_name,c.cat_name,r.REGION_ID,r.REGION_NAME FROM wrt_goods g INNER JOIN wrt_category AS c ON g.cat_id=c.cat_id INNER JOIN wrt_vip AS v ON v.store_id=g.store_id INNER JOIN wrt_region AS r ON g.province=r.REGION_ID  WHERE ( g.goods_id=28 ) LIMIT 1   [ RunTime:0.000403s ]
 
+[ 2014-12-10T19:02:28+08:00 ] ::1 /whr/index.php?s=/Home/Order/config
+ERR: 无法加载控制器:Order
+
+[ 2014-12-10T19:03:10+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/index
+ERR: 无法加载控制器:ProInfo
+
+[ 2014-12-10T19:03:11+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/word
+ERR: 无法加载控制器:ProInfo
+
+[ 2014-12-10T19:06:55+08:00 ] ::1 /whr/index.php?s=/Home/Role/add
+ERR: 无法加载控制器:Role
+
+[ 2014-12-10T19:07:01+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000526s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000836s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000457s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000494s ]
+
+[ 2014-12-10T19:07:01+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000601s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000965s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000690s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000738s ]
+
+[ 2014-12-10T19:07:01+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000587s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000954s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000642s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000700s ]
+

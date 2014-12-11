@@ -312,10 +312,10 @@
                                                                                                                                                     area();
                                                                                                                                                     province();
                                                                                                                                                     // getvallage($(".city_in").val());
-                               
+
                                                                                                                                                     var pro = function() {
                                                                                                                                                         var id=$(".pro_into").val();
-                                         
+
                                                                                                                                                         $.ajax({
                                                                                                                                                             url : "<?php echo U('sonCate','','');?>",
                                                                                                                                                             type : "post",
@@ -324,7 +324,7 @@
                                                                                                                                                             success : function(data){     
                                                                                                                                                                 //   alert(data) 
                                                                                                                                                                 if(data != null){
-                                              
+
                                                                                                                                                                     var str=""
                                                                                                                                                                     $.each(data,function(key,val){
                                                                                                                                                                         str += "<option value="+val['type_id']+">"+val['type_name']+"</option>";
@@ -361,7 +361,7 @@
                                                                                                                                                         });         
                                                                                                                                                     })  
                                                                                                                                                     if($("#action").val()=='add'){  add()   }else{  pro(); }   
-                        
+
                                                                                                                                                 }) 
                                                                                                                                                 function getvallage(id){
 

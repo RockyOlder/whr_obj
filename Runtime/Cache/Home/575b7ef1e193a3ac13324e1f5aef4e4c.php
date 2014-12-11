@@ -48,6 +48,7 @@
                         <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
                         <th>名称</th>
                         <th>描述</th>
+                        <th>分类图片</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -59,6 +60,7 @@
                             <td>  <img src="/whr/App/Home/View/Public/img/menu_minus.gif" id="icon_0_1" style="margin-left:<?php echo ($vo["lev"]); ?>px" /><?php echo ($vo["cat_name"]); ?></img>
                                 </td>
                             <td><?php echo ($vo["intro"]); ?></td>
+                             <td><img height='50px' src="<?php echo ($vo["cat_img"]); ?>"  /></td>
                             <td>
                                 <a href="<?php echo U('add',array(id=>$vo['cat_id']),'');?>" class="tablelink">修改</a>    
                                 <a href="<?php echo U('del',array(id=>$vo['cat_id']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>

@@ -41,13 +41,25 @@ class GoodsController extends IsloginController {
         $this->assign('list', $cagyList);
         $this->assign('pro', $pro);
         if (IS_POST) {
-            //    print_r($_REQUEST);exit;
-            //   echo 1;exit;
-            //  print_r($action);exit;
+            $path = I('post.path');
+            $mid = I('post.mid');
+            $name = I('post.pic_name');
+            foreach ($path as $k => $v) {
+                $tem = "";
+                $tem['pic'] = $v;
+                $tem['mid'] = $mid[$k];
+                $tem['name'] = $name[$k];
+
+                $path[$k] = $tem;
+            }
+            $goods_img = json_encode($path);
+          //  print_r($goods_img);exit;
             if ($action == "add") {
                 $goods = D('Goods');
                 if ($data = $goods->create()) {
                     $data["add_time"] = time();
+                    $data["goods_img"] = $goods_img;
+
                     if ($goods->add($data)) {
                         $url = U('/Home/goods/index');
                         $this->success("用户添加成功！", $url);
@@ -58,6 +70,7 @@ class GoodsController extends IsloginController {
             } elseif ($action == "edit") {
                 $goods = D("Goods");
                 if ($data = $goods->create()) {
+                    $data["goods_img"] = $goods_img;
                     if ($goods->save($data)) {
                         $url = U('/Home/goods/index');
                         $this->success("修改成功！", $url);
@@ -86,6 +99,10 @@ class GoodsController extends IsloginController {
                     ->join('wrt_region AS r ON g.province=r.REGION_ID')
                     ->where('g.goods_id=' . $id)
                     ->find();
+            $goods_img = $goodsFind['goods_img'];
+        //    print_r($goods_img);exit;
+            $goodsFind['goods_img'] = json_decode($goods_img, true);
+           // print_r($goodsFind);exit;
             $this->assign('info', $goodsFind);
         }
         $this->assign('data', $data);
@@ -103,8 +120,8 @@ class GoodsController extends IsloginController {
 
     public function details() {
         $id = I('post.id', 0);
-       // echo 1;;exit;
-      //  echo $id;exit;
+        // echo 1;;exit;
+        //  echo $id;exit;
         if ($id) {
             //  $data['action'] = 'edit';
             $data['title'] = "编辑商品";
@@ -116,13 +133,13 @@ class GoodsController extends IsloginController {
                     ->join('wrt_region AS r ON g.province=r.REGION_ID')
                     ->where('g.goods_id=' . $id)
                     ->find();
-         //   $this->assign('info', $goodsFind);
+            //   $this->assign('info', $goodsFind);
         } else {
             $this->error($goods->getError());
         }
-      $this->ajaxReturn($goodsFind);
-      //  $this->assign('data', $data);
-    //    $this->display();
+        $this->ajaxReturn($goodsFind);
+        //  $this->assign('data', $data);
+        //    $this->display();
     }
 
 }
