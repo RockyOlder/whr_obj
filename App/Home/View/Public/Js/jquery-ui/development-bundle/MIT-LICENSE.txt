@@ -1,5 +1,4 @@
-Copyright 2014 jQuery Foundation and other contributors,
-http://jqueryui.com/
+Copyright (c) 2011 Paul Bakaus, http://jqueryui.com/
 
 This software consists of voluntary contributions made by many
 individuals (AUTHORS.txt, http://jqueryui.com/about) For exact

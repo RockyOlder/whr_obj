@@ -1,0 +1,125 @@
+[ 2014-12-12T09:31:26+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/word
+ERR: 非法操作:word
+
+[ 2014-12-12T09:35:56+08:00 ] ::1 /whr/index.php?s=/Home/Owner/index
+ERR: 无法加载控制器:Owner
+
+[ 2014-12-12T10:06:03+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/repair
+ERR: 非法操作:repair
+
+[ 2014-12-12T10:06:07+08:00 ] ::1 /whr/index.php?s=/Home/Owner/index
+ERR: 无法加载控制器:Owner
+
+[ 2014-12-12T10:06:09+08:00 ] ::1 /whr/index.php?s=/Home/Ad/index
+ERR: 无法加载控制器:Ad
+
+[ 2014-12-12T10:29:44+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000453s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000758s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000549s ]
+
+[ 2014-12-12T10:29:44+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000593s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000921s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000476s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000523s ]
+
+[ 2014-12-12T10:29:44+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000793s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001158s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000826s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000886s ]
+
+[ 2014-12-12T10:29:44+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000562s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000985s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000531s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000568s ]
+
+[ 2014-12-12T15:06:20+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001019s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001415s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000769s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000832s ]
+
+[ 2014-12-12T15:06:20+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000800s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001205s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000574s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000637s ]
+
+[ 2014-12-12T15:06:20+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000516s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000922s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001298s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001355s ]
+
+[ 2014-12-12T15:06:20+08:00 ] ::1 /whr/index.php?s=/Home/Village/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000958s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001544s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-12T15:06:21+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000562s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000944s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000463s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000510s ]
+
+[ 2014-12-12T15:06:21+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000482s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000788s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000635s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000688s ]
+
+[ 2014-12-12T15:06:21+08:00 ] ::1 /whr/index.php?s=/Home/Village/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000842s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001212s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-12T15:06:21+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000703s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001038s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000465s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000516s ]
+
+[ 2014-12-12T15:13:22+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/repair
+ERR: 非法操作:repair
+
+[ 2014-12-12T15:18:44+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/add.html
+ERR: Think\Controller:_vialg方法不存在！
+
+[ 2014-12-12T15:19:33+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/add.html
+ERR: Think\Controller:_vialg方法不存在！
+
+[ 2014-12-12T15:21:20+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/add.html
+ERR: Think\Controller:_vialg方法不存在！
+
+[ 2014-12-12T15:22:35+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/add.html
+ERR: Think\Controller:_vialg方法不存在！
+
+[ 2014-12-12T16:52:56+08:00 ] ::1 /whr/index.php?s=/Home/Points/index
+ERR: 无法加载控制器:Points
+

@@ -90,7 +90,7 @@
                                 <td><?php echo ($vo["name"]); ?></td>
                                 <td><?php echo ($vo["price"]); ?></td>
                                 <td><?php echo ($vo["m_price"]); ?></td>
-                                <td><a href="<?php echo U('add',array(id=>$vo['lgid']),'');?>">编辑</a>
+                                <td><a href="<?php echo U('goodsadd',array(id=>$vo['lgid']),'');?>">编辑</a>
                                     <a href="<?php echo U('del',array(id=>$vo['lgid']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
 
                                 </td>

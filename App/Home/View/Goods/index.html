@@ -80,7 +80,7 @@
                             alert("error:"+msg);
                         },
                         success:function(data){
-                            $("#goods_name").text(data.goods_name?data.goods_name:"");
+                          /*  $("#goods_name").text(data.goods_name?data.goods_name:"");
                             $("#price").text(data.price?data.price:"");
                             $("#show_mobile").text(data.mobile?data.mobile:"");
                             $("#if_show").text(data.sex==1?"是":data.sex==0?"否":"保密");
@@ -95,7 +95,7 @@
                             $("#show_idcardNumber").text(data.idcard_number?data.idcard_number:"");
                             $("#show_officeAddress").text(data.office_address?data.office_address:"");
                             $("#show_homeAddress").text(data.home_address?data.home_address:"");
-                            //$("#photo_path").attr("src",data.photo_path);
+                            //$("#photo_path").attr("src",data.photo_path);*/
                             $("#detailDialog").fadeIn(1000);
                         }
                     });

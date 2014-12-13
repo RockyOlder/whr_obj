@@ -163,7 +163,7 @@
                                     <select  class="form-control" name = 'developer_id' style="width: 345px;height: 32px;" >
                                         <option class="cheng_in" value="<?php echo ($info["did"]); ?>"><?php echo ($info["dname"]); ?></option>
                                         <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($list["id"]); ?>"><?php echo ($list["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select>
+                                    </select></li>
                                     <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
                             </ul>
                             <div style="display:none" id="skuNotice" class="sku_tip">
