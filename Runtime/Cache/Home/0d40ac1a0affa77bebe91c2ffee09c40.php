@@ -22,6 +22,7 @@
         form ul li{float: left;width: 110px;line-height: 25px;text-align: center;}
         form ul input{border: 1px solid #ccc;width: 100px;}
         form ul select{border: 1px solid #ccc;width: 100px;}
+        #table_ajax_list a{ width: 70px;}
     </style>
 
     <body style="background: none;">
@@ -37,7 +38,7 @@
         <div class="rightinfo">
 
             <div class="tools">
-
+                <a href="<?php echo U('add');?>" style="float: right; margin-top: 3px;" class="btn btn-primary">添加</a>    
             </div>
 
 
@@ -63,9 +64,8 @@
                             <td><?php echo ($vo["pname"]); ?></td>
                             <td><?php echo ($vo["add_time"]); ?></td>      
                             <td>
-                                <a href="<?php echo U('add');?>" class="tablelink">添加</a>    
-                                <a href="<?php echo U('add',array(id=>$vo['nid']),'');?>" class="tablelink">修改</a>    
-                                <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                                <a href="<?php echo U('add',array(id=>$vo['nid']),'');?>" class="btn btn-default">修改</a>    
+                                <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             </td>
                         </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
                 </tbody>

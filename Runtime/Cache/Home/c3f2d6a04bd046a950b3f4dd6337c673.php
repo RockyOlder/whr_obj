@@ -40,15 +40,17 @@
                         }
                     });
                     $("#ig_primary").click(function(){
-                        $("#dialog-form").dialog("option","title","添加调查表");            
+                        $("#dialog-form").dialog("option","title","添加");            
                         $("#dialog-form").dialog("open");
                     });
                 });         
-           //     var roleDataBak='{}';
-           //     var allFields=$( [] );
+                //     var roleDataBak='{}';
+                //     var allFields=$( [] );
                 function update_list(subId){
-                    $("#dialog-form").dialog("option","title","编辑调查");
+                    $("#dialog-form").dialog("option","title","编辑");
+                    
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
+                    //  alert($("#table").val())
                     $.ajax({ 
                         url:$("#url_ajaxCalendar").val(),
                         type:"post",
@@ -62,11 +64,12 @@
                             alert("error:"+msg);
                         },
                         success:function(data){
-                            roleDataBak=data;
+                            // roleDataBak=data;
+                               // alert(data)
                             $("#title").val(data.title);
                             $("#add_id").val(data.id);
                             $("#content").val(data.content);
-                            $("#author").val(data.author);
+                            $("#phone").val(data.phone);
                             $("#action").val(data.action);
                             $("#dialog-form").dialog("open");
                         }
@@ -79,7 +82,7 @@
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
         #table_list tr td{ padding: 7px;}
-         .th_default a{ width: 70px;}
+        .th_default a{ width: 70px;}
         #ig_primary{float: right; margin-top: 3px;}
     </style>
 
@@ -88,13 +91,14 @@
         <div class="place">
             <span>后台管理：</span>
             <ul class="placeul">
-                <li><a href="#">关键词管理</a></li>
-                <li><a href="#">添加/修改关键词</a></li>
+                <li><a href="#">物业信息管理</a></li>
+                <li><a href="#">邻里拼车</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/examine" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加调查卷"  onclick="javascript:;" /></li>
+        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/carpool" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="<?php echo ($data["table"]); ?>" id="table" name="examUpdate" />
+        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxCarpool" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"  onclick="javascript:;" /></li>
 
         <div style="display:none" id="skuNotice" class="sku_tip">
             <span id="skuTitle2"></span>
@@ -106,15 +110,9 @@
                     <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>公告标题</th>
                     <th>公告内容</th>
-                    <th>发布人</th> 
+                    <th>手机号码</th> 
                     <th>发布时间</th>
-                    <th>过期时间</th>
-                    <th>参与人数</th>
-                    <th>非常满意</th>
-                    <th>满意</th>
-                    <th>一般</th>
-                    <th>不满意</th>
-                    <th>十分不满意</th>
+             
                     <th>操作</th>
                 </tr>
             </thead>
@@ -125,15 +123,10 @@
                         <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
                         <td><?php echo ($vo["content"]); ?></td>
-                        <td><?php echo ($vo["author"]); ?></td>
-                        <td><?php echo (date("Y-m-d H:i:s",$vo["Release_time"])); ?></td>      
-                        <td><?php echo (date("Y-m-d H:i:s",$vo["pass_time"])); ?></td>   
-                        <td><?php echo ($vo["number"]); ?></td>
-                        <td><?php echo ($vo["survey_verygood"]); ?></td>
-                        <td><?php echo ($vo["survey_good"]); ?></td>
-                        <td><?php echo ($vo["survey_general"]); ?></td>
-                        <td><?php echo ($vo["survey_nogood"]); ?></td>
-                        <td><?php echo ($vo["survey_bad"]); ?></td>
+                        <td><?php echo ($vo["phone"]); ?></td>
+                        <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
+  
+
                         <td class="th_default">    
                             <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
                             <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
@@ -142,45 +135,44 @@
             </tbody>
         </table>
 
-        <div id="dialog-form" title="添加调查卷">
+        <div id="dialog-form" title="添加">
             <div class="tip">
                 <p class="validateTips"></p>
             </div>
             <form action="#" method="post" name="myform" class="form-input" />
-                <input type ="hidden" name="action" id="action" value="<?php echo ($data["action"]); ?>">
-                    <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
-                        <input type="hidden" value="" id="subject_id" name="id" />
-                        <fieldset>
-                            <input type="hidden" id="hidRoleId" value="" />
-                            <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td align="right" width="90px">
-                                        <label for="title">公告标题：</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="title" id="title"  class="form-control" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">
-                                        <label for="content">公告内容：</label>
-                                    </td>
-                                    <td>
-                                        <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right" width="90px">
-                                        <label for="author">发布人：</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="author" id="author" class="form-control" />
-                                    </td>
-                                </tr>
-                                <input type="hidden" name="id" id="add_id"  />
-                            </table>
-                        </fieldset>
-                        </form>
-                        </div>
-                        </body>
-                        </html>
+            <input type ="hidden" name="action" id="action" value="<?php echo ($data["action"]); ?>">
+                <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
+                    <fieldset>
+                        <input type="hidden" id="hidRoleId" value="" />
+                        <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td align="right" width="90px">
+                                    <label for="title">公告标题：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="title" id="title"  class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <label for="content">公告内容：</label>
+                                </td>
+                                <td>
+                                    <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" width="90px">
+                                    <label for="phone">手机号码：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="phone" id="phone" class="form-control" />
+                                </td>
+                            </tr>
+                            <input type="hidden" name="id" id="add_id"  />
+                        </table>
+                    </fieldset>
+                    </form>
+                    </div>
+                    </body>
+                    </html>

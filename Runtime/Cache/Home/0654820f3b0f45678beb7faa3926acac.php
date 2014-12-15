@@ -6,58 +6,38 @@
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script> -->
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script> -->
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
             <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+                        <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
             <script type="text/javascript">
-                /*    $(function(){
-                    //简单验证
-                    var validate = {
-                        'username' : false,
-                        'password' : false,
-                        'password2': false
-                    };
-                    var cats_Shop=function (item,string) {
-                        var prev=item.prev().text();
-                        var next_on= item.next()
-                        next_on.text(prev+string).css('color','red');
-                        $('#skuTitle2').text(prev+string)
-                        $('#skuNotice').show();
-                        setTimeout( function(){
-                            $( '#skuNotice' ).fadeOut();
-                        }, ( 1 * 1000 ) ); 
-                    }
-                    var jiance=function (item,info) {
-                        $(item).blur(function(){
-                            if($.trim($(this).val()) == ''){
-                                cats_Shop(item,'不能为空')
-                            }else{
-                                info.text('');
-                            }
-                        });
-                    }
-                    jiance($('#name'),$('#name_info'))
-                    jiance($('#address'),$('#address_info'))
-                    $('form').submit(function(){
-                        $('#name').trigger('blur');
-                        $('#address').trigger('blur');
-                        if($.trim($("#name").val()) !== ''){ validate.username = true; }
-                        if($.trim($("#address").val()) !== ''){ validate.password = true; }
-                        //      if($("#password2").val()==$("#password").val()){ validate.password2 = true; }
-                        //  else{cats_Shop($("#password2"),'要一致') }
-                        var isOK = validate.username;
-                        var psw=validate.password;   
-                        var psw2=validate.password2;   
-                        if(!isOK || !psw){
-                            return false;
+                $(function(){
+                    var img = "";
+                    $('#upload_list').uploadify({
+                        'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                        'uploader' : '<?php echo U("Uploads/listUpload");?>',
+                        'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                        'buttonText' : '列表上传',
+                        'multi': false,
+                        'onUploadSuccess' : function(file, data, response) {
+                            // alert(data);
+                            obj= $.parseJSON(data);
+                            img += "<img height='50px' src='"+obj.path+"'>";
+                            $('#imgs').html(img);
+                            var hid ="<input name='pic' type='hidden' value='"+obj.mid+"' />"
+                               
+                            $('#list_hidden').html(hid);
                         }
-                        return true;
-            
                     });
+                
                 })
-                 */
+                function deleteListPic(){
+                    $(".up_list_pic").html('');
+                    $('#list_hidden').html('');
+                }
             </script>
     </head>
     <style type="text/css">
@@ -86,21 +66,28 @@
                             <ul class="forminfo">
                                 <li><label>公告标题</label><input name="title" id="name" type="text" class="dfinput" value="<?php echo ($info["title"]); ?>" /><i id="name_info"></i></li>
                                 <li><label>公告内容</label><input name="content" id="address" type="text" class="dfinput" value="<?php echo ($info["content"]); ?>" /><i id="address_info"></i></li>
-                                <li><label>所属开发商</label>
-                                    <select  class="form-control" name = 'pid' style="width: 345px;height: 32px;" >
-                                        <option class="cheng_in" value="<?php echo ($info["yid"]); ?>"><?php echo ($info["pname"]); ?></option>
-                                        <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($list["id"]); ?>"><?php echo ($list["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select></li>
-                                <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
-                            </ul>
-                            <div style="display:none" id="skuNotice" class="sku_tip">
-                                <span id="skuTitle2"></span>
-                            </div>
-                        </div>
-                        </form>
-                        <script type="Text/Javascript">
+                                <li><label>公告图片</label><div id="list_hidden"></div></li>
+                                <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
+                                            <?php if($info["cat_img"] != ''): ?><div class="up_list_pic">
+                                                    <img class="cat_img" height='50px' src='<?php echo ($info["cat_img"]); ?>'>
+                                                        <img class="cat_img" src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                            </div><?php endif; ?>
+                                                            </i></li>
+                                                            <li><label>所属开发商</label>
+                                                                <select  class="form-control" name = 'proid' style="width: 345px;height: 32px;" >
+                                                                    <option class="cheng_in" value="<?php echo ($info["yid"]); ?>"><?php echo ($info["pname"]); ?></option>
+                                                                    <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($list["id"]); ?>"><?php echo ($list["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                                </select></li>
+                                                            <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
+                                                            </ul>
+                                                            <div style="display:none" id="skuNotice" class="sku_tip">
+                                                                <span id="skuTitle2"></span>
+                                                            </div>
+                                                            </div>
+                                                            </form>
+                                                            <script type="Text/Javascript">
                             
-                        </script>
-                        </body>
+                                                            </script>
+                                                            </body>
 
-                        </html>
+                                                            </html>

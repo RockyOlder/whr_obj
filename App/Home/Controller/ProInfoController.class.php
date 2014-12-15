@@ -11,6 +11,7 @@ class ProInfoController extends IsloginController {
         $data = $house->field('p.*,y.id as yid,y.pname')
                 ->join('wrt_property AS y ON p.proid=y.id')
                 ->select();
+        //   print_r($data);exit;
         if (empty($data)) {
             $this->display(add);
         }
@@ -30,8 +31,6 @@ class ProInfoController extends IsloginController {
             if ($action == "add") {
                 $pntice = D('ProNotice');
                 if ($data = $pntice->create()) {
-                    //     print_r(_vialg($data));exit;
-
                     $_villa = _vialg($data);
                     if (!empty($_villa)) {
                         $url = U('/Home/proInfo/add', '', false);
@@ -127,41 +126,164 @@ class ProInfoController extends IsloginController {
     public function examine() {
         $data['action'] = 'add';
         $data['title'] = "添加";
-        $data['btn'] = "添加公告";
+        $data['btn'] = "添加调查";
         $action = I('post.action');
         $prosury = M("ProSurvey");
-
+        $prolist = $prosury->select();
+        $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
                 $prosuvey = D('ProSurvey');
                 if ($data = $prosuvey->create()) {
                     $data['Release_time'] = time();
                     $data['add_time'] = time();
-                    //     print_r(_vialg($data));exit;
                     if ($prosuvey->add($data)) {
-                        $url = U('/Home/proInfo/index');
+                        $url = U('/Home/proInfo/examine');
                         $this->success("用户添加成功！", $url);
                     } else {
                         $this->error("用户添加失败！", 'index');
                     }
                 }
             } elseif ($action == "edit") {
-                $prosuvey = D('ProSurvey');
-                if ($data = $prosuvey->create()) {
-                    if ($prosuvey->save($data)) {
-                        $url = U('/Home/proInfo/index');
-                        $this->success("修改成功！", $url);
+                // print_r($_REQUEST);exit;
+                $prosury = M("ProSurvey");
+                if ($data = $prosury->create()) {
+                    if ($prosury->save($data)) {
+                        $url = U('/Home/proInfo/examine');
+                        $this->success('修改成功!', $url);
                     } else {
-                        $url = U('/Home/proInfo/add', '', false);
-                        $this->error('修改失败!');
+                        $this->error("修改失败！", 'index');
                     }
-                } else {
-                    $this->error($prosuvey->getError());
                 }
             }
         }
         $this->assign('data', $data);
         $this->display();
+    }
+
+    public function url_ajaxCalendar() {
+        $id = I('post.id', 0);
+        $prosury = M("ProSurvey");
+        $info = $prosury->where("id=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
+    public function url_ajaxCarpool() {
+        $id = I('post.id', 0);
+        // echo $id;exit;
+        $prosury = M("ProCar");
+        $info = $prosury->where("id=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
+    public function url_ajaxActive() {
+        $id = I('post.id', 0);
+        // echo $id;exit;
+        $prosury = M("ProActivity");
+        $info = $prosury->where("id=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
+    public function carpool() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "添加调查";
+        $action = I('post.action');
+        $procar = M("ProCar");
+        $prolist = $procar->select();
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+            if ($action == "add") {
+                $procar = M("ProCar");
+                if ($data = $procar->create()) {
+                    //  $data['Release_time'] = time();
+                    $data['add_time'] = time();
+                    if ($procar->add($data)) {
+                        $url = U('/Home/proInfo/carpool');
+                        $this->success("用户添加成功！", $url);
+                    } else {
+                        $this->error("用户添加失败！", 'index');
+                    }
+                }
+            } elseif ($action == "edit") {
+                   // print_r($_REQUEST);exit;
+                $procar = M("ProCar");
+                if ($data = $procar->create()) {
+                    if ($procar->save($data)) {
+                        $url = U('/Home/proInfo/carpool');
+                        $this->success('修改成功!', $url);
+                    } else {
+                        $this->error("修改失败！", 'index');
+                    }
+                }
+            }
+        }
+        $this->assign('data', $data);
+        $this->display();
+    }
+
+    public function active() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "添加调查";
+        $action = I('post.action');
+        $proactiv = M("ProActivity");
+        $prolist = $proactiv->select();
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+            if ($action == "add") {
+                $proactiv = M("ProActivity");
+                if ($data = $proactiv->create()) {
+                    //  $data['Release_time'] = time();
+                    $data['add_time'] = time();
+                    if ($proactiv->add($data)) {
+                        $url = U('/Home/proInfo/active');
+                        $this->success("用户添加成功！", $url);
+                    } else {
+                        $this->error("用户添加失败！", 'index');
+                    }
+                }
+            } elseif ($action == "edit") {
+                $proactiv = M("ProActivity");
+                if ($data = $proactiv->create()) {
+                    if ($proactiv->save($data)) {
+                        $url = U('/Home/proInfo/active');
+                        $this->success('修改成功!', $url);
+                    } else {
+                        $this->error("修改失败！", 'index');
+                    }
+                }
+            }
+        }
+        $this->assign('data', $data);
+        $this->display();
+    }
+    
+    
+    public function hinder(){
+        
+        
+        
+    }
+    
+    public function decorate(){
+        
+        
+        
+    }
+    
+    public function repair(){
+        
+        
+        
+    }
+    
+    public function complaints(){
+        
+        
     }
 
 }
