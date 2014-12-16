@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
 
-        <!-- <link href="__PUBLIC__/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="__PUBLIC__/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
-            <script type="text/javascript" src="__PUBLIC__/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -150,10 +150,10 @@
                 <li><a href="#">维修报障</a></li>
             </ul>
         </div>
-        <input type="hidden" value="__CONTROLLER__/decorate" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="__CONTROLLER__/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <input type="hidden" value="__CONTROLLER__/ajax_rule" id="url_rule" name="url_rule" />
-        <input type="hidden" value="{$obj}" id="model" />
+        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/decorate" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/ajax_rule" id="url_rule" name="url_rule" />
+        <input type="hidden" value="<?php echo ($obj); ?>" id="model" />
         <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="装修申请"  onclick="javascript:;" /></li>
 
         <div style="display:none" id="skuNotice" class="sku_tip">
@@ -164,7 +164,7 @@
                 <tr>
 
                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="__PUBLIC__/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>业主名字</th> 
                     <th>公告标题</th>
                     <th>公告内容</th>
@@ -176,24 +176,22 @@
                 </tr>
             </thead>
             <tbody id="table_ajax_list">
-                <volist name="pro" id ="vo">
-                    <tr>
+                <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                         <td><input name="num" type="checkbox" value="" /></td>
-                        <td>{$vo.id}</td>
-                        <td>{$vo.owner}</td>
-                        <td>{$vo.title}</td>
-                        <td>{$vo.content}</td>
-                        <td>{$vo.address}</td>
-                        <td>{$vo.phone}</td>
-                        <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>      
-                        <td class="role-list"><button class="btn btn-default" type="button">{$vo.done}</button></td>
+                        <td><?php echo ($vo["id"]); ?></td>
+                        <td><?php echo ($vo["owner"]); ?></td>
+                        <td><?php echo ($vo["title"]); ?></td>
+                        <td><?php echo ($vo["content"]); ?></td>
+                        <td><?php echo ($vo["address"]); ?></td>
+                        <td><?php echo ($vo["phone"]); ?></td>
+                        <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
+                        <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td>
                         <td class="th_default">    
-                            <a class="btn btn-default" onclick="update_list({$vo.rid})">修改</a>    <!-- btn btn-danger -->
-                            <a href="{:U('del',array(id=>$vo['nid']),'')}" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add({$vo.rid})"> 审核</a>
+                            <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>    <!-- btn btn-danger -->
+                            <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)"> 审核</a>
                         </td>
-                    </tr> 
-                </volist>    
+                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
         </table>
 
@@ -202,8 +200,8 @@
                 <p class="validateTips"></p>
             </div>
             <form action="#" method="post" name="myform" class="form-input" />
-            <input type ="hidden" name="action" id="action" value="{$data.action}">
-                <input type ="hidden" name="admin" value={$Think.session.admin.name}>
+            <input type ="hidden" name="action" id="action" value="<?php echo ($data["action"]); ?>">
+                <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                     <fieldset>
                         <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                             <tr>

@@ -187,6 +187,30 @@ class ProInfoController extends IsloginController {
         $this->ajaxReturn($info);
     }
 
+    public function url_ajaxhinder() {
+        $id = I('post.id', 0);
+        $prorepair = M("ProRepair");
+        $info = $prorepair->where("rid=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
+    public function url_ajaxdecorate() {
+        $id = I('post.id', 0);
+        $pro = M("ProDecorate");
+        $info = $pro->where("rid=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
+    public function url_ajaxrepair() {
+        $id = I('post.id', 0);
+        $pro = M("ProComplaints");
+        $info = $pro->where("rid=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
     public function carpool() {
         $data['action'] = 'add';
         $data['title'] = "添加";
@@ -209,7 +233,7 @@ class ProInfoController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-                   // print_r($_REQUEST);exit;
+                // print_r($_REQUEST);exit;
                 $procar = M("ProCar");
                 if ($data = $procar->create()) {
                     if ($procar->save($data)) {
@@ -261,29 +285,111 @@ class ProInfoController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-    
-    
-    public function hinder(){
-        
-        
-        
+
+    public function hinder() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "添加调查";
+        $action = I('post.action');
+        $prorepair = M("ProRepair");
+        $prolist = $prorepair->select();
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+            if ($action == "add") {
+                $prorepair = M("ProRepair");
+                if ($data = $prorepair->create()) {
+                    $data['add_time'] = time();
+                    if ($prorepair->add($data)) {
+                        $this->success("用户添加成功！", U('/Home/proInfo/hinder'));
+                    } else {
+                        $this->error("用户添加失败！", U('/Home/proInfo/hinder'));
+                    }
+                }
+            } elseif ($action == "edit") {
+                $prorepair = M("ProRepair");
+                if ($data = $prorepair->create()) {
+                    if ($prorepair->save($data)) {
+                        $this->success('修改成功!', U('/Home/proInfo/hinder'));
+                    } else {
+                        $this->error("修改失败！", U('/Home/proInfo/hinder'));
+                    }
+                }
+            }
+        }
+
+        $this->assign('data', $data);
+        $this->display();
     }
-    
-    public function decorate(){
-        
-        
-        
+
+    public function decorate() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "添加调查";
+        $action = I('post.action');
+        $pro = M("ProDecorate");
+        $prolist = $pro->select();
+        $this->assign('obj', $pro);
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+      //      print_r($_REQUEST);exit;
+            if ($action == "add") {
+                $pro = M("ProDecorate");
+                if ($data = $pro->create()) {
+                    $data['add_time'] = time();
+                    if ($pro->add($data)) {
+                        $this->success("用户添加成功！", U('/Home/proInfo/decorate'));
+                    } else {
+                        $this->error("用户添加失败！", U('/Home/proInfo/decorate'));
+                    }
+                }
+            } elseif ($action == "edit") {
+         //       echo 1;exit;
+                $pro = M("ProDecorate");
+                if ($data = $pro->create()) {
+                    if ($pro->save($data)) {
+                        $this->success('修改成功!', U('/Home/proInfo/decorate'));
+                    } else {
+                        $this->error("修改失败！", U('/Home/proInfo/decorate'));
+                    }
+                }
+            }
+        }
+        $this->assign('data', $data);
+        $this->display();
     }
-    
-    public function repair(){
-        
-        
-        
-    }
-    
-    public function complaints(){
-        
-        
+
+    public function repair() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $action = I('post.action');
+        $pro = M("ProComplaints");
+        $prolist = $pro->select();
+        $this->assign('obj', $pro);
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+            if ($action == "add") {
+                $pro = M("ProComplaints");
+                if ($data = $pro->create()) {
+                    $data['add_time'] = time();
+                    if ($pro->add($data)) {
+                        $this->success("用户添加成功！", U('/Home/proInfo/repair'));
+                    } else {
+                        $this->error("用户添加失败！", U('/Home/proInfo/repair'));
+                    }
+                }
+            } elseif ($action == "edit") {
+                $pro = M("ProComplaints");
+                if ($data = $pro->create()) {
+                    if ($pro->save($data)) {
+                        $this->success('修改成功!', U('/Home/proInfo/repair'));
+                    } else {
+                        $this->error("修改失败！", U('/Home/proInfo/repair'));
+                    }
+                }
+            }
+        }
+        $this->assign('data', $data);
+        $this->display();
     }
 
 }
