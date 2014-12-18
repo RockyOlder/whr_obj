@@ -1,0 +1,145 @@
+<?php
+namespace Api\Controller;
+use Think\Controller;
+class ProController extends Controller {
+		function __construct()
+	{
+
+		 if (!IS_API) {
+	        	die("你无权访问该页面！");
+	        }
+	}
+    // 获取公告的内容
+    public function notice()
+    {
+     
+        $id = I('request.version',1);
+        $proId = I('request.proId',1,'intval');
+          if (!$proId) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $this->ajaxReturn($out);
+          }
+          if ($id == 1) {
+            $data = M('pro_notice')->field('title,id')->where('proid='.$proId)->order('add_time desc')->limit(3)->select();
+            if (is_null($data)) {
+                $out['data'] = $data;
+                $out['success'] = 1;
+                
+            }else{
+                $out['data'] = $data;
+                $out['success'] = 0;
+               
+            } 
+            $this->ajaxReturn($out); 
+
+          }
+    }
+    // 根据id获取详细的信息
+    public function info(){
+        $id = I('request.version',1,'intval');
+        $mid = I('request.messageId',0,'intval');
+        $type =I('request.type',1,'intval');
+        $page = I('request.page',1,'intval');
+        $pageSize = I('request.pageSize',20,'intval');
+        if (!$mid) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $this->ajaxReturn($out);
+          }
+        if ($id == 1) {
+          $out['success'] = 1; 
+           //判断是查询那个表中的内容
+            $table = $this->choseTable($type);
+            $where = array('pid'=>$mid,'sheild' =>0);
+            if ($page > 1) {
+              $out['data'] = M($table)->where($where)->page($page,$pageSize)->select();
+              $this->ajaxReturn($out);
+            }
+            $data = M($table)->where('id='.$mid)->find();
+            // dump($data);
+            $for = M($table)->where($where)->page($page,$pageSize)->select();
+
+            $data['son'] = $for;
+            $out['data'] = $data;
+                      
+            $this->ajaxReturn($out);
+        }
+
+    }
+     // 根据id获取详细的信息
+    public function add(){
+        $id = I('request.version',1,'intval');
+        $mid = I('request.messageId',0,'intval');
+        $type =I('request.type',1,'intval');
+        $uid=I('request.userId',0,'intval');
+        $title = I('request.title');
+        $content = I('request.content');
+
+        if ($id == 1) {
+          if (!$uid ) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $this->ajaxReturn($out);
+          }
+          $arr=array(
+          'content' =>$title,
+          'title'=>$content,
+          'uid'=>$uid,
+          'pass_time'=>I('request.pass_time'),
+          'add_time'=>time(),
+          'author'=>I('request.userName'),
+          'proid' =>I('request.proId')
+          );
+          //判断用户输入的内容和标题是否有后台设置不允许的单词
+          $bool = 1;
+          if ($bool) {
+            $arr['sheild'] = 0;
+          }
+          $out['success'] = 1; 
+           //判断是查询那个表中的内容
+          $table = $this->choseTable($type);            
+          
+          $for = M($table)->add($arr);
+
+          $out['data'] = $for;
+                    
+          $this->ajaxReturn($out);
+        }
+
+    }
+
+
+    // 根据穿入的类型确定表名
+    function choseTable($mid){
+        switch ($mid) {
+              case '1':
+                   $table = 'pro_notice';
+                break;
+              case '2':
+                   $table = 'pro_survey';
+                break;
+              case '3':
+                   $table = 'pro_repair';
+                break;
+              case '4':
+                   $table = 'pro_decorate';
+                break;
+              case '5':
+                   $table = 'pro_repair_warning';
+                break;
+              case '6':
+                   $table = 'pro_activity';
+                break;
+              case '7':
+                   $table = 'pro_car';
+                break;
+              case '8':
+                   $table = 'pro_fetch';
+                break;
+            }
+            return $table;
+    }
+    
+  
+}

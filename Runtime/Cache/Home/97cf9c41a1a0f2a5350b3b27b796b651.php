@@ -78,29 +78,21 @@
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
-                        <input type ="hidden" name="id" value="<?php echo ($data["id"]); ?>">
+                        <input type ="hidden" name="lgid" value="<?php echo ($info["lgid"]); ?>">
                             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
-
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
-
                                         <ul class="forminfo">
-                                            <li style = "display:none"><label>生活导航商品编号</label><input name="number" type="text" class="dfinput" value="<?php echo ($info["id"]); ?>" disabled="disabled"/><i>不用输入，系统自动生成</i></li>
+                                            <li style = "display:none"><label>生活导航商品编号</label><input name="number" type="text" class="dfinput" value="<?php echo ($info["lgid"]); ?>" disabled="disabled"/><i>不用输入，系统自动生成</i></li>
                                             <li><label>分类</label>
                                                 <span class = 'pro'>
                                                     <select name = 'cate_pid' class="form-control" >
                                                         <option>请选择</option>
                                                         <?php if(is_array($cate)): $i = 0; $__LIST__ = $cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["type_id"]); ?>"><?php echo ($vo["type_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
-
-
                                                     <select name = 'cate_id' style="display:none" id ="soncate"  >
-
                                                     </select>
-
-
-
                                                 </span>
                                                 <i id="type_info"></i></li> 
                                             <li><label>商品所属商店</label>
@@ -108,26 +100,43 @@
                                                     <select name = 'bid'class="form-control" >
                                                         <?php if(is_array($shop)): $i = 0; $__LIST__ = $shop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
-
-
-
-
                                                 </span>
                                                 <i id="type_info"></i></li> 
-                                            <li><label>商品名称</label><input name="lgname" id="name" type="text" class="dfinput" value="<?php echo ($info["name"]); ?>" />xxx<i id="name_info">名称不能超过30个字符</i></li>
-                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="des"></textarea><i>描述</i></li>
-                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="server"></textarea><i>服务描述</i></li>
+                                            <li><label>商品名称</label><input name="lgname" id="name" type="text" class="dfinput" value="<?php echo ($info["lgname"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
+                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="des" value="<?php echo ($info["des"]); ?>" ><?php echo ($info["des"]); ?></textarea><i>描述</i></li>
+                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="server" value="<?php echo ($info["server"]); ?>" ><?php echo ($info["server"]); ?></textarea><i>服务描述</i></li>
                                             <li style="height:50px"><label>商品详情</label></li>
-                                            <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" ></textarea></li>
-                                            <li><label>列表图片</label><div id="list_hidden"></div></li>
-                                            <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px"></i></li>
-                                            <li><label>商品图册</label><input name="pic" id="more" type="text" class="dfinput" /><i></i></li> 
-                                            <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_more" type="file" class="dfinput" style=""/><i  id ="imgs_more" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">上传图片不要大于5张</i></li>
-                                            <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="-1"/><i></i></li>
-                                            <li><label>商场价格</label><input name="price" type="text" class="dfinput"  value="<?php echo ($info["owner"]); ?>"/><i></i></li>
-                                            <li><label>市场价格</label><input name="m_price" type="text" class="dfinput"  value="<?php echo ($info["phone"]); ?>"/><i></i></li> 
-                                            <li><label>促销价格</label><input name="t_price" type="text" class="dfinput"  value="<?php echo ($info["phone"]); ?>"/><i>格式如:2014-11-12</i></li> 
-                                            <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="<?php echo ($info["phone"]); ?>"/><i></i></li>  
+                                            <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="<?php echo ($info["content"]); ?>" ><?php echo ($info["content"]); ?></textarea></li>
+                                                <li><label>列表图片</label>
+                                                    <div id="list_hidden">
+                                                        <input type ='hidden' name = "list_path" value="<?php echo ($info["list_path"]); ?>">
+                                                            <input type ='hidden' name = "pic" value="<?php echo ($info["pic"]); ?>">
+                                                                <input type ='hidden' name = "list_pic" value="<?php echo ($info["list_pic"]); ?>">
+                                                                    </div></li>
+                                                                    <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_pic" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
+                                                                     <?php if($info["list_pic"] != ''): ?><div class="up_list_pic">
+                                                                     <img height='50px' src='<?php echo ($info["list_pic"]); ?>'>
+                                                                     <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                    </div><?php endif; ?>
+                                                                    </i></li>
+                                                         <li><label>店铺图册</label><i></i></li> 
+                                                                    <li style="position:relative;margin-bottom:5px;height:55px"><input type = "file" id ="upload_more">
+                                                                       <i  id ="imgs_more" style="position:absolute;left:150px;top:-5px;">
+                                                                          <div id = 'more_<?php echo ($k); ?>' class = ' more_list_pic' num = 0 > 
+                                                                  </div>
+                                                                     <?php if($info["pic"] != ''): if(is_array($info["pic"])): $k = 0; $__LIST__ = $info["pic"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><div id = 'more_<?php echo ($k); ?>' class = ' more_list_pic' num = "<?php echo ($k); ?>" style=" float: left">
+                                                                           <img width='50px' src='<?php echo ($vo["mid"]); ?>' name ='path'>
+                                                                           <input type='hidden' name='path[]'  value='<?php echo ($vo["pic"]); ?>'/>
+                                                                           <input type='hidden' name='mid[]' value='<?php echo ($vo["mid"]); ?>'/>
+                                                                           <input type='hidden' name='pic_name[]' value='<?php echo ($vo["name"]); ?>'/>
+                                                                           <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic(<?php echo ($k); ?>)' > 
+                                                                    </div><?php endforeach; endif; else: echo "" ;endif; endif; ?>
+                                                                 </i></li>
+                                            <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="<?php echo ($info["star"]); ?>"/><i></i></li>
+                                            <li><label>商场价格</label><input name="price" type="text" class="dfinput"  value="<?php echo ($info["price"]); ?>"/><i></i></li>
+                                            <li><label>市场价格</label><input name="m_price" type="text" class="dfinput"  value="<?php echo ($info["m_price"]); ?>"/><i></i></li> 
+                                            <li><label>促销价格</label><input name="t_price" type="text" class="dfinput"  value="<?php echo ($info["t_price"]); ?>"/><i>格式如:2014-11-12</i></li> 
+                                            <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="<?php echo ($info["pass_time"]); ?>"/><i></i></li>  
 
                                             <li><label>競價排名</label><input name="sort" id="notice" type="text" class="dfinput" value="100"/><i></i></li>
                                             <li><label>是否鎖定</label><span style="line-height:30px"><input name="is_lock" id="lock" type="radio" class="dfinput" value="0" style="width:50px" checked="checked"/>正常<input name="is_lock" id="lock" type="radio" class="dfinput" value="1" style="width:50px" />鎖定</span><i></i></li>              
@@ -152,45 +161,56 @@
                                             initialFrameWidth:600,  //初始化编辑器宽度,默认800
                                             initialFrameHeight:320
                                         });
-                                        var img = "";
-                                        $('#upload_list').uploadify({
-                                            'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
-                                            'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                            'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
-                                            'buttonText' : '列表上传',
-                                            'multi': false,
-                                            'onUploadSuccess' : function(file, data, response) {
-                                                // alert(data);
-                                                obj= $.parseJSON(data);
-                                                img += "<img height='50px' src='"+obj.path+"'>";
-                                                $('#imgs').html(img);
-                                                var hid ="<input name='thumb_pic' type='hidden' value='"+obj.mid+"' />"
-                                                hid +="<input name='list_pic' type='hidden' value='"+obj.min+"' />"
-                                                $('#list_hidden').html(hid);
+                                            var list_pic = "";
+                                            $('#upload_list').uploadify({
+                                                'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                'uploader' : '<?php echo U("Uploads/listUpload");?>',
+                                                'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                'buttonText' : '列表上传',
+                                                'multi': false,
+                                                'onUploadSuccess' : function(file, data, response) {
+                                                    // alert(data);
+                                                    obj= $.parseJSON(data);
+                                                    list_pic += "<img height='50px' src='"+obj.path+"'>";
+                                                    list_pic +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                    $('#imgs').html(list_pic);
+                                                    var hid ="<input name='thumb_pic' id='list_path' type='hidden' value='"+obj.path+"' />";
+                                                    hid +="<input name='pic' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
+                                                    hid +="<input name='list_pic' id='list_pic' type='hidden' value='"+obj.min+"' />"
+                                                    $('#list_hidden').html(hid);
+                                                }
+                                            });
+                                            var img = '';
+                                            var num = $('.more_list_pic').last().attr('num')+1;
+
+                                            $('#upload_more').uploadify({
+                                                'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                'uploader' : '<?php echo U("Uploads/photo",'','');?>',
+                                                'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                'buttonText' : '缩略图上传',
+                                                'onUploadSuccess' : function(file, v, response) {
+                                                    obj= $.parseJSON(v);
+                                                    // console.log(obj)
+                                                    img += "<div id = 'more_"+num+"' class = ' more_list_pic' num = '"+num+"'>"
+                                                    img += "<img width='50px' src='"+obj.path+"' name ='path'>";
+                                                    img += "<input type='hidden' name='path[]'  value='"+obj.path+"'/>";
+                                                    img += "<input type='hidden' name='mid[]' value='"+obj.mid+"'/>";
+                                                    img += "<input type='hidden' name='pic_name[]' value='"+obj.name+"'/>";
+                                                    img += "<img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
+                                                    img += "</div>"
+                                                    $('#imgs_more').append(img);
+                                                    img = '';
+                                                    num++;
+                                                }
+                                            });
+                                            function deletePic(num){
+                                                $("#more_"+num+"").html('');
+                                                // $('this').parent('.more_list_pic').remove();
                                             }
-                                        });
-                                        var more = "";
-         
-                                        $('#upload_more').uploadify({
-                                            'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
-                                            'uploader' : '<?php echo U("Uploads/phone");?>',
-                                            'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
-                                            'buttonText' : '图册上传',
-                                            'multi': true,
-                                            'onUploadSuccess' : function(file, data, response) {
-                                                // alert(data);
-                                                var old = $('#more').val();
-                                                if (old == '') {
-                                                    var src =data
-                                                }else{
-                                                    var src = $('#more').val()+ "&"+data
-                                                };
-                                                var one = data;
-                                                more += "<img height='50px' src='"+one+"'>";
-                                                $('#imgs_more').html(more);
-                                                $('#more').val(src);
+                                            function deleteListPic(){
+                                                $(".up_list_pic").html('');
+                                                $('#list_hidden').html('');
                                             }
-                                        });
                                         function openwindow()
                                         {
                                             var url = 'http://api.map.baidu.com/lbsapi/getpoint/'; //转向网页的地址;

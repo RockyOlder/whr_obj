@@ -1,0 +1,42 @@
+[F:\WWW\wrt\Api]下的子目录共14个，文件共26个
+0．[F:\WWW\wrt\Api]下无文件
+1．[F:\WWW\wrt\Api\Common]下的文件共1个
+  1．1  function.php
+2．[F:\WWW\wrt\Api\Conf]下的文件共2个
+  2．1  add.php
+  2．2  config.php
+3．[F:\WWW\wrt\Api\Controller]下的文件共12个
+  3．1  CateController.class.php
+  3．2  CollectController.class.php
+  3．3  CommentController.class.php
+  3．4  HomeController.class.php
+  3．5  IndexController.class.php
+  3．6  MemberController.class.php
+  3．7  OrderController.class.php
+  3．8  SearchController.class.php
+  3．9  ShopController.class.php
+  3．10  TestController.class.php
+  3．11  UploadController.class.php
+  3．12  VipController.class.php
+4．[F:\WWW\wrt\Api\data]下的文件共1个
+  4．1  data.json
+5．[F:\WWW\wrt\Api\Runtime]下的文件共1个
+  5．1  index.html
+6．[F:\WWW\wrt\Api\View]下的文件共1个
+  6．1  jquery.js
+7．[F:\WWW\wrt\Api\Common\Common]下无文件
+8．[F:\WWW\wrt\Api\Common\Conf]下的文件共1个
+  8．1  config.php
+9．[F:\WWW\wrt\Api\Runtime\Cache]下的文件共1个
+  9．1  index.html
+10．[F:\WWW\wrt\Api\Runtime\Data]下的文件共1个
+  10．1  index.html
+11．[F:\WWW\wrt\Api\Runtime\Logs]下的文件共2个
+  11．1  14_11_15.log
+  11．2  index.html
+12．[F:\WWW\wrt\Api\Runtime\Temp]下的文件共1个
+  12．1  index.html
+13．[F:\WWW\wrt\Api\View\Index]下的文件共1个
+  13．1  index.html
+14．[F:\WWW\wrt\Api\Runtime\Cache\Api]下的文件共1个
+  14．1  ad7abbd5806751efc2cbcfb3207f324e.php

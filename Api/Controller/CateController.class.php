@@ -24,7 +24,7 @@ class CateController extends Controller {
 
                     S("top_cate",$cate,600);
                 }
-    			$out['data'] = $cate;    			
+    			$out['data'] = $cate;   			
     			$this->ajaxReturn($out);
     		}
 	       

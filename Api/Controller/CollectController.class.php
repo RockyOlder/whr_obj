@@ -25,6 +25,7 @@ class CollectController extends Controller {
           }
           //判断用户是否已经收藏
           $sql ="select id from ".C('DB_PREFIX')."life_co_shop where shopid=$shopid and userid = $userid";
+          // dump($sql);
           $data = M()->query($sql);
           if (!empty($data)) {
               $out['success'] = 0;
@@ -45,7 +46,7 @@ class CollectController extends Controller {
         $this->ajaxReturn($out);
 	       
     }
-    // 添加商店收藏
+    //删除商店收藏
     public function delshop()
     {
         $id = I('request.version',1);

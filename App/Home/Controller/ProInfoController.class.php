@@ -178,6 +178,15 @@ class ProInfoController extends IsloginController {
         $this->ajaxReturn($info);
     }
 
+    public function url_ajaxswap() {
+        $id = I('post.id', 0);
+        // echo $id;exit;
+        $pro = M("ProIdle");
+        $info = $pro->where("id=" . $id)->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
+    }
+
     public function url_ajaxActive() {
         $id = I('post.id', 0);
         // echo $id;exit;
@@ -331,7 +340,7 @@ class ProInfoController extends IsloginController {
         $this->assign('obj', $pro);
         $this->assign('pro', $prolist);
         if (IS_POST) {
-      //      print_r($_REQUEST);exit;
+            //      print_r($_REQUEST);exit;
             if ($action == "add") {
                 $pro = M("ProDecorate");
                 if ($data = $pro->create()) {
@@ -343,7 +352,7 @@ class ProInfoController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-         //       echo 1;exit;
+                //       echo 1;exit;
                 $pro = M("ProDecorate");
                 if ($data = $pro->create()) {
                     if ($pro->save($data)) {
@@ -377,13 +386,52 @@ class ProInfoController extends IsloginController {
                         $this->error("用户添加失败！", U('/Home/proInfo/repair'));
                     }
                 }
+            } /* elseif ($action == "edit") {
+              $pro = M("ProComplaints");
+              if ($data = $pro->create()) {
+              if ($pro->save($data)) {
+              $this->success('修改成功!', U('/Home/proInfo/repair'));
+              } else {
+              $this->error("修改失败！", U('/Home/proInfo/repair'));
+              }
+              }
+              }
+             * Idle
+             */
+        }
+        $this->assign('data', $data);
+        $this->display();
+    }
+
+    public function swap() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "闲置交换";
+        $action = I('post.action');
+        $pro = M("ProIdle");
+        $prolist = $pro->select();
+        $this->assign('pro', $prolist);
+        if (IS_POST) {
+            if ($action == "add") {
+                $pro = M("ProIdle");
+                if ($data = $pro->create()) {
+                    //  $data['Release_time'] = time();
+                    $data['add_time'] = time();
+                    if ($pro->add($data)) {
+                        $url = U('/Home/proInfo/swap');
+                        $this->success("用户添加成功！", $url);
+                    } else {
+                        $this->error("用户添加失败！", 'index');
+                    }
+                }
             } elseif ($action == "edit") {
-                $pro = M("ProComplaints");
+                $pro = M("ProIdle");
                 if ($data = $pro->create()) {
                     if ($pro->save($data)) {
-                        $this->success('修改成功!', U('/Home/proInfo/repair'));
+                        $url = U('/Home/proInfo/swap');
+                        $this->success('修改成功!', $url);
                     } else {
-                        $this->error("修改失败！", U('/Home/proInfo/repair'));
+                        $this->error("修改失败！", 'index');
                     }
                 }
             }

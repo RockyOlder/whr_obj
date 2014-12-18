@@ -10,23 +10,45 @@ class UserController extends Controller {
 	        }
 	}
     public function register(){
-    		$id = I('post.version',1);
-    		$username=I('post.phone',1);
-    		$password = md5(I('post.password',1));
-    		$salt = round(999,9999);
-    		$password = change($password,$salt); 
+    		$id = I('request.version',1);
+    		$username=I('request.phone',1);
+    		$password = md5(I('request.password',1));
+    		$salt = mt_rand(999,9999);
+    		$password = change($salt,$password); 
     		$out['success'] = 0;
+            $time=time();
 
     		if ($id == 1) {
-    			$sql = "insert into ".C('DB_PREFIX')."user set user_name = '$username',password = '$password',salt = $salt";
+    			$sql = "insert into ".C('DB_PREFIX')."user set user_name = '$username',password = '$password',reg_time=$time,salt = $salt";
     			$bool = M()->query($sql);
+                // dump($bool);
     			if ($bool != '') {
     				$out['success']  = 1;
+                    
     				$out['msg']="注册成功";
-                    $time=time();
-                    $sql ="update ".C('DB_PREFIX')."user set reg_time=$time where user_name= '$username'";
+
+                    //给用户添加上一个首页爱好
+                    $sql ="select user_id from ".C('DB_PREFIX')."user  where user_name= '$username'";
                         // var_dump($sql);
-                    M()->query($sql);
+                    $data =M()->query($sql);
+                    if ($data) {
+                         $id = $data[0]['user_id'];
+                          $data = S('home_cate_o');
+                        if (!$data) {
+                            $sql = 'select `title`,type_id from '.C('DB_PREFIX')."home_cate";
+                            $data = M()->query($sql);
+                            S('home_cate_o',$data,36000);
+                        }                        
+                         // dump($data);
+                         foreach ($data as $k => $v) {
+                             $data = array(
+                                'uid'=>$id,
+                                'title'=>$v['title'],
+                                'type_id'=>$v['type_id']
+                                );
+                             M('user_hobby')->add($data);
+                         }
+                    }                   
     			}else{
     				$out['msg']="注册失败";
     			}
@@ -35,9 +57,9 @@ class UserController extends Controller {
 	       
         }
     public function verify(){
-    	$phone = I('post.phone',1);
+    	$phone = I('request.phone',1);
     	// 获取版本号码
-    	$id = I('post.version',1);
+    	$id = I('request.version',1);
     	// dump($id);
     	//获取用户获取验证码的用途1 注册，2找回密码，3修改手机号码
     	$type =$data['type'];
@@ -61,13 +83,14 @@ class UserController extends Controller {
     		$out['num']=$num;
     		$out['success'] = 1;
     		// dump($out);die();
+            // sendMsg($phone,$msg);
     		$this->ajaxReturn($out);
     	}
 
     }
     public function checkname(){
-    		$id = I('post.version',1);
-    		$phone = I('post.phone',1);
+    		$id = I('request.version',1);
+    		$phone = I('request.phone',1);
 	       $out['success'] = 0;
     		if ($id == 1) {
     			$sql = "select user_id from ".C('DB_PREFIX')."user where user_name = '$phone'";
@@ -82,33 +105,172 @@ class UserController extends Controller {
     			$this->ajaxReturn($out);
     		}
         }
+        //修改用户手机号码
+    public function changePhone(){
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        $phone = I('request.phone',1);
+        if ($userId == 0) {
+            $out['success'] = 0;
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
+        }
+       $out['success'] = 0;
+        if ($id == 1) {
+            $sql = "select user_id from ".C('DB_PREFIX')."user where user_name = '$phone'";
+            // dump($sql);
+            $bool = M()->query($sql);
+            if ($bool) {
+                $out['msg'] = '用户手机号码已经存在！';
+                $out['success'] = 0;
+                $this->ajaxReturn($out);
+            }
+
+            $sql = "update ".C('DB_PREFIX')."user set user_name = '$phone' where user_id = '$userId'";
+            // dump($sql);
+            $bool = M()->execute($sql);
+
+            // var_dump($bool);die();
+            if (!$bool) {                    
+                $out['msg']="修改不成功";
+
+            }else{
+                $out['msg']="成功修改用户手机号码";
+                $out['success']  = 1;
+            }
+            $this->ajaxReturn($out);
+        }
+    }
+        //获取用户 昵称
+    public function getNick(){
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        if ($userId == 0) {
+            $out['success'] = 0;
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
+        }
+       $out['success'] = 0;
+        if ($id == 1) {
+            $sql = "select nickname from ".C('DB_PREFIX')."user where user_id = '$userId'";
+            // dump($sql);
+            $data = M()->query($sql);
+            if (!$data) {
+                $out['msg'] = '不存在该用户';
+                $out['success'] = 0;
+                $this->ajaxReturn($out);
+            }else{
+                $out['data']=current($data);
+                $out['success']  = 1;
+            }
+            $this->ajaxReturn($out);
+        }
+    }
+        //修改用户昵称
+    public function changeNick(){
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        $nickName = I('request.nickName','');
+         $out['success'] = 0;
+        if ($userId == 0) {           
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
+        }elseif($nickName == ''){
+            $out['msg'] ='用户名不能为空';
+            $this->ajaxReturn($out);
+        }
+        if ($id == 1) {
+            $sql = "select user_id from ".C('DB_PREFIX')."user where nickname = '$nickName'";
+            // dump($sql);
+            $bool = M()->query($sql);
+            if ($bool) {
+                $out['msg'] = '昵称不能和原来的一样';
+                $out['success'] = 0;
+                $this->ajaxReturn($out);
+            }
+
+            $sql = "update ".C('DB_PREFIX')."user set nickname = '$nickName' where user_id = '$userId'";
+            // dump($sql);
+            $bool = M()->execute($sql);
+
+            // var_dump($bool);die();
+            if (!$bool) {                    
+                $out['msg']="修改不成功";
+
+            }else{
+                $out['msg']="成功修改用户昵称";
+                $out['success']  = 1;
+            }
+            $this->ajaxReturn($out);
+        }
+    }
+     public function changeEmail(){
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        $email = I('request.email','');
+         $out['success'] = 0;
+        if ($userId == 0) {           
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
+        }
+        if ($id == 1) {
+            $sql = "select user_id from ".C('DB_PREFIX')."user where email = '$email'";
+            // dump($sql);
+            $bool = M()->query($sql);
+            if ($bool) {
+                $out['msg'] = '昵称不能和原来的一样';
+                $out['success'] = 0;
+                $this->ajaxReturn($out);
+            }
+
+            $sql = "update ".C('DB_PREFIX')."user set email = '$email' where user_id = '$userId'";
+            // dump($sql);
+            $bool = M()->execute($sql);
+
+            // var_dump($bool);die();
+            if (!$bool) {                    
+                $out['msg']="修改不成功";
+
+            }else{
+                $out['msg']="成功修改用户邮箱";
+                $out['success']  = 1;
+            }
+            $this->ajaxReturn($out);
+        }
+    }
     public function login(){
-    		$id = I('post.version',1);
-    		$username = I('post.phone',1);
-    		$password = md5(I('post.password',1));                        
-            $plant = I('post.type',1);	
+    		$id = I('request.version',1);
+    		$username = I('request.phone',1);
+    		$password = md5(I('request.password',1));                        
+            $plant = I('request.type',1);	
     		$out['success'] = 0;
 
     		if ($id == 1) {
-    			$sql = "select user_id,salt,user_rank,password,user_rank,province,city,area,village,face,is_lock,face from ".C('DB_PREFIX')."user where user_name = '$username'";
+    			$sql = "select user_id,user_name,email,salt,user_rank,password,user_rank,province,city,area,village,face,is_lock,face,nickname,true_name,reg_time,is_forgot from ".C('DB_PREFIX')."user where user_name = '$username'";
     			// var_dump($sql);die();
     			$data = M()->query($sql);
     			// var_dump($data);
     			if (is_array($data)) {
     				$data = current($data);
+                    $data['reg_time'] = date('Y-m-d',$data['reg_time']);
                     // 判断用户是否被锁定
                     if($data['is_lock'] == 1){
                         $out['msg']="用户已经被锁定，请联系管理员";
                         $this->ajaxReturn($out);
                     }
     				$salt = $data['salt'];
-    				$password = change($password,$salt); 
+    				$password = change($salt,$password); 
     				// dump($password);
                     // dump($data);
     				if ($password == $data['password']) {
                         unset($data['password']);//删除密码
     					$out['msg'] = "登录成功";
     					$out['success'] = 1;
+                        
+                        $version = M('region_sys')->field('address_version')->where('id=1')->find();
+
+                        $out['address_version'] = $version['address_version'];
+
     					$out['data'] = $data;
                         // 更新用户登陆了信息
                         $ip = $_SERVER["REMOTE_ADDR"];
@@ -121,15 +283,16 @@ class UserController extends Controller {
                             $c=substr($city['content']['address_detail']['city'], 0,-3);
                             // dump($c);
                             $sql ="select region_id from ".C('DB_PREFIX')."region where region_level = 2 and region_name like '$c%'";
-                            $data = M()->query($sql);
+                            $region = M()->query($sql);
                             // dump($data);die();
-                           if (is_array($data)) {
-                                $city['content']['address_detail']['city_code'] = $data[0]['region_id'];
+                           if (is_array($region)) {
+                                $city['content']['address_detail']['city_code'] = $region[0]['region_id'];
                            }
                         }
                         // dump($city);die();
                         $out['city']= $city;
-                        // $time = time();
+                        $time = time();
+                        // dump($data);
                         $sql ="update ".C('DB_PREFIX')."user set login_time=$time,login_ip = '$ip',plant=$plant where user_id = $data[user_id]";
                         // var_dump($sql);
                         M()->query($sql);
@@ -143,6 +306,121 @@ class UserController extends Controller {
     			$this->ajaxReturn($out);
     		}
         }
+        // 判断用户修改密码的时候是否输入正确
+        public function checkPwd(){
+            // phpinfo();
+            $id = I('request.version',1);
+            $userId = I('request.userId',0,"intval");
+            $password = I('request.password');
+            // dump($password);
+            // dump(md5($password));
+            // dump(md5(4073 . md5('')));
+            if ($userId == 0) {
+                $out['success'] = 0;
+                $out['msg'] =C('no_id');
+                $this->ajaxReturn($out);
+            }
+            if ($id == 1) {
+                // 查询出用户的前缀
+                $sql ="select salt,password from ".C('DB_PREFIX')."user where user_id =$userId";
+                // dump($sql);
+                $data =M()->query($sql);
+                if ($data) {
+                    $data = current($data);
+                   $salt =$data['salt'];
+                   $pass = $data['password'];
+                }
+                // dump($data);
+                // dump($password);
+                $password = change($salt);
+                // dump($password);
+                if ($password == $pass) {
+                    $out['success'] = 1;
+                    $out['msg'] ='密码正确！';
+
+                }else{
+                     $out['success'] = 0;
+                    $out['msg'] ='密码错误！';
+
+                }
+                $this->ajaxReturn($out);
+            }
+        }
+          //修改用户 密码
+    public function changePwd(){
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        $password = I('request.password','');
+        $newpwd = I('request.newPwd','');
+         $out['success'] = 0;
+        if ($userId == 0) {           
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
+        }elseif($password == '' || $newpwd == ''){
+            $out['msg'] ='密码不能为空';
+            $this->ajaxReturn($out);
+        }
+        if ($id == 1) {
+           // 查询出用户的前缀
+                $sql ="select salt,password from ".C('DB_PREFIX')."user where user_id =$userId";
+                // dump($sql);
+                $data =M()->query($sql);
+                if ($data) {
+                    $data = current($data);
+                   $salt =$data['salt'];
+                   $pass = $data['password'];
+                }
+                // dump($data);
+                $password = change($salt,$password);
+                // dump($password);
+                if ($password != $pass) {
+                    $out['success'] = 0;
+                    $out['msg'] ='原密码输入不争取正确！';
+                    $this->ajaxReturn($out);
+                }else{
+                    $password = change($salt,$newpwd);
+                    $sql = "update ".C('DB_PREFIX')."user set password ='$password' where user_id=$userId";
+                    // dump($sql);
+                    $bool = M()->execute($sql);
+                    // dump($bool);
+                    if ($bool) {
+                        $out['success'] = 1;
+                        $out['msg'] ="你的密码已经成功修改！";
+                    }else{
+                        $out['success'] = 0;
+                        $out['msg'] = '密码修改失败！';
+                    }
+                }
+            $this->ajaxReturn($out);
+        }
+    }
+    //检查是否有新版本
+    public function checkVersion(){
+        $version_id = I('request.version',1,"intval");
+        $data = array();
+            $sql = "SELECT version,des,url FROM " . C('DB_PREFIX') ."version WHERE is_ok = 1";
+            // var_dump($sql);
+            $version_info = M()->query($sql);
+            // var_dump($version_info);die;
+            if (is_array($version_info)) {
+                $data = current($version_info);
+            }
+            // var_dump(empty($data))
+        if (empty($data)) {
+            $out['success'] = 0;
+            $out['msg']="没有新版本";
+            $this->ajaxReturn($out);
+        } else {
+            $out['success'] = 1;
+            $out['data']=$data;
+            $this->ajaxReturn($out);
+        }
+    }
+        /**
+
+        *
+        *下面是函数，上面是方法
+        */
         // 通过ip获取用户的地址
     function get_address_from_ip($ip)
   

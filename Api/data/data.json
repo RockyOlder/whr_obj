@@ -430,7 +430,24 @@
 					"verify"          : "5.00"
 				}
 			}
-		},"POST User/register" :
+		}
+		,"POST User/checkVersion" :
+		{
+			"__desc__" : "检查版本更新",
+			"request" :
+			{ 
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/register" :
 		{
 			"__desc__" : "用户注册",
 			"request" :
@@ -473,6 +490,114 @@
 			{
 				"version":"1",
 				"phone"  : "junjun"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/changePhone" :
+		{
+			"__desc__" : "修改用户手机号码",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"phone"  : "186******11"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/changeEmail" :
+		{
+			"__desc__" : "修改邮箱",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"email"  : "邮箱"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/getNick" :
+		{
+			"__desc__" : "获取用户的昵称",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/changeNick" :
+		{
+			"__desc__" : "修改用户的昵称",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"nickName"  : "nice"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/checkPwd" :
+		{
+			"__desc__" : "检查用户密码是否正确",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"password"  : "nice"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/changePwd" :
+		{
+			"__desc__" : "修改用户密码",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"password"  : "nice",
+				"newPwd"  : "nice"
 			},
 			"response" :
 			{
@@ -565,13 +690,121 @@
 				}
 			}
 		}
-		,"POST Home/home" :
+		,"POST Home/hobby" :
 		{
-			"__desc__" : "首页商品推荐",
+			"__desc__" : "获取用户爱好",
 			"request" :
 			{
 				"version":"1",
 				"user_id":"用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/hobbyAdd" :
+		{
+			"__desc__" : "添加用户爱好",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"typeId":"分类id",
+				"typeName":"分类名称"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/hobbyDel" :
+		{
+			"__desc__" : "删除用户爱好",
+			"request" :
+			{
+				"version":"1",
+				"hobbyId":"爱好id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/homeShop" :
+		{
+			"__desc__" : "首页推荐商店",
+			"request" :
+			{
+				"version":"1",
+				"type":"城市的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/homeShopAll" :
+		{
+			"__desc__" : "推荐商店列表",
+			"request" :
+			{
+				"version":"1",
+				"page":"页码默认1",
+				"pageSize":"数量默认20条",
+				"type":"城市的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/homeGood" :
+		{
+			"__desc__" : "首页推荐商品",
+			"request" :
+			{
+				"version":"1",
+				"type":"城市的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Home/homeGoodAll" :
+		{
+			"__desc__" : "推荐商品列表",
+			"request" :
+			{
+				"version":"1",
+				"type":"城市的id",
+				"page":"页码默认1",
+				"pageSize":"数量默认20条"
 			},
 			"response" :
 			{
@@ -651,6 +884,19 @@
 				}
 			}
 		}
+		,"POST Home/getVillage" :
+		{
+			"__desc__" : "地区id获取所有小区",
+			"request" :
+			{
+				"version":"1",
+				"areaId":"地区id"
+			},
+			"response" :
+			{
+				
+			}
+		}
 		,"POST Shop/slist" :
 		{
 			"__desc__" : "获取商店列表",
@@ -660,6 +906,9 @@
 				"type":"0全部商品，1美食，2便民，3旅游景点，4体育，5车生活 6休闲娱乐 7教育培训，8家装家电，9宠物花鸟",
 				"city_id":"城市id",
 				"area_id":"地区id",
+				"sort":"1从低价到高价,2从高价到低价,3评价最高,4离我最近,5销量",
+				"latitude":"经度",
+				"longitude":"纬度",
 				"page":"1",
 				"pageSize":"20"
 			},
@@ -761,15 +1010,19 @@
 				}
 			}
 		}
-		,"POST Search/cate" :
+		
+		,"POST Comment/add" :
 		{
-			"__desc__" : "首页爱好搜索商品",
+			"__desc__" : "对导航商品评论",
 			"request" :
 			{
 				"version":"1",
-				"cate_id"    : "分类的id",
-				"page"    : "页码",
-				"pageSize"    : "显示条数"
+				"goodid"    : "商品id",
+				"userid"    : "用户id",
+				"shopid":"商店id",
+				"content":"评论内容",
+				"star":"评论星级",
+				"pic":"图片地址"
 			},
 			"response" :
 			{
@@ -780,17 +1033,35 @@
 				}
 			}
 		}
-		,"POST Comment/add" :
+		,"POST Comment/vipAdd" :
 		{
-			"__desc__" : "对商品评论",
+			"__desc__" : "vip商品评论1216",
 			"request" :
 			{
 				"version":"1",
 				"goodid"    : "商品id",
 				"userid"    : "用户id",
-				"shopid":"商店id",
 				"content":"评论内容",
-				"star":"评论星级"
+				"star":"评论星级",
+				"pic":"图片地址",
+				"userName":"用户姓名"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Comment/getVip" :
+		{
+			"__desc__" : "获取vip商品评论1216",
+			"request" :
+			{
+				"version":"1",
+				"goodid"    : "商品id"
 			},
 			"response" :
 			{
@@ -911,9 +1182,9 @@
 			"request" :
 			{
 				"version":"1",
-				"userid":"用户的id",
-				"address"    : "地址详情",
-				"username"    : "收货人姓名",
+				"userId":"用户的id",
+				"address"    : "广东省深圳市宝安区街道",
+				"userName"    : "收货人姓名",
 				"phone"    : "电话",
 				"notice"	:"备注信息"
 			},
@@ -926,5 +1197,712 @@
 				}
 			}
 		}
+		,"POST order/getAddress" :
+		{
+			"__desc__" : "获取所有收货地址",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/getDefault" :
+		{
+			"__desc__" : "获取默认收货地址",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/isDefault" :
+		{
+			"__desc__" : "修改默认地址",
+			"request" :
+			{
+				"version":"1",
+				"addressId":"地址的id",
+				"userId":"用户的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/addressDel" :
+		{
+			"__desc__" : "删除收货地址",
+			"request" :
+			{
+				"version":"1",
+				"addressId":"地址的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/orderAdd" :
+		{
+			"__desc__" : "添加订单",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户的id",
+				"address"    : "地址id",
+				"express":"1",
+				"bid":"商店id",
+				"billType":"发票类型0为不要发票1为普通2为增值税发票",
+				"info"    : "商品id goodid，数量 number，价格price",
+				"cate":"0生活导航1为vip订单",
+				"type":"0销售1充值",
+				"carl_number":"充值卡号",
+				"price":"充值卡的金额"
+
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/userOrder" :
+		{
+			"__desc__" : "获取用户订单",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户的id",
+				"type"    : "订单类型0代付款1待发货2待收货3待评价"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/userAll" :
+		{
+			"__desc__" : "获取用户所有订单",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户的id",
+				"type":"0生活1vip"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/userBill" :
+		{
+			"__desc__" : "设置用户发票",
+			"request" :
+			{
+				"version":"1",
+				"bid":"发票编号",
+				"userId":"用户的id",
+				"type":"0普通发票默认0",
+				"isSelf":"默认0为私人发票",
+				"header":"发票抬头",
+				"notice":"备注"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST order/orderPay" :
+		{
+			"__desc__" : "订单付款",
+			"request" :
+			{
+				"version":"1",
+				"orderId":"订单id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/orderDel" :
+		{
+			"__desc__" : "关闭订单",
+			"request" :
+			{
+				"version":"1",
+				"orderId":"订单id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/getExpress" :
+		{
+			"__desc__" : "获取配送方式",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/getBill" :
+		{
+			"__desc__" : "获取发票",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/getFree" :
+		{
+			"__desc__" : "获取运费",
+			"request" :
+			{
+				"version":"1",
+				"expressId":"快递的id",
+				"city":"收货地址",
+				"info":"商品id：商品数量json格式"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST member/index" :
+		{
+			"__desc__" : "个人中心首页",
+			"request" :
+			{
+				"version":"1",
+				"userId":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST member/vip" :
+		{
+			"__desc__" : "VIP申请",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"nickName":"昵称",
+				"email":"电子邮件",
+				"name":"真是姓名",
+				"city":"城市id",
+				"area":"地区id",
+				"village":"小区id",
+				"address":"地址"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/index" :
+		{
+			"__desc__" : "VIP首页",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/vipCate" :
+		{
+			"__desc__" : "VIP商品分类",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/vipGoods" :
+		{
+			"__desc__" : "VIP商品列表",
+			"request" :
+			{
+				"version":"1",
+				"type":"分类id",
+				"page":"1",
+				"pageSize":"20",
+				"sort":"0销量，1价格从低到高，2价格从高到低，3最新排序"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/vipInfo" :
+		{
+			"__desc__" : "VIP商品详情",
+			"request" :
+			{
+				"version":"1",
+				"goodId":"商品id",
+				"type":"类型默认为普通商品1为活动商品"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/userBack" :
+		{
+			"__desc__" : "用户提交反馈意见",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"userName":"用户姓名",
+				"content":"提交内容"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/actAll" :
+		{
+			"__desc__" : "获取活动的列表",
+			"request" :
+			{
+				"version":"1",
+				"activityId":"活动id",
+				"page":"1",
+				"pageSize":"20"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/comment" :
+		{
+			"__desc__" : "vip商品收藏",
+			"request" :
+			{
+				"version":"1",
+				"goodId":"商品id",
+				"userId":"用户id",
+				"actId":"活动id(活动商品填写)"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/commentDel" :
+		{
+			"__desc__" : "删除vip收藏",
+			"request" :
+			{
+				"version":"1",
+				"collectId":"收藏的编号id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/commentList" :
+		{
+			"__desc__" : "收藏列表",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Search/life" :
+		{
+			"__desc__" : "生活导航搜索",
+			"request" :
+			{
+				"version":"1",
+				"cityId":"城市id",
+				"city":"城市名字",
+				"search":"搜索内容",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/notice" :
+		{
+			"__desc__" : "获取物业的循环公告",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/noticelist" :
+		{
+			"__desc__" : "物业资讯列表",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/noticeOne" :
+		{
+			"__desc__" : "物业资讯详情",
+			"request" :
+			{
+				"version":"1",
+				"noticeId":"咨询id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/noticeBack" :
+		{
+			"__desc__" : "物业资讯回复1215",
+			"request" :
+			{
+				"version":"1",
+				"noticeId":"咨询id",
+				"userId":"用户id",
+				"nickname":"用户昵称",
+				"content":"内容"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/neighbour" :
+		{
+			"__desc__" : "邻里拼车（活动）列表",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id",
+				"type":"0拼车1活动",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}		
+		,"POST pro/neighbourAdd" :
+		{
+			"__desc__" : "发表邻里拼车（活动）回复拼车",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id",
+				"title":"标题(回复时不用填写)",
+				"content":"内容",
+				"passTime":"过期时间(回复时不用填写)",
+				"userId":"用户的id",
+				"userName":"用户名称",
+				"picture":"图片(回复时可以不用填写)",
+				"type":"0拼车1活动",
+				"pid":"回复编号id"
+
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/property" :
+		{
+			"__desc__" : "物管信息列表",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"type":"0维修报障1装修申请2投诉建议",
+				"page":"页码",
+				"pageSize":"显示数量"
+
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/propertyAdd" :
+		{
+			"__desc__" : "发布物管信息1216",
+			"request" :
+			{
+				"version":"1",
+				"title":"标题(回复时不用填写)",
+				"content":"内容",
+				"passTime":"过期时间(回复时不用填写)",
+				"userId":"用户的id",
+				"userName":"用户名称",
+				"picture":"图片(回复时可以不用填写)",
+				"address":"地址",
+				"type":"0维修报障1装修申请2投诉建议",
+				"pid":"回复编号id"
+
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/neighbourInfo" :
+		{
+			"__desc__" : "邻里拼车（活动）详情",
+			"request" :
+			{
+				"version":"1",
+				"actionId":"(拼车)活动id",
+				"type":"0拼车1活动"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/actionSign" :
+		{
+			"__desc__" : "邻里活动报名1217",
+			"request" :
+			{
+				"version":"1",
+				"actionId":"活动id",
+				"userId":"用户",
+				"userName":"用户名",
+				"trueName":"真是姓名"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/index" :
+		{
+			"__desc__" : "社区调查列表页面",
+			"request" :
+			{
+				"version":"1",
+				"propertyId":"物业id",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		
+		,"POST survey/addressAdd" :
+		{
+			"__desc__" : "添加通讯录",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"name":"名称",
+				"phone":"电话",
+				"unit":"单位"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/getAddress" :
+		{
+			"__desc__" : "获取用户通讯录",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/changePhone" :
+		{
+			"__desc__" : "修改用户通讯录",
+			"request" :
+			{
+				"version":"1",
+				"phoneId":"通讯录id",
+				"name":"name 或者 phone 或者 unit",
+				"content":"人名或者号码或者单位"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/searchPhone" :
+		{
+			"__desc__" : "搜索用户通讯录",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"words":"搜索词"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/fetchAdd" :
+		{
+			"__desc__" : "发布闲置交换",
+			"request" :
+			{
+				"version":"1",
+				"propertyId":"物业id",
+				"userId":"用户id",
+				"userName":"用户名称",
+				"title":"标题",
+				"content":"内容",
+				"pic":"图片路径",
+				"price":"价格",
+				"passTime":"过期时间（回复是不用输入）",				
+				"phone":"联系电话",
+				"pid":"回复填写交换的id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/fetchList" :
+		{
+			"__desc__" : "限制交换列表",
+			"request" :
+			{
+				"version":"1",
+				"propertyId":"物业id",
+				"userId":"用户id（查找我的交换列表时提交）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST survey/fetchInfo" :
+		{
+			"__desc__" : "限制交换详情",
+			"request" :
+			{
+				"version":"1",
+				"fetchId":"闲置交换id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		
 	}
 }

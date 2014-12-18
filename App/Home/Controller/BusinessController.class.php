@@ -41,7 +41,7 @@ class BusinessController extends IsloginController {
         $this->assign('pro', $pro);
         if (IS_POST) {
             // 提交过来的时候讲列表图片组合为一个数组
-             //   print_r($_REQUEST);exit;
+            //   print_r($_REQUEST);exit;
             $path = I('post.path');
             $mid = I('post.mid');
             $name = I('post.pic_name');
@@ -55,7 +55,7 @@ class BusinessController extends IsloginController {
             }
             //   exit;
             $more_pic = json_encode($path);
-            
+
             //  dump($more_pic);exit;
             $city = I('post.city', 0);
             $id = I('post.id');
@@ -158,12 +158,12 @@ class BusinessController extends IsloginController {
     }
 
     public function goods() {
- 
+
         $lifeGood = M("LifeGoods l");
         $data = $lifeGood->field('l.*,b.id,b.name')
                 ->join('wrt_business AS b ON l.bid=b.id')
                 ->select();
-      //  print_r($data);exit;
+        //  print_r($data);exit;
         $this->assign('data', $data);
         $this->display();
     }
@@ -189,6 +189,7 @@ class BusinessController extends IsloginController {
                 $path[$k] = $tem;
             }
             $_POST['pic'] = json_encode($path);
+            $goods_img = json_encode($path);
             $str = formantpost();
             if ($act == "add") {
                 $sql = "insert into " . C('DB_PREFIX') . "life_goods set add_time=" . time() . "," . $str;
@@ -202,14 +203,18 @@ class BusinessController extends IsloginController {
                 }
             }
             if ($act == "edit") {
-                $sql = "update " . C('DB_PREFIX') . "life_goods set add_time=" . time() . "," . $str . " where lgid =$id";
-                // dump($sql);die();
-                $bool = M()->execute($sql);
-
-                if ($bool) {
-                    $this->success('修改成功');
+            //  print_r($goods_img);exit;
+                $goods = D("lifeGoods");
+                if ($data = $goods->create()) {
+                    $data["pic"] = $goods_img;
+                    if ($goods->save($data)) {
+                        $url = U('/Home/Business/goods');
+                        $this->success("修改成功！", $url);
+                    } else {
+                        $this->error("用户修改失败！", 'index');
+                    }
                 } else {
-                    $this->error('修改失败');
+                    $this->error($goods->getError());
                 }
             }
         }
@@ -225,10 +230,12 @@ class BusinessController extends IsloginController {
             $data['btn'] = "编辑";
             $info = M('life_goods')->where('lgid = ' . $data['id'])->find();
             // dump($info);
+            //        print_r($info);exit;
             $pic = $info['pic']; // dump($more_pic);
 
             $info['pic'] = json_decode($pic, true);
-            // dump($info);die();
+            //        dump($info['pic']);die();
+
             $this->assign("info", $info);
         }
 

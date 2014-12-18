@@ -186,7 +186,7 @@
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                         <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td>
                         <td class="th_default">    
-                            <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>    
+                           <!-- <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>     -->
                             <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)"> 审核</a>
                         </td>
