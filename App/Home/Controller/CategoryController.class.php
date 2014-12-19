@@ -66,7 +66,7 @@ class CategoryController extends IsloginController {
                     
                     if ($cat->save($data)) {  $url = U('/Home/category/index');  $this->success("修改成功！", $url);
                     } else {
-                        $url = U('/Home/category/add', '', false);  $this->error('修改失败!');
+                        $url = U('/Home/category/add', '', false);  $this->error('修改失败!',$url);
                     }
                 } else {
                     $this->error($cat->getError());
