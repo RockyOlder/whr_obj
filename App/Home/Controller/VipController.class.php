@@ -42,7 +42,7 @@ class VipController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-              //  print_r($_REQUEST);exit;
+                //  print_r($_REQUEST);exit;
                 $vip = D("Vip");
                 if ($vipData = $vip->create()) {
                     if ($vip->save($vipData)) {
@@ -64,7 +64,7 @@ class VipController extends IsloginController {
             $vip = M("Vip");
             $region = M("region");
             $vipList = $vip->where("store_id=$id")->find();
-          //  print_r($vipList);exit;
+            //  print_r($vipList);exit;
             $provine = $vipList['province'];
             $regionProv = $region->where("REGION_ID=" . $provine)->find();
             $this->assign("region", $regionProv);
@@ -81,6 +81,28 @@ class VipController extends IsloginController {
         if ($result) {
             redirect($_SERVER["HTTP_REFERER"]);
         }
+    }
+
+    public function orderDel() {
+        $id = I('get.id', 0);
+        $order = D('Order');
+        $result = $order->where("oid=$id")->find();
+        $ordertime = date("Y-m-d", $result['time']);
+        if ($this->getChaBetweenTwoDate(date("Y-m-d"), $ordertime) > 7) {
+            if ($order->where("oid=$id")->delete()) {
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $url = U('/Home/order/index', '', false);
+            $this->error('订单未过期!');
+        }
+    }
+
+    public function order() {
+        $order = M("Order");
+        $data = $order->select();
+        $this->assign('data', $data);
+        $this->display();
     }
 
 }
