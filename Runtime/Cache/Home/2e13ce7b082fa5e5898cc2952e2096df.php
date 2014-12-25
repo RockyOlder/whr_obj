@@ -5,7 +5,7 @@
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
-           <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
 
 
             <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
@@ -164,7 +164,7 @@
                                                                                                                                                     'buttonText' : '列表上传',
                                                                                                                                                     'multi': false,
                                                                                                                                                     'onUploadSuccess' : function(file, data, response) {
-                                                                                                                                                        // alert(data);
+                                                                                                                                                        //   alert(1)
                                                                                                                                                         obj= $.parseJSON(data);
                                                                                                                                                         list_img += "<img height='50px' src='"+obj.path+"'>";
                                                                                                                                                         list_img +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
@@ -173,6 +173,8 @@
                                                                                                                                                         hid +="<input name='suolie_img' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
                                                                                                                                                         hid +="<input name='list_img' id='list_pic' type='hidden' value='"+obj.min+"' />"
                                                                                                                                                         $('#list_hidden').html(hid);
+                                                                                                                                                        list_pic = '';
+                                                                                                                                                        hid='';
                                                                                                                                                     }
                                                                                                                                                 });
                                                                                                                                                 var img = '';
@@ -193,7 +195,7 @@
                                                                                                                                                         img += "<input type='hidden' name='pic_name[]' value='"+obj.name+"'/>";
                                                                                                                                                         img += "<img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
                                                                                                                                                         img += "</div>"
-                                                                                                                                                        $('#imgs_more').append(img);
+                                                                                                                                                        $('#imgs_more').html(img);
                                                                                                                                                         img = '';
                                                                                                                                                         num++;
                                                                                                                                                     }
@@ -202,9 +204,14 @@
                                                                                                                                                     $("#more_"+num+"").html('');
                                                                                                                                                     // $('this').parent('.more_list_pic').remove();
                                                                                                                                                 }
-                                                                                                                                                function deleteListPic(){
+                                                                                                                                                /*      function deleteListPic(){
                                                                                                                                                     $(".up_list_pic").html('');
                                                                                                                                                     $('#list_hidden').html('');
+                                                                                                                                                }*/
+                                                                                                                                                function deleteListPic(){
+                                                                                                                                   
+                                                                                                                                                    $("#imgs img").remove();
+                                                                                                                                                    $('#list_hidde input').remove();
                                                                                                                                                 }
                                                                                                                                                 function openwindow()
                                                                                                                                                 {
@@ -287,7 +294,7 @@
                                                                                                                                                     };
                                                                                                                                                     var area = function() {
                                                                                                                                                         var id=$(".area_on").val();
-                                                                                                                                                        //   alert(id)
+                                                                                                                                                        //     alert(id)
                                                                                                                                                         $.ajax({
                                                                                                                                                             url : "<?php echo U('City/vallcage','','');?>",
                                                                                                                                                             type : "post",
@@ -308,8 +315,8 @@
                                                                                                                                                         });  
                                                                                                                                                     };
                                                                                                                                                     area();
-                                                                                                                                                    province();
-                                                                                                                                                    // getvallage($(".city_in").val());
+                                                                                                                                                    //     province();
+                                                                                                                                                    getvallage($(".city_in").val());
                                
                                                                                                                                                     var pro = function() {
                                                                                                                                                         var id=$(".pro_into").val();

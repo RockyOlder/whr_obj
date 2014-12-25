@@ -92,7 +92,7 @@ class ProController extends Controller {
         $uid = I('request.userId',0,'intval');
         $author = I('request.nickname');
         $nid = I('request.noticeId',0,'intval');
-        $content = I('request.content');
+        $content = maskWord(I('request.content'));
 
         if ($id == 1) {
           if (!$uid ||  !$nid) {
@@ -132,7 +132,7 @@ class ProController extends Controller {
 
 
     }
-        // 邻里拼车列表
+        // 邻里拼车和活动列表
     public function neighbour(){
       // $data = sendMsg('18691988421','测试看看成功不');
       // dump($data);
@@ -158,15 +158,123 @@ class ProController extends Controller {
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
             $where = "proid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
             $page = ($page - 1) * $pageSize.",".$pageSize;
-            $field = "id,title,content,pic,author,add_time,views";
+            $field = "id,title,content,pic,author,add_time,views,uid";
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('add_time desc')->limit($page)->select();
             foreach ($data as $k => $v) {
+                $face = M('user')->field('face')->where(array('user_id'=>$v['uid']))->find();
+                if ($face) {
+                  $v['face'] = current($face);
+                }
                 $v['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
                 $data[$k] =$v;
             }
             $out['data'] = $data;
 
+            $this->ajaxReturn($out);
+        }
+
+    }
+    //邻里拼车（活动）详情
+    public function neighbourInfo(){
+        $id = I('request.version',1,'intval');
+        $aid = I('request.actionId',0,'intval');
+        $type = I('request.type',0,'intval');
+        // dump(!$proid);
+        if (!$aid) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $out['data']=null;
+              $this->ajaxReturn($out);
+          }
+        if ($id == 1) {
+            $table = $this->twoTable($type);
+            // dump($table);
+            $out['success'] = 1; 
+            // 更新浏览量
+            $sql = "update ".C('DB_PREFIX').$table." set views = views+1 where id =".$aid;
+            M()->execute($sql);
+            // 搜索对应的详情
+            $w = array('id'=>$aid);
+             $field = "id,title,content,pic,author,add_time,views";
+            if ($type == 1) {
+              $field .= " ,number";
+            }
+            
+
+            $data = M($table)->field($field)->where($w)->find();
+            $data['add_time'] = date('m-d',$data['add_time']);
+            $w = array('pid'=>$aid);
+            // dump($w);
+            // dump($table);//查找所有的回复->field($field)
+            $field = "id,content,author,add_time,uid,phone";
+            $son = M($table)->field($field)->where($w)->select();
+            foreach ($son as $k => $v) {
+              $v['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
+              $w=array('user_id'=>$v['uid']);
+              $face = M('user')->field('face')->where($w)->find();
+              $v['face'] = current($face);
+              $v['level'] = 1;
+              //查找该回复是否有楼主回复
+              $w1=array('pid'=>$v['id'],'uid' =>$data['id']);
+              $next = M($table)->field($field)->where($w1)->find();
+              if ($next) {
+                $face = M('user')->field('face')->where(array('user_id'=>$next['id']))->find();
+                $next['face'] = current($face);
+                $next['level'] = 2;
+              }
+              $v['son'] = $next;
+              $son[$k] = $v;
+            }
+            $data['son'] = $son;
+            // dump($son);
+            $out['data'] = $data;
+            $out['success'] = 1;
+            $out['msg'] = "";
+            $this->ajaxReturn($out);
+        }
+
+    }
+     //邻里活动报名
+    public function actionSign(){
+        $id = I('request.version',1,'intval');
+        $aid = I('request.actionId',0,'intval');
+        $uid = I('request.userId',0,'intval');       
+        // dump(!$proid);
+        if (!$aid || !$uid) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $out['data']=null;
+              $this->ajaxReturn($out);
+          }
+        if ($id == 1) {
+             $arr = array(
+              'uid'   =>  $uid,
+              'phone' =>  I('request.userName'),
+              'name'  =>  I('request.trueName')
+
+              );
+            $table = "pro_activity_sign";
+            $bool =M($table)->where($arr)->find();
+            if ($bool) {
+              $out['msg'] = '你已经报名了';
+              $out['success'] =0;
+              $out['data'] = null;
+              $this->ajaxReturn($out);
+            }
+            $arr['time'] = time();
+            // dump($table);
+            $out['success'] = 1; 
+            $bool = M($table)->add($arr);
+            if ($bool) {
+              $out['success'] = 1;
+              $out['data'] = $bool;
+              $out['msg'] = "报名成功";
+            }else{
+              $out['success'] = 0;
+              $out['data'] = $bool;
+              $out['msg'] = "报名失败";
+            }
             $this->ajaxReturn($out);
         }
 
@@ -178,11 +286,17 @@ class ProController extends Controller {
         $type = I('request.type',0,'intval');
         $arr['title'] = maskWord(I('request.title'));
         $arr['content'] = maskWord(I('request.content'));
-        $arr['pass_time'] = strtotime(I('request.passTime'));
+        $passTime =I('request.passTime');
+        $arr['pass_time'] = strtotime($passTime);
         $arr['uid'] = I('request.userId',0,'intval');
         $arr['author'] = I('request.userName');
         $arr['pic'] = I('request.picture');
         $arr['pid'] = I('request.pid',0,'intval');
+        $arr['proid'] = $proId;
+        $number = I('request.number',0,'intval');
+        if ($number != 0) {
+              $arr['number'] = $number;
+            }
         // dump(!$proid);
         if (!$proId) {
               $out['success'] = 0;
@@ -192,9 +306,7 @@ class ProController extends Controller {
         if ($id == 1) {
             // dump($arr);die();
             $arr['add_time'] = time();
-            if ($type) {
-              $table = "pro_activity";
-            }else {$table = "pro_car";}
+              $table = $this->twoTable($type);
             
             // dump($pageSize);
             $bool = M($table)->add($arr);
@@ -226,9 +338,16 @@ class ProController extends Controller {
         $arr['pass_time'] = strtotime(I('request.passTime'));
         $arr['uid'] = I('request.userId',0,'intval');
         $arr['owner'] = I('request.userName');
-        $arr['pic'] = I('request.picture');
+        // $arr['pic'] = I('request.picture');
+
         $arr['address'] = I('request.address');
         $arr['pid'] = I('request.pid',0,'intval');
+
+        $phone = I('request.phone');
+        if ($_FILES) {
+          $arr['pic'] = uploadMore();
+          dump($arr);die();
+        }
         // dump(!$proid);
         if (!$arr['uid']) {
               $out['success'] = 0;
@@ -239,6 +358,9 @@ class ProController extends Controller {
             // dump($arr);die();
             $arr['time'] = time();
             $table = $this->changeTable($type);
+            if ($type != 2 && $phone) {
+              $arr['phone'] = $phone;
+            }
             
             // dump($pageSize);
             // dump($table);
@@ -306,6 +428,7 @@ class ProController extends Controller {
         }
 
     }
+    
     private function changeTable($type){
         switch ($type) {
           case '1':
@@ -316,6 +439,18 @@ class ProController extends Controller {
             break;          
           default:
              $table = "pro_repair";
+            break;
+        }
+        return $table;
+    }
+    // 邻里拼车和活动详情
+    private function twoTable($type){
+        switch ($type) {
+          case '1':
+            $table = "pro_activity";
+            break;         
+          default:
+             $table = "pro_car";
             break;
         }
         return $table;

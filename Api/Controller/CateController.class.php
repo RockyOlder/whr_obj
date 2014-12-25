@@ -18,7 +18,7 @@ class CateController extends Controller {
                 // dump($cate);
                 // var_dump(empty($cate));die();
                 if (empty($cate)) {
-                    $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0";
+                    $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0 and open_type=0";
                     // dump($sql);die();
                     $cate = M()->query($sql);
 
@@ -57,9 +57,10 @@ class CateController extends Controller {
                 // dump($cate);
                 // var_dump(empty($cate));die();
                 if (empty($cate)) {
-                    $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0";
+                    $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0 and open_type = 0 order by sort desc";
                     // dump($sql);die();
                     $cate = M()->query($sql);
+                    // dump($cate);die();
                     if (is_array($cate)) {
                         foreach ($cate as $k => $v) {
                             $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = $v[type_id] and type_level = 1";
@@ -69,6 +70,9 @@ class CateController extends Controller {
                             $cate[$k] = $v;
                         }
                     }
+                    $cate[0]['type_id'] = '0';
+                    $cate[0]['son'][0]['type_id'] = '0';
+                    // dump($cate);
                     S("all_cate",$cate,600);
                 }
                 $out['data'] = $cate;               

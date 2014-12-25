@@ -88,7 +88,7 @@
                                             <li><label>分类</label>
                                                 <span class = 'pro'>
                                                     <select name = 'cate_pid' class="form-control" >
-                                                        <option>请选择</option>
+                                                        <option class="pro_into" value="{$find.type_id}">{$find.type_name}</option>
                                                         <volist name='cate' id = "vo">
                                                             <option class = "top_cate" value="{$vo.type_id}">{$vo.type_name}</option>
                                                         </volist>
@@ -239,76 +239,106 @@
 
                                     </script>
                                     <script type="Text/Javascript">
-                                        $(function(){
-                                            $('.pro_in').click(function(){
-                                                $('#vallage').hide(200);
-                                                var id =$(this).val();
-                                                // alert(id);
-                                                $('#city').attr('pro',id);
-                                                $('#val_list').html("<p>请选择城市</p>")
-                                                $.ajax({
-                                                    url : "{:U('City/city','','')}",
-                                                    type : "post",
-                                                    data : "id="+id,
-                                                    dataType : "json",
-                                                    success : function(data){                   
-                                                        if(data != null){
-                                                            var str=""
-                                                            $.each(data,function(key,val){
-                                                                str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
-                                                            })
-                                                            $('#city_list').html(str);
-                                                            $('#city_list').show(200);
-                                                        }
-                                                    }
-                                                });         
-                                            })
-                                            $('.top_cate').click(function(){
-            
-                                                var id =$(this).val();
-                                                // alert(id);
-                                                $.ajax({
-                                                    url : "{:U('sonCate','','')}",
-                                                    type : "post",
-                                                    data : "id="+id,
-                                                    dataType : "json",
-                                                    success : function(data){                   
-                                                        if(data != null){
-                                                            var str=""
-                                                            $.each(data,function(key,val){
-                                                                str += "<option value="+val['type_id']+">"+val['type_name']+"</option>";
-                                                            })
-                                                            //$(this).addClass("form-control")
-                                                            $('#soncate').addClass("form-control")
-                                                            $('#soncate').html(str);
-                                                            $('#soncate').show(200);
-                                                        }
-                                                    }
-                                                });         
-                                            })    
-                                        })
-                                        function getvallage(id){
-            
-                                            var id = id;
-                                            $('#vallage').attr('city',id);
-                                            $.ajax({
-                                                url : "{:U('City/vallage','','')}",
-                                                type : "post",
-                                                data : "id="+id,
-                                                dataType : "json",
-                                                success : function(data){                       
-                                                    if(data != null){
-                                                        var str=""
-                                                        $.each(data,function(key,val){
-                                                            str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
-                                                        })
-                                                        $('#val_list').html(str);
-                                                        $('#val_list').show(200);
-                                                    }
+                                    $(function(){
+                                    $('.pro_in').click(function(){
+                                        $('#vallage').hide(200);
+                                        var id =$(this).val();
+                                        // alert(id);
+                                        $('#city').attr('pro',id);
+                                        $('#val_list').html("<p>请选择城市</p>")
+                                        $.ajax({
+                                            url : "{:U('City/city','','')}",
+                                            type : "post",
+                                            data : "id="+id,
+                                            dataType : "json",
+                                            success : function(data){                   
+                                                if(data != null){
+                                                    var str=""
+                                                    $.each(data,function(key,val){
+                                                        str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                    })
+                                                    //   $('#city_list').append(str)
+                                                    $('#city_list').html(str);
+                                                    $('#city_list').show(200);
                                                 }
-                                            });
-        
+                                            }
+                                        });         
+                                    })
+
+                                    // getvallage($(".city_in").val());
+
+                                    var pro = function() {
+                                        var id=$(".pro_into").val();
+
+                                        $.ajax({
+                                            url : "{:U('sonCate','','')}",
+                                            type : "post",
+                                            data : "id="+id,
+                                            dataType : "json",
+                                            success : function(data){     
+                                                //   alert(data) 
+                                                if(data != null){
+
+                                                    var str=""
+                                                    $.each(data,function(key,val){
+                                                        str += "<option value="+val['type_id']+">"+val['type_name']+"</option>";
+                                                    })
+                                                    $('#soncate').html(str);
+                                                    $('#soncate').show(300);
+                                                }
+                                            }
+                                        });    
+                                    }
+                                    //province();
+                                    getvallage($(".city_in").val());
+                                    //       pro();
+                                    var add= $('.top_cate').click(function(){
+
+                                        var id =$(this).val();
+                                        //   alert(id);
+                                        $.ajax({
+                                            url : "{:U('sonCate','','')}",
+                                            type : "post",
+                                            data : "id="+id,
+                                            dataType : "json",
+                                            success : function(data){   
+                                                //  alert(data)
+                                                if(data != null){
+                                                    var str=""
+                                                    $.each(data,function(key,val){
+                                                        str += "<option  value="+val['type_id']+">"+val['type_name']+"</option>";
+                                                    })
+                                                    $('#soncate').html(str);
+                                                    $('#soncate').show(300);
+                                                }
+                                            }
+                                        });         
+                                    })  
+                                    if($("#action").val()=='add'){  add()   }else{  pro(); }   
+
+                                }) 
+                                function getvallage(id){
+
+                                    var id = id;
+                                    $('#vallage').attr('city',id);
+                                    $.ajax({
+                                        url : "{:U('City/vallage','','')}",
+                                        type : "post",
+                                        data : "id="+id,
+                                        dataType : "json",
+                                        success : function(data){                       
+                                            if(data != null){
+                                                var str=""
+                                                $.each(data,function(key,val){
+                                                    str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                                })
+                                                $('#val_list').html(str);
+                                                $('#val_list').show(200);
+                                            }
                                         }
+                                    });
+
+                                }
                                     </script>
 
                                     </html>

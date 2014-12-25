@@ -64,26 +64,31 @@ class UserController extends Controller {
     	//获取用户获取验证码的用途1 注册，2找回密码，3修改手机号码
     	$type =$data['type'];
     	if ($id==1) {
-    		$num = round(99999,999999);
-    		$num = 111111;
-    		switch ($type) {
-    			case '1':
-    				$msg['content'] = "你正在注册慧锐通手机智能终端用户，你的验证码为$num,请千万不要泄露给别人，不过不是你本人操作，你可以不用理会！";
-    				break;
-    			case '2':
-    				$msg['content'] = "你正在找回密码，你的验证码为$num,请千万不要泄露给别人";
-    				break;
-    			case '3':
-    				$msg['content'] = "你正在修改手机号码，你的验证码为$num,请千万不要泄露给别人";
-    				break;
-    			default:
-    				$msg['content'] = "测试阶段，验证码均为$num";
-    				break;
-    		}
+    		$num = mt_rand(99999,999999);
+    		// $num = 111111;
+    		// switch ($type) {
+    		// 	case '1':
+    		// 		$msg['content'] = "您好！你正在注册慧锐通手机智能终端用户，您的短信校验码是：$num，请尽快按页面提示提交校验码，过期无效。请勿向任何人提供您收到的短信校验码。【慧享园】";
+    		// 		break;
+    		// 	case '2':
+    		// 		$msg['content'] = "您好！你正在找回密码，您的短信校验码是：$num，请尽快按页面提示提交校验码，过期无效。请勿向任何人提供您收到的短信校验码。【慧享园】";
+    		// 		break;
+    		// 	case '3':
+    		// 		$msg['content'] = "您好！你正在修改手机号码，您的短信校验码是：$num，请尽快按页面提示提交校验码，过期无效。请勿向任何人提供您收到的短信校验码。【慧享园】";
+    		// 		break;
+    		// 	default:
+    		// 		$msg['content'] = "您好！您的短信校验码是：$num，请尽快按页面提示提交校验码，过期无效。请勿向任何人提供您收到的短信校验码。【慧享园】";
+    		// 		break;
+    		// }
+            $msg = "您好！您的短信校验码是：".$num."，请尽快按页面提示提交校验码，过期无效。请勿向任何人提供您收到的短信校验码。【慧享园】";
+            // dump($msg);
     		$out['num']=$num;
+            $out['msg']=$msg;
     		$out['success'] = 1;
-    		// dump($out);die();
-            // sendMsg($phone,$msg);
+      //       dump($out);
+    		// dump($msg);die();
+           $data = sendMsg($phone,$msg);
+           // dump($data);
     		$this->ajaxReturn($out);
     	}
 
@@ -246,7 +251,8 @@ class UserController extends Controller {
     		$out['success'] = 0;
 
     		if ($id == 1) {
-    			$sql = "select user_id,user_name,email,salt,user_rank,password,user_rank,province,city,area,village,face,is_lock,face,nickname,true_name,reg_time,is_forgot from ".C('DB_PREFIX')."user where user_name = '$username'";
+                //$field='user_id,user_name,email,salt,user_rank,password,user_rank,province,city,area,village,face,is_lock,face,nickname,true_name,reg_time,is_forgot';
+    			$sql = "select * from ".C('DB_PREFIX')."user where user_name = '$username'";
     			// var_dump($sql);die();
     			$data = M()->query($sql);
     			// var_dump($data);

@@ -240,58 +240,56 @@ class OrderController extends Controller {
     public function orderAdd()
 
     {
-      // $arr = array(array('goodid'=>1,'number'=>2,'price'=>99.7),array('goodid'=>2,'number'=>3,'price'=>199.7));
+      $arr = array(array('goodid'=>1,'number'=>2,'price'=>99.7),array('goodid'=>2,'number'=>3,'price'=>199.7));
       // dump($arr);
-      // $arr = json_encode($arr);
-      // $info = $arr;
+      $arr = json_encode($arr);
+      $info = $arr;
       // dump($arr);
         $id = I('request.version',1);
-        $info = I('request.info');
-        $type = I('request.type',0,'intval');
+        // $info = I('request.info');
         $cate = I('request.cate',0,'intval');
-        $info = $info;
+        // $info = $info;
         $number = getOrderId();//获取唯一的订单号
           // 获取商店需要的数据
          $order = array(
             "user_id" =>I('request.userId',0,'intval'),
             'address' =>I('request.address',0,'intval'),
-            'bid'     =>I('request.bid',0,'intval'),
-            'bill_type'     =>I('request.billType',0,'intval'),
+            'bill_type'     =>I('request.billType',0,'intval'),            
+            'shop_id'       => I('request.shopId',0,'intval'),
             'time' =>time(),
-            'number' => $number
+            'number' => $number,
+            'cate' => 1,
 
           );
         
                     
           // dump($number);
           if ($id == 1) {   
-              if ($type ==1) {
-                  $cart = array('carl_number'=>I('request.carl_number'),'totle'=>I('request.price'),'number'=>$number,'type' => 1,"user_id" =>I('request.userId',0,'intval'));
-                  //添加防止用户多次添加订单
-                  $no = M('order')->where('carl_number='.I('request.carl_number'))->find();
-                  if (!is_null($no)) {
-                      $out['success'] = 0;
-                      $out['msg'] ='订单已经添加';
-                      $this->ajaxReturn($out);
-                  }
-                  $bool = M('order')->add($cart);
-                   if ($bool) {
-                      $out['success'] = 1;
-                      $out['msg'] ='添加订单成功';
-                  }else{
-                      $out['success'] = 0;
-                      $out['msg'] ='添加订单失败';
-                  }
-                  $this->ajaxReturn($out);
-               } 
-               if (!$order['user_id'] || !$order['address'] || !$order['bid']) {
+              // if ($type ==1) {
+              //     $cart = array('carl_number'=>I('request.carl_number'),'totle'=>I('request.price'),'number'=>$number,'type' => 1,"user_id" =>I('request.userId',0,'intval'));
+              //     //添加防止用户多次添加订单
+              //     $no = M('order')->where('carl_number='.I('request.carl_number'))->find();
+              //     if (!is_null($no)) {
+              //         $out['success'] = 0;
+              //         $out['msg'] ='订单已经添加';
+              //         $this->ajaxReturn($out);
+              //     }
+              //     $bool = M('order')->add($cart);
+              //      if ($bool) {
+              //         $out['success'] = 1;
+              //         $out['msg'] ='添加订单成功';
+              //     }else{
+              //         $out['success'] = 0;
+              //         $out['msg'] ='添加订单失败';
+              //     }
+              //     $this->ajaxReturn($out);
+              //  } 
+               if (!$order['user_id'] || !$order['address'] || !$order['shop_id']) {
               $out['msg'] = C('no_id');
+              $out['data'] = null;
               $out['success'] = 0;
               $this->ajaxReturn($out);
-              }  
-               if ($cate == 1 ) { //vip商品订单
-               $order['cate'] = $cate;
-              }     
+              }       
               // $info = '[{"goodid":"1","number":2}]';
               $arr = json_decode($info,true);
               // dump($arr);
@@ -329,6 +327,52 @@ class OrderController extends Controller {
               }
                $this->ajaxReturn($out);
           }       
+    }
+    public function lifeAdd()
+
+    {
+        $id = I('request.version',1);
+        $userId = I('request.userId');
+        $goodId = I('request.goodId',0,'intval');
+        $sum = I('request.number',0,'intval');
+        $price = I('request.price');
+        $info = $info;
+        $number = getOrderId();//获取唯一的订单号
+          // 获取商店需要的数据
+         $order = array(
+            "user_id" =>$userId,        
+            'shop_id'       => I('request.shopId',0,'intval'),
+            'totle'         =>$sum*$price,
+            'sum'     =>$sum,
+            'cate'       =>0,
+            'number'=>$number,
+            'goodid' =>$goodId,
+            'price' =>$price,
+
+          );
+          // dump($order);die();
+                    
+          // dump($number);
+          if ($id == 1) {  
+              if (!$userId) {
+                $out['msg'] = C('no_id');
+                $out['data'] =null;
+                $out['success'] = 0;
+                $this->ajaxReturn($out);
+                }
+              $order['time'] = time();
+
+              $bool = M('order')->add($order);
+               if ($bool) {
+                  $out['success'] = 1;
+                  $out['msg'] ='添加订单成功';
+              }else{
+                  $out['success'] = 0;
+                  $out['msg'] ='添加订单失败';
+              }
+              $this->ajaxReturn($out);
+           } 
+     
     }
     // 订单付款
      public function orderPay()

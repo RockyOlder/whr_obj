@@ -1,0 +1,330 @@
+[ 2014-12-25T10:29:02+08:00 ] ::1 /whr/index.php?s=/Home/Owner/index
+ERR: 无法加载控制器:Owner
+
+[ 2014-12-25T11:33:58+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000826s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001205s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000925s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000964s ]
+
+[ 2014-12-25T11:33:58+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001014s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001409s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000935s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000981s ]
+
+[ 2014-12-25T11:33:58+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000949s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001363s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001012s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001061s ]
+
+[ 2014-12-25T11:33:58+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001027s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001446s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-25T11:33:58+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001008s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001452s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001139s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001192s ]
+
+[ 2014-12-25T14:31:40+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000454s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000796s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000176s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T14:31:40+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000927s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001343s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000916s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000975s ]
+
+[ 2014-12-25T14:32:14+08:00 ] ::1 /whr/index.php?s=/Home/Business/app
+ERR: 非法操作:app
+
+[ 2014-12-25T14:32:15+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001049s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001498s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000218s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T14:32:15+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001207s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001590s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001006s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001107s ]
+
+[ 2014-12-25T15:16:25+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000986s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001357s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001044s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001110s ]
+
+[ 2014-12-25T15:16:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001088s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001474s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000169s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:16:34+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001482s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001902s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 4 [ RunTime:0.000472s ]
+
+[ 2014-12-25T15:17:04+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000664s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001079s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000167s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:17:04+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000941s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001355s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000863s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000911s ]
+
+[ 2014-12-25T15:17:06+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001662s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002019s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 6 [ RunTime:0.000449s ]
+
+[ 2014-12-25T15:17:13+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000729s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001151s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000207s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:17:13+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000882s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001289s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001213s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001294s ]
+
+[ 2014-12-25T15:17:37+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000496s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000934s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000271s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:17:37+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000910s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001300s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001731s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001782s ]
+
+[ 2014-12-25T15:17:40+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001641s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001998s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 7 [ RunTime:0.000480s ]
+
+[ 2014-12-25T15:18:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000461s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000845s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000180s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:18:25+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000520s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000894s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000564s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000619s ]
+
+[ 2014-12-25T15:18:28+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000488s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000866s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000495s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000537s ]
+
+[ 2014-12-25T15:18:28+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001573s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002111s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000219s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:18:35+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002122s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002572s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 5 [ RunTime:0.000438s ]
+
+[ 2014-12-25T15:18:37+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001623s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002061s ]
+SQL: select type_id,type_name from wrt_type where parent_id = 7 [ RunTime:0.000427s ]
+
+[ 2014-12-25T15:18:52+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000487s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000842s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000203s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:18:52+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000886s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001293s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001148s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001202s ]
+
+[ 2014-12-25T15:18:53+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000946s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001358s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000231s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T15:18:53+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001101s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001497s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000964s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001021s ]
+
+[ 2014-12-25T15:30:22+08:00 ] ::1 /whr/index.php?s=/Home/Business/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001119s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001596s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000968s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001032s ]
+
+[ 2014-12-25T15:30:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001082s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001489s ]
+SQL: select region_id,region_name from wrt_region where parent_id =undefined [ RunTime:0.000189s ]
+ERR: 1054:Unknown column 'undefined' in 'where clause'
+ [ SQL语句 ] : select region_id,region_name from wrt_region where parent_id =undefined
+
+[ 2014-12-25T16:08:53+08:00 ] ::1 /whr/index.php?s=/Home/vip/add.html
+ERR: 非法操作:add
+
+[ 2014-12-25T17:37:45+08:00 ] ::1 /whr/index.php?s=/Home/Goods/details
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001512s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001921s ]
+SQL: SHOW COLUMNS FROM wrt_goods g [ RunTime:0.000163s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'g' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_goods g
+SQL: SELECT g.*,c.cat_id,v.store_id,v.store_name,c.cat_name,r.REGION_ID,r.REGION_NAME FROM wrt_goods g INNER JOIN wrt_category AS c ON g.cat_id=c.cat_id INNER JOIN wrt_vip AS v ON v.store_id=g.store_id INNER JOIN wrt_region AS r ON g.province=r.REGION_ID  WHERE ( g.goods_id=1 ) LIMIT 1   [ RunTime:0.000556s ]
+
+[ 2014-12-25T19:08:41+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000864s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001488s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2333 [ RunTime:0.000313s ]
+
+[ 2014-12-25T19:08:41+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000990s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001389s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.004077s ]
+
+[ 2014-12-25T19:08:41+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001120s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001541s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.003655s ]
+
+[ 2014-12-25T19:08:41+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001462s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002079s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-25T19:08:41+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001404s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002406s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004058s ]
+
+[ 2014-12-25T19:10:47+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001855s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002318s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000932s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000980s ]
+
+[ 2014-12-25T19:10:47+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001911s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002424s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001098s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001159s ]
+
+[ 2014-12-25T19:10:47+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000967s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001365s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000968s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001099s ]
+
+[ 2014-12-25T19:10:47+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001049s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001487s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-25T19:10:47+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000882s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001357s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000889s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000937s ]
+

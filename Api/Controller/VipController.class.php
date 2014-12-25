@@ -120,7 +120,7 @@ class VipController extends Controller {
                 break;
             }
            
-            $out['data'] = M('goods')->field('goods_id,price,markdown,goods_name,list_img,number')->where("cat_id = $type")->order($s)->page($page,$pageSize)->select();
+            $out['data'] = M('goods')->field('goods_id,price,markdown,goods_name,list_img,number,store_id')->where("cat_id = $type")->order($s)->page($page,$pageSize)->select();
             // dump($out);
             $out['success'] = 1;           
             $this->ajaxReturn($out);

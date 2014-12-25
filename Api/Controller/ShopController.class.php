@@ -31,7 +31,7 @@ class ShopController extends Controller {
           $out['success']=1;
           if ($id == 1){
                $sql = "SELECT id,name,list_pic,star,type,des,latitude,longitude FROM ".C('DB_PREFIX')."business WHERE `lock` = 0 ";
-               if ($type != 0 ) $sql .= "and parent_type = $type or type = $type ";
+               if ($type != 0 ) $sql .= "and (parent_type = $type or type = $type) ";
                if ($city_id != 0 ) $sql .= "and city = $city_id ";
                if ($area_id != 0 ) $sql .= "and area = $area_id ";
                switch ($sort) {
@@ -190,37 +190,42 @@ class ShopController extends Controller {
           $id = I('request.version',1);
           // 获取商店需要的数据
           $shopid = I('request.shopid',0);
-          if ($shopid == 0) {
-              $out['msg']=C("no_id");
-              $out['success']=0;
-              $this->ajaxReturn($out);
-          }
-          $page = I('request.page',1);
-          $pageSize = I('request.pageSize',20);
-         // 获取商店的商品信息
-           $sql = "SELECT lgid,lgname,lgnumber,des,list_pic,star,price,m_price,bid FROM ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and `bid` = $shopid ";
-          // dump($sql);
-           $sql .=$limit;
-           // dump($sql);
-           $goods = M()->query($sql);  
-           
-           $sql ="select count(*) as sum from ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and `bid` = $shopid";
-           // dump($sql);
-           $sum = M()->query($sql);
-           // dump($sum);
-           if ($sum) {
-             $sum = current($sum);
+          if ($id == 1) {            
+                $out['data'] = null;
+                $out['success']=0;
+              if ($shopid == 0) {
+                $out['msg']=C("no_id");
+                $this->ajaxReturn($out);
+              }
+            $page = I('request.page',1);
+            $pageSize = I('request.pageSize',20);
+           // 获取商店的商品信息
+             $sql = "SELECT lgid,lgname,lgnumber,des,list_pic,star,price,m_price,bid as shopid FROM ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and `bid` = $shopid ";
+            // dump($sql);
+             $sql .=$limit;
+             // dump($sql);
+             $goods = M()->query($sql);  
+             
+             $sql ="select count(*) as sum from ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and `bid` = $shopid";
+             // dump($sql);
+             $sum = M()->query($sql);
              // dump($sum);
-             $goods['sum'] = $sum['sum'];
-             $goods['pagesum'] = ceil($sum['sum']/$pageSize);
-             $goods['page'] = $page;
-           }
-           // $num = count($data);
-           // if ($num < $pageSize) {//如果数据少于请求数据则获取第三放数据
-           //      # code...
-           // }
-           $out['data'] = $goods;   
-           $this->ajaxReturn($out);
+             if ($sum) {
+              $out['msg'] = "获取数据成功";
+              $out['success'] = 1;
+               $sum = current($sum);
+               // dump($sum);
+               $goods['sum'] = $sum['sum'];
+               $goods['pagesum'] = ceil($sum['sum']/$pageSize);
+               $goods['page'] = $page;
+             }
+             // $num = count($data);
+             // if ($num < $pageSize) {//如果数据少于请求数据则获取第三放数据
+             //      # code...
+             // }
+             $out['data'] = $goods;   
+             $this->ajaxReturn($out);
+          }
 
          
     }
@@ -237,15 +242,16 @@ class ShopController extends Controller {
           }
           $out['success']=1;
           if ($id == 1){
-               $sql = "SELECT lgid,lgnumber,lgname,des,list_pic,thumb_pic,pic,star,price,m_price,t_price,add_time,content,server,bid FROM ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and lgid = $goodid";
+               /*$sql = "SELECT lgid,lgnumber,lgname,des,list_pic,thumb_pic,pic,star,price,m_price,t_price,add_time,content,server,bid FROM ".C('DB_PREFIX')."life_goods WHERE `is_lock` = 0 and lgid = $goodid";
                 // dump($sql);
-               $data = M()->query($sql);  
-
+               $data = M()->query($sql); */ 
+               $field = 'lgid,lgnumber,lgname,des,list_pic,thumb_pic,pic,star,price,m_price,t_price,content,server,bid';
+               $w= array('is_lock'=>0,'lgid'=>$goodid);
+               $data = M('life_goods')->field($field)->where($w)->find();
+               // dump($data);
                if ($data) {   
-                  $data = current($data); 
-                  if ($data['star'] == -1) {
-                     $data['star'] = 5;
-                    }
+                  
+                  if ($data['star'] == -1) {$data['star'] = 5;}
                  
                   // 查询出商品的评论总条数
                   $sql = 'select count(*) as sum from '.C('DB_PREFIX')."comment where gid = $goodid";

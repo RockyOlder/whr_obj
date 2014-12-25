@@ -48,9 +48,9 @@
                     $("#close").bind("click",function(e){
                         // $(this).parent().removeAttr("id");   
                         //   $(this).parent().removeClass();  
-                  // var xtop= $("#detailDialog").position().top;
-                   //alert(xtop)
-                 //  console.log(e.clientY)
+                        // var xtop= $("#detailDialog").position().top;
+                        //alert(xtop)
+                        //  console.log(e.clientY)
                         $("#detailDialog").css({
                             //'top':"'"+e.clientY+"'px",
                             'top':'50px',
@@ -62,11 +62,11 @@
                 function showDetail(teacherId){
                     var xtop= $("#showlist"+teacherId).position().top;
                     var xleft=$("#showlist"+teacherId).position().left;
-                 //   alert(xtop)
+                    //   alert(xtop)
                     $("#detailDialog").position(
                     {
                         my: "top"+xtop+"px",
-                       // at: xleft+"px",
+                        // at: xleft+"px",
                         of: window
                     });
                     $.ajax({ 
@@ -80,7 +80,7 @@
                             alert("error:"+msg);
                         },
                         success:function(data){
-                          /*  $("#goods_name").text(data.goods_name?data.goods_name:"");
+                            /*  $("#goods_name").text(data.goods_name?data.goods_name:"");
                             $("#price").text(data.price?data.price:"");
                             $("#show_mobile").text(data.mobile?data.mobile:"");
                             $("#if_show").text(data.sex==1?"是":data.sex==0?"否":"保密");
@@ -158,6 +158,7 @@
                                 <td><a id="showlist<?php echo ($vo["goods_id"]); ?>" href="javascript:showDetail(<?php echo ($vo["goods_id"]); ?>)" title="详情">详情</a>
                                     <a href="<?php echo U('add',array(id=>$vo['goods_id']),'');?>">编辑</a>
                                     <a class="tablelink" onclick="deleteSum('<?php echo ($vo["goods_id"]); ?>')"> 删除</a>
+                                    <a href="<?php echo U('activity',array(id=>$vo['goods_id']),'');?>">促销</a>
                                 </td>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
 

@@ -90,6 +90,17 @@ class IsloginController extends Controller {
         return M()->query($sql);
     }
 
+    function getSaveCity($id) {
+//     	dump($id);
+//     	dump(empty($id));
+        if (empty($id))
+            return null;
+
+        $sql = "select " . $this->field . " from " . C('DB_PREFIX') . "region where REGION_ID =" . $id;
+//     	dump($sql);
+        return M()->query($sql);
+    }
+
     //根据城市的id查询出所有的区列表
     function getvillage($id) {
         if (empty($id))

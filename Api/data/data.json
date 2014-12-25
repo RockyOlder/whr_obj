@@ -502,7 +502,7 @@
 		}
 		,"POST User/changePhone" :
 		{
-			"__desc__" : "修改用户手机号码",
+			"__desc__" : "修改用户手机号码4",
 			"request" :
 			{
 				"version":"1",
@@ -520,7 +520,7 @@
 		}
 		,"POST User/changeEmail" :
 		{
-			"__desc__" : "修改邮箱",
+			"__desc__" : "修改邮箱4",
 			"request" :
 			{
 				"version":"1",
@@ -538,7 +538,7 @@
 		}
 		,"POST User/getNick" :
 		{
-			"__desc__" : "获取用户的昵称",
+			"__desc__" : "获取用户的昵称4",
 			"request" :
 			{
 				"version":"1",
@@ -555,7 +555,7 @@
 		}
 		,"POST User/changeNick" :
 		{
-			"__desc__" : "修改用户的昵称",
+			"__desc__" : "修改用户的昵称4",
 			"request" :
 			{
 				"version":"1",
@@ -591,7 +591,7 @@
 		}
 		,"POST User/changePwd" :
 		{
-			"__desc__" : "修改用户密码",
+			"__desc__" : "修改用户密码4",
 			"request" :
 			{
 				"version":"1",
@@ -610,7 +610,7 @@
 		}
 		,"POST Cate/topCate" :
 		{
-			"__desc__" : "获取顶级分类",
+			"__desc__" : "获取顶级分类1",
 			"request" :
 			{
 				"version":"1"
@@ -626,7 +626,7 @@
 		}
 		,"POST Cate/allCate" :
 		{
-			"__desc__" : "所有分类列表",
+			"__desc__" : "所有分类列表1",
 			"request" :
 			{
 				"version":"1"
@@ -642,7 +642,7 @@
 		}
 		,"POST Cate/sonCate" :
 		{
-			"__desc__" : "获取次级分类",
+			"__desc__" : "获取次级分类1",
 			"request" :
 			{
 				"version":"1",
@@ -657,26 +657,10 @@
 				}
 			}
 		}
-		,"POST Cate/sonCate" :
-		{
-			"__desc__" : "获取次级分类",
-			"request" :
-			{
-				"version":"1",
-				"parent_id":"1"
-			},
-			"response" :
-			{
-				"status"   : "{STATUS}",
-				"data"     :
-				{
-					"verify"          : "5.00"
-				}
-			}
-		}
+		
 		,"POST Home/city" :
 		{
-			"__desc__" : "获取城市信息",
+			"__desc__" : "获取城市信息1",
 			"request" :
 			{
 				"version":"1"
@@ -692,7 +676,7 @@
 		}
 		,"POST Home/hobby" :
 		{
-			"__desc__" : "获取用户爱好",
+			"__desc__" : "获取用户爱好1",
 			"request" :
 			{
 				"version":"1",
@@ -709,7 +693,7 @@
 		}
 		,"POST Home/hobbyAdd" :
 		{
-			"__desc__" : "添加用户爱好",
+			"__desc__" : "添加用户爱好1",
 			"request" :
 			{
 				"version":"1",
@@ -728,7 +712,7 @@
 		}
 		,"POST Home/hobbyDel" :
 		{
-			"__desc__" : "删除用户爱好",
+			"__desc__" : "删除用户爱好1",
 			"request" :
 			{
 				"version":"1",
@@ -745,7 +729,7 @@
 		}
 		,"POST Home/homeShop" :
 		{
-			"__desc__" : "首页推荐商店",
+			"__desc__" : "首页推荐商店1",
 			"request" :
 			{
 				"version":"1",
@@ -762,7 +746,7 @@
 		}
 		,"POST Home/homeShopAll" :
 		{
-			"__desc__" : "推荐商店列表",
+			"__desc__" : "推荐商店列表1",
 			"request" :
 			{
 				"version":"1",
@@ -781,7 +765,7 @@
 		}
 		,"POST Home/homeGood" :
 		{
-			"__desc__" : "首页推荐商品",
+			"__desc__" : "首页推荐商品1",
 			"request" :
 			{
 				"version":"1",
@@ -798,7 +782,7 @@
 		}
 		,"POST Home/homeGoodAll" :
 		{
-			"__desc__" : "推荐商品列表",
+			"__desc__" : "推荐商品列表1",
 			"request" :
 			{
 				"version":"1",
@@ -817,7 +801,7 @@
 		}
 		,"POST Home/ad" :
 		{
-			"__desc__" : "获取广告信息",
+			"__desc__" : "获取广告信息a",
 			"request" :
 			{
 				"version":"1",
@@ -834,7 +818,7 @@
 		}	
 		,"POST Home/adCount" :
 		{
-			"__desc__" : "广告统计接口",
+			"__desc__" : "广告统计接口a",
 			"request" :
 			{
 				"version":"1",
@@ -852,7 +836,7 @@
 		}	
 		,"POST Home/cityArea" :
 		{
-			"__desc__" : "获取城市地区",
+			"__desc__" : "获取城市地区1",
 			"request" :
 			{
 				"version":"1",
@@ -869,7 +853,7 @@
 		}		
 		,"POST Home/getcityid" :
 		{
-			"__desc__" : "获取城市id",
+			"__desc__" : "获取城市id1",
 			"request" :
 			{
 				"version":"1",
@@ -886,7 +870,7 @@
 		}
 		,"POST Home/getVillage" :
 		{
-			"__desc__" : "地区id获取所有小区",
+			"__desc__" : "地区id获取所有小区1",
 			"request" :
 			{
 				"version":"1",
@@ -899,14 +883,14 @@
 		}
 		,"POST Shop/slist" :
 		{
-			"__desc__" : "获取商店列表",
+			"__desc__" : "获取商店列表1",
 			"request" :
 			{
 				"version":"1",
 				"type":"0全部商品，1美食，2便民，3旅游景点，4体育，5车生活 6休闲娱乐 7教育培训，8家装家电，9宠物花鸟",
 				"city_id":"城市id",
 				"area_id":"地区id",
-				"sort":"1从低价到高价,2从高价到低价,3评价最高,4离我最近,5销量",
+				"sort":"1离我最近,2评价最高,3按照名称",
 				"latitude":"经度",
 				"longitude":"纬度",
 				"page":"1",
@@ -924,7 +908,7 @@
 		
 		,"POST Shop/shopinfo" :
 		{
-			"__desc__" : "获取商店详情",
+			"__desc__" : "获取商店详情1",
 			"request" :
 			{
 				"version":"1",
@@ -941,7 +925,7 @@
 		}
 		,"POST Shop/goods" :
 		{
-			"__desc__" : "获取商店商品列表",
+			"__desc__" : "获取商店商品列表1",
 			"request" :
 			{
 				"version":"1",
@@ -960,7 +944,7 @@
 		}
 		,"POST Shop/goodinfo" :
 		{
-			"__desc__" : "获取生活商品详情",
+			"__desc__" : "获取生活商品详情1",
 			"request" :
 			{
 				"version":"1",
@@ -977,7 +961,7 @@
 		}
 		,"POST Upload/upFace" :
 		{
-			"__desc__" : "修改用户头像",
+			"__desc__" : "修改用户头像4",
 			"request" :
 			{
 				"version":"1",
@@ -995,7 +979,7 @@
 		}
 		,"POST Upload/upLoad" :
 		{
-			"__desc__" : "上传图片",
+			"__desc__" : "上传图片a",
 			"request" :
 			{
 				"version":"1",
@@ -1013,7 +997,7 @@
 		
 		,"POST Comment/add" :
 		{
-			"__desc__" : "对导航商品评论",
+			"__desc__" : "对导航商品评论1",
 			"request" :
 			{
 				"version":"1",
@@ -1035,7 +1019,7 @@
 		}
 		,"POST Comment/vipAdd" :
 		{
-			"__desc__" : "vip商品评论1216",
+			"__desc__" : "2vip商品评论1216",
 			"request" :
 			{
 				"version":"1",
@@ -1057,7 +1041,7 @@
 		}
 		,"POST Comment/getVip" :
 		{
-			"__desc__" : "获取vip商品评论1216",
+			"__desc__" : "2获取vip商品评论1216",
 			"request" :
 			{
 				"version":"1",
@@ -1074,7 +1058,7 @@
 		}
 		,"POST Comment/shop" :
 		{
-			"__desc__" : "商店的所有评论",
+			"__desc__" : "商店的所有评论1",
 			"request" :
 			{
 				"version":"1",
@@ -1091,7 +1075,7 @@
 		}
 		,"POST Comment/good" :
 		{
-			"__desc__" : "商品的所有评论",
+			"__desc__" : "商品的所有评论1",
 			"request" :
 			{
 				"version":"1",
@@ -1108,7 +1092,7 @@
 		}
 		,"POST Collect/addshop" :
 		{
-			"__desc__" : "添加商店收藏",
+			"__desc__" : "添加商店收藏1",
 			"request" :
 			{
 				"version":"1",
@@ -1126,7 +1110,7 @@
 		}
 		,"POST Collect/delshop" :
 		{
-			"__desc__" : "删除商店收藏",
+			"__desc__" : "删除商店收藏1",
 			"request" :
 			{
 				"version":"1",
@@ -1143,7 +1127,7 @@
 		}
 		,"POST Collect/addgood" :
 		{
-			"__desc__" : "添加商品收藏",
+			"__desc__" : "添加商品收藏1",
 			"request" :
 			{
 				"version":"1",
@@ -1161,7 +1145,7 @@
 		}
 		,"POST Collect/delgood" :
 		{
-			"__desc__" : "删除商品收藏",
+			"__desc__" : "删除商品收藏1",
 			"request" :
 			{
 				"version":"1",
@@ -1178,7 +1162,7 @@
 		}
 		,"POST order/address" :
 		{
-			"__desc__" : "添加收货地址",
+			"__desc__" : "添加收货地址2",
 			"request" :
 			{
 				"version":"1",
@@ -1199,7 +1183,7 @@
 		}
 		,"POST order/getAddress" :
 		{
-			"__desc__" : "获取所有收货地址",
+			"__desc__" : "获取所有收货地址2",
 			"request" :
 			{
 				"version":"1",
@@ -1216,7 +1200,7 @@
 		}
 		,"POST order/getDefault" :
 		{
-			"__desc__" : "获取默认收货地址",
+			"__desc__" : "获取默认收货地址2",
 			"request" :
 			{
 				"version":"1",
@@ -1233,7 +1217,7 @@
 		}
 		,"POST order/isDefault" :
 		{
-			"__desc__" : "修改默认地址",
+			"__desc__" : "修改默认地址2",
 			"request" :
 			{
 				"version":"1",
@@ -1251,7 +1235,7 @@
 		}
 		,"POST order/addressDel" :
 		{
-			"__desc__" : "删除收货地址",
+			"__desc__" : "删除收货地址2",
 			"request" :
 			{
 				"version":"1",
@@ -1268,20 +1252,16 @@
 		}
 		,"POST order/orderAdd" :
 		{
-			"__desc__" : "添加订单",
+			"__desc__" : "添加vip订单2",
 			"request" :
 			{
 				"version":"1",
 				"userId":"用户的id",
+				"shopId":"商店的id",
 				"address"    : "地址id",
 				"express":"1",
-				"bid":"商店id",
 				"billType":"发票类型0为不要发票1为普通2为增值税发票",
-				"info"    : "商品id goodid，数量 number，价格price",
-				"cate":"0生活导航1为vip订单",
-				"type":"0销售1充值",
-				"carl_number":"充值卡号",
-				"price":"充值卡的金额"
+				"info"    : "[{'goodid':1,'number':2,'price':99.7},{'goodid':2,'number':3,'price':199.7}]"
 
 			},
 			"response" :
@@ -1293,7 +1273,28 @@
 				}
 			}
 		}
-		,"POST order/userOrder" :
+		,"POST order/lifeAdd" :
+		{
+			"__desc__" : "添加生活订单1",
+			"request" :
+			{
+				"version":"1",
+				"shopId":"商店的id",
+				"userId":"用户的id",
+				"goodId":"商品的id",
+				"number":"商品数量",
+				"price":"价格"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST order/userOrder4" :
 		{
 			"__desc__" : "获取用户订单",
 			"request" :
@@ -1313,7 +1314,7 @@
 		}
 		,"POST order/userAll" :
 		{
-			"__desc__" : "获取用户所有订单",
+			"__desc__" : "获取用户所有订单4",
 			"request" :
 			{
 				"version":"1",
@@ -1331,7 +1332,7 @@
 		}
 		,"POST order/userBill" :
 		{
-			"__desc__" : "设置用户发票",
+			"__desc__" : "设置用户发票2",
 			"request" :
 			{
 				"version":"1",
@@ -1349,7 +1350,7 @@
 		}
 		,"POST order/orderPay" :
 		{
-			"__desc__" : "订单付款",
+			"__desc__" : "订单付款12",
 			"request" :
 			{
 				"version":"1",
@@ -1366,7 +1367,7 @@
 		}
 		,"POST order/orderDel" :
 		{
-			"__desc__" : "关闭订单",
+			"__desc__" : "关闭订单12",
 			"request" :
 			{
 				"version":"1",
@@ -1383,7 +1384,7 @@
 		}
 		,"POST order/getExpress" :
 		{
-			"__desc__" : "获取配送方式",
+			"__desc__" : "获取配送方式2",
 			"request" :
 			{
 				"version":"1"
@@ -1399,7 +1400,7 @@
 		}
 		,"POST order/getBill" :
 		{
-			"__desc__" : "获取发票",
+			"__desc__" : "获取发票2",
 			"request" :
 			{
 				"version":"1",
@@ -1416,7 +1417,7 @@
 		}
 		,"POST order/getFree" :
 		{
-			"__desc__" : "获取运费",
+			"__desc__" : "获取运费2",
 			"request" :
 			{
 				"version":"1",
@@ -1435,7 +1436,7 @@
 		}
 		,"POST member/index" :
 		{
-			"__desc__" : "个人中心首页",
+			"__desc__" : "个人中心首页4",
 			"request" :
 			{
 				"version":"1",
@@ -1450,9 +1451,9 @@
 				}
 			}
 		}
-		,"POST member/vip" :
+		,"POST member/good" :
 		{
-			"__desc__" : "VIP申请",
+			"__desc__" : "完善个人信息4",
 			"request" :
 			{
 				"version":"1",
@@ -1460,10 +1461,28 @@
 				"nickName":"昵称",
 				"email":"电子邮件",
 				"name":"真是姓名",
-				"city":"城市id",
-				"area":"地区id",
-				"village":"小区id",
-				"address":"地址"
+				"city":"用户所在城市",
+				"village":"所在村或者小区",
+				"address":"具体地址（街道单元）"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST member/vip" :
+		{
+			"__desc__" : "VIP申请4",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"nickName":"昵称",
+				"email":"电子邮件",
+				"name":"真是姓名",
+				"areaId":"地区id",
+				"property":"所在物业",				
+				"village":"所在小区"
 			},
 			"response" :
 			{
@@ -1472,7 +1491,7 @@
 		}
 		,"POST vip/index" :
 		{
-			"__desc__" : "VIP首页",
+			"__desc__" : "VIP首页2",
 			"request" :
 			{
 				"version":"1"
@@ -1484,7 +1503,7 @@
 		}
 		,"POST vip/vipCate" :
 		{
-			"__desc__" : "VIP商品分类",
+			"__desc__" : "VIP商品分类2",
 			"request" :
 			{
 				"version":"1"
@@ -1496,7 +1515,7 @@
 		}
 		,"POST vip/vipGoods" :
 		{
-			"__desc__" : "VIP商品列表",
+			"__desc__" : "VIP商品列表2",
 			"request" :
 			{
 				"version":"1",
@@ -1512,7 +1531,7 @@
 		}
 		,"POST vip/vipInfo" :
 		{
-			"__desc__" : "VIP商品详情",
+			"__desc__" : "VIP商品详情2",
 			"request" :
 			{
 				"version":"1",
@@ -1526,7 +1545,7 @@
 		}
 		,"POST vip/userBack" :
 		{
-			"__desc__" : "用户提交反馈意见",
+			"__desc__" : "用户提交反馈意见4",
 			"request" :
 			{
 				"version":"1",
@@ -1541,7 +1560,7 @@
 		}
 		,"POST vip/actAll" :
 		{
-			"__desc__" : "获取活动的列表",
+			"__desc__" : "获取活动的列表2",
 			"request" :
 			{
 				"version":"1",
@@ -1556,7 +1575,7 @@
 		}
 		,"POST vip/comment" :
 		{
-			"__desc__" : "vip商品收藏",
+			"__desc__" : "vip商品收藏2",
 			"request" :
 			{
 				"version":"1",
@@ -1571,7 +1590,7 @@
 		}
 		,"POST vip/commentDel" :
 		{
-			"__desc__" : "删除vip收藏",
+			"__desc__" : "删除vip收藏2",
 			"request" :
 			{
 				"version":"1",
@@ -1584,7 +1603,7 @@
 		}
 		,"POST vip/commentList" :
 		{
-			"__desc__" : "收藏列表",
+			"__desc__" : "收藏列表2",
 			"request" :
 			{
 				"version":"1",
@@ -1599,7 +1618,7 @@
 		}
 		,"POST Search/life" :
 		{
-			"__desc__" : "生活导航搜索",
+			"__desc__" : "生活导航搜索1",
 			"request" :
 			{
 				"version":"1",
@@ -1616,7 +1635,7 @@
 		}
 		,"POST pro/notice" :
 		{
-			"__desc__" : "获取物业的循环公告",
+			"__desc__" : "获取物业的循环公告3",
 			"request" :
 			{
 				"version":"1",
@@ -1629,7 +1648,7 @@
 		}
 		,"POST pro/noticelist" :
 		{
-			"__desc__" : "物业资讯列表",
+			"__desc__" : "物业资讯列表3",
 			"request" :
 			{
 				"version":"1",
@@ -1644,7 +1663,7 @@
 		}
 		,"POST pro/noticeOne" :
 		{
-			"__desc__" : "物业资讯详情",
+			"__desc__" : "物业资讯详情3",
 			"request" :
 			{
 				"version":"1",
@@ -1657,7 +1676,7 @@
 		}
 		,"POST pro/noticeBack" :
 		{
-			"__desc__" : "物业资讯回复1215",
+			"__desc__" : "3物业资讯回复1215",
 			"request" :
 			{
 				"version":"1",
@@ -1673,7 +1692,7 @@
 		}
 		,"POST pro/neighbour" :
 		{
-			"__desc__" : "邻里拼车（活动）列表",
+			"__desc__" : "3邻里拼车（活动）列表",
 			"request" :
 			{
 				"version":"1",
@@ -1689,7 +1708,7 @@
 		}		
 		,"POST pro/neighbourAdd" :
 		{
-			"__desc__" : "发表邻里拼车（活动）回复拼车",
+			"__desc__" : "3发表邻里拼车（活动）回复拼车",
 			"request" :
 			{
 				"version":"1",
@@ -1698,7 +1717,8 @@
 				"content":"内容",
 				"passTime":"过期时间(回复时不用填写)",
 				"userId":"用户的id",
-				"userName":"用户名称",
+				"userName":"用户名称",				
+				"number":"参加人数(活动)",
 				"picture":"图片(回复时可以不用填写)",
 				"type":"0拼车1活动",
 				"pid":"回复编号id"
@@ -1711,7 +1731,7 @@
 		}
 		,"POST pro/property" :
 		{
-			"__desc__" : "物管信息列表",
+			"__desc__" : "3物管信息列表",
 			"request" :
 			{
 				"version":"1",
@@ -1728,7 +1748,7 @@
 		}
 		,"POST pro/propertyAdd" :
 		{
-			"__desc__" : "发布物管信息1216",
+			"__desc__" : "3发布物管信息1216",
 			"request" :
 			{
 				"version":"1",
@@ -1738,6 +1758,7 @@
 				"userId":"用户的id",
 				"userName":"用户名称",
 				"picture":"图片(回复时可以不用填写)",
+				"phone":"电话",
 				"address":"地址",
 				"type":"0维修报障1装修申请2投诉建议",
 				"pid":"回复编号id"
@@ -1750,7 +1771,7 @@
 		}
 		,"POST pro/neighbourInfo" :
 		{
-			"__desc__" : "邻里拼车（活动）详情",
+			"__desc__" : "3邻里拼车（活动）详情",
 			"request" :
 			{
 				"version":"1",
@@ -1764,7 +1785,7 @@
 		}
 		,"POST pro/actionSign" :
 		{
-			"__desc__" : "邻里活动报名1217",
+			"__desc__" : "3邻里活动报名1217",
 			"request" :
 			{
 				"version":"1",
@@ -1780,7 +1801,7 @@
 		}
 		,"POST survey/index" :
 		{
-			"__desc__" : "社区调查列表页面",
+			"__desc__" : "3社区调查列表页面",
 			"request" :
 			{
 				"version":"1",
@@ -1796,14 +1817,15 @@
 		
 		,"POST survey/addressAdd" :
 		{
-			"__desc__" : "添加通讯录",
+			"__desc__" : "3添加通讯录",
 			"request" :
 			{
 				"version":"1",
 				"userId":"用户id",
 				"name":"名称",
 				"phone":"电话",
-				"unit":"单位"
+				"unit":"单位",
+				"pid":"通讯录编号id"
 			},
 			"response" :
 			{
@@ -1812,7 +1834,7 @@
 		}
 		,"POST survey/getAddress" :
 		{
-			"__desc__" : "获取用户通讯录",
+			"__desc__" : "3获取用户通讯录",
 			"request" :
 			{
 				"version":"1",
@@ -1825,7 +1847,7 @@
 		}
 		,"POST survey/changePhone" :
 		{
-			"__desc__" : "修改用户通讯录",
+			"__desc__" : "3修改用户通讯录",
 			"request" :
 			{
 				"version":"1",
@@ -1838,9 +1860,22 @@
 				
 			}
 		}
+		,"POST survey/delPhone" :
+		{
+			"__desc__" : "3删除用户通讯录",
+			"request" :
+			{
+				"version":"1",
+				"phoneId":"通讯录id"
+			},
+			"response" :
+			{
+				
+			}
+		}
 		,"POST survey/searchPhone" :
 		{
-			"__desc__" : "搜索用户通讯录",
+			"__desc__" : "3搜索用户通讯录",
 			"request" :
 			{
 				"version":"1",
@@ -1854,7 +1889,7 @@
 		}
 		,"POST survey/fetchAdd" :
 		{
-			"__desc__" : "发布闲置交换",
+			"__desc__" : "3发布闲置交换",
 			"request" :
 			{
 				"version":"1",
@@ -1876,7 +1911,7 @@
 		}
 		,"POST survey/fetchList" :
 		{
-			"__desc__" : "限制交换列表",
+			"__desc__" : "3闲置交换列表",
 			"request" :
 			{
 				"version":"1",
@@ -1892,7 +1927,7 @@
 		}
 		,"POST survey/fetchInfo" :
 		{
-			"__desc__" : "限制交换详情",
+			"__desc__" : "3闲置交换详情",
 			"request" :
 			{
 				"version":"1",

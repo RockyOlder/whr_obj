@@ -1,0 +1,72 @@
+[ 2014-12-22T09:10:45+08:00 ] ::1 /whr/index.php?s=/Home/Order/urlAjaxOrderFind
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000976s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001243s ]
+SQL: SHOW COLUMNS FROM wrt_order o [ RunTime:0.000196s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_order o
+SQL: SELECT o.*,u.user_id,b.id,b.name,u.user_name FROM wrt_order o INNER JOIN wrt_user AS u ON u.user_id=o.user_id INNER JOIN wrt_business AS b ON b.id=o.bid  WHERE ( o.oid=6 ) LIMIT 1   [ RunTime:0.047539s ]
+
+[ 2014-12-22T09:16:00+08:00 ] ::1 /whr/index.php?s=/Home/Order/urlAjaxOrderFind
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000516s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000831s ]
+SQL: SHOW COLUMNS FROM wrt_order o [ RunTime:0.000089s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_order o
+SQL: SELECT o.*,u.user_id,b.id,b.name,u.user_name FROM wrt_order o INNER JOIN wrt_user AS u ON u.user_id=o.user_id INNER JOIN wrt_business AS b ON b.id=o.bid  WHERE ( o.oid=4 ) LIMIT 1   [ RunTime:0.000370s ]
+
+[ 2014-12-22T09:17:41+08:00 ] ::1 /whr/index.php?s=/Home/Order/urlAjaxOrderFind
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001386s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001754s ]
+SQL: SHOW COLUMNS FROM wrt_order o [ RunTime:0.000179s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_order o
+SQL: SELECT o.*,u.user_id,b.id,b.name,u.user_name FROM wrt_order o INNER JOIN wrt_user AS u ON u.user_id=o.user_id INNER JOIN wrt_business AS b ON b.id=o.bid  WHERE ( o.oid=1 ) LIMIT 1   [ RunTime:0.000442s ]
+
+[ 2014-12-22T09:17:43+08:00 ] ::1 /whr/index.php?s=/Home/Order/urlAjaxOrderFind
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000401s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000673s ]
+SQL: SHOW COLUMNS FROM wrt_order o [ RunTime:0.000177s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_order o
+SQL: SELECT o.*,u.user_id,b.id,b.name,u.user_name FROM wrt_order o INNER JOIN wrt_user AS u ON u.user_id=o.user_id INNER JOIN wrt_business AS b ON b.id=o.bid  WHERE ( o.oid=4 ) LIMIT 1   [ RunTime:0.000342s ]
+
+[ 2014-12-22T09:17:44+08:00 ] ::1 /whr/index.php?s=/Home/Order/urlAjaxOrderFind
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001284s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001558s ]
+SQL: SHOW COLUMNS FROM wrt_order o [ RunTime:0.000094s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_order o
+SQL: SELECT o.*,u.user_id,b.id,b.name,u.user_name FROM wrt_order o INNER JOIN wrt_user AS u ON u.user_id=o.user_id INNER JOIN wrt_business AS b ON b.id=o.bid  WHERE ( o.oid=12 ) LIMIT 1   [ RunTime:0.000267s ]
+
+[ 2014-12-22T09:18:58+08:00 ] ::1 /whr/index.php?s=/Home/Activity/index
+ERR: 无法加载控制器:Activity
+
+[ 2014-12-22T10:03:58+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000453s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000763s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000441s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000482s ]
+
+[ 2014-12-22T10:03:58+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000557s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000896s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000591s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000639s ]
+
+[ 2014-12-22T10:03:58+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000458s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000762s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000482s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000534s ]
+

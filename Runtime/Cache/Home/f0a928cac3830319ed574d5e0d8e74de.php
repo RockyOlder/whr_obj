@@ -89,7 +89,8 @@
                             alert("error:"+msg);
                         },
                         success:function(data){
-                            return false;
+                            //return false;
+                             console.log(data)
                             $("#number").text(data.number);
                             $("#bid").text(data.name);
                             $("#time").text(data.time);
@@ -99,7 +100,10 @@
                             $("#express").text(data.express);
                             $("#cate").text(data.cate);
                             $("#express_number").text(data.express_number);
-                            $("#dialog-edit").dialog("open");
+                            if(data.statue==1){
+                            $("#dialog-edit").dialog("open");    
+                            }
+                            
                         }
                     });
                 }

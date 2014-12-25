@@ -53,7 +53,7 @@ class GoodsController extends IsloginController {
                 $path[$k] = $tem;
             }
             $goods_img = json_encode($path);
-          //  print_r($goods_img);exit;
+            //  print_r($goods_img);exit;
             if ($action == "add") {
                 $goods = D('Goods');
                 if ($data = $goods->create()) {
@@ -100,9 +100,9 @@ class GoodsController extends IsloginController {
                     ->where('g.goods_id=' . $id)
                     ->find();
             $goods_img = $goodsFind['goods_img'];
-        //    print_r($goods_img);exit;
+            //    print_r($goods_img);exit;
             $goodsFind['goods_img'] = json_decode($goods_img, true);
-           // print_r($goodsFind);exit;
+            // print_r($goodsFind);exit;
             $this->assign('info', $goodsFind);
         }
         $this->assign('data', $data);
@@ -140,6 +140,43 @@ class GoodsController extends IsloginController {
         $this->ajaxReturn($goodsFind);
         //  $this->assign('data', $data);
         //    $this->display();
+    }
+
+    public function activity() {
+        $action = I('post.action');
+        if (IS_POST) {
+            if ($action == "edit") {
+
+                $goods = D("VipActGood");
+                if ($data = $goods->create()) {
+              //      $data["goods_img"] = $goods_img;
+                    if ($goods->add($data)) {
+                        $url = U('/Home/Activity/index');
+                        $this->success("修改成功！", $url);
+                    } else {
+                        $this->error("用户修改失败！", 'index');
+                    }
+                } else {
+                    $this->error($goods->getError());
+                }
+            }
+        }
+
+        $id = I('get.id', 0);
+        if ($id) {
+            $data['action'] = 'edit';
+            $data['title'] = "编辑商品";
+            $data['btn'] = "编辑";
+            $goods = M("Goods");
+            $vipList = $goods->where("goods_id=$id")->find();
+            //   print_r($vipList);exit;
+        }
+        $vip = D('VipActivity');
+        $vipdata = $vip->select();
+        $this->assign('vip', $vipdata);
+        $this->assign('info', $vipList);
+        $this->assign('data', $data);
+        $this->display();
     }
 
 }

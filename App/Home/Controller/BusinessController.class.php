@@ -34,7 +34,6 @@ class BusinessController extends IsloginController {
 
     //  添加和编辑生活导航商家
     public function add() {
-        //echo 1;exit;
 
         $pro = $this->getprovence();
         // dump($pro);
@@ -63,8 +62,8 @@ class BusinessController extends IsloginController {
             $arr = I('post.jingwei');
             $arr = explode(',', $arr);
             // dump($arr);die();
-            $latitude = $arr[0];
-            $longitude = $arr[1];
+            $latitude = $arr[1];
+            $longitude = $arr[0];
             // 组合出数据库中的数据
             $post = array(
                 'name' => I('post.name', ''),
@@ -74,9 +73,12 @@ class BusinessController extends IsloginController {
                 'star' => I('post.star'),
                 'mobile_phone' => I('post.phone', ''),
                 'province' => I('post.province', 0),
-                'city' => $city,
+                'city' => I('post.city', ''),
+                'area' =>  I('post.area', ''),
                 'parent_type' => I('post.parent_type', 0),
                 'list_pic' => I('post.list_pic', ''),
+                'address' => I('post.address', ''),
+                'des' => I('post.des', ''),
                 'list_path' => I('post.list_path', ''),
                 'mid_pic' => I('post.mid_pic', ''),
                 'more_pic' => $more_pic,
@@ -100,6 +102,7 @@ class BusinessController extends IsloginController {
             }
             if ($act == 'edit') {
                 // dump
+              //  print_r($_REQUEST);exit;
                 // echo 1;exit;
                 $sql = "update " . C('DB_PREFIX') . "business set " . $str . " where id = $id";
                 // dump($sql);die();
@@ -134,10 +137,11 @@ class BusinessController extends IsloginController {
                     ->where('b.id=' . $id)
                     ->find();
             //讲图册的图片显示出来
+              //print_r($find);exit;
             $more_pic = $find['more_pic'];
             $find['more_pic'] = json_decode($more_pic, true);
             //组合出经纬度
-            $find['jingwei'] = $find['latitude'] . "," . $find['longitude'];
+            $find['jingwei'] = $find['longitude'] . "," . $find['latitude'];
 
             $this->assign("info", $find);
         }
@@ -203,7 +207,7 @@ class BusinessController extends IsloginController {
                 }
             }
             if ($act == "edit") {
-            //  print_r($goods_img);exit;
+                //  print_r($goods_img);exit;
                 $goods = D("lifeGoods");
                 if ($data = $goods->create()) {
                     $data["pic"] = $goods_img;
@@ -228,14 +232,16 @@ class BusinessController extends IsloginController {
             $data['action'] = 'edit';
             $data['title'] = "编辑导航商品";
             $data['btn'] = "编辑";
+            $type = M("Type");
             $info = M('life_goods')->where('lgid = ' . $data['id'])->find();
-            // dump($info);
-            //        print_r($info);exit;
+            $fin = $info['cate_pid'];
+        //   $cate_id = $info['cate_id'];
             $pic = $info['pic']; // dump($more_pic);
-
+            $class_find = $type->where("type_id=" . $fin)->find();
+          //  $cate_id = $type->where("type_id=" . $cate_id)->find();
             $info['pic'] = json_decode($pic, true);
-            //        dump($info['pic']);die();
-
+            //$this->assign("catt", $cate_id);
+            $this->assign("find", $class_find);
             $this->assign("info", $info);
         }
 

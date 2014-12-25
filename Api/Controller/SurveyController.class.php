@@ -87,13 +87,14 @@ class SurveyController extends Controller {
             $this->ajaxReturn($out);
         }
     } 
-    // 用户添加用户通讯录
+    // 用户添/修改加用户通讯录
     public function addressAdd(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
         $name = I('request.name');
         $phone = I('request.phone');
         $unit = I('request.unit');
+        $pid = I('request.pid',0,'intval');
         // dump(!$proid);
          $out['success'] = 0;
         $out['data']=null;
@@ -112,6 +113,20 @@ class SurveyController extends Controller {
                 'phone'=>$phone,
                 'unit'=>$unit
                 );
+                if ($pid) {
+                  $arr['id'] = $pid;
+                  $bool = M($table)->save($arr);
+                  if ($bool) {
+                      $out['success'] = 1;
+                      $out['data'] = $bool;
+                      $out['msg'] = '修改成功';
+                    }else{
+                      $out['msg'] = "修改失败";
+                      $out['data'] = $bool;
+                    }
+            
+                    $this->ajaxReturn($out);
+                }
                 $data = M($table)->field('id')->where($arr)->find();
                 // dump(!is_null($data));
                 if (!is_null($data)) {
@@ -120,8 +135,9 @@ class SurveyController extends Controller {
                     $this->ajaxReturn($out);
                 }
 
+                
+                  $bool = M($table)->add($arr);
 
-            $bool = M($table)->add($arr);
             if ($bool) {
               $out['success'] = 1;
               $out['data'] = $bool;
@@ -239,11 +255,42 @@ class SurveyController extends Controller {
             $this->ajaxReturn($out);
         }
     }
+    //修改用户通讯录
+    public function delPhone(){
+        $id = I('request.version',1,'intval');
+        $aid = I('request.phoneId',0,'intval');
+        // dump(!$proid);
+         $out['success'] = 0;
+        $out['data']=null;
+        if (!$aid) {
+            
+              $out['msg']=C('no_id');
+              
+              $this->ajaxReturn($out);
+          }
+        if ($id == 1) {
+
+              $table = "pro_phone_book";              
+                $data = M($table)->delete($aid);
+                // dump($data);
+                // dump(!is_null($data));
+                if ($data) {
+                  $out['success'] = 1;
+                    $out['data'] = $data;
+                    $out['msg'] = '删除成功';
+                    $this->ajaxReturn($out);
+                }else{
+                  $out['msg'] = '删除失败';
+                }
+            
+            $this->ajaxReturn($out);
+        }
+    }
     public function fetchAdd(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
-        $title = I('request.title');
-        $content = I('request.content');
+        $title = maskWord(I('request.title'));
+        $content = maskWord(I('request.content'));
         $passTime = I('request.passTime');
 
         // dump(!$proid);
@@ -308,11 +355,28 @@ class SurveyController extends Controller {
 
               $table = "pro_fetch";
               $arr = array('id'=>$fid);
+              //更新浏览量
+              M($table)->where($arr)->setInc('views');
               $field = "id,add_time,title,content,pic,author,phone";
               $data = M($table)->field($field)->where($arr)->find();
             if ($data) {              
               $data['add_time'] = date('Y-m-d',$data['add_time']);              
               $out['success'] = 1;
+              //获取交换详情的评论
+              $field = "id,content,add_time,author,uid,type";
+              $son = M($table)->field($field)->where(array('pid'=>$data['id']))->select();
+              foreach ($son as $key => $value) {
+                $w = array('pid' => $value['id']);
+                $value['add_time'] = date('Y-m-d H:i:s',$value['add_time']);
+                 $back = M($table)->field($field)->where($w)->find();
+                 $value['back'] = $back;
+                 $face = M('user')->field('face')->where(array('user_id'=>$value['uid']))->find();
+                 if ($face) {
+                   $value['face'] = current($face);
+                 }
+                 $son[$key] = $value;
+              }              
+              $data['son'] = $son;
               $out['data'] = $data;
               $out['msg'] = '成功获取数据';
             }else{

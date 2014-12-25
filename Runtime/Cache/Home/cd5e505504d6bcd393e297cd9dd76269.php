@@ -74,7 +74,7 @@
             <span>后台管理：</span>
             <ul class="placeul">
                 <li><a href="#" id="xasda">开发商管理</a></li>
-                <li><a href="#" id="nidaye"  onclick="cats_Shop()">开发商列表</a></li>
+                <li><a href="#" id="nidaye">开发商列表</a></li>
             </ul>
         </div>
 

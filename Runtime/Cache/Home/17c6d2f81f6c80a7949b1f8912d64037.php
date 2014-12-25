@@ -65,6 +65,7 @@
                     .pro select{width: 345px;height: 32px; }
                     .box{ margin-left: 5px; font-size: 12px; margin-top: -3px; padding-left:5px; padding:3px;}
                     .forminfo li input{width: 345px;height: 32px;margin-left: 5px; }
+                    .close{ float: left;}
                 </style>
                 </head>
                 <body style="background: none;">
@@ -115,7 +116,7 @@
                                                             <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["region_id"]); ?>" ><?php echo ($vo["region_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                         </select>
 
-                                                        <select name = 'city' style="display:none" id ="city_list" class="form-control" >
+                                                        <select name = 'city' style="display:none" id ="city_list" class="form-control" <!--onclick="saveCity()" -->>
                                                             <option class = "city_in" value="<?php echo ($info["city"]); ?>"></option>
                                                         </select>
 
@@ -181,7 +182,7 @@
                                                                                                                                                     'buttonText' : '列表上传',
                                                                                                                                                     'multi': false,
                                                                                                                                                     'onUploadSuccess' : function(file, data, response) {
-                                                                                                                                                        // alert(data);
+                                                                                                                                                        //alert(data);
                                                                                                                                                         obj= $.parseJSON(data);
                                                                                                                                                         list_pic += "<img height='50px' src='"+obj.path+"'>";
                                                                                                                                                         list_pic +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
@@ -190,6 +191,8 @@
                                                                                                                                                         hid +="<input name='mid_pic' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
                                                                                                                                                         hid +="<input name='list_pic' id='list_pic' type='hidden' value='"+obj.min+"' />"
                                                                                                                                                         $('#list_hidden').html(hid);
+                                                                                                                                                        list_pic = '';
+                                                                                                                                                        hid='';
                                                                                                                                                     }
                                                                                                                                                 });
                                                                                                                                                 var img = '';
@@ -201,6 +204,7 @@
                                                                                                                                                     'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                                                                                                     'buttonText' : '缩略图上传',
                                                                                                                                                     'onUploadSuccess' : function(file, v, response) {
+                                                                                                                                                        // alert(data);
                                                                                                                                                         obj= $.parseJSON(v);
                                                                                                                                                         // console.log(obj)
                                                                                                                                                         img += "<div id = 'more_"+num+"' class = ' more_list_pic' num = '"+num+"'>"
@@ -219,9 +223,14 @@
                                                                                                                                                     $("#more_"+num+"").html('');
                                                                                                                                                     // $('this').parent('.more_list_pic').remove();
                                                                                                                                                 }
-                                                                                                                                                function deleteListPic(){
+                                                                                                                                                /*     function deleteListPic(){
                                                                                                                                                     $(".up_list_pic").html('');
                                                                                                                                                     $('#list_hidden').html('');
+                                                                                                                                                }*/
+                                                                                                                                                function deleteListPic(){
+                                                                                                                                   
+                                                                                                                                                    $("#imgs img").remove();
+                                                                                                                                                    $('#list_hidde input').remove();
                                                                                                                                                 }
                                                                                                                                                 function openwindow()
                                                                                                                                                 {
@@ -266,10 +275,40 @@
                                                                                                                                                             }
                                                                                                                                                         });         
                                                                                                                                                     })
-                                                                                                                                                    var province = function() {
+                                                                                                                                                    
+                                                                                                                                                    $('#city_list').click(function(){
+                                                                                                                                                     //   alert(1)
                                                                                                                                                         var id=$(".cheng_in").val();
+                                                                                                                                                        
                                                                                                                                                         $.ajax({
                                                                                                                                                             url : "<?php echo U('City/city','','');?>",
+                                                                                                                                                            type : "post",
+                                                                                                                                                            data : "id="+id,
+                                                                                                                                                            dataType : "json",
+                                                                                                                                                            success : function(data){                   
+                                                                                                                                                                if(data != null){
+                                                                                                                                                                    if($(".cheng_in").val()!==''){
+                                                                                                                                                                        var str=""
+                                                                                                                                                                        var inex= this//selected=selected
+                                                                                                                                                                        $.each(data,function(key,val){
+                                                                                                                                                                            str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                                                                                                                        })
+                                                                                                                                                                        $('#city_list').append(str);
+                                                                                                                                                                    //    $('#city_list').show(200);
+                                                                                                                                                                    console.log($('.city_in').val())
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                              
+                                                                                                                                                        });  
+                                                                                                                                                       //  $('#city_list').html('');
+                                                                                                                                                    })
+                                                                                                                                                    
+                                                                                                                                                    var province = function() {
+                                                                                                                                                        var id=$(".city_in").val();
+                                                                                                                                                        //     alert(id)
+                                                                                                                                                        $.ajax({
+                                                                                                                                                            url : "<?php echo U('City/citySave','','');?>",
                                                                                                                                                             type : "post",
                                                                                                                                                             data : "id="+id,
                                                                                                                                                             dataType : "json",
@@ -289,7 +328,7 @@
                                                                                                                                                     };
                                                                                                                                                     var area = function() {
                                                                                                                                                         var id=$(".area_on").val();
-                                                                                                                                                        //   alert(id)
+                                                                                                                                                        //         alert(id)
                                                                                                                                                         $.ajax({
                                                                                                                                                             url : "<?php echo U('City/vallcage','','');?>",
                                                                                                                                                             type : "post",
@@ -309,9 +348,10 @@
                                                                                                                                                             }
                                                                                                                                                         });  
                                                                                                                                                     };
-                                                                                                                                                    area();
+                                                                                                                                              
                                                                                                                                                     province();
-                                                                                                                                                    // getvallage($(".city_in").val());
+                                                                                                                                                    area();
+                                                                                                                                                    //        getvallage($(".city_in").val());
 
                                                                                                                                                     var pro = function() {
                                                                                                                                                         var id=$(".pro_into").val();
@@ -335,8 +375,8 @@
                                                                                                                                                             }
                                                                                                                                                         });    
                                                                                                                                                     }
-                                                                                                                                                    province();
-                                                                                                                                                    getvallage($(".city_in").val());
+                                                                                                                                                    //  province();
+                                                                                                                                               
                                                                                                                                                     //       pro();
                                                                                                                                                     var add= $('.top_cate').click(function(){
 
@@ -360,9 +400,13 @@
                                                                                                                                                             }
                                                                                                                                                         });         
                                                                                                                                                     })  
-                                                                                                                                                    if($("#action").val()=='add'){  add()   }else{  pro(); }   
+                                                                                                                                                    // alert($("#action").val())
+                                                                                                                                                    if($("#action").val()=='add'){  
+                                                                                                                                                        add()   }else{ 
+                                                                                                                                                        pro(); }   
 
                                                                                                                                                 }) 
+                                                                                                                                                
                                                                                                                                                 function getvallage(id){
 
                                                                                                                                                     var id = id;
@@ -385,6 +429,9 @@
                                                                                                                                                     });
 
                                                                                                                                                 }
+
+                                                                                                                                                
+                 
                                                                                                                                             </script>
 
                                                                                                                                             </html>

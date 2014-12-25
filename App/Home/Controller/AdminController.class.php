@@ -42,6 +42,7 @@ class AdminController extends IsloginController {
                     } else {
                         $this->error("用户添加失败！", 'index');
                     }
+                }else{    $this->error($user->getError()); 
                 }
             } elseif ($action == "edit") {
                 $admin = D("Admin");

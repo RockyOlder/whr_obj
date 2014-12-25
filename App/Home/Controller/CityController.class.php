@@ -10,7 +10,7 @@ use Home\Controller\IsloginController;
 class CityController extends IsloginController {
 
     function index() {
-      
+
 // 		$data=$this->fullcity();
         //dump($data);
         $data = $this->getprovence();
@@ -25,6 +25,15 @@ class CityController extends IsloginController {
         if (!IS_AJAX || $id == "")
             return false;
         $data = $this->getcity($id);
+        //dump($data);
+        $this->ajaxReturn($data);
+    }
+
+    function citySave() {
+        $id = I('post.id');
+        if (!IS_AJAX || $id == "")
+            return false;
+        $data = $this->getSaveCity($id);
         //dump($data);
         $this->ajaxReturn($data);
     }

@@ -10,7 +10,7 @@
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/select-ui.min.js"></script> -->
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script> -->
         <script type="text/javascript">
-            $(function(){
+      /*      $(function(){
                 //简单验证
                 var validate = {
                     'username' : false,
@@ -54,7 +54,7 @@
                     return true;
             
                 });
-            })
+            })*/
         </script>
     </head>
     <style type="text/css">
@@ -83,7 +83,7 @@
                                 <li><label>用户名</label><input name="name" id="name" type="text" class="dfinput" value="{$info.name}" /><i id="name_info">名称不能超过30个字符</i></li>
                                 <li><label>密码</label><input name="password" id="password" type="password" class="dfinput"  /><i id="password_info">密码不能为空</i></li>
                                 <li><label>确认密码</label><input type="password" id="password2" class="dfinput" /><i id="passwd_inf2">两次密码要一致</i></li>
-                                <li><label>邮箱</label><input name="email" type="text" class="dfinput"  value="{$info.email}"/><i></i></li>
+                                <li><label>邮箱</label><input name="email" type="text" class="email"  value="{$info.email}"/><i></i></li>
                           
 
                                 <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认{$data.btn}"  onclick="javascript:;" /></li>
