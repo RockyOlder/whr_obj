@@ -46,10 +46,10 @@
 
                                                 <i id="name_info">名称不能超过30个字符</i></li>
                                             <li><label>商品名字</label><input name="good_name" id="name" type="text" class="dfinput" value="<?php echo ($info["goods_name"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>原价</label><input name="o_price" type="text" class="dfinput"  value="<?php echo ($info["price"]); ?>"/><i>商品价格</i></li>
+                                            <li><label>原价</label><input name="o_price" type="text" class="dfinput"  value="<?php echo ($info["price"]); ?>" disabled="disabled" /><i>商品价格</i></li>
                                             <li><label>活动价格</label><input name="price" type="text" class="dfinput" /><i></i></li>
                                             <li><label>竞价</label><input name="sort" type="text" class="dfinput"  /><i></i></li>
-                                            <li><label>列表图片</label>
+                                            <li><label>图片</label>
                                                 <div id="list_hidden">
                                                     <input type ='hidden' name = "list_path" value="<?php echo ($info["list_path"]); ?>">
                                                         <input type ='hidden' name = "goods_img" value="<?php echo ($info["mid_pic"]); ?>">
@@ -62,7 +62,7 @@
                                                                                         </div><?php endif; ?>
                                                                                         </i></li>
 
-                                                                                        <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
+                                                                                        <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="提交"  onclick="javascript:;" /></li>
                                                                                         </ul>
 
                                                                                         </div>
@@ -76,7 +76,7 @@
                                                                                                 'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
                                                                                                 'uploader' : '<?php echo U("Uploads/listUpload");?>',
                                                                                                 'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
-                                                                                                'buttonText' : '列表上传',
+                                                                                                'buttonText' : '图片上传',
                                                                                                 'multi': false,
                                                                                                 'onUploadSuccess' : function(file, data, response) {
                                                                                                     //   alert(1)

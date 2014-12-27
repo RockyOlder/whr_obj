@@ -146,10 +146,16 @@ class GoodsController extends IsloginController {
         $action = I('post.action');
         if (IS_POST) {
             if ($action == "edit") {
-
+                //  print_r(I('post.gid'));exit;
+                $gid = I('post.gid');
                 $goods = D("VipActGood");
+                $vipList = $goods->where("gid=$gid")->find();
+                if (isset($vipList)) {
+                    $url = U('/Home/Goods/index', '', false);
+                    $this->error('该商品已有活动!');
+                }
                 if ($data = $goods->create()) {
-              //      $data["goods_img"] = $goods_img;
+                    //      $data["goods_img"] = $goods_img;
                     if ($goods->add($data)) {
                         $url = U('/Home/Activity/index');
                         $this->success("修改成功！", $url);

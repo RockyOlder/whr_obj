@@ -7,7 +7,7 @@
         <link href="__PUBLIC__/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
             <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
 
-
+            <script language="javascript" type="text/javascript" src="__PUBLIC__/Js/My97DatePicker/WdatePicker.js"></script>
             <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
                 <script src='__PUBLIC__/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
@@ -31,36 +31,35 @@
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
-                            <input type ="hidden" name="gid" value="{$info.goods_id}">
+                        <input type ="hidden" name="ad_id" value="{$info.ad_id}">
                             <input type ="hidden" name="action" value="{$data.action}">
                                 <input type ="hidden" name="admin" value={$Think.session.admin.name}>
                                     <div class="formbody">
                                         <div class="formtitle"><span>{$data.title}</span></div>
                                         <ul class="forminfo">
-                                            <li><label>选择活动</label>
+                                           <!-- <li><label>公告类型</label>
                                                 <span class = 'pro'>
-                                                    <select name ='aid' id="type_on" class="form-control" >
-                                                        <volist name='vip' id = "vo">
-                                                            <option class = "top_cate" value="{$vo.id}" name="aid" >{$vo.title}</option>
-                                                        </volist>
-                                                    </select>
-                                                </span>
+                                                    <select name ='type' id="type_on" class="form-control" >
+                                                        <option class = "top_cate" value=""  >1</option>
+                                                        <option class = "top_cate" value=""  >2</option>
+                                                        <option class = "top_cate" value=""  >3</option>
 
-                                                <i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>商品名字</label><input name="good_name" id="name" type="text" class="dfinput" value="{$info.goods_name}" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>原价</label><input name="o_price" type="text" class="dfinput"  value="{$info.price}" disabled="disabled" /><i>商品价格</i></li>
-                                            <li><label>活动价格</label><input name="price" type="text" class="dfinput" /><i></i></li>
-                                            <li><label>竞价</label><input name="sort" type="text" class="dfinput"  /><i></i></li>
+                                                    </select>
+                                                </span></li>  -->
+                                            <li><label>广告名称</label><input name="ad_name" id="name" type="text" class="dfinput" value="{$info.ad_name}" /><i id="name_info">名称不能超过30个字符</i></li>
+                                            <li><label>链接地址</label><input name="ad_url" type="text" class="dfinput"  value="{$info.ad_url}" /><i>商品价格</i></li>
+                                            <li><label>开始时间</label><input readonly="readonly" name="start_time"  type="text"  class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$info.start_time|date='Y-m-d H:i:s',###}" /><i id="name_info"></i></li>
+                                            <li><label>结束时间</label><input readonly="readonly" name="end_time" type="text" class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$info.end_time|date='Y-m-d H:i:s',###}" /><i id="name_info"></i></li>
                                             <li><label>图片</label>
                                                 <div id="list_hidden">
                                                     <input type ='hidden' name = "list_path" value="{$info.list_path}">
                                                         <input type ='hidden' name = "goods_img" value="{$info.mid_pic}">
-                                                            <input type ='hidden' name = "pic" value="{$info.list_img}">
+                                                            <input type ='hidden' name = "pic" value="{$info.pic}">
                                                                 </div></li>
                                                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_img" id="upload_list" type="file" class="dfinput" style="" value="{$info.list_pic}" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
-                                                                        <if condition = "$info.list_img neq ''">
+                                                                        <if condition = "$info.pic neq ''">
                                                                             <div class="up_list_pic">
-                                                                                <img height='50px' src='{$info.list_img}'>
+                                                                                <img height='50px' src='{$info.pic}'>
                                                                                     <img src='__PUBLIC__/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                                         </div>
                                                                                         </if>

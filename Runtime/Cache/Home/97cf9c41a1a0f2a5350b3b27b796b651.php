@@ -152,15 +152,15 @@
 
                                     </body>
                                     <script>
-                                        //var edit= new UE.ui.Editor({initialContent:'',initialFrameWidth:450});
-                                        // console.log(edit)
-                                        // edit.render("intro");
-                                        UE.getEditor('intro', {
+                                        var edit= new UE.ui.Editor({initialContent:'',initialFrameWidth:600});
+                                         edit.render("intro");
+                                  /*      UE.getEditor('intro', {
                                             theme:"default", //皮肤
                                             lang:"zh-cn",//语言
                                             initialFrameWidth:600,  //初始化编辑器宽度,默认800
                                             initialFrameHeight:320
                                         });
+                                        */
                                             var list_pic = "";
                                             $('#upload_list').uploadify({
                                                 'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',

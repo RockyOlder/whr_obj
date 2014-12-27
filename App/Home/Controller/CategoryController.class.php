@@ -7,9 +7,10 @@ use Home\Controller\IsloginController;
 class CategoryController extends IsloginController {
 
     public function index() {
+        //    echo 1;exit;
         $list = $this->getdata();
         $tree = $this->getCatTree($list, 0);
-   //     print_r($tree);exit;
+        //     print_r($tree);exit;
         $this->assign('data', $tree);
         $this->display();
     }
@@ -32,11 +33,11 @@ class CategoryController extends IsloginController {
         if (IS_POST) {
             if ($action == "add") {
                 // //thumb_pic
-             //  print_r(I('post.thumb_pic'));
+                //  print_r(I('post.thumb_pic'));
                 $user = D('Category');
                 if ($data = $user->create()) {
-                    if($data["parent_id"]!==0){
-                       $data['cat_img']=I('post.thumb_pic'); 
+                    if ($data["parent_id"] !== 0) {
+                        $data['cat_img'] = I('post.thumb_pic');
                     }
                     $data['add_time'] = time();
                     if ($user->add($data)) {
@@ -49,8 +50,8 @@ class CategoryController extends IsloginController {
             } elseif ($action == "edit") {
                 $cat = D("Category");
                 $cat_id = I('get.id', 0);
-          //   print_r($_REQUEST);exit;
-                if ($data = $cat->create()) {   
+                //   print_r($_REQUEST);exit;
+                if ($data = $cat->create()) {
                     $trees = $this->getTree($cat, I('get.parent_id', 0));
                     $flag = true;
                     foreach ($trees as $v) {
@@ -59,14 +60,22 @@ class CategoryController extends IsloginController {
                             break;
                         }
                     }
-                                      
-                    if (!$flag) {   $url = U('/Home/category/add', '', false);  $this->error('父栏目选择错误!'); }
-                    
-                    if($data["parent_id"]!==0){ $data['cat_img']=I('post.thumb_pic');  }
-                    
-                    if ($cat->save($data)) {  $url = U('/Home/category/index');  $this->success("修改成功！", $url);
+
+                    if (!$flag) {
+                        $url = U('/Home/category/add', '', false);
+                        $this->error('父栏目选择错误!');
+                    }
+
+                    if ($data["parent_id"] !== 0) {
+                        $data['cat_img'] = I('post.thumb_pic');
+                    }
+
+                    if ($cat->save($data)) {
+                        $url = U('/Home/category/index');
+                        $this->success("修改成功！", $url);
                     } else {
-                        $url = U('/Home/category/add', '', false);  $this->error('修改失败!',$url);
+                        $url = U('/Home/category/add', '', false);
+                        $this->error('修改失败!', $url);
                     }
                 } else {
                     $this->error($cat->getError());
@@ -91,7 +100,6 @@ class CategoryController extends IsloginController {
                     array_push($arr, array('cat_id' => $v['cat_id'], 'cat_name' => str_repeat('&nbsp', $v['lev']) . $v['cat_name']));
                 }
             }
-        //    print_r($arr);exit;
             $this->assign('arr', $arr);
             $this->assign('info', $catfind);
         } else {
@@ -120,6 +128,61 @@ class CategoryController extends IsloginController {
         if ($result) {
             redirect($_SERVER["HTTP_REFERER"]);
         }
+    }
+
+    public function cation() {
+        $data['action'] = 'add';
+        $data['title'] = "添加";
+        $data['btn'] = "添加分类";
+        $action = I('post.action');
+        if (IS_POST) {
+            if ($action == "add") {
+                $specification = M("specification");
+                if ($data = $specification->create()) {
+                    if ($specification->add($data)) {
+                        $url = U('/Home/category/cation');
+                        $this->success("分类添加成功！", $url);
+                    } else {
+                        $this->error("分类添加失败！", 'index');
+                    }
+                }
+            } elseif ($action == "edit") {
+                // print_r($_REQUEST);exit;
+                $specification = M("specification");
+                if ($data = $specification->create()) {
+                    if ($specification->save($data)) {
+                        $url = U('/Home/category/cation');
+                        $this->success('修改成功!', $url);
+                    } else {
+                        $this->error("修改失败！", 'index');
+                    }
+                }
+            }
+        }
+        $specification = M("Specification s");
+
+        $slect = $specification->field('s.*,c.cat_id,c.cat_name')
+                ->join('wrt_category AS c ON c.cat_id=s.parent_id')
+                ->select();
+        //     $specificationList = $specification->select();
+        $cat = M("Category");
+        $list = $cat->where("parent_id=0")->select();
+        $this->assign('info', $slect);
+        $this->assign('list', $list);
+        $this->assign('data', $data);
+        $this->display();
+    }
+
+    public function url_ajaxhinder() {
+        $id = I('post.id', 0);
+        //   echo $id;exit;
+        $specification = M("Specification s");
+        $info = $specification->field('s.*,c.cat_id,c.cat_name')
+                ->join('wrt_category AS c ON c.cat_id=s.parent_id')
+                ->where('s.id=' . $id)
+                ->find();
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
     }
 
     public function getCatTree($arr, $id = 0, $lev = 0) {

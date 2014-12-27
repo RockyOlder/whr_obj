@@ -1,0 +1,96 @@
+[ 2014-12-26T10:10:17+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000968s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001292s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2333 [ RunTime:0.000366s ]
+
+[ 2014-12-26T10:10:17+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000473s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000773s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.004215s ]
+
+[ 2014-12-26T10:10:17+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000526s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000985s ]
+SQL: select region_id,region_name from wrt_region where parent_id =234 [ RunTime:0.003899s ]
+
+[ 2014-12-26T10:10:17+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000657s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001090s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-26T10:10:17+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001011s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001435s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004262s ]
+
+[ 2014-12-26T10:10:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000502s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000808s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.004153s ]
+
+[ 2014-12-26T10:10:22+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000454s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000766s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.004247s ]
+
+[ 2014-12-26T10:10:22+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000529s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000815s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-26T10:10:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000456s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000767s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000320s ]
+
+[ 2014-12-26T10:10:22+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000433s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000734s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.003887s ]
+
+[ 2014-12-26T10:10:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000479s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000798s ]
+SQL: select region_id,region_name from wrt_region where REGION_ID =2331 [ RunTime:0.000269s ]
+
+[ 2014-12-26T10:10:25+08:00 ] ::1 /whr/index.php?s=/Home/Goods/sonCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000463s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000750s ]
+ERR: 非法操作:sonCate
+
+[ 2014-12-26T10:10:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000458s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000741s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.005058s ]
+
+[ 2014-12-26T10:10:25+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000567s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000895s ]
+SQL: select region_id,region_name from wrt_region where parent_id =232 [ RunTime:0.004402s ]
+
+[ 2014-12-26T10:10:25+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000493s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003437s ]
+SQL: select region_id,region_name from wrt_region where parent_id =20 [ RunTime:0.003940s ]
+
+[ 2014-12-26T14:35:22+08:00 ] ::1 /whr/index.php?s=/Home/Role/index
+ERR: 无法加载控制器:Role
+
+[ 2014-12-26T14:47:41+08:00 ] ::1 /whr/index.php?s=/Home/Ad/index
+ERR: 无法加载控制器:Ad
+

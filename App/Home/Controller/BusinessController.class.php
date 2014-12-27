@@ -4,10 +4,8 @@ namespace Home\Controller;
 
 use Home\Controller\IsloginController;
 
-//开发商管理
 class BusinessController extends IsloginController {
 
-    // 开发商总部列表页面
     public function index() {
         $business = M("business");
         if (IS_POST) {
@@ -21,13 +19,22 @@ class BusinessController extends IsloginController {
             if ($parent_type)
                 $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
         }
+        $count = $business->where($where)
+                ->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 6);
+        $show = $page->show();
+     //   print_r($show);exit;
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $type = M("type");
         $typeList = $type->select();
         $data = $business->field('id,name,mobile_phone,fax_mobile,user_name,address,star,lock,list_pic')
                 ->where($where)
-                //  ->limit($page->firstRow . ',' . $page->listRows)
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
         $this->assign('type', $typeList);
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -74,7 +81,7 @@ class BusinessController extends IsloginController {
                 'mobile_phone' => I('post.phone', ''),
                 'province' => I('post.province', 0),
                 'city' => I('post.city', ''),
-                'area' =>  I('post.area', ''),
+                'area' => I('post.area', ''),
                 'parent_type' => I('post.parent_type', 0),
                 'list_pic' => I('post.list_pic', ''),
                 'address' => I('post.address', ''),
@@ -102,7 +109,7 @@ class BusinessController extends IsloginController {
             }
             if ($act == 'edit') {
                 // dump
-              //  print_r($_REQUEST);exit;
+                //  print_r($_REQUEST);exit;
                 // echo 1;exit;
                 $sql = "update " . C('DB_PREFIX') . "business set " . $str . " where id = $id";
                 // dump($sql);die();
@@ -137,7 +144,7 @@ class BusinessController extends IsloginController {
                     ->where('b.id=' . $id)
                     ->find();
             //讲图册的图片显示出来
-              //print_r($find);exit;
+            //print_r($find);exit;
             $more_pic = $find['more_pic'];
             $find['more_pic'] = json_decode($more_pic, true);
             //组合出经纬度
@@ -235,10 +242,10 @@ class BusinessController extends IsloginController {
             $type = M("Type");
             $info = M('life_goods')->where('lgid = ' . $data['id'])->find();
             $fin = $info['cate_pid'];
-        //   $cate_id = $info['cate_id'];
+            //   $cate_id = $info['cate_id'];
             $pic = $info['pic']; // dump($more_pic);
             $class_find = $type->where("type_id=" . $fin)->find();
-          //  $cate_id = $type->where("type_id=" . $cate_id)->find();
+            //  $cate_id = $type->where("type_id=" . $cate_id)->find();
             $info['pic'] = json_decode($pic, true);
             //$this->assign("catt", $cate_id);
             $this->assign("find", $class_find);

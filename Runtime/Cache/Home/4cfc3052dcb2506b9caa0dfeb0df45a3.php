@@ -5,42 +5,43 @@
         <title>无标题文档</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
+            
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
 
-        <script language="javascript">
-            KE.show({
-                id : 'content7',
-                cssPath : './index.css'
-            });
-            function deleteSum(id){
-                if(confirm("确认删除"))
-                    location.href="/whr/index.php?s=/Home/Business/del/id/"+id
-            }
-        </script>
+            <script language="javascript">
 
-        <script type="text/javascript">
-            $(document).ready(function(e) {
-                $(".select1").uedSelect({
-                    width : 345           
+                function deleteSum(id){
+                    if(confirm("确认删除"))
+                        location.href="/whr/index.php?s=/Home/Business/del/id/"+id
+                }
+            </script>
+
+            <script type="text/javascript">
+                $(document).ready(function(e) {
+                    $(".select1").uedSelect({
+                        width : 345           
+                    });
+                    $(".select2").uedSelect({
+                        width : 167  
+                    });
+                    $(".select3").uedSelect({
+                        width : 100
+                    });
                 });
-                $(".select2").uedSelect({
-                    width : 167  
+                $(function(){
+                    $('.scbtn').bind('click',function(){
+                        $('#from_sub').submit();
+                    });
+                    initPager();
                 });
-                $(".select3").uedSelect({
-                    width : 100
-                });
-            });
-            $(function(){
-                $('.scbtn').bind('click',function(){
-                    $('#from_sub').submit();
-                });
-               
-            });
-        </script>
+            </script>
     </head>
 
 
@@ -94,34 +95,40 @@
                                 <td><?php if($vo["lock"] == 0): ?>正常<?php endif; if($vo["lock"] == 1): ?>锁定<?php endif; ?></td>
                                 <td><a href="<?php echo U('add',array(id=>$vo['id']),'');?>">编辑</a>
                                     <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                                 
+
                                 </td>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
 
                     </tbody>
 
                 </table>
-
-
-
-
-
-
-                <div class="pagin">
-                    <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-                    <ul class="paginList">
-                        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                        <li class="paginItem"><a href="javascript:;">1</a></li>
-                        <li class="paginItem current"><a href="javascript:;">2</a></li>
-                        <li class="paginItem"><a href="javascript:;">3</a></li>
-                        <li class="paginItem"><a href="javascript:;">4</a></li>
-                        <li class="paginItem"><a href="javascript:;">5</a></li>
-                        <li class="paginItem more"><a href="javascript:;">...</a></li>
-                        <li class="paginItem"><a href="javascript:;">10</a></li>
-                        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-                    </ul>
+                <!--    <div class="pagin">
+                        <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+                        <ul class="paginList">
+                            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+                            <li class="paginItem"><a href="javascript:;">1</a></li>
+                            <li class="paginItem current"><a href="javascript:;">2</a></li>
+                            <li class="paginItem"><a href="javascript:;">3</a></li>
+                            <li class="paginItem"><a href="javascript:;">4</a></li>
+                            <li class="paginItem"><a href="javascript:;">5</a></li>
+                            <li class="paginItem more"><a href="javascript:;">...</a></li>
+                            <li class="paginItem"><a href="javascript:;">10</a></li>
+                            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+                        </ul>
+                    </div>
+                -->
+                <div id="pager" class="pager">
+                    <div class="fanye">
+                        <div class="fanye1">
+                            <?php echo ($page); ?>
+                        </div>
+                        <div class="fanye2">
+                            <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                            转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                            <input type="button" value="确定" id="gopage_btn_confirm" />
+                        </div>
+                    </div>
                 </div>
-
 
                 <div class="tip">
                     <div class="tiptop"><span>提示信息</span><a></a></div>

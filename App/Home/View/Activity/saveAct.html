@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
-                            <input type ="hidden" name="gid" value="{$info.goods_id}">
+                        <input type ="hidden" name="id" value="{$info.id}">
                             <input type ="hidden" name="action" value="{$data.action}">
                                 <input type ="hidden" name="admin" value={$Think.session.admin.name}>
                                     <div class="formbody">
@@ -40,27 +40,28 @@
                                             <li><label>选择活动</label>
                                                 <span class = 'pro'>
                                                     <select name ='aid' id="type_on" class="form-control" >
-                                                        <volist name='vip' id = "vo">
+                                                        <option class = "top_cate" value="{$save.id}" name="aid" >{$save.title}</option>
+                                                        <volist name='list' id = "vo">
                                                             <option class = "top_cate" value="{$vo.id}" name="aid" >{$vo.title}</option>
                                                         </volist>
                                                     </select>
                                                 </span>
 
                                                 <i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>商品名字</label><input name="good_name" id="name" type="text" class="dfinput" value="{$info.goods_name}" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>原价</label><input name="o_price" type="text" class="dfinput"  value="{$info.price}" disabled="disabled" /><i>商品价格</i></li>
-                                            <li><label>活动价格</label><input name="price" type="text" class="dfinput" /><i></i></li>
-                                            <li><label>竞价</label><input name="sort" type="text" class="dfinput"  /><i></i></li>
+                                            <li><label>商品名字</label><input name="good_name" id="name" type="text" class="dfinput" value="{$info.good_name}" /><i id="name_info">名称不能超过30个字符</i></li>
+                                            <li><label>原价</label><input name="o_price" type="text" class="dfinput"  value="{$info.o_price}" disabled="disabled" /><i>商品价格</i></li>
+                                            <li><label>活动价格</label><input name="price" type="text" class="dfinput" value="{$info.price}" /><i></i></li>
+                                            <li><label>竞价</label><input name="sort" type="text" class="dfinput" value="{$info.sort}" /><i></i></li>
                                             <li><label>图片</label>
                                                 <div id="list_hidden">
                                                     <input type ='hidden' name = "list_path" value="{$info.list_path}">
                                                         <input type ='hidden' name = "goods_img" value="{$info.mid_pic}">
-                                                            <input type ='hidden' name = "pic" value="{$info.list_img}">
+                                                            <input type ='hidden' name = "pic" value="{$info.pic}">
                                                                 </div></li>
                                                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_img" id="upload_list" type="file" class="dfinput" style="" value="{$info.list_pic}" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
-                                                                        <if condition = "$info.list_img neq ''">
+                                                                        <if condition = "$info.pic neq ''">
                                                                             <div class="up_list_pic">
-                                                                                <img height='50px' src='{$info.list_img}'>
+                                                                                <img height='50px' src='{$info.pic}'>
                                                                                     <img src='__PUBLIC__/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                                         </div>
                                                                                         </if>

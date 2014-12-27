@@ -14,6 +14,7 @@ function initPager(){
 	});	
 	$("#pager").find(".current").addClass("ui-state-focus");
 	$("#gopage_btn_confirm").bind("click",function(){
+    
 		var patt=new RegExp(/\/p\/\d+/);
 		var newUrl=location.href;
 		if(patt.test(location.href)){

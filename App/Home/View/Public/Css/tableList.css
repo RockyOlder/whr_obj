@@ -49,9 +49,9 @@
 /*各页数据表格上下翻页效果*/
 .pager { 
 	height:44px;
-	border:1px solid #654b24;
+	
 	color:#555;
-	border-top:1px solid transparent;
+	
 	margin-top:-1px;
 	padding:0;
 }
@@ -113,8 +113,8 @@
 }
 
 .pager #gopage_input {
-	width:30px;
-	height:16px;
+	width:40px;
+	height:20px;
 	text-align:center;
 	margin:0 3px
 }
