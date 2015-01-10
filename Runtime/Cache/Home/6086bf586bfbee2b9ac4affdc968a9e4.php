@@ -8,6 +8,7 @@
         <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
@@ -42,8 +43,7 @@
                         // $("#ig_primary").sumbit($("#url_add").val())    
                              
                     });
-      
-                    
+                    initPager();  
                 });
                 function showDetail(teacherId){
                     var xtop= $(".showlist"+teacherId).position().top;
@@ -132,8 +132,8 @@
                                 <td><?php echo ($vo["phone"]); ?></td>
                                 <td><?php echo ($vo["owner"]); ?></td>
                                 <td><?php echo ($vo["address"]); ?></td>
-                             <!--   <td><?php echo ($vo["content"]); ?></td>
-                                <td><?php echo ($vo["server"]); ?></td> -->
+                                <!--   <td><?php echo ($vo["content"]); ?></td>
+                                   <td><?php echo ($vo["server"]); ?></td> -->
                                 <td><a class="showlist<?php echo ($vo["bsid"]); ?>" href="javascript:showDetail(<?php echo ($vo["bsid"]); ?>)" title="详情">详情</a>
                                     <a href="<?php echo U('add',array(id=>$vo['bsid']),'');?>">编辑</a>
                                     <a class="tablelink" onclick="deleteSum('<?php echo ($vo["bsid"]); ?>')"> 删除</a>
@@ -143,8 +143,20 @@
                     </tbody>
 
                 </table>
+                <div id="pager" class="pager">
+                    <div class="fanye">
+                        <div class="fanye1">
+                            <?php echo ($page); ?>
+                        </div>
+                        <div class="fanye2">
+                            <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                            转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                            <input type="button" value="确定" id="gopage_btn_confirm" />
+                        </div>
+                    </div>
+                </div>
                 <div id="detailDialog">
-                    <div id="close" title="关闭">X</div>
+                    <div id="close" title="关闭" class="ui-button-icon-primary ui-icon ui-icon-closethick"></div>
                     <table cellpadding="0" cellspacing="0" border="1">
                         <tr>
                             <td width="80px" class="label">商品名字</td>
@@ -197,20 +209,6 @@
                          </tr> 
                         -->
                     </table>
-                </div>
-                <div class="pagin">
-                    <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-                    <ul class="paginList">
-                        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                        <li class="paginItem"><a href="javascript:;">1</a></li>
-                        <li class="paginItem current"><a href="javascript:;">2</a></li>
-                        <li class="paginItem"><a href="javascript:;">3</a></li>
-                        <li class="paginItem"><a href="javascript:;">4</a></li>
-                        <li class="paginItem"><a href="javascript:;">5</a></li>
-                        <li class="paginItem more"><a href="javascript:;">...</a></li>
-                        <li class="paginItem"><a href="javascript:;">10</a></li>
-                        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-                    </ul>
                 </div>
                 <div class="tip">
                     <div class="tiptop"><span>提示信息</span><a></a></div>

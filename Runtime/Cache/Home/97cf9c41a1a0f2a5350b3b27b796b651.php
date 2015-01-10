@@ -4,9 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
         <link href="/whr/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
             <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
             <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
             <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
             <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
@@ -16,44 +18,56 @@
             <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
 
                 <script type="text/javascript">
-                    $(function(){
-                        //   console.log(/whr/App/Home/View/Public)
-                        //简单验证
-                        var validate = {
-                            'username' : false,
-                            'type_id':false
-                        };
-                        $('#name').blur(function(){
-                            if($.trim($(this).val()) == ''){
-                                $('#name_info').text('商品名字不能为空').css('color','red');
-                                validate.username = false;
-                            }else{
-                                $('#name_info').text('');
-                                validate.username = true;
-                            }
-                        });
-                        $('#soncate').change(function(){
-                            if($.trim($(this).val()) == 0){
-                                $('#type_info').text('请选择分类').css('color','red');
-                                validate.type_id = false;
-                            }else{
-                                $('#type_info').text('');
-                                validate.type_id = true;
-                            }
-                        });
-       
-                        $('form').submit(function(){
-                            $('#name').trigger('blur');
-                            var isOK = validate.username && validate.type_id
-                            if(!isOK){
-                                //  if (! validate.type_id) {alert('请选择分类')};
-                                // return false;
-                            }
+                        $(function(){
 
-                            return true;
-            
-                        });
-                    })
+                            function setout(){
+                                $('.validateTips').text()
+                                $('#skuNotice').show();
+                                var dingshi= setTimeout( function(){
+                                    $( '#skuNotice' ).fadeOut();
+                                }, ( 1 * 1000 ) );  
+                                return dingshi;
+                            } 
+                            function checkInput(){
+                                var bValid = true;
+                               bValid = bValid && checkEmpty( $("#type_on"), "\u8bf7选择分类！" );//notice商品所属商店
+                               bValid = bValid && checkEmpty( $("#bid"), "\u8bf7选择商品所属商店！" );//notice商品所属商店
+                               bValid = bValid && checkEmpty( $("#des"), "商品描述不能为空！" );//notice商品所属商店
+                               bValid = bValid && checkLength( $("#name"), $("#name").prev().text(), 2, 16 );
+                              bValid = bValid && checkRegexp( $("#price"), /([0-9])+$/i, "价格只能是数字组成" );
+                              bValid = bValid && checkRegexp( $("#m_price"), /([0-9])+$/i, "商场价格只能是数字组成" );
+                              bValid = bValid && checkRegexp( $("#t_price"), /([0-9])+$/i, "促销价只能是数字组成" );
+                                if(bValid==false){ setout(); }
+                                return bValid;
+                            }
+                            $('form').submit(function(){
+                                if(!checkInput()){
+                                    $('.dfinput').each(function () {
+                                      //  alert($(this).prev().text())
+                                        if($(this).val()==''){
+                                            $(this).next().css("color","red");
+                                            $('.errorColor').css("color","red")
+                                        }
+                                    });
+                                    return false;
+                                }
+                                return true
+                            })
+                            $(".dfinput").bind("focus",function(){
+                                $('#skuNotice').hide();
+                                $(this).addClass("focus");
+                                $(this).next().css("color","#7f7f7f");
+                                if($(this).hasClass("ui-state-error")){
+                                    $(this).removeClass( "ui-state-error" );
+                                    $(".validateTips").removeClass("errorTip").hide();	
+                                }
+                            }).bind("blur",function(){
+                                $(this).removeClass("focus");
+                                if($(this).val()==''){ 
+                                    $(this).next().css("color","red"); }
+                                checkInput();
+                            });
+                        })
                 </script>
                 <style type="text/css">
                     .pro{
@@ -66,6 +80,7 @@
                     .pro select{
                         line-height: 30px;
                     }
+                       .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
                 </style>
                 </head>
                 <body style="background: none;">
@@ -78,8 +93,8 @@
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
-                        <input type ="hidden" name="lgid" value="<?php echo ($info["lgid"]); ?>">
-                            <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
+                        <input id="typeId" type ="hidden" name="lgid" value="<?php echo ($info["lgid"]); ?>">
+                            <input id="action" type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
@@ -87,24 +102,28 @@
                                             <li style = "display:none"><label>生活导航商品编号</label><input name="number" type="text" class="dfinput" value="<?php echo ($info["lgid"]); ?>" disabled="disabled"/><i>不用输入，系统自动生成</i></li>
                                             <li><label>分类</label>
                                                 <span class = 'pro'>
-                                                    <select name = 'cate_pid' class="form-control" >
+                                                    <select name = 'cate_pid' class="form-control" id="type_on" >
                                                         <option class="pro_into" value="<?php echo ($find["type_id"]); ?>"><?php echo ($find["type_name"]); ?></option>
                                                         <?php if(is_array($cate)): $i = 0; $__LIST__ = $cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["type_id"]); ?>"><?php echo ($vo["type_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
-                                                    <select name = 'cate_id' style="display:none" id ="soncate"  >
+                                                    <select name = 'cate_id' style="display:none" id ="soncate"  class="form-control">
                                                     </select>
                                                 </span>
                                                 <i id="type_info"></i></li> 
                                             <li><label>商品所属商店</label>
                                                 <span class = 'pro'>
-                                                    <select name = 'bid'class="form-control" >
+                                                    <select name = 'bid'class="form-control" id="bid" >
                                                         <?php if(is_array($shop)): $i = 0; $__LIST__ = $shop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
                                                 </span>
                                                 <i id="type_info"></i></li> 
+                                                    <div style="display:none" id="skuNotice" class="sku_tip">
+                                                        <span class="validateTips"></span>
+                                                    </div>
+
                                             <li><label>商品名称</label><input name="lgname" id="name" type="text" class="dfinput" value="<?php echo ($info["lgname"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="des" value="<?php echo ($info["des"]); ?>" ><?php echo ($info["des"]); ?></textarea><i>描述</i></li>
-                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="server" value="<?php echo ($info["server"]); ?>" ><?php echo ($info["server"]); ?></textarea><i>服务描述</i></li>
+                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" class="dfinput" name ="des" value="<?php echo ($info["des"]); ?>" ><?php echo ($info["des"]); ?></textarea><i>描述</i></li>
+                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" class="dfinput" name ="server" value="<?php echo ($info["server"]); ?>" ><?php echo ($info["server"]); ?></textarea><i>服务描述</i></li>
                                             <li style="height:50px"><label>商品详情</label></li>
                                             <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="<?php echo ($info["content"]); ?>" ><?php echo ($info["content"]); ?></textarea></li>
                                                 <li><label>列表图片</label>
@@ -133,9 +152,9 @@
                                                                     </div><?php endforeach; endif; else: echo "" ;endif; endif; ?>
                                                                  </i></li>
                                             <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="<?php echo ($info["star"]); ?>"/><i></i></li>
-                                            <li><label>商场价格</label><input name="price" type="text" class="dfinput"  value="<?php echo ($info["price"]); ?>"/><i></i></li>
-                                            <li><label>市场价格</label><input name="m_price" type="text" class="dfinput"  value="<?php echo ($info["m_price"]); ?>"/><i></i></li> 
-                                            <li><label>促销价格</label><input name="t_price" type="text" class="dfinput"  value="<?php echo ($info["t_price"]); ?>"/><i>格式如:2014-11-12</i></li> 
+                                            <li><label>商场价格</label><input name="price" type="text" class="dfinput"  value="<?php echo ($info["price"]); ?>"/><i>只能输入数字</i></li>
+                                            <li><label>市场价格</label><input name="m_price" type="text" class="dfinput"  value="<?php echo ($info["m_price"]); ?>"/><i>只能输入数字</i></li> 
+                                            <li><label>促销价格</label><input name="t_price" type="text" class="dfinput"  value="<?php echo ($info["t_price"]); ?>"/><i>只能输入数字</i></li> 
                                             <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="<?php echo ($info["pass_time"]); ?>"/><i></i></li>  
 
                                             <li><label>競價排名</label><input name="sort" id="notice" type="text" class="dfinput" value="100"/><i></i></li>
@@ -257,42 +276,47 @@
 
                                     // getvallage($(".city_in").val());
 
-                                    var pro = function() {
-                                        var id=$(".pro_into").val();
+                                var pro = function() {
+                                    var id=$("#typeId").val();
 
-                                        $.ajax({
-                                            url : "<?php echo U('sonCate','','');?>",
-                                            type : "post",
-                                            data : "id="+id,
-                                            dataType : "json",
-                                            success : function(data){     
-                                                //   alert(data) 
-                                                if(data != null){
+                                    $.ajax({
+                                        url : "<?php echo U('GoodstypeAjax','','');?>",
+                                        type : "post",
+                                        data : "id="+id,
+                                        dataType : "json",
+                                        success : function(data){     
+                                            console.log(data)
+                                            //   alert(data) 
+                                            if(data != null){
 
-                                                    var str=""
-                                                    $.each(data,function(key,val){
-                                                        str += "<option value="+val['type_id']+">"+val['type_name']+"</option>";
-                                                    })
-                                                    $('#soncate').html(str);
-                                                    $('#soncate').show(300);
-                                                }
+                                                var str=""
+
+                                               str += "<option value="+data.type_id+">"+data.type_name+"</option>";
+
+                                                $.each(data.list,function(key,val){
+                                                str += "<option value="+val['type_id']+">"+val['type_name']+"</option>";
+                                                 })
+                                                $('#soncate').html(str);
+                                                $('#soncate').show(300);
                                             }
-                                        });    
-                                    }
+                                        }
+                                    });    
+                                }
                                     //province();
                                     getvallage($(".city_in").val());
                                     //       pro();
-                                    var add= $('.top_cate').click(function(){
+                                      $('#type_on').bind('change',function(){
+
 
                                         var id =$(this).val();
-                                        //   alert(id);
+
                                         $.ajax({
                                             url : "<?php echo U('sonCate','','');?>",
                                             type : "post",
                                             data : "id="+id,
                                             dataType : "json",
                                             success : function(data){   
-                                                //  alert(data)
+
                                                 if(data != null){
                                                     var str=""
                                                     $.each(data,function(key,val){
@@ -304,7 +328,8 @@
                                             }
                                         });         
                                     })  
-                                    if($("#action").val()=='add'){  add()   }else{  pro(); }   
+
+                                    if($("#action").val()!=='add'){ pro(); }   
 
                                 }) 
                                 function getvallage(id){

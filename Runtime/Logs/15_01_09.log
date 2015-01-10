@@ -1,0 +1,401 @@
+[ 2015-01-09T10:46:11+08:00 ] ::1 /whr/index.php?s=/Home/Login/index.2
+ERR: 非法操作:index.2
+
+[ 2015-01-09T11:36:57+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxrepair
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000423s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000695s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_complaints` [ RunTime:0.005283s ]
+SQL: SELECT * FROM `wrt_pro_complaints` WHERE ( rid=0 ) LIMIT 1   [ RunTime:0.000244s ]
+
+[ 2015-01-09T14:03:09+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000623s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001099s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.005698s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.000352s ]
+
+[ 2015-01-09T14:03:14+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000365s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000587s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.006002s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.000299s ]
+
+[ 2015-01-09T14:03:52+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000367s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000608s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.006676s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.000323s ]
+
+[ 2015-01-09T14:46:28+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000418s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000703s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.016103s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000327s ]
+
+[ 2015-01-09T14:57:48+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000415s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000686s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.005092s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000295s ]
+
+[ 2015-01-09T15:56:18+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000714s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.004988s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000337s ]
+
+[ 2015-01-09T16:43:13+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxrepair
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000411s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000679s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_complaints` [ RunTime:0.005436s ]
+SQL: SELECT * FROM `wrt_pro_complaints` WHERE ( rid=0 ) LIMIT 1   [ RunTime:0.000244s ]
+
+[ 2015-01-09T16:44:18+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxrepair
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000415s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000684s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_complaints` [ RunTime:0.005491s ]
+SQL: SELECT * FROM `wrt_pro_complaints` WHERE ( rid=0 ) LIMIT 1   [ RunTime:0.000316s ]
+
+[ 2015-01-09T16:45:04+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxdecorate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000357s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000584s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_decorate` [ RunTime:0.005334s ]
+SQL: SELECT * FROM `wrt_pro_decorate` WHERE ( rid=2 ) LIMIT 1   [ RunTime:0.000377s ]
+
+[ 2015-01-09T16:59:07+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxrepair
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000347s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000587s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_complaints` [ RunTime:0.005256s ]
+SQL: SELECT * FROM `wrt_pro_complaints` WHERE ( rid=0 ) LIMIT 1   [ RunTime:0.000599s ]
+
+[ 2015-01-09T17:30:56+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000549s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000903s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000546s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000590s ]
+
+[ 2015-01-09T17:30:56+08:00 ] ::1 /whr/index.php?s=/Home/City/citySave
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000573s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000963s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000524s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000593s ]
+
+[ 2015-01-09T17:31:02+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000404s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000739s ]
+SQL: select region_id,region_name from wrt_region where parent_id =7 [ RunTime:0.003720s ]
+
+[ 2015-01-09T17:31:03+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000469s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000952s ]
+SQL: select region_id,region_name from wrt_region where parent_id =76 [ RunTime:0.003893s ]
+
+[ 2015-01-09T17:31:03+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000384s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000684s ]
+SQL: select region_id,region_name from wrt_region where parent_id =76 [ RunTime:0.003742s ]
+
+[ 2015-01-09T17:31:57+08:00 ] ::1 /whr/index.php?s=/Home/City/citySave
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000515s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000748s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000426s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000480s ]
+
+[ 2015-01-09T17:31:57+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000558s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000930s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000412s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000458s ]
+
+[ 2015-01-09T17:31:58+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000442s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000699s ]
+SQL: select region_id,region_name from wrt_region where parent_id =7 [ RunTime:0.003612s ]
+
+[ 2015-01-09T17:31:59+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000491s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000820s ]
+SQL: select region_id,region_name from wrt_region where parent_id =77 [ RunTime:0.003745s ]
+
+[ 2015-01-09T17:31:59+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000504s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000850s ]
+SQL: select region_id,region_name from wrt_region where parent_id =77 [ RunTime:0.003714s ]
+
+[ 2015-01-09T17:32:26+08:00 ] ::1 /whr/index.php?s=/Home/City/citySave
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000387s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000660s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000434s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000494s ]
+
+[ 2015-01-09T17:32:26+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000374s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000625s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000345s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000391s ]
+
+[ 2015-01-09T17:32:27+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000399s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000659s ]
+SQL: select region_id,region_name from wrt_region where parent_id =7 [ RunTime:0.003601s ]
+
+[ 2015-01-09T17:32:27+08:00 ] ::1 /whr/index.php?s=/Home/City/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000381s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000640s ]
+SQL: select region_id,region_name from wrt_region where parent_id =75 [ RunTime:0.003884s ]
+
+[ 2015-01-09T17:32:28+08:00 ] ::1 /whr/index.php?s=/Home/City/vallage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000436s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000769s ]
+SQL: select region_id,region_name from wrt_region where parent_id =75 [ RunTime:0.003763s ]
+
+[ 2015-01-09T19:07:29+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000428s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000699s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000153s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000366s ]
+
+[ 2015-01-09T19:09:05+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000402s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000667s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000199s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000415s ]
+
+[ 2015-01-09T19:09:45+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000404s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000654s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000178s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000385s ]
+
+[ 2015-01-09T19:10:01+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000337s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000556s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000164s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000329s ]
+
+[ 2015-01-09T19:11:09+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000411s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000661s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000137s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000318s ]
+
+[ 2015-01-09T19:11:13+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000363s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000595s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000075s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=2 ) LIMIT 1   [ RunTime:0.000348s ]
+
+[ 2015-01-09T19:12:13+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000398s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000654s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000176s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000449s ]
+
+[ 2015-01-09T19:13:21+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000357s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000611s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000149s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000331s ]
+
+[ 2015-01-09T19:13:35+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000476s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000745s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000208s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000392s ]
+
+[ 2015-01-09T19:13:41+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000356s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000583s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000150s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000380s ]
+
+[ 2015-01-09T19:14:16+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000465s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000817s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000075s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000320s ]
+
+[ 2015-01-09T19:14:49+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000404s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000667s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000149s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000329s ]
+
+[ 2015-01-09T19:40:21+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000390s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000638s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000116s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000304s ]
+
+[ 2015-01-09T19:40:57+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000407s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000662s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000131s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000307s ]
+
+[ 2015-01-09T19:42:24+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000379s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000656s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000144s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000350s ]
+
+[ 2015-01-09T19:42:29+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000372s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000610s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000104s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000331s ]
+
+[ 2015-01-09T20:05:53+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000439s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000850s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000166s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000346s ]
+
+[ 2015-01-09T20:26:24+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000533s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000833s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000080s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000314s ]
+
+[ 2015-01-09T20:26:32+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000483s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000767s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000077s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=2 ) LIMIT 1   [ RunTime:0.000253s ]
+
+[ 2015-01-09T20:33:37+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000419s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000690s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.005474s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000296s ]
+
+[ 2015-01-09T20:36:01+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxCalendar
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000711s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_survey` [ RunTime:0.007322s ]
+SQL: SELECT * FROM `wrt_pro_survey` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000393s ]
+
+[ 2015-01-09T20:41:35+08:00 ] ::1 /whr/index.php?s=/Home/City/citySave
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000523s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000831s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001024s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001096s ]
+
+[ 2015-01-09T20:41:35+08:00 ] ::1 /whr/index.php?s=/Home/City/vallcage
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000556s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000850s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000519s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000565s ]
+
+[ 2015-01-09T20:46:33+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000488s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000776s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000185s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000384s ]
+
+[ 2015-01-09T20:46:36+08:00 ] ::1 /whr/index.php?s=/Home/Category/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000373s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000621s ]
+SQL: SHOW COLUMNS FROM wrt_specification s [ RunTime:0.000114s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM wrt_specification s
+SQL: SELECT s.*,c.cat_id,c.cat_name FROM wrt_specification s INNER JOIN wrt_category AS c ON c.cat_id=s.parent_id  WHERE ( s.id=1 ) LIMIT 1   [ RunTime:0.000283s ]
+

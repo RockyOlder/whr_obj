@@ -15,22 +15,13 @@ class LoginController extends Controller {
 				show_bug ( $model->getError () );
 			}
 			$name = I ( 'post.username', '' );
-			// $verify = I ( 'post.verify' );//js判断了验证码，后台取消验证码验证
-			// dump($verify);
-			// dump(md5($verify));
-			// dump(session());die();
-			// if (! $this->check_verify ( $verify )) {
-			// $this->error ( '验证码输入不正确' );
-			// }
-			// dump($name);
+               
 			// 查询出来数据库中的数据
-			$data = $model->field ( 'id,name,password,pre,role_id,is_lock,agency_id,last_login,last_ip' )->where ( "name='$name'" )->select ();
+			$data = $model->field ( 'id,name,password,salt,role_id,is_lock,agency_id,last_login,last_ip,top_name,top_logo' )->where ( "name='$name'" )->find ();
 			// dump()
-			// dump($data);
+		//	dump($data);die();
 
-			if (! empty ( $data ) && is_array ( $data )) {
-				$data = current ( $data );
-			} else {
+			if (empty ( $data )) {
 				$this->error ( '不存在该管理员！' );
 			}
 			// 判断用户是否被锁定
@@ -39,7 +30,7 @@ class LoginController extends Controller {
 			}
 			// dump($data);
 			// 加密用户密码
-			$password = change( $data ['pre']);
+			$password = change( $data ['salt']);
 			// dump($password);
 			// dump($data['password'] == $password);die();
 			if ($data ['password'] == $password) {
@@ -47,25 +38,16 @@ class LoginController extends Controller {
 						'uid' => $data ['id'],
 						'username' => $data ['name'] 
 				);
-				$admin = array (
-						'id' => $data ['id'],
-						'name' => $data ['name'],
-						'pre' => $data ['pre'],
-						'role_id' => $data ['role_id'] ,
-						'login_time'=>$data ['last_login'],
-						'login_ip'=>$data ['last_ip'],
-						'nickname'=>$data ['nickname']
-				);
+				$admin = $data;
 				// 获取ip
-				$ip = $_SERVER['HTTP-HOST'];
-				$time = time();
-				$sql = 'update '.C('DB_PREFIX').'user set last_ip = "'.$ip.'",last_login ='.$time.' where user_id ='.$data['id'];
-				M()->query($sql);
+				$ip = get_client_ip();		
+				$arr = array('last_ip'=>$ip,'last_login'=>time(),'id'=>$data['id']);
+				M('admin')->save($arr);
 				// 保存用户的session				
 				session ( 'admin', $admin );
 				session ( 'user_auth', $auth ); // 用来做权限验证
 				                                // dump(session());
-				
+			//	admin_log('登录');//记录管理员日志
 				$this->success ( '登录成功', U ( 'Index/index', '', '' ) );
 			} else {
 				$this->error ( '用户名或者密码输入错误' );

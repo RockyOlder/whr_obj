@@ -19,10 +19,19 @@ class ConfigController extends IsloginController {
             if ($parent_type)
                 $where['phone'] = array('LIKE', '%' . $parent_type . '%');
         }
+        $count = $business->where($where)
+                ->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 4);
+        $show = $page->show();
+        //   print_r($show);exit;
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $business->field('*')
                 ->where($where)
-                //  ->limit($page->firstRow . ',' . $page->listRows)
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -88,7 +97,7 @@ class ConfigController extends IsloginController {
             $img = $businessList['more_pic'];
             $businessList['more_pic'] = json_decode($img, true);
             $bid = $obj->where("id=" . $businessList['bid'])->find();
-          //  print_r($bid);exit;
+            //  print_r($bid);exit;
             $this->assign("region", $bid);
             $this->assign('info', $businessList);
         }
@@ -98,7 +107,7 @@ class ConfigController extends IsloginController {
 
     public function details() {
         $id = I('post.id', 0);
-       
+
         if ($id) {
             $data['title'] = "编辑商品";
             $data['btn'] = "编辑";

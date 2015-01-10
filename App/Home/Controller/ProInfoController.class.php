@@ -8,13 +8,22 @@ class ProInfoController extends IsloginController {
 
     public function index() {
         $house = M("ProNotice p");
+
+        $count = $house->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $house->field('p.*,y.id as yid,y.pname')
                 ->join('wrt_property AS y ON p.proid=y.id')
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
-        //   print_r($data);exit;
         if (empty($data)) {
+            //     echo 1;exit;
             $this->display(add);
         }
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -36,6 +45,7 @@ class ProInfoController extends IsloginController {
                         $url = U('/Home/proInfo/add', '', false);
                         $this->error($_villa . '  添加失败!');
                     }
+                    $data['add_time'] = time();
                     if ($pntice->add($data)) {
                         $url = U('/Home/proInfo/index');
                         $this->success("用户添加成功！", $url);
@@ -129,7 +139,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $prosury = M("ProSurvey");
-        $prolist = $prosury->select();
+        $count = $prosury->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $prosury->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
@@ -226,7 +243,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $procar = M("ProCar");
-        $prolist = $procar->select();
+        $count = $procar->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $procar->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
@@ -264,7 +288,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $proactiv = M("ProActivity");
-        $prolist = $proactiv->select();
+        $count = $proactiv->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $proactiv->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
@@ -301,7 +332,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $prorepair = M("ProRepair");
-        $prolist = $prorepair->select();
+        $count = $prorepair->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $prorepair->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
@@ -336,8 +374,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $pro = M("ProDecorate");
-        $prolist = $pro->select();
-        $this->assign('obj', $pro);
+        $count = $pro->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             //      print_r($_REQUEST);exit;
@@ -372,8 +416,14 @@ class ProInfoController extends IsloginController {
         $data['title'] = "添加";
         $action = I('post.action');
         $pro = M("ProComplaints");
-        $prolist = $pro->select();
-        $this->assign('obj', $pro);
+        $count = $pro->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
@@ -409,7 +459,14 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "闲置交换";
         $action = I('post.action');
         $pro = M("ProIdle");
-        $prolist = $pro->select();
+        $count = $pro->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {

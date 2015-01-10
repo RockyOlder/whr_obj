@@ -4,11 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-
+        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
         <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-1.8.3.min.js"></script>      -->
         <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css"> jquery-1.8.3.min -->
-        <link type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
@@ -45,7 +46,7 @@
                             }
                         });
                         $("#ig_primary").click(function(){
-                             $("div[role=dialog]").show()
+                            $("div[role=dialog]").show()
                             $("#dialog-form").dialog("option","title","添加");            
                             $("#dialog-form").dialog("open");
                         });
@@ -53,6 +54,7 @@
                         $("button[title=close]").click(function(){
                             $("div[role=dialog]").hide()
                         });
+                         initPager();
                     });         
                     //     var roleDataBak='{}';
                     //     var allFields=$( [] );close
@@ -139,8 +141,6 @@
                                     <td><?php echo ($vo["content"]); ?></td>
                                     <td><?php echo ($vo["phone"]); ?></td>
                                     <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
-
-
                                     <td class="th_default">    
                                         <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
                                         <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
@@ -148,7 +148,19 @@
                                 </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
                         </tbody>
                     </table>
-                    <div id="xxoo">
+                    <div id="pager" class="pager">
+                        <div class="fanye">
+                            <div class="fanye1">
+                                <?php echo ($page); ?>
+                            </div>
+                            <div class="fanye2">
+                                <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                                转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                                <input type="button" value="确定" id="gopage_btn_confirm" />
+                            </div>
+                        </div>
+                    </div>
+               
                         <div id="dialog-form" title="添加" style=" display: none;">
                             <div class="tip">
                                 <p class="validateTips"></p>
@@ -199,7 +211,7 @@
 
                                     </form>
                                     </div>
-                                    </div>
+                                    
                                     <script>
                         
                                         $(function(){

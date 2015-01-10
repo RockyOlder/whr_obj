@@ -6,11 +6,15 @@ use Home\Controller\IsloginController;
 
 class IndexController extends IsloginController {
 	public function index() {
+		//dump(session());
+
+		// $data = sendMsg('18691988421','come on baby!');//调用发送短信方法
+		// dump($data);
 		// 验证用户的登录权限
 		// $this->checkself();
 		// dump(session());
 			
-		//Think\Build::buildController('app/Home','ClassSchedule');
+		
 		$this->display ();
 		
 		// 查询用户所有的权限
@@ -22,12 +26,13 @@ class IndexController extends IsloginController {
 	}
 	// 首页顶部
 	public function top() {
+		$this->assign('time',time());
 		$this->display ();
 	}
 	// 首页左边
 	public function left() {
 		$data = $this->getleft ();
-// 		dump($data);
+		// dump($data);
 		$this->assign ( 'menu', $data );
 		$this->display ();
 	}
@@ -36,7 +41,8 @@ class IndexController extends IsloginController {
 		$this->display ();
 	}
 	// 用户退出方法
-	public function loginout() {
+	public function loginout() {		
+	//	admin_log('退出登录');
 		session ( 'admin', null );
 		session ( 'user_auth', null );
 		$this->success ( '成功退出登录！', U ( 'Login/index' ) );

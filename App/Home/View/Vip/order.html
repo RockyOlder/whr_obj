@@ -4,10 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
         <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
-        <link type="text/css" href="__PUBLIC__/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link href="__PUBLIC__/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" href="__PUBLIC__/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
         <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
-       <script type="text/javascript" src="__PUBLIC__/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script type="text/javascript" src="__PUBLIC__/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-edit" ).dialog({
@@ -23,7 +25,7 @@
                             "提　交":function(){
                                 // allFields.removeClass( "ui-state-error" );
                          
-                             //   $('form[name=myform]').submit();
+                                //   $('form[name=myform]').submit();
                             }
                         },
         
@@ -71,11 +73,12 @@
                         }
                          
                     })    
+                    initPager();
                 });         
-               function update_list(subId){
+                function update_list(subId){
                     $("#dialog-form").dialog("option","title","修改投诉建议");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
-                  //  return false;
+                    //  return false;
                     $.ajax({ 
                         url:$("#url_ajaxCalendar").val(),
                         type:"post",
@@ -90,7 +93,7 @@
                         },
                         success:function(data){
                             //return false;
-                             console.log(data)
+                            console.log(data)
                             $("#number").text(data.number);
                             $("#bid").text(data.name);
                             $("#time").text(data.time);
@@ -101,7 +104,7 @@
                             $("#cate").text(data.cate);
                             $("#express_number").text(data.express_number);
                             if(data.statue==1){
-                            $("#dialog-edit").dialog("open");    
+                                $("#dialog-edit").dialog("open");    
                             }
                             
                         }
@@ -196,13 +199,24 @@
                             <!--  <a class="btn btn-default" onclick="update_list({$vo.rid})">修改</a>     -->
                             <a href="{:U('del',array(id=>$vo['oid']),'')}" class="btn btn-default" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             <a id="done_add" class="btn btn-default"   onclick="rule_add({$vo.oid})">详情</a>
-                      
+
                         </td>
                     </tr> 
                 </volist>    
             </tbody>
         </table>
-
+        <div id="pager" class="pager">
+            <div class="fanye">
+                <div class="fanye1">
+                    {$page}
+                </div>
+                <div class="fanye2">
+                    <span class="">共{$currentPage}/{$totalPage}页</span>
+                    转到<input type="text" value="{$currentPage}" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                    <input type="button" value="确定" id="gopage_btn_confirm" />
+                </div>
+            </div>
+        </div>
         <!--       <div id="dialog-form" title="装修申请" style=" display: none;">
                    <div class="tip">
                        <p class="validateTips"></p>

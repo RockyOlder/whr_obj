@@ -9,9 +9,16 @@ class AdController extends IsloginController {
     public function index() {
 
         $ad = M("Ad");
-        $adcount = $ad->select();
+        $count = $ad->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 8);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $find = $ad->limit($page->firstRow . ',' . $page->listRows)->select();
         //  print_r($adcount);exit;
-        $this->assign('data', $adcount);
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
+        $this->assign('data', $find);
         $this->display();
     }
 
@@ -23,45 +30,38 @@ class AdController extends IsloginController {
         $vip = M('VipActivity');
 
         if (IS_POST) {
-            if ($action == "add") {
-                //      print_r(date('Y-m-d H:i:s',strtotime(I('post.start_time'))));exit;
-                //     print_r(I('post.start_time'));exit;
-                $ad = D('Ad');
-                if ($data = $ad->create()) {
-                    $data["start_time"] = strtotime(I('post.start_time'));
-                    $data["end_time"] = strtotime(I('post.end_time'));
+            $ad = D('Ad');
+            $data = $ad->create();
+            if ($data) {
+                $data["start_time"] = strtotime(I('post.start_time'));
+                $data["end_time"] = strtotime(I('post.end_time'));
+                if ($action == "add") {
                     if ($ad->add($data)) {
-                        $url = U('/Home/Ad/index');
-                        $this->success("用户添加成功！", $url);
+                        $this->success("用户添加成功！", U('/Home/Ad/index'));
                     } else {
-                        $this->error("用户添加失败！", 'index');
+                        $this->error("用户添加失败！", U('/Home/Ad/add'));
+                    }
+                } elseif ($action == "edit") {
+                    if ($ad->save($data)) {
+                        $this->success("修改成功！", U('/Home/Ad/index'));
+                    } else {
+                        $this->error("用户修改失败！", U('/Home/vip/add'));
                     }
                 }
-            } elseif ($action == "edit") {
-                 $ad = D('Ad');
-                if ($vipData = $ad->create()) {
-                    $data["start_time"] = strtotime(I('post.start_time'));
-                    $data["end_time"] = strtotime(I('post.end_time'));
-                    if ($ad->save($vipData)) {
-                        $url = U('/Home/vip/vlist');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($ad->getError());
-                }
+            } else {
+                $this->error($ad->getError());
             }
         }
         $id = I('get.id', 0);
         if ($id) {
-       
             $data['action'] = 'edit';
             $data['title'] = "编辑商家";
             $data['btn'] = "编辑";
             $ad = M("Ad");
             $vipList = $ad->where("ad_id=$id")->find();
-         //   print_r($vipList);exit;
+            $vipList['start_time'] = date("Y-m-d H:i:s", $vipList['start_time']);
+            $vipList['end_time'] = date("Y-m-d H:i:s", $vipList['end_time']);
+            //   print_r($vipList);exit;
             $this->assign('info', $vipList);
         }
         //$this->redirect("home/del",array());
@@ -72,8 +72,9 @@ class AdController extends IsloginController {
     public function sort() {
         
     }
+
     public function count() {
-           $ad = M("Ad");
+        $ad = M("Ad");
         $adcount = $ad->order('click desc')->select();
         $this->assign('data', $adcount);
         $this->display();

@@ -10,8 +10,14 @@ class PropertyController extends IsloginController {
         //echo 1;exit;
         //    $data = $this->getdata();
         $prop = M("Property");
-        $data = $prop->select();
-        // print_r($data);exit;
+        $count = $prop->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 3);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $prop->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -35,29 +41,19 @@ class PropertyController extends IsloginController {
         $this->assign('pro', $pro);
         if (IS_POST) {
             //  print_r($action);exit;
-            if ($action == "add") {
-                $user = D('property');
-                if ($data = $user->create()) {
-                    $data["add_time"]=time();
-                    if ($user->add($data)) {
-                        $url = U('/Home/property/index');
-                        $this->success("用户添加成功！", $url);
-                    } else {
-                        $this->error("用户添加失败！", 'index');
+            $user = D('property');
+            $data = $user->create();
+            if ($data) {
+                if ($action == "add") {
+                    $data["add_time"] = time();
+                    if ($user->add($data)) {  $this->success("用户添加成功！", U('/Home/property/index'));//$url = U('/Home/property/index'); 
+                    } else { $this->error("用户添加失败！", 'index'); }
+                    } elseif ($action == "edit") {
+                    if ($user->save($data)) {  $this->success("修改成功！", U('/Home/property/index'));//$url = U('/Home/property/index');
+                    } else { $this->error("用户修改失败！", 'index'); }
                     }
-                }
-            } elseif ($action == "edit") {
-                $admin = D("Property");
-                if ($adminData = $admin->create()) {
-                    if ($admin->save($adminData)) {
-                        $url = U('/Home/property/index');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($admin->getError());
-                }
+            } else {
+                $this->error($user->getError(),'',1);
             }
         }
         $id = I('get.id', 0);

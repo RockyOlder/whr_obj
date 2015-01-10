@@ -6,19 +6,15 @@
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+           
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script language="javascript">
-                KE.show({
-                    id : 'content7',
-                    cssPath : './index.css'
-                });
+
                 function deleteSum(id){
                     if(confirm("确认删除"))
                         location.href="/whr/index.php?s=/Home/Business/del/id/"+id
@@ -46,27 +42,21 @@
                         cancel:"table"
                     });
                     $("#close").bind("click",function(e){
-                        // $(this).parent().removeAttr("id");   
-                        //   $(this).parent().removeClass();  
-                        // var xtop= $("#detailDialog").position().top;
-                        //alert(xtop)
                         //  console.log(e.clientY)
                         $("#detailDialog").css({
-                            //'top':"'"+e.clientY+"'px",
-                            'top':'50px',
+                            'top':'0px',
                             "left":'0px'
                         })
-                        $(this).parent().hide(1000);  
+                        $(this).parent().hide(500);  
                     })
+                          initPager();
                 });
                 function showDetail(teacherId){
-                    var xtop= $("#showlist"+teacherId).position().top;
-                    var xleft=$("#showlist"+teacherId).position().left;
                     //   alert(xtop)
                     $("#detailDialog").position(
                     {
-                        my: "top"+xtop+"px",
-                        // at: xleft+"px",
+                        my: "center",
+                       at: "center",
                         of: window
                     });
                     $.ajax({ 
@@ -102,7 +92,7 @@
                 }
             </script>
             <style>
-                #close{ font-size: 16px; border: 2px solid;}
+                
 
             </style>
     </head>
@@ -111,7 +101,7 @@
     <body style="background: none;">
         <input type="hidden" value="/whr/index.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
         <div class="place">
-            <span>位置：</span>
+            <span>位置： </span>
             <ul class="placeul">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">图片列表</a></li>
@@ -144,6 +134,7 @@
                             <th>库存:</th>
                             <th>描述</th>
                             <th>操作</th>
+                           
                         </tr>
                     </thead>
 
@@ -166,7 +157,7 @@
 
                 </table>
                 <div id="detailDialog">
-                    <div id="close" title="关闭">X</div>
+                    <div id="close" title="关闭" class="ui-button-icon-primary ui-icon ui-icon-closethick"></div>
                     <table cellpadding="0" cellspacing="0" border="1">
                         <tr>
                             <td width="80px" class="label">商品名字</td>
@@ -220,19 +211,17 @@
                         -->
                     </table>
                 </div>
-                <div class="pagin">
-                    <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-                    <ul class="paginList">
-                        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                        <li class="paginItem"><a href="javascript:;">1</a></li>
-                        <li class="paginItem current"><a href="javascript:;">2</a></li>
-                        <li class="paginItem"><a href="javascript:;">3</a></li>
-                        <li class="paginItem"><a href="javascript:;">4</a></li>
-                        <li class="paginItem"><a href="javascript:;">5</a></li>
-                        <li class="paginItem more"><a href="javascript:;">...</a></li>
-                        <li class="paginItem"><a href="javascript:;">10</a></li>
-                        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-                    </ul>
+                <div id="pager" class="pager">
+                    <div class="fanye">
+                        <div class="fanye1">
+                            <?php echo ($page); ?>
+                        </div>
+                        <div class="fanye2">
+                            <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                            转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                            <input type="button" value="确定" id="gopage_btn_confirm" />
+                        </div>
+                    </div>
                 </div>
                 <div class="tip">
                     <div class="tiptop"><span>提示信息</span><a></a></div>

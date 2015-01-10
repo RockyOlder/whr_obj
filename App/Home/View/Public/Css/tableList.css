@@ -139,15 +139,17 @@
 	padding:20px;
 	background-color:#FFF;
 	cursor:move;
+        z-index: 9999;
 }
 #detailDialog #close {
 	position:absolute;
-	right:3px;
-	top:3px;
-	width:12px;
-	height:12px;
+	right:10px;
+	top:8px;
+	width:15px;
+	height:15px;
 	line-height:11px;
-	border:0px solid;
+	border:1px solid rosybrown;
+
 	cursor:pointer
 }
 #detailDialog table,#detailDialog tr,#detailDialog td{

@@ -52,7 +52,7 @@ class CityController extends IsloginController {
         $id = I('post.id');
         if (!IS_AJAX || $id == "")
             return false;
-        $data = $this->getvicare($id);
+        $data = $this->getSaveCity($id);
         //dump($data);
         $this->ajaxReturn($data);
     }

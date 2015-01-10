@@ -8,11 +8,18 @@ class ActivityController extends IsloginController {
 
     public function index() {
         //    echo 1;exit;
-        $vip = D('VipActGood v');
-        //     $vipList=$vip->select();
+        $vip = M('VipActGood v');
+        $count = $vip->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $find = $vip->field('v.*,w.title,w.start_time,w.end_time')
                 ->join('wrt_vip_activity AS w ON w.id=v.aid')
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $find);
         $this->display();
     }
@@ -23,53 +30,48 @@ class ActivityController extends IsloginController {
         $data['btn'] = "添加商家";
         $action = I('post.action');
         $vip = M('VipActivity');
-        $vipList = $vip->select();
-        //     print_r($vipList);exit;
-        $this->assign('into', $vipList);
+        $count = $vip->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $vip->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
+        $this->assign('into', $data);
         if (IS_POST) {
-            if ($action == "add") {
-                //      print_r(date('Y-m-d H:i:s',strtotime(I('post.start_time'))));exit;
-                //     print_r(I('post.start_time'));exit;
-                $vip = D('VipActivity');
-                if ($data = $vip->create()) {
-                    $data["start_time"] = strtotime(I('post.start_time'));
-                    $data["end_time"] = strtotime(I('post.end_time'));
+            $vip = D('VipActivity');
+            $data = $vip->create();
+            if ($data) {
+                $data["start_time"] = strtotime(I('post.start_time'));
+                $data["end_time"] = strtotime(I('post.end_time'));
+                if ($action == "add") {
                     if ($vip->add($data)) {
-                        $url = U('/Home/Activity/add');
-                        $this->success("用户添加成功！", $url);
+                        $this->success("用户添加成功！", U('/Home/Activity/add'));
                     } else {
-                        $this->error("用户添加失败！", 'index');
+                        $this->error("用户添加失败！", U('/Home/Activity/add'));
+                    }
+                } elseif ($action == "edit") {
+                    if ($vip->save($data)) {
+                        $this->success("添加成功！", U('/Home/Activity/add'));
+                    } else {
+                        $this->error("用户修改失败！", U('/Home/Activity/add'));
                     }
                 }
-            } elseif ($action == "edit") {
-                $vip = D("Vip");
-                if ($vipData = $vip->create()) {
-                    $data["start_time"] = strtotime(I('post.start_time'));
-                    $data["end_time"] = strtotime(I('post.end_time'));
-                    if ($vip->save($vipData)) {
-                        $url = U('/Home/vip/vlist');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($vip->getError());
-                }
+            } else {
+                $this->error($vip->getError());
             }
         }
         $id = I('get.id', 0);
         if ($id) {
             $data['action'] = 'edit';
-            $data['title'] = "编辑商家";
+            $data['title'] = "编辑活动";
             $data['btn'] = "编辑";
-            $vip = M("Vip");
-            $region = M("region");
-            $vipList = $vip->where("store_id=$id")->find();
-            //  print_r($vipList);exit;
-            $provine = $vipList['province'];
-            $regionProv = $region->where("REGION_ID=" . $provine)->find();
-            $this->assign("region", $regionProv);
-            $this->assign('info', $vipList);
+            $vip = D('VipActivity');
+            $vipFind = $vip->where("id=$id")->find();
+            $vipFind['start_time'] = date("Y-m-d H:i:s", $vipFind['start_time']);
+            $vipFind['end_time'] = date("Y-m-d H:i:s", $vipFind['end_time']);
+            $this->assign('info', $vipFind);
         }
         //$this->redirect("home/del",array());
         $this->assign('data', $data);

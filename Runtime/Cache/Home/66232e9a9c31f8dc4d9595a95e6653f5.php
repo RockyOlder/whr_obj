@@ -4,11 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-
+        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
         <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
@@ -40,7 +41,7 @@
                     $(".role-list button").each(function () {
                         if($(this).text()==1){
                             //   $(this).removeClass("btn btn-warning");
-                           $(this).addClass("btn btn-success")  
+                            $(this).addClass("btn btn-success")  
                             $(this).text("已通过审核");
                         } else{
                             $(this).text("没通过审核"); 
@@ -135,7 +136,7 @@
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
         #table_list tr td{ padding: 10px;}
-         .role-list button{ width: 110px;}
+        .role-list button{ width: 110px;}
         .th_default a{ width: 100px;}
         .redclss{ color: red;}
         #ig_primary{float: right; margin-top: 3px;}
@@ -187,13 +188,25 @@
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                         <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td>
                         <td class="th_default">    
-                        <!--    <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>    <!-- btn btn-danger -->
+                            <!--    <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>    <!-- btn btn-danger -->
                             <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)"> 审核</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
         </table>
+        <div id="pager" class="pager">
+            <div class="fanye">
+                <div class="fanye1">
+                    <?php echo ($page); ?>
+                </div>
+                <div class="fanye2">
+                    <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                    转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                    <input type="button" value="确定" id="gopage_btn_confirm" />
+                </div>
+            </div>
+        </div>
 
         <div id="dialog-form" title="装修申请" style=" display: none;">
             <div class="tip">

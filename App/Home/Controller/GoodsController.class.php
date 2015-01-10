@@ -7,7 +7,11 @@ use Home\Controller\IsloginController;
 class GoodsController extends IsloginController {
 
     public function index() {
-        $business = M("Goods");
+        // $xx='绿色,红色,黄色';
+        //$aa=  explode(',', $xx);
+        // print_r($aa);exit;
+       
+        $goods = M("Goods");
         if (IS_POST) {
             $name = I('post.name');
             $parent_type = I('post.parent_type');
@@ -19,10 +23,18 @@ class GoodsController extends IsloginController {
             if ($parent_type)
                 $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
         }
-        $data = $business->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img')
+        $count = $goods->where($where)
+                ->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 9);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img')
                 ->where($where)
-                //  ->limit($page->firstRow . ',' . $page->listRows)
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -36,13 +48,24 @@ class GoodsController extends IsloginController {
         $vip = M("Vip");
         $vipList = $vip->select();
         $cagyList = $cagy->select();
+        //   $tree = $this->getCatTree($cagyList);
+        $tree = $this->getCatTree($cagyList);
+        $arr = array();
+        foreach ($tree as $v) {
+            array_push($arr, array('cat_id' => $v['cat_id'], 'cat_name' => str_repeat('&nbsp', $v['lev']) . $v['cat_name']));
+        }
         $pro = $this->getprovence();
         $this->assign('vip', $vipList);
-        $this->assign('list', $cagyList);
+        $this->assign('list', $arr);
         $this->assign('pro', $pro);
         if (IS_POST) {
+
+
+            $type = I('post.type');
             $path = I('post.path');
+            $cat_id = I('post.cat_id');
             $mid = I('post.mid');
+            $did = I('post.did', 0);
             $name = I('post.pic_name');
             foreach ($path as $k => $v) {
                 $tem = "";
@@ -53,14 +76,43 @@ class GoodsController extends IsloginController {
                 $path[$k] = $tem;
             }
             $goods_img = json_encode($path);
-            //  print_r($goods_img);exit;
+            foreach ($type as $key => $v) {
+                if ($v !== '') {
+                    $arr[$key] = $v;
+                }
+            }
+            $cat = M("Category");
+            $catfind = $cat->where("cat_id=$cat_id")->find();
+            $pid = $catfind['parent_id'];
+            $restut = $cat->where("cat_id=$pid")->find();
+            if (!$restut) {
+                $url = U('/Home/goods/add', '', false);
+                $this->error('父栏目不允许选择!');
+            }
             if ($action == "add") {
+
                 $goods = D('Goods');
                 if ($data = $goods->create()) {
                     $data["add_time"] = time();
                     $data["goods_img"] = $goods_img;
 
-                    if ($goods->add($data)) {
+                    if ($add = $goods->add($data)) {
+                        $specificationData = D("SpecificationData");
+                        if ($obj = $specificationData->create()) {
+                            $_villa = _vialg($obj);
+                            if (!empty($_villa)) {
+                                $url = U('/Home/goods/add', '', false);
+                                $this->error($_villa . '  添加失败!');
+                            }
+                            $obj['name'] = implode('|', $obj['name']);
+                            $obj['type'] = json_encode($obj['type']);
+                            //    print_r($arr);EXIT;
+                            $obj['goods_id'] = $add;
+                            if (!$dataAdd = $specificationData->add($obj)) {
+                                $url = U('/Home/goods/add');
+                                $this->error("操作添加失败！", $url);
+                            }
+                        }
                         $url = U('/Home/goods/index');
                         $this->success("用户添加成功！", $url);
                     } else {
@@ -71,19 +123,43 @@ class GoodsController extends IsloginController {
                 $goods = D("Goods");
                 if ($data = $goods->create()) {
                     $data["goods_img"] = $goods_img;
-                    if ($goods->save($data)) {
-                        $url = U('/Home/goods/index');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
+                    $specificationData = D("SpecificationData");
+                    if ($obj = $specificationData->create()) {
+                        $_villa = _vialg($obj);
+                        if (!empty($_villa)) {
+                            $url = U('/Home/goods/add', '', false);
+                            $this->error($_villa . '  添加失败!');
+                        }
+                        $obj['name'] = implode('|', $obj['name']);
+                        $obj['type'] = json_encode($obj['type']);
+                        $obj['goods_id'] = $data["goods_id"];
+                        if ($did !== 'undefined') {
+                            $specificationData->save($obj);
+                            /* if (!$specificationData->save($obj)) {
+                              $url = U('/Home/goods/add');
+                              $this->error("属性修改失败！", $url);
+                              }
+                             * 
+                             */
+                        } else {
+                            $specificationData->where("goods_id=" . $data["goods_id"])->delete();
+                            if (!$specificationData->add($obj)) {
+                                $url = U('/Home/goods/add');
+                                $this->error("属性添加失败！", $url);
+                            }
+                        }
+                        if ($goods->save($data)) {
+                            $url = U('/Home/goods/index');
+                            $this->success("修改成功！", $url);
+                        } else {
+                            $this->error("用户修改失败！", 'index');
+                        }
                     }
                 } else {
                     $this->error($goods->getError());
                 }
             }
         }
-        //      echo 1;exit;
-
         $id = I('get.id', 0);
         if (!empty($_POST['goods_id'])) {
             $id = $_POST['goods_id'];
@@ -100,9 +176,7 @@ class GoodsController extends IsloginController {
                     ->where('g.goods_id=' . $id)
                     ->find();
             $goods_img = $goodsFind['goods_img'];
-            //    print_r($goods_img);exit;
             $goodsFind['goods_img'] = json_decode($goods_img, true);
-            // print_r($goodsFind);exit;
             $this->assign('info', $goodsFind);
         }
         $this->assign('data', $data);
@@ -116,6 +190,30 @@ class GoodsController extends IsloginController {
         if ($result) {
             redirect($_SERVER["HTTP_REFERER"]);
         }
+    }
+
+    public function url_ajaxhinder() {
+        $id = I('post.id', 0);
+        $goods_id = I('post.goods_id', 0);
+        // echo $goods_id;exit;
+        $specification = M("Specification s");
+        $specificationData = M("SpecificationData");
+        $info = $specification->field('s.*,c.cat_id,c.cat_name')
+                ->join('wrt_category AS c ON c.parent_id=s.parent_id')
+                ->where('c.cat_id=' . $id)
+                ->find();
+        $result = $specificationData->where("goods_id=$goods_id")->find();
+        if ($result) {
+            $info['type'] = json_decode($result['type'], true);
+            $info['dname'] = explode('|', $result['name']);
+            $info['did'] = $result['did'];
+        } else {
+            $info['type'] = json_decode($info['type'], true);
+        }
+        $info['name'] = explode('|', $info['name']);
+
+        $info['action'] = 'edit';
+        $this->ajaxReturn($info);
     }
 
     public function details() {

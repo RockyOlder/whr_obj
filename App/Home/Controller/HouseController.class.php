@@ -8,9 +8,17 @@ class HouseController extends IsloginController {
 
     public function index() {
         $house = M("houses h");
+        $count = $house->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] :2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $house->field('h.*,d.id as did,d.name as dname')
                 ->join('wrt_developer AS d ON d.id=h.developer_id')
+                ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
@@ -24,31 +32,24 @@ class HouseController extends IsloginController {
         $housesList = $houses->select();
         $this->assign('pro', $housesList);
         if (IS_POST) {
-            //  print_r($_REQUEST);exit;
-            if ($action == "add") {
-                $houses = D('Houses');
-                if ($data = $houses->create()) {
+            $houses = D('Houses');
+            $data = $houses->create();
+            if ($data) {
+                if ($action == "add") {
                     if ($houses->add($data)) {
-                        $url = U('/Home/house/index');
-                        $this->success("用户添加成功！", $url);
+                        $this->success("用户添加成功！", U('/Home/house/index'));
                     } else {
-                        $this->error("用户添加失败！", 'index');
+                        $this->error("用户添加失败！", U('/Home/house/add'));
                     }
-                }
-            } elseif ($action == "edit") {
-                $houses = D('Houses');
-                if ($data = $houses->create()) {
+                } elseif ($action == "edit") {
                     if ($houses->save($data)) {
-                        $url = U('/Home/house/index');
-                        $this->success("修改成功！", $url);
+                        $this->success("修改成功！", U('/Home/house/index'));
                     } else {
-                        $url = U('/Home/house/add', '', false);
-                        $this->error('修改失败!');
-                        //   $this->error("用户修改失败！", 'index');
+                        $this->error('修改失败!', U('/Home/house/add'));
                     }
-                } else {
-                    $this->error($houses->getError());
                 }
+            } else {
+                $this->error($houses->getError());
             }
         }
         $id = I('get.id', 0);

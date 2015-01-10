@@ -7,19 +7,21 @@ use Home\Controller\IsloginController;
 class UserController extends IsloginController {
 
     public function index() {
-        $data = $this->getdata();
-        //  print_r($data);exit;
+        $user = M("user u");
+        $count = $user->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $user->field('u.*,v.id as vid,p.id as pid,p.pname,v.name as vname')
+                ->join('wrt_village AS v ON v.id=u.village_id')
+                ->join('wrt_property AS p ON v.property_id=p.id')
+                ->limit($page->firstRow . ',' . $page->listRows)
+                ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
-    }
-
-    public function getdata() {
-        $page = I('get.page', 1);
-        $pageSize = I('get.pageSize', 20);
-        $limit = "limit " . ($page - 1) * $pageSize . ',' . $pageSize;
-        $sql = "select * from " . C('DB_PREFIX') . "user " . $limit;
-        $data = M()->query($sql);
-        return $data;
     }
 
     public function add() {
@@ -30,42 +32,38 @@ class UserController extends IsloginController {
         $data['btn'] = "添加会员";
         $action = I('post.action');
         $property = M("property");
+        $village = M("village");
+        $Vlist = $village->select();
         $propertyList = $property->select();
         $pro = $this->getprovence();
+
         $this->assign('pro', $pro);
+        $this->assign('Vlist', $Vlist);
         $this->assign('prolist', $propertyList);
         if (IS_POST) {
-            if ($action == "add") {
-
-                $user = D('User');
-
-                if ($data = $user->create()) {
+            $user = D('User');
+            $data = $user->create();
+            if ($data) {
+                if ($action == "add") {
                     $salt = rand(999, 9999);
-                    $data['salt']=$salt;
-                    $md_pw = md5(I('post.password', 1));
-                    $password = change($md_pw, $salt);
+                    $data['salt'] = $salt;
+                    $password = change($salt);
                     $data['password'] = $password;
                     $data["reg_time"] = time();
                     if ($user->add($data)) {
-                        $url = U('/Home/village/index');
-                        $this->success("用户添加成功！", $url);
+                        $this->success("用户添加成功！", U('/Home/User/index'));
                     } else {
-                        //  echo 2;exit;
-                        $this->error("用户添加失败！", 'index');
+                        $this->error("用户添加失败！", U('/Home/User/add'));
+                    }
+                } elseif ($action == "edit") {
+                    if ($user->save($data)) {
+                        $this->success("修改成功！", U('/Home/User/index'));
+                    } else {
+                        $this->error("用户修改失败！", U('/Home/User/add'));
                     }
                 }
-            } elseif ($action == "edit") {
-                $user = D('User');
-                if ($data = $user->create()) {
-                    if ($village->save($data)) {
-                        $url = U('/Home/village/index');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($user->getError());
-                }
+            } else {
+                $this->error($user->getError());
             }
         }
         $id = I('get.id', 0);
@@ -76,13 +74,48 @@ class UserController extends IsloginController {
             $user = M("User");
             $region = M("region");
             $userlist = $user->where("user_id=" . $id)->find();
-         //   print_r($userlist);exit;
-            $provine = $userlist['province'];
-            $regionProv = $region->where("REGION_ID=" . $provine)->find();
+            $vfind = $village->where("id=" . $userlist['village_id'])->find();
+            $regionProv = $region->where("REGION_ID=" . $userlist['province'])->find();
+            $this->assign('vfind', $vfind);
             $this->assign("region", $regionProv);
             $this->assign('info', $userlist);
         }
         $this->assign('data', $data);
+        $this->display();
+    }
+
+    public function updatePW() {
+        $id = I('get.id', 0);
+        $action = I('post.action');
+        if (IS_POST) {
+            if ($action == "edit") {
+                $user = D("User");
+                if ($data = $user->create()) {
+                    $salt = rand(999, 9999);
+                    $data['salt'] = $salt;
+                    $password = change($salt);
+                    $data['password'] = $password;
+                    if ($user->save($data)) {
+                        // 修改用户的角色
+                        //       $this->changeRole($data['id'], $data['role_id']);
+                        $url = U('/Home/User/index');
+                        $this->success("修改成功！", $url);
+                    } else {
+                        $this->error("用户修改失败！", 'index');
+                    }
+                } else {
+                    $this->error($user->getError());
+                }
+            }
+        }
+        $user = M("User");
+        $userlist = $user->field('user_id,user_name')->where("user_id=" . $id)->find();
+        $data['action'] = 'edit';
+        $data['title'] = "编辑会员";
+        $data['btn'] = "修改";
+        $this->assign('info', $userlist);
+        $this->assign('data', $data);
+
         $this->display();
     }
 

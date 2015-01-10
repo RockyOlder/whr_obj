@@ -11,14 +11,16 @@ class IsloginController extends Controller {
 
     private $field = "region_id,region_name";
 
-// 	function __construct()
-// 	{
-// 		//调用父类的construct方法，免去覆盖父类的方法
-// 		parent::__construct();
-// 		if (session('admin') == "" || session('user_auth') == "") {
-// 			$this->error('你还没有登录',U('Login/index','',''));
-// 		}
-// 	}
+    function __construct()
+    {
+            //调用父类的construct方法，免去覆盖父类的方法
+            parent::__construct();
+            if (session('admin') == "" || session('user_auth') == "") {
+                  $this->redirect('Login/index','', 0, '');       //
+            }
+    $this->checkself();
+
+    }
 
     function checkself() {
         //检查权限
@@ -30,9 +32,10 @@ class IsloginController extends Controller {
     //获取左边的用户可访问列表
     function getleft() {
         // 获取用的id
-        // $id = session('admin.id');
+        $id = session('admin.id');
+        
         //开发时间组织了登录，所以用户的id默认为1，显示全部的菜单
-        $id = 1;
+        //$id = 1;
         $pre = C('DB_PREFIX');
         // 获取用户分组的权限
         $sql = "select rules from " . $pre . "auth_group_access as a join " . $pre . "auth_group as g on a.group_id = g.id where a.uid = $id";
@@ -61,7 +64,7 @@ class IsloginController extends Controller {
             // dump($data);
             // 循环顶级数据查询自己的数据
             foreach ($data as $k => $v) {
-                $sql = "select id,title,add_m,add_c,add_mo from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id] and id in (" . $rule . ")";
+                $sql = "select id,title,name from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id] and id in (" . $rule . ")";
                 $son = M()->query($sql);
                 $data[$k]['son'] = $son;
             }
@@ -91,14 +94,12 @@ class IsloginController extends Controller {
     }
 
     function getSaveCity($id) {
-//     	dump($id);
-//     	dump(empty($id));
-        if (empty($id))
+      if (empty($id))
             return null;
-
-        $sql = "select " . $this->field . " from " . C('DB_PREFIX') . "region where REGION_ID =" . $id;
-//     	dump($sql);
-        return M()->query($sql);
+        $region = M("region");
+        $typeList = $region->where("REGION_ID=" . $id)->find();
+        $typeList['list'] = $region->where("PARENT_ID=" . $typeList['PARENT_ID'] . " and REGION_ID!=" . $typeList['REGION_ID'])->select();
+         return $typeList;
     }
 
     //根据城市的id查询出所有的区列表
@@ -174,6 +175,35 @@ class IsloginController extends Controller {
         $Days = round(($d1 - $d2) / 3600 / 24);
 
         return $Days;
+    }
+
+    public function getTree($cat, $id = 0) {
+        $tree = array();
+        $cats = $cat->select();
+        while ($id > 0) {
+            foreach ($cats as $v) {
+                if ($v['cat_id'] == $id) {
+                    $tree[] = $v;
+
+                    $id = $v['parent_id'];
+                    break;
+                }
+            }
+        }
+
+        return array_reverse($tree);
+    }
+
+    public function getCatTree($arr, $id = 0, $lev = 0) {
+        $tree = array();
+        foreach ($arr as $v) {
+            if ($v['parent_id'] == $id) {
+                $v['lev'] = $lev;
+                $tree[] = $v;
+                $tree = array_merge($tree, $this->getCatTree($arr, $v['cat_id'], $lev + 4));
+            }
+        }
+        return $tree;
     }
 
     /*   function getdata($table) {

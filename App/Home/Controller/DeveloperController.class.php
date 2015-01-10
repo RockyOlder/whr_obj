@@ -9,7 +9,15 @@ class DeveloperController extends IsloginController {
 
     // 开发商总部列表页面
     public function index() {
-        $data = $this->getdata();
+        $devop=M("developer_sum");
+        $count = $devop->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $devop->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }

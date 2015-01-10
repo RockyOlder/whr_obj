@@ -4,7 +4,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
         <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
+         <link href="__PUBLIC__/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
         <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+         <script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
         <script type="text/javascript" src="__PUBLIC__/Js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
             <script type="text/javascript" type="text/javascript">
@@ -12,6 +15,9 @@
                     if(confirm("确认删除"))
                         location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
                 }
+                        $(function(){
+                          initPager();
+                         })
 
             </script>
 
@@ -73,24 +79,18 @@
                     </volist>    
                 </tbody>
             </table>
-
-
-            <div class="pagin">
-                <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-                <ul class="paginList">
-                    <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                    <li class="paginItem"><a href="javascript:;">1</a></li>
-                    <li class="paginItem current"><a href="javascript:;">2</a></li>
-                    <li class="paginItem"><a href="javascript:;">3</a></li>
-                    <li class="paginItem"><a href="javascript:;">4</a></li>
-                    <li class="paginItem"><a href="javascript:;">5</a></li>
-                    <!-- <li class="paginItem more"><a href="javascript:;">...</a></li> -->
-                    <li class="paginItem"><a href="javascript:;">10</a></li>
-                    <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-                </ul>
-            </div>
-
-
+                <div id="pager" class="pager">
+                    <div class="fanye">
+                        <div class="fanye1">
+                            {$page}
+                        </div>
+                        <div class="fanye2">
+                            <span class="">共{$currentPage}/{$totalPage}页</span>
+                            转到<input type="text" value="{$currentPage}" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                            <input type="button" value="确定" id="gopage_btn_confirm" />
+                        </div>
+                    </div>
+                </div>
             <div class="tip">
                 <div class="tiptop"><span>提示信息</span><a></a></div>
 

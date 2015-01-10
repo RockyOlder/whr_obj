@@ -4,11 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-
+        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
         <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
@@ -43,6 +44,7 @@
                         $("#dialog-form").dialog("option","title","添加");            
                         $("#dialog-form").dialog("open");
                     });
+                    initPager();
                 });         
                 //     var roleDataBak='{}';
                 //     var allFields=$( [] );
@@ -65,7 +67,7 @@
                         },
                         success:function(data){
                             // roleDataBak=data;
-                               // alert(data)
+                            // alert(data)
                             $("#title").val(data.title);
                             $("#add_id").val(data.id);
                             $("#content").val(data.content);
@@ -112,7 +114,7 @@
                     <th>公告内容</th>
                     <th>手机号码</th> 
                     <th>发布时间</th>
-             
+
                     <th>操作</th>
                 </tr>
             </thead>
@@ -125,7 +127,7 @@
                         <td><?php echo ($vo["content"]); ?></td>
                         <td><?php echo ($vo["phone"]); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
-  
+
 
                         <td class="th_default">    
                             <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
@@ -134,6 +136,18 @@
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
         </table>
+        <div id="pager" class="pager">
+            <div class="fanye">
+                <div class="fanye1">
+                    <?php echo ($page); ?>
+                </div>
+                <div class="fanye2">
+                    <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
+                    转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
+                    <input type="button" value="确定" id="gopage_btn_confirm" />
+                </div>
+            </div>
+        </div>
 
         <div id="dialog-form" title="添加">
             <div class="tip">

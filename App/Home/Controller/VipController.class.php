@@ -7,20 +7,42 @@ use Home\Controller\IsloginController;
 class VipController extends IsloginController {
 
     public function vlist() {
-        $data = $this->getdata();
-
+        $vip = M("Vip");
+        if (IS_POST) {
+            $name = I('post.store_name');
+            $user_name = I('post.user_name');
+            $address = I('post.address');
+            if ($name)
+                $where['store_name'] = array('LIKE', '%' . $name . '%');
+            if ($address)
+                $where['address'] = array('LIKE', '%' . $address . '%');
+            if ($parent_type)
+                $where['user_name'] = array('LIKE', '%' . $user_name . '%');
+        }
+        $count = $vip->where($where)
+                ->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
+        $show = $page->show();
+        //   print_r($show);exit;
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $vip->where($where)->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }
 
-    public function getdata() {
-        $page = I('get.page', 1);
-        $pageSize = I('get.pageSize', 20);
-        $limit = "limit " . ($page - 1) * $pageSize . ',' . $pageSize;
-        $sql = "select * from " . C('DB_PREFIX') . "vip " . $limit;
-        $data = M()->query($sql);
-        return $data;
-    }
+    /*  public function getdata() {
+      $page = I('get.page', 1);
+      $pageSize = I('get.pageSize', 20);
+      $limit = "limit " . ($page - 1) * $pageSize . ',' . $pageSize;
+      $sql = "select * from " . C('DB_PREFIX') . "vip " . $limit;
+      $data = M()->query($sql);
+      return $data;
+      }
+     * 
+     */
 
     public function vadd() {
         $data['action'] = 'add';
@@ -30,30 +52,25 @@ class VipController extends IsloginController {
         $pro = $this->getprovence();
         $this->assign('pro', $pro);
         if (IS_POST) {
-            if ($action == "add") {
-                $Village = D('Vip');
-                if ($data = $Village->create()) {
+            $Village = D('Vip');
+            $data = $Village->create();
+            if ($data) {
+                if ($action == "add") {
                     $data["add_time"] = time();
                     if ($Village->add($data)) {
-                        $url = U('/Home/vip/vlist');
-                        $this->success("用户添加成功！", $url);
+                        $this->success("用户添加成功！", U('/Home/vip/vlist'));
                     } else {
-                        $this->error("用户添加失败！", 'index');
+                        $this->error("用户添加失败！", U('/Home/vip/vadd'));
+                    }
+                } elseif ($action == "edit") {
+                    if ($Village->save($data)) {
+                        $this->success("修改成功！", U('/Home/vip/vlist'));
+                    } else {
+                        $this->error("用户修改失败！", U('/Home/vip/vadd'));
                     }
                 }
-            } elseif ($action == "edit") {
-                //  print_r($_REQUEST);exit;
-                $vip = D("Vip");
-                if ($vipData = $vip->create()) {
-                    if ($vip->save($vipData)) {
-                        $url = U('/Home/vip/vlist');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($vip->getError());
-                }
+            } else {
+                $this->error($Village->getError(), '', 2);
             }
         }
         $id = I('get.id', 0);
@@ -67,6 +84,7 @@ class VipController extends IsloginController {
             //  print_r($vipList);exit;
             $provine = $vipList['province'];
             $regionProv = $region->where("REGION_ID=" . $provine)->find();
+            //   print_r($regionProv);exit;
             $this->assign("region", $regionProv);
             $this->assign('info', $vipList);
         }
@@ -99,8 +117,22 @@ class VipController extends IsloginController {
     }
 
     public function order() {
+        $name=session('admin.name');
+        $id = session('admin.id');
+        if($name=='admin'){
+            $this->redirect("Order/index"); 
+        }
         $order = M("Order");
-        $data = $order->select();
+        $count = $order->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $show = $page->show();
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $data = $order->where("bid=" . $id." and cate=1")
+                ->limit($page->firstRow . ',' . $page->listRows)
+                ->select();
+        $this->assign("currentPage", $currentPage);
+        $this->assign("totalPage", $page->totalPages);
+        $this->assign("page", $show);
         $this->assign('data', $data);
         $this->display();
     }

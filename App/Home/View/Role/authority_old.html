@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>分配权限页面</title>
+        <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
+    </head>
+    <style type="text/css">
+        .big{width: 100%;clear:both;padding-bottom: 0px;}
+        .mid{background:#F0F6F8;}
+        .small{float: left;width: 20%;}
+    </style>
+    <body style="background: none;">
+
+        <div class="place" style="position: fixed;top: 0px;left: 0px;width:100%;">
+            <span>后台管理：</span>
+            <ul class="placeul">
+                <li><a href="#">角色管理</a></li>
+                <li><a href="#">分配权限</a></li>
+            </ul>
+        </div>
+    <div class="rightinfo"style="margin-top: 50px;border:3px solid #D4E7F0;">
+        <form method ="post" action="">
+        
+            <volist name="data" id="one" key="k">
+                <dl class="big">
+                    <dt class="mid"><input type ="checkbox" name = "auth" value="{$one.id}" id="">{$k}{$one.title}</dt>
+                    <volist name="one.son" id="two" key="s">
+                    <dd class="small"><input type ="checkbox" name = "auth" value="{$two.id}" id="">{$two.title}</dd>
+                    </volist>
+
+                </dl>
+            </volist>
+            <div style="text-align:center">
+                <input type="checkbox" value= "" >  全选
+            <input type="submit" value="提交" border="1px solid red" class="btn btn-info">
+            </div>
+        
+       </form>
+    </div>
+  
+
+    </body>
+
+</html>
+ <script type="text/javascript">
+
+ </script>

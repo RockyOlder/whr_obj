@@ -5,13 +5,70 @@
         <title>添加开发商</title>
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-
+           <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
             <script language="javascript" type="text/javascript" src="/whr/App/Home/View/Public/Js/My97DatePicker/WdatePicker.js"></script>
             <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
                 <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
-   
+                           $(function(){
+
+                            if($(".house_into").val()==''){ $(".house_into").text("请选择")}
+                            function setout(){
+                                $('.validateTips').text()
+                                $('#skuNotice').show();
+                                var dingshi= setTimeout( function(){
+                                    $( '#skuNotice' ).fadeOut();
+                                }, ( 1 * 1000 ) );  
+                                return dingshi;
+                            } 
+                            function checkInput(){
+                                var bValid = true;
+                                bValid = bValid && checkLength( $("#name"), "广告名称", 4, 30 );
+                                bValid = bValid && checkEmpty( $("#ad_url"), "链接地址不能为空" );
+                                bValid = bValid && checkEmpty( $("#d412"), "开始时间不能为空" );
+                                bValid = bValid && checkEmpty( $("#d413"), "结束时间不能为空" );
+                                //bValid = bValid && checkRegexp( $("#username"), /^[a-z]([0-9a-z_])+$/i, "用户名只能是数字和字母组成" );
+                                if(bValid==false){ setout(); }
+                                return bValid;
+                            }
+                            $('form').submit(function(){
+                                if(!checkInput()){
+                                    $('.dfinput').each(function () {
+                                        if($(this).val()==''){
+                                            $(this).next().css("color","red");
+                                            $('.errorColor').css("color","red")
+                                        }
+                                    });
+                                    return false;
+                                }
+                                return true
+                            })
+                              $(".dfinputInfo").bind("blur",function(){
+                               if($(this).val()==''){ 
+                                  $(this).next().css("color","red"); 
+                                }else{
+                                    $(this).next().css("color","#7f7f7f");
+                                    $(this).removeClass( "ui-state-error" );
+                                    }
+                                     checkInput();
+                              })
+                            $(".dfinput").bind("focus",function(){
+                                $('#skuNotice').hide();
+                                $(this).addClass("focus");
+                                $(this).next().css("color","#7f7f7f");
+                                if($(this).hasClass("ui-state-error")){
+                                    $(this).removeClass( "ui-state-error" );
+                                    $(".validateTips").removeClass("errorTip").hide();	
+                                }
+                            }).bind("blur",function(){
+                                $(this).removeClass("focus");
+                                if($(this).val()==''){ 
+                                    $(this).next().css("color","red"); }
+                                checkInput();
+                            });
+                        })
                 </script>
                 <style type="text/css">
                     .pro{  float: left;line-height: 30px; margin-left: 0px;margin-bottom: 10px;}
@@ -46,16 +103,20 @@
 
                                                     </select>
                                                 </span></li>  -->
-                                            <li><label>广告名称</label><input name="ad_name" id="name" type="text" class="dfinput" value="<?php echo ($info["ad_name"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>链接地址</label><input name="ad_url" type="text" class="dfinput"  value="<?php echo ($info["ad_url"]); ?>" /><i>商品价格</i></li>
-                                            <li><label>开始时间</label><input readonly="readonly" name="start_time"  type="text"  class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<?php echo (date('Y-m-d H:i:s',$info["start_time"])); ?>" /><i id="name_info"></i></li>
-                                            <li><label>结束时间</label><input readonly="readonly" name="end_time" type="text" class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<?php echo (date('Y-m-d H:i:s',$info["end_time"])); ?>" /><i id="name_info"></i></li>
+                                            <li><label>广告名称</label><input name="ad_name" id="name" type="text" class="dfinput" value="<?php echo ($info["ad_name"]); ?>" /><i id="name_info">广告名称不能超过30个字符</i></li>
+                                            <li><label>链接地址</label><input name="ad_url" type="text" id="ad_url" class="dfinput"  value="<?php echo ($info["ad_url"]); ?>" /><i>链接地址不能为空</i></li>
+                                            <li><label>开始时间</label><input readonly="readonly" name="start_time"  type="text"  class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<?php echo ($info["start_time"]); ?>" /><i>开始时间不能为空</i></li>
+                                            <li><label>结束时间</label><input readonly="readonly" name="end_time" type="text" class="dfinputInfo" id="d413" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="<?php echo ($info["end_time"]); ?>" /><i>结束时间不能为空</i></li>
                                             <li><label>图片</label>
                                                 <div id="list_hidden">
                                                     <input type ='hidden' name = "list_path" value="<?php echo ($info["list_path"]); ?>">
                                                         <input type ='hidden' name = "goods_img" value="<?php echo ($info["mid_pic"]); ?>">
                                                             <input type ='hidden' name = "pic" value="<?php echo ($info["pic"]); ?>">
                                                                 </div></li>
+                                                    <div style="display:none" id="skuNotice" class="sku_tip">
+                                                        <span class="validateTips"></span>
+                                                    </div>
+
                                                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_img" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                                         <?php if($info["pic"] != ''): ?><div class="up_list_pic">
                                                                                 <img height='50px' src='<?php echo ($info["pic"]); ?>'>
