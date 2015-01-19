@@ -20,14 +20,19 @@
 
     <div class="mainindex">
     <div class="welinfo">
-    <span><img src="__PUBLIC__/Images/sun.png"alt="天气" /></span>
-    <b>{$Think.session.admin.name}早上好，欢迎使用慧锐通后台管理系统</b>(
-    <a href="#">帐号设置</a>
+    <span><img src="__PUBLIC__/Images/dp.png" alt="提醒" /></span>
+    <b>{$Think.session.admin.name}你好，欢迎使用{$Think.session.admin.top_name}后台管理系统</b>(
+    <a href="{:U('System/setting',array('id'=>$id),'')}">帐号设置</a>
     </div>
     
     <div class="welinfo">
     <span><img  src="__PUBLIC__/Images/time.png" alt="时间" /></span>
-    <i>您上次登录的时间：{$Think.session.admin.login_time|date="Y-m-d H:i:s",###}</i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
+    <i>您上次登录的时间：{$Think.session.admin.last_login|date="Y-m-d H:i:s",###}</i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
+    </div>
+    
+    <div class="welinfo">
+    <span><img  src="__PUBLIC__/Images/time.png" alt="ip" /></span>
+    <i>您上次登录的ip：{$Think.session.admin.last_ip}</i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
     </div>
     
     <div class="xline"></div>

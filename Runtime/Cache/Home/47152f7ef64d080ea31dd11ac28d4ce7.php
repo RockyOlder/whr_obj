@@ -12,7 +12,7 @@
         <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
         <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
             <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
 
                 <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
@@ -219,12 +219,9 @@
                                                                                 $(function(){
                                             
                                                                                     if($("#actionSave").val()=='edit'){
-                                                   
                                                                                         $(".pwsave").remove();
                                                                                         //  $("#password2").remove(); 
                                                                                     }
-                                            
-                                            
                                                                                     $('#addressAdd').bind('change',function(){
                                                                                         //  $('#vallage').hide(200);
                                                                                         $(this).parent().next().css("color","#7f7f7f")

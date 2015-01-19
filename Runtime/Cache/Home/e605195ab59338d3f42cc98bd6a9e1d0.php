@@ -37,7 +37,7 @@ $(function(){
      <?php if(is_array($menu)): $k = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><dd>
     <div class="title">
   
-    <span><img src="/whr/App/Home/View/Public/Images/leftico01.png" /></span><?php echo ($k); echo ($vo["title"]); ?>
+    <span><img src="/whr/App/Home/View/Public/Images/left/<?php echo ($k); ?>.png" /></span><?php echo ($vo["title"]); ?>
     </div>
     	<ul class="menuson">
             <?php if(is_array($vo['son'])): $i = 0; $__LIST__ = $vo['son'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$s): $mod = ($i % 2 );++$i;?><li class="active"><cite></cite><a href="<?php echo U($s['name'],'','');?>" target="rightFrame"><?php echo ($s["title"]); ?></a><i></i></li><?php endforeach; endif; else: echo "" ;endif; ?> 

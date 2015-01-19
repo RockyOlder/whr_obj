@@ -50,6 +50,13 @@
                             at: "center", 
                             of: window
                         },
+                        buttons: {
+                            "提　交":function(){
+                                // allFields.removeClass( "ui-state-error" );
+                      
+                                $('form[name=myname]').submit();
+                            }	
+                        },
                         close: function() {
                         }
                     });
@@ -101,14 +108,14 @@
                         },
                         timeout:30000,
                         success:function(data){
-                            //roleDataBak=data;
-                      
+                            console.log(data)
                             $("#role_id").val(data.rid);
+                            $("#title").val(data.title)
                             $("#title2").text(data.title);
                             $("#content2").text(data.content);
                             $("#address2").text(data.address);
                             $("#phone2").text(data.phone);
-                            //   $("#action2").val(data.action);
+                             $("#action2").val(data.action);
                             //    alert($("#action2").val());
                             $("#dialog-edit").dialog("open");
                         }
@@ -157,14 +164,14 @@
             <tbody id="table_ajax_list">
                 <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                         <td><input name="num" type="checkbox" value="" /></td>
-                        <td><?php echo ($vo["id"]); ?></td>
+                        <td><?php echo ($vo["rid"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
-                        <td><?php echo ($vo["content"]); ?></td>
+                        <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td> 
                         <!--  <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td> -->
                         <td class="th_default">    
                             <!--  <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>     -->
-                            <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                            <a href="<?php echo U('del',array(id=>$vo['rid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)">详情</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
@@ -215,7 +222,7 @@
                            </div>
         -->
         <div id="dialog-edit" title="问题提交" style=" display: none;">
-            <div class="tip">
+            <div class="tiplist">
                 <p class="validateTips"></p>
             </div>
             <form action="#" method="post" name="myname" class="form-input" />
@@ -223,11 +230,13 @@
                 <fieldset>
                     <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td align="right" width="90px">
+                            <td align="right" width="110px">
                                 <label for="title">维修标题：</label>
+                    
                             </td>
                             <td>
                                 <span id="title2"  /></span>
+                                <input type="hidden" name="title" id="title"  class="form-control" />   
                             </td>
                         </tr>
                         <tr>
@@ -239,7 +248,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="right" width="90px">
+                            <td align="right" width="110px">
                                 <label for="address">故障地址：</label>
                             </td>
                             <td>
@@ -247,11 +256,20 @@
                             </td>
                         </tr>
                         <tr>    
-                            <td align="right" width="90px">
+                            <td align="right" width="110px">
                                 <label for="phone">联系电话：</label>
                             </td>
                             <td>
                                 <span id="phone2"  /> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="content">回复：</label>
+                            </td>
+                            <td>
+                                <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
+                                                            
                             </td>
                         </tr>
 
@@ -267,7 +285,7 @@
                                  </select>
                              </td>
                          </tr>  -->
-                        <input type="hidden" name="rid" id="role_id"  />
+                        <input type="hidden" name="id" id="role_id"  />
                     </table>
                 </fieldset>
                 </form>

@@ -45,369 +45,7 @@
 
     "model" :
     {
-    	// 请求头
-		"SESSION" :
-		{
-			"uid"        : 1000,
-			"sid"        : "01234567890ABCDEF"
-		},
-		
-		 // 回应头
-		"FILES" :
-		{
-			"name"    : "word.png",	              // 是否成功
-			"type" : "image/png",               // 错误代码
-			"tmp_name" : "E:\\word.png",  // 错误描述
-			"error":0,
-			"size":7268
-		},
-        // 回应头
-		"STATUS" :
-		{
-			"succeed"    : 1,	              // 是否成功
-			"error_code" : 100,               // 错误代码
-			"error_desc" : "Invalid session" // 错误描述
-		},
-
-		// 翻页参数
-		"PAGINATION" :
-		{
-			"page"       : "1",										// 页码
-			"count"      : 100										// 每页条数
-		},
-		
-		// 翻页结果
-		"PAGINATED" :
-		{
-			"total"      : 100000,									// 总数
-			"count"      : 100,										// 返回条数
-			"more"       : 1										// 是否还有更多
-		},
-
-		// 用户
-		"USER" :
-		{
-			"! id"            : 3,     
-			"name"            : "tom",
-			"rank_name" 	  : "VIP",
-			"rank_level"	  : "0",		// 0初级, 1其他
-			"collection_num"  : 12,
-			"order_num"       :
-			{
-				"await_pay"   : 1,
-				"await_ship"  : 2,
-				"shipped"     : 3,
-				"finished"    : 4
-			}
-		},
-
-		// 区域
-		"REGION" :
-		{
-			"! id"                    : 1,
-			"parent_id"               : 2,
-			"name"                    : "中国",
-			"more"                    : 1
-		},
-
-		// 结算
-		"TOTAL" :
-		{
-			"goods_price"             : "￥5998.00元",				// 实际总价
-			"market_price"            : "￥7197.60元",				// 市场总价
-			"saving"                  : "￥1199.60元",				// 差价
-			"save_rate"               : "17%",						// 差价比
-			"goods_amount"            : "5998",						// 数量
-			"real_goods_count"        : 2,							// 实物物品数
-			"virtual_goods_count"     : 0							// 虚拟物品数
-		},
-
-		// 图片
-		"PHOTO" :
-		{
-			"url"           : "",	// 大图
-			"thumb"         : ""	// 小图
-		},
-		
-		// 联系地址
-		"ADDRESS" :
-		{
-			"! id"            : 15,
-			"name"            : "曲强",								// 收件人姓名
-			"email"           : "77347042@qq.com",					// 邮箱
-			"country"         : 1,									// 国家
-			"province"        : 2,									// 省
-			"city"            : 52,									// 市
-			"district"        : 500,								// 区
-			"address"         : "地址",								// 地址
-			"zipcode"         : "",									// 邮政编码
-			"tel"             : "12123123123",						// 座机
-			"mobile"          : "",									// 手机号
-			"sign_building"   : "标志建筑",							// 标志建筑
-			"best_time"       : "",									// 最佳时间
-			"default_address" : 1 									
-		},
-
-		// 商品
-		"SIMPLE_GOODS" : 
-		{
-			"! goods_id"              :  32,						// 商品ID
-			"name"                    :  "标题",						// 商品名称
-			"market_price"            : "商场价格",					// 商场价格
-			"shop_price"              : "商店价格",					// 商店价格
-			"promote_price"           : "促销价格",					// 促销价格
-			"brief"                   : "简要",						// 简要
-			"img"                     : "{PHOTO}"					// 图片
-		},
-
-		// 收藏的商品
-		"COLLECT_GOODS < SIMPLE_GOODS" :
-		{
-			"! rec_id"                :  32							// 收藏ID
-		},
-
-		// 商品属性
-		"GOOD_ATTR" :
-		{
-			"name"       : "属性名称",								// key
-			"value"      : "属性值"									// value
-		},
-
-		// 商品详情（购物车）
-		"CART_GOODS" :
-		{
-			"! rec_id"                  : 0,							// ?????????????
-			"goods_id"                :  32,						// 商品ID
-			"goods_sn"                : "商品sn",					// 商品编码
-			"goods_name"              : "商品名称",					// 商品名称
-			"market_price"            : "商场价格",					// 商场价格
-			"goods_price"             : "配件价格",					// 配件价格
-			"goods_number"            : "商品数量",					// 剩余数量
-			"goods_attr"              : ["{GOOD_ATTR}"],		// 属性
-			"extension_code"          : "10000",					// 虚拟商品扩展码
-			"parent_id"               : 13,							// 该商品的父商品ID，没有该值为0，有的话那该商品就是该id的配件
-			"rec_type"                : "<GOOD_TYPE>",				// 购物车商品类型，0普通，1团够，2拍卖，3夺宝奇兵
-			"is_real"                 : 0,							// 是否是实物，1是，0否；比如虚拟卡就为0，不是实物
-			"is_gift"                 : 0,							// 是否赠品，0否，其他, 是参加优惠活动的id
-			"is_shipping"             : 0,							// 是否免邮费: 0 - 不免邮费, 1 - 免邮费
-			"can_handsel"             : 0,							// 能否处理 ???????????
-			"goods_attr_id"           : 1000,						// 属性ID
-			"subtotal"                : "￥2298.00元",				// 总价
-			"pid"                     : "",							// ?????????
-			"img"                     : "{PHOTO}",					// 大图
-	        "formated_market_price"   : "￥24.00元",	
-	        "formated_goods_price"    : "￥20.00元",
-	        "formated_subtotal"       : "￥20.00元"
-		},
-
-		// 订单商品
-		"ORDER_GOODS" :
-		{
-			"! goods_id"            : 9,
-			"name"                : "诺基亚E66",
-			"goods_number"        : 1,
-			"subtotal"            : "￥2183.10元 商品单价*数量的价格",
-			"formated_shop_price" : "￥2183.10元 商品价格",
-			"img"                 : "{PHOTO}"
-		},
-
-		"GOOD_RANK_PRICE" :
-		{
-			"id"                  :  1,
-			"rank_name"           : "注册用户",
-			"price"               : "￥833元"
-		},
-
-		"GOOD_VALUE" :
-		{
-			"id"                 : 212,
-			"label"              : "白色",
-			"price"              : 0,
-			"format_price"       : "￥0.00元"
-		},
-
-		"GOOD_SPEC" :
-		{
-			"attr_type"           : "<ATTR_TYPE>",
-			"name"                : "颜色",
-			"value"               : ["{GOOD_VALUE}"]
-		},
-
-		"BRAND" :
-		{
-			"url" : "http://shop.ecmobile.me/data/brandlogo/1240803062307572427.gif",
-			"brand_name"  : "NOKIA",
-			"brand_id"    : "1"
-		},
-
-		"GOODS" :
-		{
-			"! id"                :  32,
-     		"collected" 		  : 0,
-			"cat_id"              : 0,
-			"goods_sn"            : "商品sn",
-		    "goods_name"          : "商品名称",
-			"market_price"        : "商场价格",
-			"shop_price"          : "价格",
-			"integral"            : 0,
-			"click_count"         : 64,
-			"brand_id"            : 0,
-			"goods_number"        : "商品数量",
-			"goods_weight"        : "商品重量",
-			"promote_price"       : "促销价格",
-			"promote_start_date"  : "促销价格开始时间",
-			"promote_end_date"    : "促销价格结束时间",
-			"is_shipping"         : 0,
-			"img"                 : "{PHOTO}",
-			"rank_prices"         : ["{RANK_PRICE}"],
-			"pictures"            : ["{PHOTO}"],
-			"properties"          : ["{GOOD_ATTR}"],
-			"specification"       : ["{GOOD_SPEC}"]
-		},
-
-		// 订单
-		"ORDER" :
-		{
-			"! order_id"     : 46,
-			"order_sn"     : "2013060483541",
-			"order_time"   : "1970/01/01 08:30:46 +0830",
-			"total_fee"    : "￥2198.10元",
-			"goods_list"   : ["{ORDER_GOODS}"],
-			"order_info": {
-			            "pay_code": "alipay",
-			            "order_amount": "2219.00",
-			            "order_id": 246,
-			            "subject": "夏新N7等2种商品",
-			            "desc": "夏新N7等2种商品"
-			        }
-		},
-
-		// 过滤选项
-		"FILTER" :
-		{
-			"keywords"                : "关键词",					// 关键字
-			"category_id"             : 100,						// "分类id"
-			"price_range" : "{PRICE_RANGE}",
-			"brand_id"				  : 1,
-			"sort_by"                 : "id_desc"			// 排序
-		},
-		
-		// 全局配置
-		"CONFIG" :
-		{
-			"service_phone"   : "18611163715",
-			"site_url"        : "",
-			"shop_desc"       : "关于本店铺",
-			"shop_closed"     : 0,
-			"close_comment"   : "关闭原因",
-			"shop_reg_closed" : 0
-		},
-
-		"PRICE_RANGE" :
-		{
-		    "price_min": 390,
-		    "price_max": 400
-		},
-
-		// 轮播banner
-		"BANNER" :
-		{
-			"photo"                   : "{PHOTO}",					// 大图
-			"description"             : "今天特价",					// 描述
-			"url"                     : ""		// 外链URL
-		},
-
-		// 商品分类
-		"CATEGORY" :
-		{
-			"! id"                    : 1,							// 分类id
-			"name"                    : "鞋子",						// 分类名称
-			"goods"                   : ["{SIMPLE_GOODS}"]			// 推荐商品
-		},
-	
-	
-		
-		// 首页帮助
-		"ARTICLE" :
-		{
-			"! id"                    : 1,							// 文章ID
-			"title"                   : "用户指引",					// 文章标题
-			"short_title"             : ""							// 文章短标题
-		},
-		
-		// 首页帮助组
-		"ARTICLE_GROUP" :
-		{
-			"name"                    : "用户指引",					// 文章标题
-			"article"                 : ["{ARTICLE}"]				// 文章短标题
-		},
-
-		// 评论
-		"COMMENT" :
-		{
-			"! id"                    : 100,						// 评论ID
-			"author"                  : "Hongyu",					// 评论人
-			"created"                 : "2010/05/21 16:34:42 -0400",	// 时间
-			"content"                 : "不好不好不好不好不好",		// 评论内容
-			"re_content"              : "不好别买!"					// 评论回复
-		},
-		
-		// 配送方式
-		"SHIPPING" :
-		{
-			"! shipping_id"           : 0,							// 配送方式id
-			"shipping_code"           : "",							// 配送方式的字符串代号
-			"shipping_name"           : "",							// 配送方式的名称
-			"shipping_desc"           : "",							// 配送方式描述
-			"insure"                  : "",							// 保价费用，单位元，或者是百分数，该值直接输出为报价费用
-			"support_cod"             : 0,							// 是否支持货到付款，1，支持；0，不支持
-			"format_shipping_fee"     : "",							// 配送费用
-			"shipping_fee"            : "15",						// 配送费用
-			"free_money"              : "",							// 订单达到此金额可以免除该包装费用
-			"insure_formated"         : ""							// 保价费用
-		},
-		
-		// 支付方式
-		"PAYMENT" :
-		{
-			"! pay_id"                : 0,							// 支付方式自增id
-			"pay_code"                : "",							// 支付方式 的英文缩写
-			"pay_name"                : "",							// 余额支付
-			"pay_fee"                 : "",							// 支付费用
-			"pay_desc"                : "",							// 支付方式简介
-			"is_cod"                  : 0,							// 是否货到付款, 0否;1是
-			"format_pay_fee"          : "￥0.00元"					// 支付费用
-		},
-
-		// 红包
-		"BONUS" :
-		{
-			"type_id"                 : 0,							// 红包发送类型.0,按用户如会员等级,会员名称发放;1,按商品类别发送;2,按订单金额所达到的额度发送;3,线下发送
-			"type_name"               : "",							// 红包名称
-			"type_money"              : "",							// 红包金额
-			"bonus_id"                : "",							// 红包的流水号
-			"bonus_money_formated"    : "￥2.00元"					// 红包金额
-		},
-
-		// 发票
-		"INVOICE" :
-		{
-			"! id"                    :	0,							// id
-			"title"                   : ""							// 内容
-		},
-
-		"SIGNUP_FIELD" :
-		{
-			"! id"                    : 2,
-			"name"                    : "名称",
-			"need"                    : 1
-		},
-
-		"SIGNUP_FIELD_VALUE" :
-		{
-			"! id"                    : 2,
-			"value"                   : ""
-		}
+    	
 	},
 	
     "controller" :
@@ -578,6 +216,24 @@
 			{
 				"version":"1",
 				"userId":"用户id",
+				"password"  : "nice"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST User/restPwd" :
+		{
+			"__desc__" : "4-重置密码",
+			"request" :
+			{
+				"version":"1",
+				"userName":"用户名",
 				"password"  : "nice"
 			},
 			"response" :
@@ -850,7 +506,40 @@
 					"verify"          : "5.00"
 				}
 			}
-		}		
+		}
+		,"POST Home/getPro" :
+		{
+			"__desc__" : "获取省份列表1",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}	
+		,"POST Home/proCity" :
+		{
+			"__desc__" : "省份id获得城市-1",
+			"request" :
+			{
+				"version":"1",
+				"proId":"省份id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}				
 		,"POST Home/getcityid" :
 		{
 			"__desc__" : "获取城市id1",
@@ -868,19 +557,6 @@
 				}
 			}
 		}
-		,"POST Home/getVillage" :
-		{
-			"__desc__" : "地区id获取所有小区1",
-			"request" :
-			{
-				"version":"1",
-				"areaId":"地区id"
-			},
-			"response" :
-			{
-				
-			}
-		}
 		,"POST Shop/slist" :
 		{
 			"__desc__" : "获取商店列表1",
@@ -890,7 +566,8 @@
 				"type":"0全部商品，1美食，2便民，3旅游景点，4体育，5车生活 6休闲娱乐 7教育培训，8家装家电，9宠物花鸟",
 				"city_id":"城市id",
 				"area_id":"地区id",
-				"sort":"1离我最近,2评价最高,3按照名称",
+				"search":"搜索关键字（搜索时传递该参数）",
+				"sort":"1离我最近,2评价最高,3人均价从低到高,4人均价从高到低",
 				"latitude":"经度",
 				"longitude":"纬度",
 				"page":"1",
@@ -1045,7 +722,9 @@
 			"request" :
 			{
 				"version":"1",
-				"goodid"    : "商品id"
+				"goodid"    : "商品id",
+				"page"    : "页码",
+				"pageSize"    : "显示数量"
 			},
 			"response" :
 			{
@@ -1079,7 +758,9 @@
 			"request" :
 			{
 				"version":"1",
-				"goodid"    : "商品id"
+				"goodid"    : "商品id",
+				"page"    : "页码",
+				"pageSize"    : "显示数量"
 			},
 			"response" :
 			{
@@ -1160,6 +841,82 @@
 				}
 			}
 		}
+		,"POST hotal/Ctrip_city" :
+		{
+			"__desc__" : "获取携程城市列表",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Hotal/hotalList" :
+		{
+			"__desc__" : "获取酒店列表-1",
+			"request" :
+			{
+				"version":"1",
+				"city"    : "城市名称",
+				"keyword"    : "搜索关键字",
+				"page"    : "页码",
+				"pageSize"    : "每页显示数量"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Hotal/hotalinfo" :
+		{
+			"__desc__" : "酒店详情-1",
+			"request" :
+			{
+				"version":"1",
+				"produceId"    : "酒店id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		,"POST Hotal/hotalOrder" :
+		{
+			"__desc__" : "生成酒店订单-1",
+			"request" :
+			{
+				"version":"1",
+				"userId": "用户id",
+				"ctripId": "携程id",
+				"produceId": "商品id",
+				"price": "单品价格",
+				"number": "购买数量",
+				"phone":"电话"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
+		
 		,"POST order/address" :
 		{
 			"__desc__" : "添加收货地址2",
@@ -1261,7 +1018,7 @@
 				"address"    : "地址id",
 				"express":"1",
 				"billType":"发票类型0为不要发票1为普通2为增值税发票",
-				"info"    : "[{'goodid':1,'number':2,'price':99.7},{'goodid':2,'number':3,'price':199.7}]"
+				"info"    : "gooid:1,number:1,price:1(json格式提交)"
 
 			},
 			"response" :
@@ -1294,9 +1051,9 @@
 				}
 			}
 		}
-		,"POST order/userOrder4" :
+		,"POST order/userOrder" :
 		{
-			"__desc__" : "获取用户订单",
+			"__desc__" : "获取用户订单-4",
 			"request" :
 			{
 				"version":"1",
@@ -1354,7 +1111,8 @@
 			"request" :
 			{
 				"version":"1",
-				"orderId":"订单id"
+				"orderId":"订单id",
+				"type":"生活导航订单为1，vip可以不用传递"
 			},
 			"response" :
 			{
@@ -1451,38 +1209,63 @@
 				}
 			}
 		}
-		,"POST member/good" :
+		
+		,"POST member/vip" :
 		{
 			"__desc__" : "完善个人信息4",
 			"request" :
 			{
 				"version":"1",
 				"userId":"用户id",
+				"phone":"电话",
 				"nickName":"昵称",
 				"email":"电子邮件",
 				"name":"真是姓名",
-				"city":"用户所在城市",
-				"village":"所在村或者小区",
-				"address":"具体地址（街道单元）"
+				"provenceId":"省份id",
+				"cityId":"城市id",
+				"areaId":"地区id",
+				"property":"所在物业",				
+				"village":"所在小区"
 			},
 			"response" :
 			{
 				
 			}
 		}
-		,"POST member/vip" :
+		,"POST member/property" :
 		{
-			"__desc__" : "VIP申请4",
+			"__desc__" : "获取地区的物业4",
+			"request" :
+			{
+				"version":"1",
+				"areaId":"地区id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST member/village" :
+		{
+			"__desc__" : "获取物业的小区4",
+			"request" :
+			{
+				"version":"1",
+				"propertyId":"物业id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST member/myself" :
+		{
+			"__desc__" : "我的发布",
 			"request" :
 			{
 				"version":"1",
 				"userId":"用户id",
-				"nickName":"昵称",
-				"email":"电子邮件",
-				"name":"真是姓名",
-				"areaId":"地区id",
-				"property":"所在物业",				
-				"village":"所在小区"
+				"type":"类型1闲置交换2活动3拼车"
 			},
 			"response" :
 			{
@@ -1520,6 +1303,22 @@
 			{
 				"version":"1",
 				"type":"分类id",
+				"page":"1",
+				"pageSize":"20",
+				"sort":"0销量，1价格从低到高，2价格从高到低，3最新排序"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST vip/vipsearch" :
+		{
+			"__desc__" : "VIP商品搜索2",
+			"request" :
+			{
+				"version":"1",
+				"search":"关键字",
 				"page":"1",
 				"pageSize":"20",
 				"sort":"0销量，1价格从低到高，2价格从高到低，3最新排序"
@@ -1653,6 +1452,7 @@
 			{
 				"version":"1",
 				"proId":"物业id",
+				"userId":"用户id（我的参与进来添加）",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1690,14 +1490,28 @@
 				
 			}
 		}
-		,"POST pro/neighbour" :
+		,"POST pro/carList" :
 		{
-			"__desc__" : "3邻里拼车（活动）列表",
+			"__desc__" : "3邻里拼车列表",
 			"request" :
 			{
 				"version":"1",
 				"proId":"物业id",
-				"type":"0拼车1活动",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/activityList" :
+		{
+			"__desc__" : "3邻里活动列表",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1706,22 +1520,46 @@
 				
 			}
 		}		
-		,"POST pro/neighbourAdd" :
+		,"POST pro/carAdd" :
 		{
-			"__desc__" : "3发表邻里拼车（活动）回复拼车",
+			"__desc__" : "3发表邻里拼车(回复)",
+			"request" :
+			{
+				"version":"1",
+				"proId":"物业id(回复时可不用填写)",
+				"title":"标题(回复时不用填写)",
+				"content":"内容",
+				"startTime":"开始时间",
+				"passTime":"结束时间",
+				"userId":"用户的id",
+				"userName":"用户名称",	
+				"phone":"电话号码",	
+				"picture":"图片",
+				"pid":"回复编号id（回复时输入）",
+				"id":"修改时添加此条"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/activityAdd" :
+		{
+			"__desc__" : "3发表活动",
 			"request" :
 			{
 				"version":"1",
 				"proId":"物业id",
-				"title":"标题(回复时不用填写)",
+				"title":"标题",
 				"content":"内容",
-				"passTime":"过期时间(回复时不用填写)",
+				"startTime":"开始时间",
+				"passTime":"结束时间",
+				"address":"活动地址",
+				"number":"人数限制",
+				"phone":"电话",
 				"userId":"用户的id",
-				"userName":"用户名称",				
-				"number":"参加人数(活动)",
-				"picture":"图片(回复时可以不用填写)",
-				"type":"0拼车1活动",
-				"pid":"回复编号id"
+				"userName":"用户名称",		
+				"picture":"图片地址"
 
 			},
 			"response" :
@@ -1744,6 +1582,19 @@
 			"response" :
 			{
 				
+			}
+		}
+		,"POST pro/propertyInfo" :
+		{
+			"__desc__" : "3物管信息详情",
+			"request" :
+			{
+				"version":"1",
+				"msgId":"信息id",
+				"type":"0维修报障1装修申请2投诉建议"
+			},
+			"response" :
+			{				
 			}
 		}
 		,"POST pro/propertyAdd" :
@@ -1769,14 +1620,26 @@
 				
 			}
 		}
-		,"POST pro/neighbourInfo" :
+		,"POST pro/carInfo" :
 		{
-			"__desc__" : "3邻里拼车（活动）详情",
+			"__desc__" : "3-拼车详情",
 			"request" :
 			{
 				"version":"1",
-				"actionId":"(拼车)活动id",
-				"type":"0拼车1活动"
+				"actionId":"拼车id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/activityInfo" :
+		{
+			"__desc__" : "3-活动详情",
+			"request" :
+			{
+				"version":"1",
+				"actionId":"活动id"
 			},
 			"response" :
 			{
@@ -1799,6 +1662,34 @@
 				
 			}
 		}
+		,"POST pro/isSign" :
+		{
+			"__desc__" : "3-是否已经报名",
+			"request" :
+			{
+				"version":"1",
+				"actionId":"活动id",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST pro/delSign" :
+		{
+			"__desc__" : "3-取消报名",
+			"request" :
+			{
+				"version":"1",
+				"actionId":"活动id",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
 		,"POST survey/index" :
 		{
 			"__desc__" : "3社区调查列表页面",
@@ -1806,6 +1697,7 @@
 			{
 				"version":"1",
 				"propertyId":"物业id",
+				"userId":"用户id（我的进入添加）",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1898,7 +1790,7 @@
 				"userName":"用户名称",
 				"title":"标题",
 				"content":"内容",
-				"pic":"图片路径",
+				"picture":"图片路径",
 				"price":"价格",
 				"passTime":"过期时间（回复是不用输入）",				
 				"phone":"联系电话",
@@ -1925,6 +1817,19 @@
 				
 			}
 		}
+		,"POST survey/fetchDel" :
+		{
+			"__desc__" : "3-删除闲置交换",
+			"request" :
+			{
+				"version":"1",
+				"fetchId":"限制交换id"
+			},
+			"response" :
+			{
+				
+			}
+		}
 		,"POST survey/fetchInfo" :
 		{
 			"__desc__" : "3闲置交换详情",
@@ -1938,6 +1843,230 @@
 				
 			}
 		}
-		
+		,"POST Fee/water" :
+		{
+			"__desc__" : "3-水电费账单",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/manage" :
+		{
+			"__desc__" : "3-管理费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/car" :
+		{
+			"__desc__" : "3-停车月卡费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/net" :
+		{
+			"__desc__" : "3-网络费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/mobile" :
+		{
+			"__desc__" : "3-手机电话费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/fit" :
+		{
+			"__desc__" : "3-健身费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Fee/swim" :
+		{
+			"__desc__" : "3-游泳费",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"startTime":"开始时间（查找输入）",
+				"endTime":"结束时间（查找输入）",
+				"page":"页码",
+				"pageSize":"显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST System/people" :
+		{
+			"__desc__" : "1-大众点评的密钥",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST System/step" :
+		{
+			"__desc__" : "申请进度",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST System/update" :
+		{
+			"__desc__" : "数据更新",
+			"request" :
+			{
+				"version":"1"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST System/keyword" :
+		{
+			"__desc__" : "搜索提示关键字",
+			"request" :
+			{
+				"version":"1",
+				"keyword":"关键字",
+				"city":"城市id",
+				"area":"地区id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST System/vipword" :
+		{
+			"__desc__" : "vip提示关键字",
+			"request" :
+			{
+				"version":"1",
+				"keyword":"关键字"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Order/phone" :
+		{
+			"__desc__" : "买家消费电话",
+			"request" :
+			{
+				"version":"1",
+				"orderId":"订单号",
+				"phone":"电话"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST member/data" :
+		{
+			"__desc__" : "我的发布数据-4",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST member/delete" :
+		{
+			"__desc__" : "我的发布删除",
+			"request" :
+			{
+				"version":"1",
+				"id":"用户id",
+				"type":"类型1闲置交换2活动3拼车"
+			},
+			"response" :
+			{
+				
+			}
+		}
 	}
 }

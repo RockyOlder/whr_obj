@@ -11,7 +11,7 @@ class PropertyController extends IsloginController {
         //    $data = $this->getdata();
         $prop = M("Property");
         $count = $prop->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 3);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $prop->limit($page->firstRow . ',' . $page->listRows)->select();

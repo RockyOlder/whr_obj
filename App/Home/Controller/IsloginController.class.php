@@ -11,16 +11,17 @@ class IsloginController extends Controller {
 
     private $field = "region_id,region_name";
 
-    function __construct()
-    {
-            //调用父类的construct方法，免去覆盖父类的方法
-            parent::__construct();
-            if (session('admin') == "" || session('user_auth') == "") {
-                  $this->redirect('Login/index','', 0, '');       //
-            }
-    $this->checkself();
-
-    }
+	function __construct()
+	{
+		//调用父类的construct方法，免去覆盖父类的方法
+		parent::__construct();
+		if (session('admin') == "" || session('user_auth') == "") {
+			//$this->error('你还没有登录',U('Login/index','',''));
+            $this->redirect('Login/index','', 0, '');       //
+		}
+        $this->checkself();
+        
+	}
 
     function checkself() {
         //检查权限
@@ -33,7 +34,6 @@ class IsloginController extends Controller {
     function getleft() {
         // 获取用的id
         $id = session('admin.id');
-        
         //开发时间组织了登录，所以用户的id默认为1，显示全部的菜单
         //$id = 1;
         $pre = C('DB_PREFIX');

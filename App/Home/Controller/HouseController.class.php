@@ -9,7 +9,7 @@ class HouseController extends IsloginController {
     public function index() {
         $house = M("houses h");
         $count = $house->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] :2);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] :10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $house->field('h.*,d.id as did,d.name as dname')

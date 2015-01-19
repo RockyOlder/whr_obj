@@ -10,7 +10,7 @@ class OrderController extends IsloginController {
 
         $order = M("Order");
         $count = $order->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $order->limit($page->firstRow . ',' . $page->listRows)->select();
@@ -42,6 +42,7 @@ class OrderController extends IsloginController {
     }
 
     public function urlAjaxOrderFind() {
+     //   echo 1;exit;
         $id = I('post.id', 0);
         if ($id) {
             $goods = M("Order o");

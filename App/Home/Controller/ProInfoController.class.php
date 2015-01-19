@@ -9,8 +9,8 @@ class ProInfoController extends IsloginController {
     public function index() {
         $house = M("ProNotice p");
 
-        $count = $house->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $count = $house->join('wrt_property AS y ON p.proid=y.id')->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 20);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $house->field('p.*,y.id as yid,y.pname')
@@ -18,8 +18,7 @@ class ProInfoController extends IsloginController {
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
         if (empty($data)) {
-            //     echo 1;exit;
-            $this->display(add);
+            $this->redirect("add");
         }
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
@@ -76,8 +75,9 @@ class ProInfoController extends IsloginController {
             $house = M("ProNotice p");
             $info = $house->field('p.*,y.id as yid,y.pname')
                     ->join('wrt_property AS y ON p.proid=y.id')
-                    ->where('p.nid=' . $id)
+                    ->where('p.id=' . $id)
                     ->find();
+            //  print_r($info);exit;
             $this->assign('info', $info);
         }
         $this->assign('data', $data);
@@ -198,7 +198,7 @@ class ProInfoController extends IsloginController {
     public function url_ajaxswap() {
         $id = I('post.id', 0);
         // echo $id;exit;
-        $pro = M("ProIdle");
+        $pro = M("ProFetch");
         $info = $pro->where("id=" . $id)->find();
         $info['action'] = 'edit';
         $this->ajaxReturn($info);
@@ -243,11 +243,11 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $procar = M("ProCar");
-        $count = $procar->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $count = $procar->where("role=1")->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $prolist = $procar->limit($page->firstRow . ',' . $page->listRows)->select();
+        $prolist = $procar->where("role=1")->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
@@ -257,6 +257,7 @@ class ProInfoController extends IsloginController {
                 $procar = M("ProCar");
                 if ($data = $procar->create()) {
                     //  $data['Release_time'] = time();
+                    $data['role'] = 1;
                     $data['add_time'] = time();
                     if ($procar->add($data)) {
                         $url = U('/Home/proInfo/carpool');
@@ -289,7 +290,7 @@ class ProInfoController extends IsloginController {
         $action = I('post.action');
         $proactiv = M("ProActivity");
         $count = $proactiv->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $prolist = $proactiv->limit($page->firstRow . ',' . $page->listRows)->select();
@@ -332,11 +333,11 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $prorepair = M("ProRepair");
-        $count = $prorepair->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $count = $prorepair->where("role=1")->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $prolist = $prorepair->limit($page->firstRow . ',' . $page->listRows)->select();
+        $prolist = $prorepair->where("role=1")->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
@@ -345,7 +346,8 @@ class ProInfoController extends IsloginController {
             if ($action == "add") {
                 $prorepair = M("ProRepair");
                 if ($data = $prorepair->create()) {
-                    $data['add_time'] = time();
+                    $data['role'] = 1;
+                    $data['time'] = time();
                     if ($prorepair->add($data)) {
                         $this->success("用户添加成功！", U('/Home/proInfo/hinder'));
                     } else {
@@ -355,10 +357,13 @@ class ProInfoController extends IsloginController {
             } elseif ($action == "edit") {
                 $prorepair = M("ProRepair");
                 if ($data = $prorepair->create()) {
-                    if ($prorepair->save($data)) {
-                        $this->success('修改成功!', U('/Home/proInfo/hinder'));
+                    $prorepair->where(array('rid' => I('post.id')))->setInc('num');
+                    $data['pid'] = I('post.id');
+                    $data['time'] = time();
+                    if ($prorepair->add($data)) {
+                        $this->success('回复成功!', U('/Home/proInfo/hinder'));
                     } else {
-                        $this->error("修改失败！", U('/Home/proInfo/hinder'));
+                        $this->error("回复失败！", U('/Home/proInfo/hinder'));
                     }
                 }
             }
@@ -374,20 +379,20 @@ class ProInfoController extends IsloginController {
         $data['btn'] = "添加调查";
         $action = I('post.action');
         $pro = M("ProDecorate");
-        $count = $pro->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $count = $pro->where("role=1")->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $prolist = $pro->where("role=1")->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
-            //      print_r($_REQUEST);exit;
             if ($action == "add") {
                 $pro = M("ProDecorate");
                 if ($data = $pro->create()) {
+                    $data['role'] = 1;
                     $data['add_time'] = time();
                     if ($pro->add($data)) {
                         $this->success("用户添加成功！", U('/Home/proInfo/decorate'));
@@ -396,13 +401,16 @@ class ProInfoController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-                //       echo 1;exit;
+                // print_r($_REQUEST);exit;
                 $pro = M("ProDecorate");
                 if ($data = $pro->create()) {
-                    if ($pro->save($data)) {
-                        $this->success('修改成功!', U('/Home/proInfo/decorate'));
+                    $pro->where(array('rid' => I('post.id')))->setInc('num');
+                    $data['pid'] = I('post.id');
+                    $data['time'] = time();
+                    if ($pro->add($data)) {
+                        $this->success('回复成功!', U('/Home/proInfo/decorate'));
                     } else {
-                        $this->error("修改失败！", U('/Home/proInfo/decorate'));
+                        $this->error("回复失败！", U('/Home/proInfo/decorate'));
                     }
                 }
             }
@@ -416,11 +424,11 @@ class ProInfoController extends IsloginController {
         $data['title'] = "添加";
         $action = I('post.action');
         $pro = M("ProComplaints");
-        $count = $pro->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $count = $pro->where("role=1")->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $prolist = $pro->where("role=1")->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
@@ -436,43 +444,47 @@ class ProInfoController extends IsloginController {
                         $this->error("用户添加失败！", U('/Home/proInfo/repair'));
                     }
                 }
-            } /* elseif ($action == "edit") {
-              $pro = M("ProComplaints");
-              if ($data = $pro->create()) {
-              if ($pro->save($data)) {
-              $this->success('修改成功!', U('/Home/proInfo/repair'));
-              } else {
-              $this->error("修改失败！", U('/Home/proInfo/repair'));
-              }
-              }
-              }
-             * Idle
-             */
+            } elseif ($action == "edit") {
+                $pro = D("ProComplaints");
+                if ($data = $pro->create()) {
+                    $pro->where(array('rid' => I('post.id')))->setInc('num');
+                    $data['pid'] = I('post.id');
+                    $data['time'] = time();
+                    if ($pro->add($data)) {
+                        $this->success('回复成功!', U('/Home/proInfo/repair'));
+                    } else {
+                        $this->error("回复失败！", U('/Home/proInfo/repair'));
+                    }
+                }
+            }
         }
         $this->assign('data', $data);
         $this->display();
     }
 
     public function swap() {
+        // print_r($_SESSION);exit;
+        $name = session('admin.name');
+        // print_r($name);exit;   
         $data['action'] = 'add';
         $data['title'] = "添加";
         $data['btn'] = "闲置交换";
         $action = I('post.action');
-        $pro = M("ProIdle");
-        $count = $pro->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $pro = M("ProFetch");
+        $count = $pro->where("role=1")->count();
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $prolist = $pro->limit($page->firstRow . ',' . $page->listRows)->select();
+        $prolist = $pro->where("role=1")->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
         $this->assign('pro', $prolist);
         if (IS_POST) {
             if ($action == "add") {
-                $pro = M("ProIdle");
+                $pro = M("ProFetch");
                 if ($data = $pro->create()) {
-                    //  $data['Release_time'] = time();
+                    $data['role'] = 1;
                     $data['add_time'] = time();
                     if ($pro->add($data)) {
                         $url = U('/Home/proInfo/swap');
@@ -482,7 +494,7 @@ class ProInfoController extends IsloginController {
                     }
                 }
             } elseif ($action == "edit") {
-                $pro = M("ProIdle");
+                $pro = M("ProFetch");
                 if ($data = $pro->create()) {
                     if ($pro->save($data)) {
                         $url = U('/Home/proInfo/swap');
@@ -493,6 +505,7 @@ class ProInfoController extends IsloginController {
                 }
             }
         }
+        $this->assign('username', $name);
         $this->assign('data', $data);
         $this->display();
     }

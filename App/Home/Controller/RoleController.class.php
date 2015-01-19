@@ -10,7 +10,7 @@ class RoleController extends IsloginController {
     public function index() {
         $auth = M('auth_group');
         $count = $auth->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $auth->limit($page->firstRow . ',' . $page->listRows)->select();

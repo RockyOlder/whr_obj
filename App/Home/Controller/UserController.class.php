@@ -9,7 +9,7 @@ class UserController extends IsloginController {
     public function index() {
         $user = M("user u");
         $count = $user->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $user->field('u.*,v.id as vid,p.id as pid,p.pname,v.name as vname')
@@ -31,6 +31,7 @@ class UserController extends IsloginController {
         $data['title'] = "添加";
         $data['btn'] = "添加会员";
         $action = I('post.action');
+
         $property = M("property");
         $village = M("village");
         $Vlist = $village->select();
@@ -44,18 +45,27 @@ class UserController extends IsloginController {
             $user = D('User');
             $data = $user->create();
             if ($data) {
+                $village = M("village v");
+                $vfind = $village->field('v.*,p.id as pid,p.pname')
+                        ->join('wrt_property AS p ON v.property_id=p.id')
+                        ->where("v.id=" . $data['village_id'])
+                        ->find();
                 if ($action == "add") {
                     $salt = rand(999, 9999);
                     $data['salt'] = $salt;
                     $password = change($salt);
                     $data['password'] = $password;
                     $data["reg_time"] = time();
+                    $data['property_id'] = $vfind['pid'];
+                    $data['property'] = $vfind['pname'];
                     if ($user->add($data)) {
                         $this->success("用户添加成功！", U('/Home/User/index'));
                     } else {
                         $this->error("用户添加失败！", U('/Home/User/add'));
                     }
                 } elseif ($action == "edit") {
+                    $data['property_id'] = $vfind['pid'];
+                    $data['property'] = $vfind['pname'];
                     if ($user->save($data)) {
                         $this->success("修改成功！", U('/Home/User/index'));
                     } else {

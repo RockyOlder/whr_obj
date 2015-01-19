@@ -138,7 +138,7 @@
                                     <td><input name="num" type="checkbox" value="" /></td>
                                     <td><?php echo ($vo["id"]); ?></td>
                                     <td><?php echo ($vo["title"]); ?></td>
-                                    <td><?php echo ($vo["content"]); ?></td>
+                                    <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                                     <td><?php echo ($vo["phone"]); ?></td>
                                     <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                                     <td class="th_default">    

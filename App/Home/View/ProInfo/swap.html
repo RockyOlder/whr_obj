@@ -16,7 +16,6 @@
             <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
                 <script type="text/javascript">
                     $(function(){
-                        
                         var img = "";
                         $('#upload_list').uploadify({
                             'swf'      : '__PUBLIC__/Images/uploadify.swf',
@@ -64,6 +63,10 @@
                             $("#dialog-form").dialog("option","title","添加");            
                             $("#dialog-form").dialog("open");
                         });
+                        
+                        $("button[title=close]").click(function(){
+                            $("div[role=dialog]").hide()
+                        });
                         initPager();
                     });         
                     //     var roleDataBak='{}';
@@ -88,6 +91,7 @@
                             success:function(data){
                                 // roleDataBak=data;
                                 //alert(data.id)
+                                console.log(data)
                                 $("#title").val(data.title);
                                 $("#add_id").val(data.id);
                                 $("#content").val(data.content);
@@ -152,11 +156,11 @@
                                     <td><input name="num" type="checkbox" value="" /></td>
                                     <td>{$vo.id}</td>
                                     <td>{$vo.title}</td>
-                                    <td>{$vo.content}</td>
+                                    <td>{$vo.content|msubstr=0,20,'utf-8',true}</td>
                                     <td>{$vo.phone}</td>
                                     <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>      
                                     <td class="th_default">    
-                                        <a class="btn btn-default" onclick="update_list({$vo.id})">详情</a>    
+                                        <a class="btn btn-default" onclick="update_list({$vo.id})">修改</a>    
                                         <a href="{:U('del',array(id=>$vo['id']),'')}" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                                     </td>
                                 </tr> 
@@ -208,7 +212,7 @@
                                                 <label for="author">发布人：</label>
                                             </td>
                                             <td>
-                                                <input type="text" name="author" id="author" class="form-control" />
+                                                <input type="text" name="author" id="author" class="form-control" value="{$username}" disabled="disabled"/>
                                             </td>
                                         </tr>
                                         <tr>

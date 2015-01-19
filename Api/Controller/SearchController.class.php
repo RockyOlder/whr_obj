@@ -85,6 +85,50 @@ class SearchController extends Controller {
      	}
       
      }
+     function lifePage()
+  
+     {
+      $id = I('request.version',1);
+      $cityId = I('request.cityId',0,"intval");
+      $type = I('request.type',0,"intval");
+      $areaId = I('request.areaId',0,"intval");
+      //获取用户传递过来的分类id
+      $search = I('request.search');
+      $page = I('request.page',1,'intval');
+      $pageSize = I('request.pageSize',20,'intval');
+      if ($pageSize == 0) $pageSize =20;
+      if ($page == 0) $page =1;
+      $limit = " limit ".($page - 1)*$pageSize.",".$pageSize;
+      // dump($limit);
+      // 获取商品的分类id
+      if ($id == 1){
+          $field = " id,name,list_pic,star,type,des,latitude,longitude ";
+          $sql = "select ".$field." from ".C('DB_PREFIX')."business  WHERE 1=1 ";
+          if ($cityId != 0) {
+            $sql .="and city = $cityId ";
+          }
+          if ($areaId != 0) {
+            $sql .="and area = $areaId ";
+          }
+          if ($type != 0) {
+            $sql .="and (parent_type = $type or type = $type) ";
+          }
+          $sql .="and name like '%$search%' ";
+          
+          $sql .= $limit;
+          // dump($sql);
+          $data = M()->query($sql);
+          foreach ($data as $k => $v) {
+            $v['is_my'] = "1";
+            $data[$k] = $v;
+          }          
+          $out['date'] = $data;
+          $out['success'] = 1;    
+          $out['page'] = $page;       
+          $this->ajaxReturn($out);
+      }
+      
+     }
 
     
      

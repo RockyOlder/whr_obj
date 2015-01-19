@@ -65,7 +65,7 @@
                         $("#dialog-form").dialog("open");
                     });
                     
-                    $(".role-list button").each(function () {
+                    /*  $(".role-list button").each(function () {
                         if($(this).text()==1){
                             //   $(this).removeClass("btn btn-warning");
                             $(this).addClass("btn btn-success")  
@@ -75,7 +75,8 @@
                         }
                          
                     })
-                     initPager();
+                     */
+                    initPager();
                 });         
                 //     var roleDataBak='{}';
                 //     var allFields=$( [] );
@@ -120,10 +121,11 @@
                         },
                         timeout:30000,
                         success:function(data){
-                            //roleDataBak=data;
+                            //roleDataBak=data;titleadd
                       
                             $("#role_id").val(data.rid);
                             $("#title2").text(data.title);
+                            $("#titleADD").val(data.title)
                             $("#content2").text(data.content);
                             $("#address2").text(data.address);
                             $("#phone2").text(data.phone);
@@ -139,7 +141,7 @@
         .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
-        #table_list tr td{ padding: 7px;}
+        #table_list tr td{ padding: 5px;}
         .th_default a{ width: 70px;}
         #ig_primary{float: right; margin-top: 3px;}
     </style>
@@ -171,7 +173,7 @@
                     <th>故障地址</th>
                     <th>联系电话</th>
                     <th>发布时间</th>
-                    <th>是否解决</th>
+                    <!--  <th>是否解决</th> -->
                     <th>操作</th>
                 </tr>
             </thead>
@@ -181,20 +183,20 @@
                         <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["owner"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
-                        <td><?php echo ($vo["content"]); ?></td>
+                        <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                         <td><?php echo ($vo["address"]); ?></td>
                         <td><?php echo ($vo["phone"]); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
-                        <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td>
+                        <!--     <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td> -->
                         <td class="th_default">    
                             <!-- <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>     -->
                             <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)"> 审核</a>
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)"> 详情</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
         </table>
-        
+
         <div id="pager" class="pager">
             <div class="fanye">
                 <div class="fanye1">
@@ -209,7 +211,7 @@
         </div>
 
         <div id="dialog-form" title="添加调查卷" style=" display: none;">
-            <div class="tip">
+            <div class="tiplist">
                 <p class="validateTips"></p>
             </div>
             <form action="#" method="post" name="myform" class="form-input" />
@@ -220,7 +222,7 @@
                         <input type="hidden" id="hidRoleId" value="" />
                         <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                <td align="right" width="90px">
+                                <td align="right" width="110px">
                                     <label for="owner">业主名字：</label>
                                 </td>
                                 <td>
@@ -228,11 +230,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" width="90px">
+                                <td align="right" width="110px">
                                     <label for="title">维修标题：</label>
                                 </td>
                                 <td>
-                                    <input type="text" name="title" id="title"  class="form-control" />
+                                    <input type="text" name="title" id="titleadd"  class="form-control" />
                                 </td>
                             </tr>
                             <tr>
@@ -244,7 +246,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" width="90px">
+                                <td align="right" width="110px">
                                     <label for="address">故障地址：</label>
                                 </td>
                                 <td>
@@ -252,7 +254,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" width="90px">
+                                <td align="right" width="110px">
                                     <label for="phone">联系电话：</label>
                                 </td>
                                 <td>
@@ -280,11 +282,13 @@
                                         </td>
                                         <td>
                                             <span id="title2"  /></span>
+                                            <input type="hidden" name="title" id="titleADD"  class="form-control" />   
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="right">
                                             <label for="content">内容：</label>
+
                                         </td>
                                         <td>
                                             <span id="content2" ></span>
@@ -306,20 +310,30 @@
                                             <span id="phone2"  /> </span>
                                         </td>
                                     </tr>
-
                                     <tr>
-                                        <td align="right" width="90px">
-                                            <label for="title">提交审核：</label>
+                                        <td align="right">
+                                            <label for="content">回复：</label>
                                         </td>
                                         <td>
-                                            <select name = 'done' id="type_on" class="form-control">
-                                                <option class = "top_cate">请选择</option>
-                                                <option class = "top_cate"  value="0">未处理</option>
-                                                <option class = "top_cate" value="1" >正在处理</option>
-                                            </select>
+                                            <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
+
                                         </td>
                                     </tr>
-                                    <input type="hidden" name="rid" id="role_id"  />
+
+                                    <!--  <tr>
+                                          <td align="right" width="90px">
+                                              <label for="title">提交审核：</label>
+                                          </td>
+                                          <td>
+                                              <select name = 'done' id="type_on" class="form-control">
+                                                  <option class = "top_cate">请选择</option>
+                                                  <option class = "top_cate"  value="0">未处理</option>
+                                                  <option class = "top_cate" value="1" >正在处理</option>
+                                              </select>
+                                          </td>
+                                      </tr>
+                                      <input type="hidden" name="rid" id="role_id"  /> -->
+                                    <input type="hidden" name="id" id="role_id"  />
                                 </table>
                             </fieldset>
                             </form>

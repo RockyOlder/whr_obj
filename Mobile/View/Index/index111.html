@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>社区调查页面</title>
+<style>
+*{ padding:0px; margin:0px;}
+body{width:100%; margin:0 auto;width:expression(document.body.clientWidth <= 100%? "100%": "auto"); min-width:100%; font-family:Arial, Helvetica, sans-serif, "微软雅黑";font-size:14px;}
+.title{ width:100%; margin:0 auto; text-align:center;}
+dt{width:100%; margin:0 auto;  text-align:center; margin-top:10px; font-family:Arial, Helvetica, sans-serif; font-size:16px;}
+dd a{ color:#999; font-size:14px;}
+.content{width:97%; margin:0 auto; margin-top:20px; border:1px solid #ccc;}
+p{margin:0 auto;}
+.botton{ margin:10px; height:35px;line-height:35px; border-bottom:1px solid #efefef;}
+.tijiao{ width:100%; margin:0 auto; text-align:center; margin-top:10px;}
+
+#graphbox{border:1px solid #e7e7e7;width:97%; margin:0 auto; background-color:#f8f8f8; margin-top:5px;}
+.itemname{width:100px;font-weight:800;font-size:14px;line-height:30px;height:35px;padding:2px;text-align:right;margin-right:atuo;}
+.itemname a{ text-align:right;width:60;}
+.percent{float:right;font-size:13px;line-height:35px;height:35px;padding:2px;color:#555;text-align:left;margin-right:8px;}
+.graph{position:relative;background-color:#F0EFEF;border:1px solid #cccccc;font-size:13px;width:50px; height:18px; line-height:18px; margin-top:8px; font-weight:700;float:right;margin-right:3px;}
+.color1, .color2, .color3, .color4, .color5{ height:18px; position:relative;text-align:left;color:#ffffff;height:35px;line-height:35px;font-family:Arial;display:block;}
+.graph .color1{background-color:#80BFFF;  height:18px;}
+.graph .color2{background-color:#80BFFF;  height:18px;}
+.graph .color3{background-color:#80BFFF;  height:18px;}
+.graph .color4{background-color:#80BFFF;  height:18px;}
+.graph .color5{background-color:#80BFFF;  height:18px;}
+.font1{color:#333;}
+.font2{color:#333;}
+.font3{color:#333;}
+.font4{color:#333;}
+.font5{color:#333;}
+</style>
+</head>
+
+<body>
+<div class="title">
+<h2>社区调查<h2>
+<dl>
+<dt>{$data.title}</dt>
+<dd><a style="margin-right:50px;">{$data.author}</a>  <a>{$data.add_time}</a></dd>
+</dl>
+</div>
+<div class="content">
+<p>{$data.content}
+</p>
+</div>
+
+
+<form method="post" action="">
+<div id="graphbox">
+ 
+<div class="little_box">
+<div class="percent">{$data.one}% ({$data.survey_verygood}/{$data.number})</div>
+<div class="graph"><span class="color1" style="width:{$data.one}%;">&nbsp;</span></div>
+<div class="itemname font1"><a style=" margin-right:10px;">非常满意</a> <input name="answer" type="radio" value="1" / style=" float:right; margin-top:10px;"></div>
+</div>
+ 
+<div class="little_box">
+<div class="percent">
+{$data.two}% ({$data.survey_good}/{$data.number})</div>
+<div class="graph">
+<span class="color2" style="width:{$data.two}%;">&nbsp;</span></div>
+<div class="itemname font2"><a style=" margin-right:10px;">满意</a> <input name="answer" type="radio" value="2" / style=" float:right; margin-top:10px;"></div>
+</div>
+ 
+<div class="little_box">
+<div class="percent">{$data.three}% ({$data.survey_general}/{$data.number})</div>
+<div class="graph"><span class="color1" style="width:{$data.three}%;">&nbsp;</span></div>
+<div class="itemname font3"><a style=" margin-right:10px;">一般</a> <input name="answer" type="radio" value="3" / style=" float:right; margin-top:10px;"></div>
+</div>
+ 
+<div class="little_box">
+<div class="percent">
+{$data.four}% ({$data.survey_nogood}/{$data.number})</div>
+<div class="graph">
+<span class="color2" style="width:{$data.four}%;">&nbsp;</span></div>
+<div class="itemname font4"><a style=" margin-right:10px;">差</a> <input name="answer" type="radio" value="4" / style=" float:right; margin-top:10px;"></div>
+</div>
+ 
+<div class="little_box">
+<div class="percent">
+{$data.five}% ({$data.survey_bad}/{$data.number})</div>
+<div class="graph">
+<span class="color5" style="width:{$data.five}%;">&nbsp;</span></div>
+<div class="itemname font5"><a style=" margin-right:10px;">很差</a> <input name="answer" type="radio" value="5" / style=" float:right; margin-top:10px;"></div>
+</div>
+ 
+</div>
+
+
+<div class="tijiao"><input name="" type="submit"  value="提交"/ style=" width:97%; margin:0 auto; padding:10px 100px; font-size:18px; color:#fff; background-color:#95CAFF; border:0;"></div>
+</form>
+</body>
+</html>

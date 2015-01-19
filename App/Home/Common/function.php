@@ -3,7 +3,7 @@
 function checkpermission(){
 	$go=MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
     $auth = new \Think\Auth();
-    $arr=array('Home/Index/index','Home/Index/left','Home/Index/top','Home/Index/start','Home/Index/loginout');
+    $arr=array('Home/Index/index','Home/Index/left','Home/Index/top','Home/Index/start','Home/Index/loginout','Home/System/setting');
     if (session('admin.name') == 'admin' || in_array($go, $arr)) 
     { //判断是否是超级管理员则可以越过判断
             return true ;

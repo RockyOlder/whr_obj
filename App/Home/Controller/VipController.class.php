@@ -124,7 +124,7 @@ class VipController extends IsloginController {
         }
         $order = M("Order");
         $count = $order->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $order->where("bid=" . $id." and cate=1")

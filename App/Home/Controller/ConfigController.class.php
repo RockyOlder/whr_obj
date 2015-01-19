@@ -21,7 +21,7 @@ class ConfigController extends IsloginController {
         }
         $count = $business->where($where)
                 ->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 4);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);

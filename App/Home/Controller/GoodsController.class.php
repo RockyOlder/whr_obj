@@ -25,7 +25,7 @@ class GoodsController extends IsloginController {
         }
         $count = $goods->where($where)
                 ->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 9);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 12);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img')
@@ -109,8 +109,8 @@ class GoodsController extends IsloginController {
                             //    print_r($arr);EXIT;
                             $obj['goods_id'] = $add;
                             if (!$dataAdd = $specificationData->add($obj)) {
-                                $url = U('/Home/goods/add');
-                                $this->error("操作添加失败！", $url);
+                                $url = U('/Home/goods/index');
+                                $this->error("商品属性添加失败！", $url);
                             }
                         }
                         $url = U('/Home/goods/index');

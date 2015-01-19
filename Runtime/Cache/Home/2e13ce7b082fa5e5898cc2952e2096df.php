@@ -7,11 +7,12 @@
         <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+           <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css"> -->
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
             <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
             <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
             <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
@@ -29,18 +30,23 @@
                             function checkInput(){
                                 var bValid = true;
                                 bValid = bValid && checkLength( $("#goods_name"), "商品名字", 2, 16 );
+                                
                                 bValid = bValid && checkEmpty( $("#type_on"), "\u8bf7选择分类！" );
-                          //      bValid = bValid && checkLength( $("#type_on"), "\u7528户名", 2, 16 );sales
+                                $("#type_on").removeClass('ui-state-error')
+                          //      bValid = bValid && checkLength( $("#type_on"), "\u7528户名", 2, 16 );sales//ui-state-error
                                 bValid = bValid && checkEmpty( $("#type_n"), "\u8bf7选择商家名称！" );
-
+                                
                                 bValid = bValid && checkEmpty( $("#marque"), "\u8bf7选择商品型号！" );
+                                 $("#marque").removeClass('ui-state-error')
                                 bValid = bValid && checkRegexp( $("#price"), /([0-9])+$/i, "价格只能是数字组成" );
                                 bValid = bValid && checkRegexp( $("#inventory"), /([0-9])+$/i, "库存只能是数字组成" );
-                                bValid = bValid && checkEmpty( $("#village_id"), "\u8bf7选择小区！" );
                                 bValid = bValid && checkEmpty( $("#addressAdd"), "\u8bf7选择省市！" );
                             //    bValid = bValid && checkEmpty( $("#city_list"), "\u8bf7选择市区！" );
+                               $("#addressAdd").removeClass('ui-state-error')
                                 bValid = bValid && checkEmpty( $("#val_list"), "\u8bf7选择区县！" );
+                                $("#val_list").removeClass('ui-state-error') 
                                 bValid = bValid && checkEmpty( $("#description"), "商家描述不能为空！" );
+
                                 if(bValid==false){ setout(); }
                                 return bValid;
                             }
@@ -83,10 +89,10 @@
                     .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
                     .pro select{width: 345px;height: 32px; }
                     .box{ margin-left: 5px; font-size: 12px; margin-top: -3px; padding-left:5px; padding:3px;}
-                    #detailDialog{margin-left :620px; width: 550px;}
+                    #detailDialog{margin-left :660px; width: 550px;}
                     #detailDialog input{ width: 200px;}
-                    .imgSave{ float: left; margin-left:-150px; margin-top:-50px; position: absolute;}
-                    .spanSave{margin-left:-4%; margin-top:-27px; float: left; position: absolute; font-size: 16px;}
+                    .imgSave{ float: left; margin-left:-140px; margin-top:-50px; position: absolute;}
+                    .spanSave{margin-left:-3%; margin-top:-27px; float: left; position: absolute; font-size: 16px;}
                 </style>
                 </head>
                 <body style="background: none;">
@@ -115,7 +121,7 @@
                                             <li><label>商品名字</label><input name="goods_name" id="goods_name" type="text" class="dfinput" value="<?php echo ($info["goods_name"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
                                             <li><label>分类</label>
                                                 <span class = 'pro'>
-                                                    <select name = 'cat_id' id="type_on" class="form-control" >
+                                                    <select name = 'cat_id' id="type_on" class="dfinputInfo" >
                                                         <option class="pro_category"  value="<?php echo ($info["cat_id"]); ?>"><?php echo ($info["cat_name"]); ?></option>
                                                         <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class="top_cate" value="<?php echo ($vo["cat_id"]); ?>"><?php echo ($vo["cat_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
@@ -123,7 +129,7 @@
                                                 <i id="type_info"></i></li> 
                                             <li><label>商家名称</label>
                                                 <span class = 'pro'>
-                                                    <select name ='store_id' id="type_n" class="form-control" >
+                                                    <select name ='store_id' id="type_n" class="dfinputInfo" >
                                                         <option class="pro_store"  value="<?php echo ($info["store_id"]); ?>"><?php echo ($info["store_name"]); ?></option>
                                                         <?php if(is_array($vip)): $i = 0; $__LIST__ = $vip;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_into" value="<?php echo ($vo["store_id"]); ?>" name="store_id" ><?php echo ($vo["store_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
@@ -213,7 +219,7 @@
                                                                             hid +="<input name='suolie_img' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
                                                                             hid +="<input name='list_img' id='list_pic' type='hidden' value='"+obj.min+"' />"
                                                                             $('#list_hidden').html(hid);
-                                                                            list_pic = '';
+                                                                            list_img = '';
                                                                             hid='';
                                                                         }
                                                                     });
@@ -254,21 +260,6 @@
                                                                         $("#imgs img").remove();
                                                                         $('#list_hidde input').remove();
                                                                     }
-                                                                    function openwindow()
-                                                                    {
-                                                                        var url = 'http://api.map.baidu.com/lbsapi/getpoint/'; //转向网页的地址;
-                                                                        var name="获取经纬"; //网页名称，可为空;
-                                                                        var iWidth='800'; //弹出窗口的宽度;
-                                                                        var iHeight='600'; //弹出窗口的高度;
-                                                                        //window.screen.height获得屏幕的高，window.screen.width获得屏幕的宽
-                                                                        var iTop = (window.screen.height-30-iHeight)/2; //获得窗口的垂直位置;
-                                                                        var iLeft = (window.screen.width-10-iWidth)/2; //获得窗口的水平位置;
-                                                                        window.open(url,name,'height='+iHeight+',,innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no');
-                                                                    }
-                                                                    function ShowPage()
-                                                                    {
-                                                                        showModalDialog('http://api.map.baidu.com/lbsapi/getpoint/','example04','dialogWidth:400px;dialogHeight:300px;dialogLeft:200px;dialogTop:150px;center: yes;help:no;resizable:no;status:no')
-                                                                    }
 
                                                                 </script>
                                                                 <script type="Text/Javascript">
@@ -285,6 +276,9 @@
                                                                     });
                                                           
                                                                     $(function(){
+                                                                        $("#detailDialog").draggable({
+                                                                            cancel:"table"
+                                                                        });
                                                                         //   alert($('.area_on').val())
                                                                         if($(".pro_category").val()==''){ 
                                                                             $(".pro_category").text("请选择");
@@ -318,6 +312,7 @@
                                                                                 }
                                                                             });         
                                                                         })   
+
                                                                         $('#city_list').bind('change',function(){
                                                                             //   alert(1)
                                                                             var id=$(this).val();
@@ -351,59 +346,6 @@
                                                                             caculShop($(this).val())    
                                                                                                                            
                                                                         });  
-                                                                        //  $('#city_list').html('');
-                                                                        /*       $('#type_on').bind('change',function(){
-                                                                                                                                                           
-                                                                            //  console.log(123)
-                                                                            // alert($(this).val())
-                                                                            var id=$(this).val();
-                                                                                                                                               
-                                                                            $.ajax({
-                                                                                url :$("#url_ajaxCalendar").val(),
-                                                                                type : "post",
-                                                                                data : "id="+id,
-                                                                                dataType : "json",
-                                                                                success : function(data){     
-                                                                                    console.log(data)
-                                                                                    if(data.type != null){
-                                                                                        var str=""
-                                                                                                                                                                     
-                                                                                        $.each(data.type,function(key,val){
-                                                                                            if(key==1){
-                                                                                                str+="<tr>";
-                                                                                                str+="<td class='label'>"+val+"</td><td><input type='text' name='type["+val+"]' class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品的属性</p></td>"
-                                                                                                str+="<input type='hidden' name='parent_id' value='"+data.parent_id+"' class='dfinput'></tr>";
-                                                                                            }else{
-                                                                                                str+='<tr>';
-                                                                                                str+="<td class='label'>"+val+"</td><td><input type='text' name='type["+val+"]' class='dfinput'></td>";
-                                                                                                str+='</tr>';
-                                                                                            }
-                                                                                        })
-                                                                                        $.each(data.name,function(key,val){
-                                                                                            if(key==1){
-                                                                                                str+='<tr>';
-                                                                                                str+="<td class='label'>"+val+"</td><td><input type='checkbox' name='name["+val+"]' value='"+val+"' class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品规格</p></td>"
-                                                                                                str+='</tr>';
-                                                                                            }else{
-                                                                                                str+='<tr>';
-                                                                                                str+="<td class='label'>"+val+"</td><td><input type='checkbox' name='name["+val+"]' value='"+val+"' class='dfinput'></td>";
-                                                                                                str+='</tr>';
-                                                                                            }
-                                                                                        })
-                                                                                        $("#tableAdd").html(str);
-                                                                                        $("#detailDialog").show(800)
-                                                                                    }else{
-                                                                                        $("#detailDialog").hide(800) 
-                                                                                    }
-                                                                                }
-                                                                            })
-                                                                                                                                                              
-                                                                        });  
-                                                                                                                                                    
-                                                                                                                                                     
-                                                                         */
                                                                         var province = function() {
                                                                             var id=$(".city_in").val();
                                                                             $.ajax({
@@ -562,7 +504,8 @@
                                                                                         }
                                                                                     })
                                                                                     $("#tableAdd").html(str);
-                                                                                    $("#detailDialog").show(800)
+                                                                                  $("#detailDialog").fadeIn(1500);
+                                                                                 //  $("#detailDialog").show(800)
                                                                                 }else{
                                                                                     $("#detailDialog").hide(800) 
                                                                                 }

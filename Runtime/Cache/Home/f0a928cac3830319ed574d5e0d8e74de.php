@@ -22,7 +22,7 @@
                             of: window
                         }, 
                         buttons: {
-                            "提　交":function(){
+                            "确认发货":function(){
                                 // allFields.removeClass( "ui-state-error" );
                          
                                 //   $('form[name=myform]').submit();
@@ -51,23 +51,23 @@
                         $("#dialog-form").dialog("option","title","投诉建议");            
                         $("#dialog-form").dialog("open");
                     });
-                    var mycars=new Array("未付款","待发货","正在配送","交易完成，请评论")
+                    var mycars=new Array("未付款","待发货","配送中","待评论")
                     $(".role-list button").each(function () {
                  
                         if($(this).text()==0){
-                            $(this).addClass("btn btn-success")  
+                            $(this).addClass("btn btn-danger")  
                             $(this).text(mycars[0]);
                             $("#statue").text(mycars[0])
                         } else if($(this).text()==1){
-                            $(this).addClass("btn btn-warning")
+                            //    $(this).addClass("btn btn-warning")
                             $(this).text(mycars[1]); 
                             $("#statue").text(mycars[1])
                         }else if($(this).text()==2){
-                            $(this).addClass("btn btn-warning")
+                            //    $(this).addClass("btn btn-warning")
                             $(this).text(mycars[2]); 
                             $("#statue").text(mycars[2])
                         }else if($(this).text()==3){
-                            $(this).addClass("btn btn-warning")
+                            //    $(this).addClass("btn btn-warning")
                             $(this).text(mycars[3]); 
                             $("#statue").text(mycars[3])
                         }
@@ -150,6 +150,7 @@
         #orderadd{ width: 95px;}
         .role-list{ width: 110px;}
         #ig_primary{float: right; margin-top: 3px;}
+        .btn { width: 85px;height: 35px; }
     </style>
 
     <body style="background: none;">

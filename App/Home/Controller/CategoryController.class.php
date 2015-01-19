@@ -146,7 +146,7 @@ class CategoryController extends IsloginController {
         $specification = M("Specification s");
         $count = $specification->count();
                 
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 1);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);

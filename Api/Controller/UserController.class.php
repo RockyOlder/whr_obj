@@ -12,7 +12,7 @@ class UserController extends Controller {
     public function register(){
     		$id = I('request.version',1);
     		$username=I('request.phone',1);
-    		$password = md5(I('request.password',1));
+    		$password = md5(I('request.password'));
     		$salt = mt_rand(999,9999);
     		$password = change($salt,$password); 
     		$out['success'] = 0;
@@ -246,7 +246,7 @@ class UserController extends Controller {
     public function login(){
     		$id = I('request.version',1);
     		$username = I('request.phone',1);
-    		$password = md5(I('request.password',1));                        
+    		$password = md5(I('request.password'));                        
             $plant = I('request.type',1);	
     		$out['success'] = 0;
 
@@ -267,7 +267,7 @@ class UserController extends Controller {
     				$salt = $data['salt'];
     				$password = change($salt,$password); 
     				// dump($password);
-                    // dump($data);
+        //             dump($data);
     				if ($password == $data['password']) {
                         unset($data['password']);//删除密码
     					$out['msg'] = "登录成功";
@@ -313,51 +313,51 @@ class UserController extends Controller {
     		}
         }
         // 判断用户修改密码的时候是否输入正确
-        public function checkPwd(){
-            // phpinfo();
-            $id = I('request.version',1);
-            $userId = I('request.userId',0,"intval");
-            $password = I('request.password');
-            // dump($password);
-            // dump(md5($password));
-            // dump(md5(4073 . md5('')));
-            if ($userId == 0) {
-                $out['success'] = 0;
-                $out['msg'] =C('no_id');
-                $this->ajaxReturn($out);
-            }
-            if ($id == 1) {
-                // 查询出用户的前缀
-                $sql ="select salt,password from ".C('DB_PREFIX')."user where user_id =$userId";
-                // dump($sql);
-                $data =M()->query($sql);
-                if ($data) {
-                    $data = current($data);
-                   $salt =$data['salt'];
-                   $pass = $data['password'];
-                }
-                // dump($data);
-                // dump($password);
-                $password = change($salt);
-                // dump($password);
-                if ($password == $pass) {
-                    $out['success'] = 1;
-                    $out['msg'] ='密码正确！';
-
-                }else{
-                     $out['success'] = 0;
-                    $out['msg'] ='密码错误！';
-
-                }
-                $this->ajaxReturn($out);
-            }
+    public function checkPwd(){
+        // phpinfo();
+        $id = I('request.version',1);
+        $userId = I('request.userId',0,"intval");
+        $password = I('request.password');
+        // dump($password);
+        // dump(md5($password));
+        // dump(md5(4073 . md5('')));
+        if ($userId == 0) {
+            $out['success'] = 0;
+            $out['msg'] =C('no_id');
+            $this->ajaxReturn($out);
         }
+        if ($id == 1) {
+            // 查询出用户的前缀
+            $sql ="select salt,password from ".C('DB_PREFIX')."user where user_id =$userId";
+            // dump($sql);
+            $data =M()->query($sql);
+            if ($data) {
+                $data = current($data);
+               $salt =$data['salt'];
+               $pass = $data['password'];
+            }
+            // dump($data);
+            // dump($password);
+            $password = change($salt,$password);
+            // dump($password);
+            if ($password != $pass) {
+                $out['success'] = 1;
+                $out['msg'] ='密码正确！';
+
+            }else{
+                 $out['success'] = 0;
+                $out['msg'] ='密码错误！';
+
+            }
+            $this->ajaxReturn($out);
+        }
+    }
           //修改用户 密码
     public function changePwd(){
         $id = I('request.version',1);
         $userId = I('request.userId',0,"intval");
-        $password = I('request.password','');
-        $newpwd = I('request.newPwd','');
+        $password = md5(I('request.password'));
+        $newpwd = md5(I('request.newPwd',''));
          $out['success'] = 0;
         if ($userId == 0) {           
             $out['msg'] =C('no_id');
@@ -376,12 +376,15 @@ class UserController extends Controller {
                    $salt =$data['salt'];
                    $pass = $data['password'];
                 }
-                // dump($data);
-                $password = change($salt,$password);
-                // dump($password);
+                //dump($salt);
+                //dump($password);
+                //dump($data);
+                $password = change($salt);
+                //dump($pass);
+                //dump($password);die();
                 if ($password != $pass) {
                     $out['success'] = 0;
-                    $out['msg'] ='原密码输入不争取正确！';
+                    $out['msg'] ='原密码输入不正确！';
                     $this->ajaxReturn($out);
                 }else{
                     $password = change($salt,$newpwd);
@@ -397,6 +400,49 @@ class UserController extends Controller {
                         $out['msg'] = '密码修改失败！';
                     }
                 }
+            $this->ajaxReturn($out);
+        }
+    }
+              //修改用户 密码
+    public function restPwd(){
+        $id = I('request.version',1);
+        $userName = I('request.userName');
+        $password = md5(I('request.password'));
+         $out['success'] = 0;
+        if ($userName == '') {           
+            $out['msg'] ="用户名不能为空";
+            $out['success'] = 0;
+            $out['data'] = null;
+            $this->ajaxReturn($out);
+        }elseif($password == ''){
+            $out['msg'] ='密码不能为空';
+            $out['success'] = 0;
+            $out['data'] = null;
+            $this->ajaxReturn($out);
+        }
+        if ($id == 1) {
+           // 查询出用户的前缀
+                $sql ="select salt from ".C('DB_PREFIX')."user where user_name ='$userName'";
+                //dump($sql);
+                $data =M()->query($sql);
+                if ($data) {
+                    $data = current($data);
+                   $salt =$data['salt'];
+                }
+                //dump($salt);
+                $password = change($salt,$password);        
+                $sql = "update ".C('DB_PREFIX')."user set password ='$password' where user_name='$userName'";
+                // dump($sql);
+                $bool = M()->execute($sql);
+                // dump($bool);
+                if ($bool) {
+                    $out['success'] = 1;
+                    $out['msg'] ="成功重置密码！";
+                }else{
+                    $out['success'] = 0;
+                    $out['msg'] = '重置密码失败！';
+                }
+                
             $this->ajaxReturn($out);
         }
     }

@@ -14,35 +14,40 @@ $(function(){
 	})	
 })	
 </script>
+<style type="text/css">
+.{
+    
+}
+</style>
 </head>
 
-<body>
+<body style="position:relative;">
 
-    <div class="topleft">
-    <a href="{:U('Index/index','','')}" target="_parent"><img src="__PUBLIC__/Images/top_log.png" title="系统首页" / style="float:left; margin-right:20px;"></a>
-    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;">慧锐通后台管理系统</p>
+    <div class="topleft" style="width:750px;">
+    <a href="{:U('Index/index','','')}" target="_parent"><img src="{$Think.session.admin.top_logo}" title="系统首页" / style="float:left; margin-right:20px;"></a>
+    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;">{$Think.session.admin.top_name}后台管理系统</p>
     </div>
+    <div style="position: absolute;right:300px;top:50px;text-align:center;font-size:16px;color:#fff">今天是{$time|date="Y年m月d日 H时",###}</div>
         
-    <ul class="nav">
-    <li><a href="default.html" target="rightFrame" class="selected"><img src="__PUBLIC__/Images/45.png"><h2>首页</h2></a></li>
-    <li><a href="imgtable.html" target="rightFrame"><img src="__PUBLIC__/Images/45.png"><h2>系统设置</h2></a></li>
-    <li><a href="imglist.html"  target="rightFrame"><img src="__PUBLIC__/Images/45.png"><h2>房地产开发商</h2></a></li>
-    <li><a href="tools.html"  target="rightFrame"><img src="__PUBLIC__/Images/45.png"><h2>物业管理</h2></a></li>
-    <li><a href="computer.html" target="rightFrame"><img src="__PUBLIC__/Images/45.png"><h2>生活导航</h2></a></li>
-    <li><a href="tab.html"  target="rightFrame"><img src="__PUBLIC__/Images/45.png"><h2>VIP特享</h2></a></li>
-    </ul>
-            
+    <!-- <ul class="nav">
+    <li><a href="{:U('start')}" target="rightFrame" class="selected"><img src="__PUBLIC__/Images/top/shouye.png"><h2>首页</h2></a></li>
+    <li><a href="imgtable.html" target="rightFrame"><img src="__PUBLIC__/Images/top/shezhi.png"><h2>系统设置</h2></a></li>
+    <li><a href="imglist.html"  target="rightFrame"><img src="__PUBLIC__/Images/top/fang.png"><h2>房地产开发商</h2></a></li>
+    <li><a href="computer.html" target="rightFrame"><img src="__PUBLIC__/Images/top/shenghuo.png"><h2>生活导航</h2></a></li>
+    <li><a href="tab.html"  target="rightFrame"><img src="__PUBLIC__/Images/top/huang.png"><h2>VIP特享</h2></a></li>
+    </ul> -->
+     
     <div class="topright">    
     <ul>
-    <li><span><img src="__PUBLIC__/Images/help.png"title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
-    <li><a href="#">关于</a></li>
+    <li><span><img src="__PUBLIC__/Images/help.png"title="帮助"  class="helpimg"/></span><a href="http://120.24.215.150/mobile.php?s=help" target="_bank">帮助</a></li>
+    <li><a href="http://120.24.215.150/mobile.php?s=help/about" target="_bank">关于我们</a></li>
     <li><a href="{:U('Index/loginout','','')}" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">
     <span>{$Think.session.admin.name}</span>
-    <i>消息</i>
-    <b>5</b>
+    <i>欢迎你！</i>
+    <!-- <b>5</b> -->
     </div>    
     
     </div>

@@ -11,7 +11,7 @@ class DeveloperController extends IsloginController {
     public function index() {
         $devop=M("developer_sum");
         $count = $devop->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $devop->limit($page->firstRow . ',' . $page->listRows)->select();

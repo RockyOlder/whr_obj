@@ -20,14 +20,19 @@
 
     <div class="mainindex">
     <div class="welinfo">
-    <span><img src="/whr/App/Home/View/Public/Images/sun.png"alt="天气" /></span>
-    <b><?php echo ($_SESSION['admin']['name']); ?>早上好，欢迎使用慧锐通后台管理系统</b>(
-    <a href="#">帐号设置</a>
+    <span><img src="/whr/App/Home/View/Public/Images/dp.png" alt="提醒" /></span>
+    <b><?php echo ($_SESSION['admin']['name']); ?>你好，欢迎使用<?php echo ($_SESSION['admin']['top_name']); ?>后台管理系统</b>(
+    <a href="<?php echo U('System/setting',array('id'=>$id),'');?>">帐号设置</a>
     </div>
     
     <div class="welinfo">
     <span><img  src="/whr/App/Home/View/Public/Images/time.png" alt="时间" /></span>
-    <i>您上次登录的时间：<?php echo (date("Y-m-d H:i:s",$_SESSION['admin']['login_time'])); ?></i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
+    <i>您上次登录的时间：<?php echo (date("Y-m-d H:i:s",$_SESSION['admin']['last_login'])); ?></i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
+    </div>
+    
+    <div class="welinfo">
+    <span><img  src="/whr/App/Home/View/Public/Images/time.png" alt="ip" /></span>
+    <i>您上次登录的ip：<?php echo ($_SESSION['admin']['last_ip']); ?></i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
     </div>
     
     <div class="xline"></div>

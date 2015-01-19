@@ -78,3 +78,94 @@ function updateSource($oid){
       // dump($sql);
       M()->execute($sql);
 }
+//多张图片上传的方法
+function uploadMore(){
+        if ($_FILES) {
+          $config = array(
+          'maxSize' => 3145728,
+          'rootPath' => './default/Uploads/',
+          'savePath' => '',
+          'saveName' => array('uniqid',''),
+          'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+          'autoSub' => true,
+          'subName' => array('date','Ymd')
+          );
+          $ftpConfig = array(
+          'host' => '120.24.214.88', //服务器
+          'port' => 21, //端口
+          'timeout' => 90, //超时时间
+          'username' => 'www', //用户名
+          'password' => '4398eea99' //密码 
+          );
+          $upload = new \Think\Upload($config,'Ftp',$ftpConfig);// 实例化上传类
+
+          $upload->maxSize = 3145728 ;// 设置附件上传大小
+          $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+          $upload->rootPath = './default/Uploads/'; // 设置附件上传根目录
+          $upload->savePath = ''; // 设置附件上传（子）目录
+          // 上传文件
+          $info = $upload->upload();
+          // dump($info);
+          //die();
+          if(!$info) {// 上传错误提示错误信息
+          echo $upload->getError();
+          }else{// 上传成功
+               
+
+                foreach($info as $file) {
+                    $out['path']='http://120.24.214.88/Uploads/'.$file['savepath'].$file['savename'];
+                    // $image = new \Think\Image();
+                    // $thumbWidth = array('mid'=>700);
+                    // $thumb_file = $out['path'];
+                    // // dump($thumb_file);die();
+                    // foreach ($thumbWidth as $k=> $v) {
+                    //    $save_path = 'http://120.24.214.88/Uploads/thumb' .$file['savepath']. $v."_" . $file['savename'];
+                    //     $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
+                    //     $out[$k]='http://120.24.214.88/Uploads/thumb'.$file['savepath']. $v.'_' .$file['savename'];
+                      
+                    // }                   
+                    $arr = explode('.', $file['name']);
+                    $out['name'] = $arr[0];
+                    $tem[] = $out;
+                }
+              return json_encode($tem);
+          }
+        }
+    }
+    //多张图片上传的方法
+function uploud(){
+        if ($_FILES) {
+          $config = array(
+          'maxSize' => 3145728,
+          'rootPath' => './default/Uploads/',
+          'savePath' => '',
+          'saveName' => array('uniqid',''),
+          'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+          'autoSub' => true,
+          'subName' => array('date','Ymd')
+          );
+          $ftpConfig = array(
+          'host' => '120.24.214.88', //服务器
+          'port' => 21, //端口
+          'timeout' => 90, //超时时间
+          'username' => 'www', //用户名
+          'password' => '4398eea99' //密码 
+          );
+          $upload = new \Think\Upload($config,'Ftp',$ftpConfig);// 实例化上传类
+
+          $upload->maxSize = 3145728 ;// 设置附件上传大小
+          $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+          $upload->rootPath = './default/Uploads/'; // 设置附件上传根目录
+          $upload->savePath = ''; // 设置附件上传（子）目录
+          // 上传文件
+          $info = $upload->upload();
+          // dump($info);
+          // die();
+          if(!$info) {// 上传错误提示错误信息
+          echo $upload->getError();
+          }else{// 上传成功       
+              $path='http://120.24.214.88/Uploads/'.$info['picture']['savepath'].$info['picture']['savename'];  
+              return $path;
+          }
+        }
+    }

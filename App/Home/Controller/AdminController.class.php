@@ -9,7 +9,7 @@ class AdminController extends IsloginController {
     public function index() {
         $admin=M('admin');
         $count = $admin->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 4);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $admin->limit($page->firstRow . ',' . $page->listRows)->select();

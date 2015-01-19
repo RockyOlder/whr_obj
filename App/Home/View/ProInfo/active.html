@@ -139,7 +139,7 @@
                                     <td><input name="num" type="checkbox" value="" /></td>
                                     <td>{$vo.id}</td>
                                     <td>{$vo.title}</td>
-                                    <td>{$vo.content}</td>
+                                    <td>{$vo.content|msubstr=0,20,'utf-8',true}</td>
                                     <td>{$vo.phone}</td>
                                     <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>      
                                     <td class="th_default">    

@@ -23,13 +23,28 @@ class HomeController extends Controller {
             {
                 $city = array();
                 foreach ($arr as $key => $value) {
-                    $w = strtoupper($value);
-                    $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where region_initial = '$w' and region_level = 2";
+                    // dump($value);die();
+                    $w = strtoupper($value);// dump($sql);die();//加入北京
+                    if ($w == 'B') {
+                        $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where (region_initial = '$w' and region_level = 2) or region_id = 2";
+                    }
+                    elseif ($w == 'T') {
+                        $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where (region_initial = '$w' and region_level = 2) or region_id = 3";
+                    }
+                    elseif ($w == 'S') {
+                        $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where (region_initial = '$w' and region_level = 2) or region_id = 10";
+                    }
+                    elseif ($w == 'C') {
+                        $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where (region_initial = '$w' and region_level = 2) or region_id = 23";
+                    }else{
+                        $sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where region_initial = '$w' and region_level = 2";
+                    
+                    }
                     // dump($sql);die();
                     $city[$value] = M()->query($sql);                    
                     // dump($w);die;
                 }
-                S("all_city",$city);                
+                S("all_city",$city,3600);                
             }
 			$out['data'] = $city;    			
 			$this->ajaxReturn($out);
@@ -164,7 +179,7 @@ class HomeController extends Controller {
                 
                 $time = time();
                 // dump($time);
-                $sql ="select b.id,list_pic,g.title,g.info from ".C('DB_PREFIX')."give_life_shop as g join ".C('DB_PREFIX')."business as b on g.shopid = b.id where deadline > ".time()." and g.lock=0 and (g.range = '$type' or is_all = 1)";
+                $sql ="select b.id,list_pic,g.title,g.info,g.id from ".C('DB_PREFIX')."give_life_shop as g join ".C('DB_PREFIX')."business as b on g.shopid = b.id where deadline > ".time()." and g.lock=0 and (g.range = '$type' or is_all = 1)";
                 // dump($sql);
                 if ($data[1]['is_price'] == 1) {
                     $sql .= " order by g.sort desc limit 0,6";
@@ -183,7 +198,7 @@ class HomeController extends Controller {
         }
 
     }
-        public function homeShopAll(){
+    public function homeShopAll(){
         $id = I('request.version',1,'intval');
         $type = I('request.type',0,'intval');
         $page = I('request.page',1,'intval');
@@ -357,24 +372,44 @@ class HomeController extends Controller {
     }
     //获取广告的图片和链接地址
     public function ad(){
+        // for ($i=1; $i < 19; $i++) { 
+        //     M('ad')->where('ad_id ='.$i)->save(array('pic'=>'http://120.24.214.88/Uploads/ad/ad/'.$i.'.png'));
+        // }
+        // die('ok');
         $id = I('request.version',1);
         $type = I('request.type',1);
         $time = time();
         if ($id == 1) {
+            if (!$type) {
+                $out['success'] = 0;
+                $out['msg'] = "失败";
+                $out['data'] =null;
+                $this->ajaxReturn($out);
+            }
+            $out['success'] = 1;
+            $model = M('ad');
             $out['success']  = 1;
             // 更新广告的浏览量
-            $sql ="update ".C('DB_PREFIX')."ad SET skim = skim+1 where type =".$type;
-            M()->query($sql);
+            $model->where('type = '.$type)->setInc('skim');
             $name = "ad_".$type;
-            $ad =S($name);//获取缓存
-            // dump($ad);
-            if (empty($ad)) {
-                $sql ="select ad_id,ad_name,pic,ad_url from ".C('DB_PREFIX')."ad where type = $type and end_time > $time and start_time < $time limit 0,5";
+            $data =S($name);//获取缓存
+            // dump($data);
+            if (empty($data)) {
+                $field = "ad_id,ad_name,pic,ad_url";
+                // dump($field);
+                $w = "type = $type";// and (end_time > $time or end_time = 0 ) and (start_time < $time or start_time = 0)";
+                // dump($w);
+                $data = $model->where($w)->limit(5)->select();
+                // dump($data);
+                //$sql ="select ad_id,ad_name,pic,ad_url from ".C('DB_PREFIX')."ad where type = $type and end_time > $time and start_time < $time limit 0,5";
                 // dump($sql);
-                $ad = M()->query($sql);
-                S($name,$ad,36000);
+                //$ad = M()->query($sql);
+                if ($data) {
+                    S($name,$data,36000);
+                }                
             }
-            $out['data'] = $ad;
+            $out['msg'] = "成功";
+            $out['data'] = $data;
             $this->ajaxReturn($out);          
            
         }
@@ -396,16 +431,26 @@ class HomeController extends Controller {
         if ($id == 1) {
             $out['success']  = 1;
             // 更新广告的点击
-            $sql ="update ".C('DB_PREFIX')."ad SET click = click+1 where type =".$adid;
-            M()->query($sql);
-            
-            $sql ="insert  into ".C('DB_PREFIX')."ad_count set ad_id = $adid , uid = $uid ,time = $time";
+            // $sql ="update ".C('DB_PREFIX')."ad SET click = click+1 where type =".$adid;
+            // M()->query($sql);
+            $w= array('ad_id'=>$adid);
+            // dump($w);
+            $bool = M('ad')->where($w)->setInc('click');
+            // dump($bool);
+            // $sql ="insert  into ".C('DB_PREFIX')."ad_count set ad_id = $adid , uid = $uid ,time = $time";
             // dump($sql);
-            $bool = M()->execute($sql);
+            $arr = array(
+                'ad_id'=>$adid,
+                'uid'=>$uid,
+                'time'=>time()
+                );
+            $bool = M('ad_count')->add($arr);
             // dump($bool);
             if($bool){
+                $out['msg'] = '成功';
                 $out['data'] = $bool;
             }else{
+                $out['msg'] = '失败';
                 $out['success'] = 0;
             }  
 
@@ -417,9 +462,29 @@ class HomeController extends Controller {
     //根据地址获取城市的区域列表
     public function cityArea(){
     	$id = I('request.version',1);
-    	$city = I('request.cityid',234);
+    	$city = I('request.cityid',234,'intval');
     	if ($id == 1) {
     		$out['success']  = 1;
+            if (in_array($city, array(2,3,10,23))) {
+                $model = M('region');
+                //dump($city);
+                $gid = $model->field('region_id')->where('parent_id='.$city)->select();
+                foreach ($gid as $k => $v) {
+                    $rid[] = $v['region_id'];
+                }
+                $rid = '('.implode(',', $rid).')';
+                //dump($rid);die();
+                $field = "region_id,region_code,region_name";
+                $data = $model->field($field)->where('parent_id in '.$rid)->select();
+                    $arr['region_id'] = "$city";
+                    $arr['region_code'] = null;
+                    $arr['region_name'] = "全城";
+               array_unshift($data, $arr);
+               $out[data] = $data;
+               $out[msg] = "成功";
+               $this->ajaxReturn($out);
+
+            }
     
     		$sql = "select region_id,region_code,region_name from ".C('DB_PREFIX')."region where parent_id = $city and region_level = 3";
     		// dump($sql);
@@ -435,6 +500,56 @@ class HomeController extends Controller {
     		$this->ajaxReturn($out);
     		 
     	}
+    
+    }
+    /**
+     * 获取省份的接口
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-08T14:32:32+0800
+     * @return [type]                   [description]
+     */
+    public function getPro(){
+        $id = I('request.version',1);
+        if ($id == 1) {
+            $out['success']  = 1;
+                $model = M('region');
+                
+                $field = "region_id,region_code,region_name";
+                $data = $model->field($field)->where('parent_id =1')->select();
+              
+               $out[data] = $data;
+               $out[msg] = "成功";
+               $out[success] = 1;
+            $this->ajaxReturn($out);
+             
+        }
+    
+    }
+    /**
+     * 获取省份的接口
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-08T14:32:32+0800
+     * @return [type]                   [description]
+     */
+    public function proCity(){
+        $id = I('request.version',1,'intval');
+        $proId = I('request.proId',0,'intval');
+        if ($id == 1) {
+            $out['success']  = 1;
+                $model = M('region');                
+                $field = "region_id,region_code,region_name";
+                $w = array('PARENT_ID'=>$proId ,'REGION_LEVEL'=>'2');
+                //dump($w);                
+                $data = $model->field($field)->where($w)->select();
+              
+               $out[data] = $data;
+               $out[msg] = "成功";
+               $out[success] = 1;
+            $this->ajaxReturn($out);
+             
+        }
     
     }
     //根据地址获取城市的id

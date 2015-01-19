@@ -40,11 +40,19 @@ class CommentController extends Controller {
         $this->ajaxReturn($out);
 	       
     }
-     
+     //商品的评论
      public function good()
     {
         $id = I('request.version',1,'intval');
         $goodid = I('request.goodid',0,'intval');
+        $page = I('request.page',1,'intval');
+        $pageSize = I('request.pageSize',20,'intval');
+        if ($page == 0) {
+          $page = 1;
+        }
+        if ($pageSize == 0) {
+          $pageSize = 20;
+        }
         $time = time();
         if ($id == 1) {
           if (!$goodid) {
@@ -52,9 +60,12 @@ class CommentController extends Controller {
             $out['msg']=C('no_id');
             $this->ajaxReturn($out);
           }
-           $sql = "select id,content,star,user_id,time from ".C('DB_PREFIX')."comment where `lock` = 0 and gid = $goodid";
-           // dump($sql);
-          $data = M()->query($sql);
+          $field="id,content,star,user_id,time";
+          $w = array('lock' => 0 , 'gid' => $goodid);
+          $data = M('comment')->field($field)->where($w)->page($page,$pageSize)->select();
+          //  $sql = "select id,content,star,user_id,time from ".C('DB_PREFIX')."comment where `lock` = 0 and gid = $goodid";
+          //  // dump($sql);
+          // $data = M()->query($sql);
           if (!empty($data)) {
              $out['success'] = 1;
               foreach ($data as $k => $v) {
@@ -113,6 +124,14 @@ class CommentController extends Controller {
     {
         $id = I('request.version',1,'intval');
         $goodid = I('request.goodid',0,'intval');
+        $page = I('request.page',1,'intval');
+        $pageSize = I('request.pageSize',20,'intval');
+        if ($page == 0) {
+          $page = 1;
+        }
+        if ($pageSize == 0) {
+          $pageSize = 20;
+        }
         if ($id == 1) {
           if (!$goodid ) {
             $out['success'] = 0;
@@ -121,7 +140,7 @@ class CommentController extends Controller {
             $this->ajaxReturn($out);
           }
           $w = array('gid' => $goodid,'lock'=>0);
-          $data = M('vip_comment')->where($w)->select();
+          $data = M('vip_comment')->where($w)->page($page,$pageSize)->select();
           foreach ($data as $k => $v) {
             $v['time'] = date('Y-m-d H:i:s',$v['time']);
             $data[$k] = $v;

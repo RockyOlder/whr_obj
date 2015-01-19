@@ -10,12 +10,14 @@ class VillageController extends IsloginController {
         //  $data = $this->getdata();
         $village = M("village v");
         $count = $village->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 4);
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
-        $find = $village->field('v.*,h.id as hid,p.id as pid,p.pname,h.name as hname,r.REGION_ID,r.REGION_NAME')
+        $find = $village->field('v.*,h.id as hid,p.id as pid,p.pname,h.name as hname')
+                //  $find = $village->field('v.*,h.id as hid,p.id as pid,p.pname,h.name as hname,r.REGION_ID,r.REGION_NAME')
                 ->join('wrt_houses AS h ON v.house_id=h.id')
                 ->join('wrt_property AS p ON v.property_id=p.id')
-                ->join('wrt_region AS r ON v.province=r.REGION_ID')
+                //       ->join('wrt_region AS r ON v.province=r.REGION_ID')
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
         $this->assign("currentPage", $currentPage);

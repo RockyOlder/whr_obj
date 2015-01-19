@@ -16,7 +16,6 @@
             <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
                 <script type="text/javascript">
                     $(function(){
-                        
                         var img = "";
                         $('#upload_list').uploadify({
                             'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
@@ -64,6 +63,10 @@
                             $("#dialog-form").dialog("option","title","添加");            
                             $("#dialog-form").dialog("open");
                         });
+                        
+                        $("button[title=close]").click(function(){
+                            $("div[role=dialog]").hide()
+                        });
                         initPager();
                     });         
                     //     var roleDataBak='{}';
@@ -88,6 +91,7 @@
                             success:function(data){
                                 // roleDataBak=data;
                                 //alert(data.id)
+                                console.log(data)
                                 $("#title").val(data.title);
                                 $("#add_id").val(data.id);
                                 $("#content").val(data.content);
@@ -151,11 +155,11 @@
                                     <td><input name="num" type="checkbox" value="" /></td>
                                     <td><?php echo ($vo["id"]); ?></td>
                                     <td><?php echo ($vo["title"]); ?></td>
-                                    <td><?php echo ($vo["content"]); ?></td>
+                                    <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                                     <td><?php echo ($vo["phone"]); ?></td>
                                     <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                                     <td class="th_default">    
-                                        <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">详情</a>    
+                                        <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
                                         <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                                     </td>
                                 </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
@@ -205,7 +209,7 @@
                                                 <label for="author">发布人：</label>
                                             </td>
                                             <td>
-                                                <input type="text" name="author" id="author" class="form-control" />
+                                                <input type="text" name="author" id="author" class="form-control" value="<?php echo ($username); ?>" disabled="disabled"/>
                                             </td>
                                         </tr>
                                         <tr>

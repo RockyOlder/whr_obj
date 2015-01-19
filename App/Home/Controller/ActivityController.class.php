@@ -10,7 +10,7 @@ class ActivityController extends IsloginController {
         //    echo 1;exit;
         $vip = M('VipActGood v');
         $count = $vip->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $find = $vip->field('v.*,w.title,w.start_time,w.end_time')
@@ -31,7 +31,7 @@ class ActivityController extends IsloginController {
         $action = I('post.action');
         $vip = M('VipActivity');
         $count = $vip->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 2);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $vip->limit($page->firstRow . ',' . $page->listRows)->select();
@@ -40,6 +40,7 @@ class ActivityController extends IsloginController {
         $this->assign("page", $show);
         $this->assign('into', $data);
         if (IS_POST) {
+   //   print_r($_REQUEST);EXIT;
             $vip = D('VipActivity');
             $data = $vip->create();
             if ($data) {
@@ -52,8 +53,9 @@ class ActivityController extends IsloginController {
                         $this->error("用户添加失败！", U('/Home/Activity/add'));
                     }
                 } elseif ($action == "edit") {
+                      
                     if ($vip->save($data)) {
-                        $this->success("添加成功！", U('/Home/Activity/add'));
+                        $this->success("修改成功！", U('/Home/Activity/add'));
                     } else {
                         $this->error("用户修改失败！", U('/Home/Activity/add'));
                     }
@@ -62,7 +64,7 @@ class ActivityController extends IsloginController {
                 $this->error($vip->getError());
             }
         }
-        $id = I('get.id', 0);
+      /*  $id = I('get.id', 0);
         if ($id) {
             $data['action'] = 'edit';
             $data['title'] = "编辑活动";
@@ -73,9 +75,26 @@ class ActivityController extends IsloginController {
             $vipFind['end_time'] = date("Y-m-d H:i:s", $vipFind['end_time']);
             $this->assign('info', $vipFind);
         }
+       * 
+       */
         //$this->redirect("home/del",array());
         $this->assign('data', $data);
         $this->display();
+    }
+
+    public function url_ajaxCalendar() {
+          // echo 1;exit;
+        $id = I('post.id', 0);
+        if ($id) {
+            $vip = D('VipActivity');
+            $vipFind = $vip->where("id=$id")->find();
+            $vipFind['start_time'] = date("Y-m-d H:i:s", $vipFind['start_time']);
+            $vipFind['end_time'] = date("Y-m-d H:i:s", $vipFind['end_time']);
+            $vipFind['action'] = 'edit';
+        } else {
+            $this->error($vip->getError());
+        }
+        $this->ajaxReturn($vipFind);
     }
 
     public function saveAct() {

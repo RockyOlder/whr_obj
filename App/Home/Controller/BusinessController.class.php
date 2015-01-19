@@ -21,7 +21,7 @@ class BusinessController extends IsloginController {
         }
         $count = $business->where($where)
                 ->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 6);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
@@ -179,12 +179,12 @@ class BusinessController extends IsloginController {
      public function order() {
         $name=session('admin.name');
         $id = session('admin.id');
-        if($name=='admin'){
+       if($name=='admin'){
             $this->redirect("Order/index"); 
         }
         $order = M("Order");
         $count = $order->where("bid=" . $id." and cate=0")->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $order->where("bid=" . $id." and cate=0")
@@ -214,7 +214,7 @@ class BusinessController extends IsloginController {
         }
         $count = $lifeGood->where($where)
                 ->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $type = M("type")->select();
@@ -237,7 +237,7 @@ class BusinessController extends IsloginController {
             $lifeGoods = D('lifeGoods');
             $data = $lifeGoods->create();
             if (!$data) {
-                $this->error($lifeGoods->getError(), '', 2);
+                $this->error($lifeGoods->getError(), '', 10);
             }
             $id = I('post.id');
             $act = I('post.action', '');
@@ -342,6 +342,25 @@ class BusinessController extends IsloginController {
         $typeList['list'] = $type->where("parent_id=" . $find['cate_pid'] . " and type_id!=" . $typeList['type_id'])->select();
         $this->ajaxReturn($typeList);
     }
+    
+        public function urlAjaxOrderFind() {
+     //   echo 1;exit;
+        $id = I('post.id', 0);
+        if ($id) {
+            $goods = M("Order o");
+            $goodsFind = $goods->field('o.*,u.user_id,b.id,b.name,u.user_name')
+                    ->join('wrt_user AS u ON u.user_id=o.user_id')
+                    ->join('wrt_business AS b ON b.id=o.bid')
+                    ->where('o.oid=' . $id)
+                    ->find();
+            $goodsFind['time'] = date("Y-m-d H:i:s", $goodsFind['time']);
+        } else {
+            $this->error($goods->getError());
+        }
+        $this->ajaxReturn($goodsFind);
+    }
+
+
 
     /**
 

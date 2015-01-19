@@ -51,23 +51,23 @@
                         $("#dialog-form").dialog("option","title","投诉建议");            
                         $("#dialog-form").dialog("open");
                     });
-                    var mycars=new Array("未付款","待发货","正在配送","交易完成，请评论")
+                    var mycars=new Array("未付款","待发货","配送中","待评论","已付款")
                     $(".role-list button").each(function () {
                  
                         if($(this).text()==0){
-                            $(this).addClass("btn btn-success")  
+                            $(this).addClass("btn btn-danger")  
                             $(this).text(mycars[0]);
                             $("#statue").text(mycars[0])
                         } else if($(this).text()==1){
-                            $(this).addClass("btn btn-warning")
-                            $(this).text(mycars[1]); 
-                            $("#statue").text(mycars[1])
+                           // $(this).addClass("btn btn-warning")
+                            $(this).text(mycars[4]); 
+                            $("#statue").text(mycars[4])
                         }else if($(this).text()==2){
-                            $(this).addClass("btn btn-warning")
-                            $(this).text(mycars[2]); 
-                            $("#statue").text(mycars[2])
+                          //  $(this).addClass("btn btn-warning")
+                            $(this).text(mycars[4]); 
+                            $("#statue").text(mycars[4])
                         }else if($(this).text()==3){
-                            $(this).addClass("btn btn-warning")
+                         //   $(this).addClass("btn btn-warning")
                             $(this).text(mycars[3]); 
                             $("#statue").text(mycars[3])
                         }
@@ -79,6 +79,7 @@
                     $("#dialog-form").dialog("option","title","修改投诉建议");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     //  return false;
+                    //    alert(1)
                     $.ajax({ 
                         url:$("#url_ajaxCalendar").val(),
                         type:"post",
@@ -103,9 +104,9 @@
                             $("#express").text(data.express);
                             $("#cate").text(data.cate);
                             $("#express_number").text(data.express_number);
-                            if(data.statue==1){
+                            /*   if(data.statue==1){
                                 $("#dialog-edit").dialog("open");    
-                            }
+                            }*/
                             
                         }
                     });
@@ -148,8 +149,14 @@
         .th_default a{ width: 70px;}
         .th_default{ width: 300px;}
         #orderadd{ width: 95px;}
-        .role-list{ width: 110px;}
+        .role-list{ width: 100px;}
         #ig_primary{float: right; margin-top: 3px;}
+
+        .btn {
+            width: 85px;
+            height: 35px;
+
+        }
     </style>
 
     <body style="background: none;">

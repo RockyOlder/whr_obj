@@ -9,12 +9,22 @@ class VipController extends Controller {
 	        	die("你无权访问该页面！");
 	        }
 	}
-    // 添加用户地址
+    /**
+     * 获取vip首页信息
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-09T11:12:38+0800
+     * @return [type]                   [description]
+     */
     public function index()
     {
-      // echo time('2014-12-28');
-      // echo time('2015-12-29');
+      // echo md5('111111');
+      // $data = md5('5712'.md5('111111'));
+      // dump($data);
       // die();
+      // echo time('2014-12-28');
+      //echo time('2015-01-16');
+      //die();
         $id = I('request.version',1);
           if ($id == 1) {
 
@@ -78,13 +88,17 @@ class VipController extends Controller {
               $data = M()->query($sql);
               if (!$data) {
                  $out['msg'] = '没有商品分类请你添加后再来获取';
-                $out['success'] = 0;
+                  $out['success'] = 0;
+                  $out['data'] = null;
+                  $this->ajaxReturn($out);
               }
                $data = $this->getCatTree($data);
-               S('category',$data,6000);
+               // dump($data);
+               S('category',$data,600);
             }
             $out['data'] = $data;
-            $out['success'] = 1;           
+            $out['success'] = 1;   
+            $out['msg'] = '成功';
             $this->ajaxReturn($out);
         }
 
@@ -127,6 +141,38 @@ class VipController extends Controller {
         }
 
     }
+        public function vipsearch(){
+        $id = I('request.version',1,'intval');
+        $search = I('request.search');
+        $sort = I('request.sort',0,'intval');
+        $page = I('request.page',1,'intval');
+        $pageSize = I('request.pageSize',20,'intval');
+        
+        if ($id == 1) {
+            switch ($sort) {
+              case '0':
+                    $s = "number desc";
+                break;
+              case '1':
+                    $s = "price asc";
+                break;
+              case '2':
+                    $s = "price desc";
+                break;
+              case '3':
+                    $s = "add_time desc";
+                break;
+              default:
+                $s = "number desc";
+                break;
+            }           
+            $out['data'] = M('goods')->field('goods_id,price,markdown,goods_name,list_img,number,store_id')->where("goods_name like '%$search%'")->order($s)->page($page,$pageSize)->select();
+            // dump($out);
+            $out['success'] = 1;           
+            $this->ajaxReturn($out);
+        }
+
+    }
      //获取vip商品详情
     public function vipInfo(){
         // echo time();
@@ -141,7 +187,7 @@ class VipController extends Controller {
           $this->ajaxReturn($out);
         }
         if ($id == 1) {
-           $data = M('goods')->field('goods_id,store_id,goods_name,goods_img,description,price,weight')->where("goods_id ='$goodId'" )->find();
+           $data = M('goods')->field('goods_id,sales,store_id,goods_name,goods_img,description,price,weight')->where("goods_id ='$goodId'" )->find();
            // dump($data['store_id']);
            // 获取商店的电话和qq
            $store = M('vip')->field('mobile_phone,qq')->where('store_id='.$data['store_id'])->find();
@@ -321,16 +367,38 @@ class VipController extends Controller {
               $out['data'] = null;
               $this->ajaxReturn($out);
           }
-          $field = "goodid,markdown as price ,goods_name,list_img,description as des";
+          $field = "id,goodid,markdown as price ,goods_name,list_img,description as des";
           $sql = "select $field from ".C('DB_PREFIX')."vip_collect as v join ".C('DB_PREFIX')."goods as g on v.goodid = g.goods_id where userid = $uid ".$limit;
           // dump($sql);
           $vip = M()->query($sql);
           $data['vip'] = $vip;
-          $field = "lgid as goodid,price ,lgname as goods_name,list_pic as list_img,des";
+          $field = "id,lgid as goodid,price ,lgname as goods_name,list_pic as list_img,des";
           $sql = "select $field from ".C('DB_PREFIX')."life_co_good as v join ".C('DB_PREFIX')."life_goods as g on v.goodid = g.lgid where userid = $uid ".$limit;
           // dump($sql);
           $life = M()->query($sql);
           $data['life'] = $life;
+          //查找生活导航的收藏商店
+          $field = "v.id,name,list_pic,star,type,des,latitude,longitude";
+          $sql = "select $field from ".C('DB_PREFIX')."life_co_shop as v join ".C('DB_PREFIX')."business as g on v.shopid = g.id where userid = $uid ".$limit;
+          //dump($sql);
+          $shop = M()->query($sql);
+            if ($shop) {
+              foreach ($shop as $k => $v) {
+                     $sql  = "select type_name from ".C('DB_PREFIX')."type WHERE type_id = ".$v['type'];
+                     $type = M()->query($sql);
+                     // dump($type);
+                     if ($type && is_array($type)) {
+                       $type =current($type[0]);
+                       $v['typename'] = $type;
+                     }
+                     if ($v['star'] == -1) {
+                       $v['star'] = 5;
+                     }
+                     $shop[$k]=$v;
+
+                   }
+            }
+          $data['shop'] = $shop;
             $out['success'] = 1;
             $out['msg']='';
             $out['data'] = $data;
@@ -353,6 +421,7 @@ class VipController extends Controller {
             }
         }
         foreach ($top as $k => $v) {
+          // dump($v);
           foreach ($arr as $k1 => $v1) {
             if ($v1['parent_id'] == $v['cat_id']) {
                 $son[] = $v1; 
@@ -360,7 +429,9 @@ class VipController extends Controller {
           }
           // dump($son);
           $v['son'] = $son;
+          $son = null;
           $tem[]=$v;
+
         }
         return $tem;
     }

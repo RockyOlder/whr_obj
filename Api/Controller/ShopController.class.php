@@ -12,7 +12,7 @@ class ShopController extends Controller {
     // 获取商店列表
     public function slist()
     {
-      $d= getDistance('113.935191','22.510551','113.936251','22.505476');
+      // $d= getDistance('113.935191','22.510551','113.936251','22.505476');
       // dump($d);
         $id = I('request.version',1,'intval');
           // 获取商店需要的数据
@@ -22,6 +22,7 @@ class ShopController extends Controller {
           $city_id = I('request.city_id',0,'intval');
           //获取商店的地区id
           $area_id = I('request.area_id',0,'intval');
+          $search = I('request.search','');
           $page = I('request.page',1,'intval');
           $pageSize = I('request.pageSize',20,'intval');
           $sort = I('request.sort',0,'intval');
@@ -30,10 +31,34 @@ class ShopController extends Controller {
           $limit = "limit ".($page-1)*$pageSize.",".$pageSize;
           $out['success']=1;
           if ($id == 1){
-               $sql = "SELECT id,name,list_pic,star,type,des,latitude,longitude FROM ".C('DB_PREFIX')."business WHERE `lock` = 0 ";
-               if ($type != 0 ) $sql .= "and (parent_type = $type or type = $type) ";
-               if ($city_id != 0 ) $sql .= "and city = $city_id ";
-               if ($area_id != 0 ) $sql .= "and area = $area_id ";
+               $sql = "SELECT id,name,list_pic,star,type,des,latitude,longitude FROM ".C('DB_PREFIX')."business WHERE";
+               $where = " `lock` = 0 ";
+               if ($type != 0 ) $where .= "and (parent_type = $type or type = $type) "; 
+               if ($city_id != 0 && in_array($city_id, array('2','3','10','23'))) {
+                //查询出下面的辖区id
+                    $model = M('region');
+                    $gid = $model->field('region_id')->where('parent_id='.$city_id)->select();
+                    // dump($gid);
+                      foreach ($gid as $k => $v) {
+                          $rid[] = $v['region_id'];
+                      }
+                    $rid = '('.implode(',', $rid).')';
+                      $where .= " and city in ".$rid;
+                  }else{
+                    $where .= " and city = $city_id ";
+                  }
+
+               if ($area_id != 0 ) $where .= " and area = $area_id ";
+               //判断是否有搜索
+               if($search != ''){
+                  $where .=" and name like '%$search%' ";
+               }
+               //dump($limit);die();
+               $out['sum'] = M('business')->where($where)->count();
+               //$sum = M('business')->where($where)->count();
+               //$out['sum'] = $sum - ($page-1)*$pageSize;
+               //dump($out);die();
+               $sql .=$where;
                switch ($sort) {
                  case '0':
                        $sql .= " order by sort desc ";
@@ -43,9 +68,13 @@ class ShopController extends Controller {
                        $sql .= " order by star desc ";
                   break;
                  case '3':
-                       $sql .= " order by name asc ";
+                       $sql .= " order by avg_price asc ";
+                   break;
+                  case '4':
+                       $sql .= " order by avg_price desc ";
                    break;
                }
+
                $sql .=$limit;
                // dump($sql);
                $data = M()->query($sql); 
@@ -69,8 +98,8 @@ class ShopController extends Controller {
                   $out['success'] = 0;
                  }  
                if ($sort == '1') { // 如果是按照离我最近来排序
-                  $latitude = I('latitude');
-                  $longitude = I('longitude');
+                  $latitude = I('request.latitude');
+                  $longitude = I('request.longitude');
                   foreach ($data as $k => $v) {
                       $v['distance'] = $this->getDistance($v['latitude'],$v['longitude'],$latitude,$longitude);
                     // $d = $this->getDistance('113.931207','22.505159','113.931418','22.505075');
@@ -80,8 +109,12 @@ class ShopController extends Controller {
                    // dump($k);//die();
                    // $str = $data[$k],
                   }
+                  //dump($data);
                   $data = $this->sysSortArray($data,'distance');
-                  // dump($data);
+                  //dump($data);
+               }
+               if ($sort == '3' || $sort == '4') {
+                 # code...
                }
                $out['data']=$data;    
                $this->ajaxReturn($out);
@@ -250,7 +283,8 @@ class ShopController extends Controller {
                $data = M('life_goods')->field($field)->where($w)->find();
                // dump($data);
                if ($data) {   
-                  
+                  $data['server'] = substr($data['server'], 0,42);
+                  //$data['server'] = mb_substr($data['server'], 0,25);
                   if ($data['star'] == -1) {$data['star'] = 5;}
                  
                   // 查询出商品的评论总条数
@@ -263,13 +297,16 @@ class ShopController extends Controller {
                   $out['good']=$data;  
                   //获取商店的id 
                   $bid = $data['bid'];
-                  $sql ="SELECT id,name,mobile_phone,address,list_pic,latitude,longitude from ".C('DB_PREFIX')."business where id =$bid";
+                  //dump($bid);
+                  $field ="id,name,mobile_phone,address,list_pic,latitude,longitude";
                   // dump($sql);   
-                  $shop = M()->query($sql);
+                  $shop = M('business')->field($field)->where(array('id'=>$bid))->find();
                   // dump($shop);
-                  if ($shop) {
-                    $out['shop'] = current($shop);
+                  if (is_null($shop)) {
+                    $shop = array();
                   }
+                  $out['shop'] = $shop;
+                  
                   //获取商品的评论
                    $sql = "select id,content,star,user_id,time from ".C('DB_PREFIX')."comment where `lock` = 0 and gid = $goodid";
                    // dump($sql);
@@ -292,8 +329,10 @@ class ShopController extends Controller {
                         $comm[$k] =$v;
                       }
                       // dump($comm);
-                      $out['comm'] = $comm;  
-                  }           
+                      //$out['comm'] = $comm;  
+                  } 
+                  $out['comm'] = $comm; 
+          
                }else{
                 $out['msg'] ="没有该商品详情";
                 $out['success'] = 0;

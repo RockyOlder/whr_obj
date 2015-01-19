@@ -1,0 +1,75 @@
+[ 2015-01-14T09:23:07+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000824s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001356s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.005095s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000347s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003850s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000486s ]
+
+[ 2015-01-14T09:23:10+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxhinder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000776s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001198s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.007333s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000315s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.005013s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000458s ]
+
+[ 2015-01-14T09:23:34+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000499s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000891s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.004968s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000436s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003527s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000473s ]
+
+[ 2015-01-14T09:24:05+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000431s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000703s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.005160s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000315s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.004373s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000487s ]
+
+[ 2015-01-14T09:37:07+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000456s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000711s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.005074s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000327s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003879s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000477s ]
+
+[ 2015-01-14T09:37:11+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000423s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000683s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.004669s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000261s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003476s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000401s ]
+
+[ 2015-01-14T09:37:21+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000446s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000705s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.004592s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000299s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003685s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000419s ]
+
+[ 2015-01-14T09:37:24+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/url_ajaxActive
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000476s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000828s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_group_access` [ RunTime:0.004961s ]
+SQL: SELECT `rules` FROM wrt_auth_group_access a INNER JOIN wrt_auth_group g on a.group_id=g.id  WHERE ( a.uid='6' and g.status='1' )  [ RunTime:0.000313s ]
+SQL: SHOW COLUMNS FROM `wrt_auth_rule` [ RunTime:0.003694s ]
+SQL: SELECT `condition`,`name` FROM `wrt_auth_rule` WHERE ( `id` IN ('5','13','14','15','16','6','17','18','19','20','7','21','22','23','24','54','55','56','70','71','72','73','74','75','76','77','78','80','79','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100') ) AND ( `type` = 1 ) AND ( `status` = 1 )  [ RunTime:0.000467s ]
+
+[ 2015-01-14T09:40:23+08:00 ] ::1 /whr/index.php?s=/Home/ProInfo/active
+ERR: 模板不存在:./App/Home/View/ProInfo/active.html
+

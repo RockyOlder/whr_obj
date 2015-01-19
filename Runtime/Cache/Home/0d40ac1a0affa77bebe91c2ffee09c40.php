@@ -29,6 +29,7 @@
         form ul input{border: 1px solid #ccc;width: 100px;}
         form ul select{border: 1px solid #ccc;width: 100px;}
         #table_ajax_list a{ width: 70px;}
+        .tablelist td{ overflow:  auto;}
     </style>
 
     <body style="background: none;">
@@ -66,12 +67,12 @@
                             <td><input name="num" type="checkbox" value="" /></td>
                             <td><?php echo ($vo["id"]); ?></td>
                             <td><?php echo ($vo["title"]); ?></td>
-                            <td><?php echo ($vo["content"]); ?></td>
+                            <td width="300"><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                             <td><?php echo ($vo["pname"]); ?></td>
                             <td><?php echo ($vo["add_time"]); ?></td>      
                             <td>
-                                <a href="<?php echo U('add',array(id=>$vo['nid']),'');?>" class="btn btn-default">修改</a>    
-                                <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                                <a href="<?php echo U('add',array(id=>$vo['id']),'');?>" class="btn btn-default">修改</a>    
+                                <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                             </td>
                         </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
                 </tbody>

@@ -7,6 +7,8 @@
         <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
         <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
+            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script> -->
         <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script> -->
@@ -44,6 +46,7 @@
         .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
+        .cat_img{ margin-top: -50px;}
     </style>
 
     <body style="background: none;">
@@ -65,11 +68,12 @@
 
                             <ul class="forminfo">
                                 <li><label>公告标题</label><input name="title" id="name" type="text" class="dfinput" value="<?php echo ($info["title"]); ?>" /><i id="name_info"></i></li>
-                                <li><label>公告内容</label><input name="content" id="address" type="text" class="dfinput" value="<?php echo ($info["content"]); ?>" /><i id="address_info"></i></li>
+                                <li style="height:50px"><label>公告内容</label></li>
+                                <li><textarea rows="5"  cols='40' style="" name ="content" id="address" value="<?php echo ($info["content"]); ?>" ><?php echo ($info["content"]); ?></textarea><i id="address_info"></i></li>
                                 <li><label>公告图片</label><div id="list_hidden"></div></li>
                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
-                                            <?php if($info["cat_img"] != ''): ?><div class="up_list_pic">
-                                                    <img class="cat_img" height='50px' src='<?php echo ($info["cat_img"]); ?>'>
+                                            <?php if($info["pic"] != ''): ?><div class="up_list_pic">
+                                                    <img class="cat_img" height='50px' src='<?php echo ($info["pic"]); ?>'>
                                                         <img class="cat_img" src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                             </div><?php endif; ?>
                                                             </i></li>
@@ -86,7 +90,8 @@
                                                             </div>
                                                             </form>
                                                             <script type="Text/Javascript">
-                            
+                                                                    var edit= new UE.ui.Editor({initialContent:'',initialFrameWidth:600});
+                                                                     edit.render("address");
                                                             </script>
                                                             </body>
 
