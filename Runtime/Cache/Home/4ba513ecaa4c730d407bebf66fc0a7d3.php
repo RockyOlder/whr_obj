@@ -3,13 +3,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
 
 
-            <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
-                <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+            <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
+                <script src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
    
                 </script>
@@ -59,7 +59,7 @@
                                                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_img" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                                         <?php if($info["pic"] != ''): ?><div class="up_list_pic">
                                                                                 <img height='50px' src='<?php echo ($info["pic"]); ?>'>
-                                                                                    <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                                    <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                                         </div><?php endif; ?>
                                                                                         </i></li>
 
@@ -74,16 +74,16 @@
 
                                                                                             var list_img = "";
                                                                                             $('#upload_list').uploadify({
-                                                                                                'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                                                                'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                                                                                                 'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                                                                                'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                                                                'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                                                 'buttonText' : '图片上传',
                                                                                                 'multi': false,
                                                                                                 'onUploadSuccess' : function(file, data, response) {
                                                                                                     //   alert(1)
                                                                                                     obj= $.parseJSON(data);
                                                                                                     list_img += "<img height='50px' src='"+obj.path+"'>";
-                                                                                                    list_img +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                                                                    list_img +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
                                                                                                     $('#imgs').html(list_img);
                                                                                                     var hid ="<input name='list_path' id='list_path' type='hidden' value='"+obj.path+"' />";
                                                                                                     hid +="<input name='suolie_img' id='mid_pic' type='hidden' value='"+obj.mid+"' />"

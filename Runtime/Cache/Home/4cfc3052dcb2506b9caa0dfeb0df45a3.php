@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
             
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
 
             <script language="javascript">
 
@@ -86,7 +86,7 @@
 
                     <tbody>
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /whr/ -->
+                                <!--  /default/ -->
                                 <td class="imgtd"><img src="<?php echo ($vo["list_pic"]); ?>" width="50px"/></td>
                                 <td><a href="#"><?php echo ($vo["name"]); ?></a><p><?php echo (date("Y-m-d H:i:s",$vo["addtime"])); ?></p></td>
                                 <td>店主名称:<?php echo ($vo["user_id"]); ?><p>店主等级：<?php echo ($vo["u_rank"]); ?></p></td>
@@ -95,7 +95,8 @@
                                 <td><?php if($vo["lock"] == 0): ?>正常<?php endif; if($vo["lock"] == 1): ?>锁定<?php endif; ?></td>
                                 <td><a href="<?php echo U('add',array(id=>$vo['id']),'');?>">编辑</a>
                                     <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-
+                                    <?php if($vo["num"] == 0): ?><a href="<?php echo U('recommendedBusiness',array(id=>$vo['id']),'');?>">推荐</a><?php endif; ?>
+                                
                                 </td>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
 
@@ -134,7 +135,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -157,7 +158,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

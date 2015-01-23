@@ -185,17 +185,18 @@ class ProController extends Controller {
             $out['success'] = 1; 
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
             $where = "proid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
-            
             $page = ($page - 1) * $pageSize.",".$pageSize;
             $field = "id,title,content,pic,author,add_time,views,uid";
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('add_time desc')->limit($page)->select();
-            if ($data) {
-              foreach ($data as $k => $v) {
+            foreach ($data as $k => $v) {
+              // $face = M('user')->field('face')->where(array('user_id'=>$v['uid']))->find();
+              // if ($face) {
+              //   $v['face'] = current($face);
+              // }
               $v['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
               $data[$k] =$v;
-              }
-            }else{$data = array();}
+            }
             $out['msg'] ="成功获取数据";
             $out['data'] = $data;          
             $this->ajaxReturn($out);
@@ -259,10 +260,9 @@ class ProController extends Controller {
             M($table)->where($w)->setInc('views');
             // 搜索对应的详情
             
-            $field ="id,title,content,pic,author,add_time,start_time,pass_time,views,phone,uid";
-            $data = M($table)->field($field)->where($w)->find();
+            //$field =->field($field) "id,title,content,pic,author,add_time,views,phone,uid";
+            $data = M($table)->where($w)->find();
             $data['add_time'] = date('m-d',$data['add_time']);
-            $data['pass_time'] = date('Y-m-d H:i:s',$data['pass_time']);
             $w = array('pid'=>$aid);
             // dump($w);
             // dump($table);//查找所有的回复->field($field)
@@ -613,28 +613,17 @@ class ProController extends Controller {
             $field = "rid,owner as name,title,content,time,pic,num";//
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('time desc')->limit($page)->select();
-
             // $sql = "select * from ".C('DB_PREFIX')."pro_repair where pid = 0 and uid = $uid and pass_time >".time();
             // dump($sql);
             // $data = M()->query($sql);
             // dump($data);
             foreach ($data as $k => $v) {
-                $w = array('pid'=>$v['rid']);
-                $new = M($table)->field('time')->where($w)->order('time desc')->limit(1)->find();
-                //dump($time);
-                if ($new) {
-                  $new = current($new);
-                }else{
-                  $new = 0;
-                }
-                $v['new'] = $new;
                 $v['time'] = date('Y-m-d H:i:s',$v['time']);
                 $data[$k] =$v;
             }
             if ($data == false) {
               $data = null;
             }
-
             $out['data'] = $data;
 
             $this->ajaxReturn($out);

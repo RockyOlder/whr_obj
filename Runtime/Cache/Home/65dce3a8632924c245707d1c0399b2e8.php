@@ -4,8 +4,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+<link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
 
 </head>
 
@@ -20,18 +20,18 @@
 
     <div class="mainindex">
     <div class="welinfo">
-    <span><img src="/whr/App/Home/View/Public/Images/dp.png" alt="提醒" /></span>
+    <span><img src="/default/App/Home/View/Public/Images/dp.png" alt="提醒" /></span>
     <b><?php echo ($_SESSION['admin']['name']); ?>你好，欢迎使用<?php echo ($_SESSION['admin']['top_name']); ?>后台管理系统</b>(
     <a href="<?php echo U('System/setting',array('id'=>$id),'');?>">帐号设置</a>
     </div>
     
     <div class="welinfo">
-    <span><img  src="/whr/App/Home/View/Public/Images/time.png" alt="时间" /></span>
+    <span><img  src="/default/App/Home/View/Public/Images/time.png" alt="时间" /></span>
     <i>您上次登录的时间：<?php echo (date("Y-m-d H:i:s",$_SESSION['admin']['last_login'])); ?></i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
     </div>
     
     <div class="welinfo">
-    <span><img  src="/whr/App/Home/View/Public/Images/time.png" alt="ip" /></span>
+    <span><img  src="/default/App/Home/View/Public/Images/time.png" alt="ip" /></span>
     <i>您上次登录的ip：<?php echo ($_SESSION['admin']['last_ip']); ?></i> <!-- （不是您登录的？<a href="#">请点这里</a>） -->
     </div>
     
@@ -39,12 +39,12 @@
     
     <ul class="iconlist">
     
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png"><p><a href="#">管理设置</a></p></li>
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png" /><p><a href="#">订单管理</a></p></li>
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png" /><p><a href="#">电子消费券管理</a></p></li>
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png" /><p><a href="#">文件上传</a></p></li>
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png" /><p><a href="#">物业管理</a></p></li>
-    <li><img src="/whr/App/Home/View/Public/Images/t05.png" /><p><a href="#">会员管理</a></p></li> 
+    <li><img src="/default/App/Home/View/Public/Images/t05.png"><p><a href="#">管理设置</a></p></li>
+    <li><img src="/default/App/Home/View/Public/Images/t05.png" /><p><a href="#">订单管理</a></p></li>
+    <li><img src="/default/App/Home/View/Public/Images/t05.png" /><p><a href="#">电子消费券管理</a></p></li>
+    <li><img src="/default/App/Home/View/Public/Images/t05.png" /><p><a href="#">文件上传</a></p></li>
+    <li><img src="/default/App/Home/View/Public/Images/t05.png" /><p><a href="#">物业管理</a></p></li>
+    <li><img src="/default/App/Home/View/Public/Images/t05.png" /><p><a href="#">会员管理</a></p></li> 
             
     </ul>
     
@@ -54,7 +54,7 @@
     <div class="box"></div>
     
     <div class="welinfo">
-    <span><img src="/whr/App/Home/View/Public/Images/dp.png" alt="提醒" /></span>
+    <span><img src="/default/App/Home/View/Public/Images/dp.png" alt="提醒" /></span>
     <b>WRT后台管理系统使用指南</b>
     </div>
     

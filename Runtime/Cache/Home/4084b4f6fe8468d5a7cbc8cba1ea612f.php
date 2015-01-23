@@ -3,14 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/bootstrap.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-                <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/artDialog.js"></script>
+            <link id="artDialogSkin" href="/default/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
                 <script type="text/javascript" type="text/javascript">
                     function deleteSum(id){
                         if(confirm("确认删除"))
@@ -19,6 +20,29 @@
                       $(function(){
                           initPager();
                        });
+                      
+                      function cats_Shop(id) {
+                    
+                        art.dialog({
+                            content:'你确定要删除？',
+                            title: '确定框',  
+                            okValue:'确认',  
+                            cancelValue:'取消', 
+                            width: 230,  
+                            height: 100,  
+                            fixed:true,
+                            id:'bnt4_test',
+                            style:'confirm'}, 
+                        function(){
+                            var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                            if(msg){
+                                location.href=$("#url_ajaxCalendar").val()+id
+                                return false;
+                            }        
+                        },function(){
+                            return true;
+                        });
+                    };
                 </script>
                 </head>
                 <style type="text/css">
@@ -29,7 +53,7 @@
                 </style>
 
                 <body style="background: none;">
-
+              <input type="hidden" value="/default/index.php?s=/Home/Activity/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
                         <span>后台管理：</span>
                         <ul class="placeul">
@@ -64,7 +88,7 @@
                                         <td><?php echo (date("Y-m-d H:i:s",$vo["end_time"])); ?></td>
                                         <td>
                                             <a href="<?php echo U('saveAct',array(id=>$vo['id']),'');?>" class="tablelink">修改</a>    
-                                            <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                                            <a class="tablelink" onclick="return cats_Shop(<?php echo ($vo["id"]); ?>)"> 删除</a>
                                         </td>
                                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
                             </tbody>
@@ -85,7 +109,7 @@
                             <div class="tiptop"><span>提示信息</span><a></a></div>
 
                             <div class="tipinfo">
-                                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                                 <div class="tipright">
                                     <p>是否确认对信息的修改 ？</p>
                                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

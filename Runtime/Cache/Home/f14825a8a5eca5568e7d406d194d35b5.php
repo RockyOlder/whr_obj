@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <link href="/whr/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link href="/default/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
 
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -200,9 +200,9 @@
                 <li><a href="#">维修报障</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/whr/index.php?s=/Home/Category/cationType" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/whr/index.php?s=/Home/Category/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <input type="hidden" value="/whr/index.php?s=/Home/Category/ajax_rule" id="url_rule" name="url_rule" />
+        <input type="hidden" value="/default/index.php?s=/Home/Category/cationType" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/default/index.php?s=/Home/Category/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/default/index.php?s=/Home/Category/ajax_rule" id="url_rule" name="url_rule" />
         <input type="hidden" value="<?php echo ($obj); ?>" id="model" />
         <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"  onclick="javascript:;" /></li>
 
@@ -213,7 +213,7 @@
             <thead>
                 <tr>
                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>分类名称</th> 
                     <th>商品规格</th>
                     <th colspan="3">操作</th>

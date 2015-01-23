@@ -3,19 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
 
-        <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
-        <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
-        <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+        <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_config.js"></script>
+        <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+        <script type="text/javascript" src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
 
-                <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
+                <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
 
                     <script type="text/javascript">
                         $(function(){
@@ -139,7 +139,7 @@
                                                     <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_pic" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                             <?php if($info["face"] != ''): ?><div class="up_list_pic">
                                                                     <img height='50px' src='<?php echo ($info["face"]); ?>'>
-                                                                        <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                        <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                             </div><?php endif; ?>
                                                                             </i></li>
                                                                             <li><label>手机号码</label><input name="mobile_phone" id="mobile_phone" type="text" class="dfinput" value="<?php echo ($info["mobile_phone"]); ?>" /><i>格式：13525155853</i></li>
@@ -173,16 +173,16 @@
                                                                                  */
                                                                                 var list_pic = "";
                                                                                 $('#upload_list').uploadify({
-                                                                                    'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                                                    'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                                                                                     'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                                                                    'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                                                    'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                                     'buttonText' : '列表上传',
                                                                                     'multi': false,
                                                                                     'onUploadSuccess' : function(file, data, response) {
                                                                                         //alert(data);
                                                                                         obj= $.parseJSON(data);
                                                                                         list_pic += "<img height='50px' src='"+obj.path+"'>";
-                                                                                        list_pic +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                                                        list_pic +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
                                                                                         $('#imgs').html(list_pic);
                                                                                         var hid ="<input name='face' type='hidden' value='"+obj.mid+"' />"
                                                                                         //   hid +="<input name='mid_pic' id='mid_pic' type='hidden' value='"+obj.mid+"' />"

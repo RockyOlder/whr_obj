@@ -17,7 +17,7 @@ class LoginController extends Controller {
 			$name = I ( 'post.username', '' );
                
 			// 查询出来数据库中的数据
-			$data = $model->field ( 'id,name,password,salt,role_id,is_lock,agency_id,last_login,last_ip,top_name,top_logo' )->where ( "name='$name'" )->find ();
+			$data = $model->where ( "name='$name'" )->find ();
 			// dump()
 		//	dump($data);die();
 
@@ -47,8 +47,9 @@ class LoginController extends Controller {
 				session ( 'admin', $admin );
 				session ( 'user_auth', $auth ); // 用来做权限验证
 				                                // dump(session());
-			//	admin_log('登录');//记录管理员日志
-				$this->success ( '登录成功', U ( 'Index/index', '', '' ) );
+				admin_log('登录');//记录管理员日志
+				$this->redirect('Index/index','', 0, '');
+				//$this->success ( '登录成功', U ( 'Index/index', '', '' ) );
 			} else {
 				$this->error ( '用户名或者密码输入错误' );
 			}

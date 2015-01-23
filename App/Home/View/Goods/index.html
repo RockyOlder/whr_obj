@@ -152,7 +152,8 @@
                                 <td><a id="showlist{$vo.goods_id}" href="javascript:showDetail({$vo.goods_id})" title="详情">详情</a>
                                     <a href="{:U('add',array(id=>$vo['goods_id']),'')}">编辑</a>
                                     <a class="tablelink" onclick="deleteSum('{$vo.goods_id}')"> 删除</a>
-                                    <a href="{:U('activity',array(id=>$vo['goods_id']),'')}">促销</a>
+                                    <if condition = "$vo.num eq 0"><a href="{:U('activity',array(id=>$vo['goods_id']),'')}">促销</a></if>
+                                    
                                 </td>
                             </tr>
                         </volist>  

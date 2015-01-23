@@ -10,7 +10,7 @@ class RoleController extends IsloginController {
     public function index() {
         $auth = M('auth_group');
         $count = $auth->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 5);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $data = $auth->limit($page->firstRow . ',' . $page->listRows)->select();
@@ -75,12 +75,12 @@ class RoleController extends IsloginController {
     // 分配权限页面
     public function authority() {
         if (IS_POST) {
-       //     echo 1;exit;
             // dump($_POST);
             $str = implode(',', $_POST['check']);
             $arr = array('id' => I('post.id', 0, 'intval'), 'rules' => $str);
             $bool = M('auth_group')->save($arr);
-  
+            dump($bool);
+            die();
         }
         $id = I('get.id', 0, 'intval');
         if (!$id) {

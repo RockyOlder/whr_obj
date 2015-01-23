@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
             
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
 
             <script language="javascript">
 
@@ -117,7 +117,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -140,7 +140,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

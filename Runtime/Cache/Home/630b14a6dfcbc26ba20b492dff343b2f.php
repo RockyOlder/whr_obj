@@ -3,9 +3,9 @@
 <head>
 <title><?php echo ($lang["cp_home"]); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link  rel="stylesheet" type="text/css" src="/whr/App/Home/View/Public/Css/bootstrap.min.css" />
-<script type="Text/Javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-<script type="Text/Javascript" src="/whr/App/Home/View/Public/Js/bootstrap.min.js"></script>
+<link  rel="stylesheet" type="text/css" src="/default/App/Home/View/Public/Css/bootstrap.min.css" />
+<script type="Text/Javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+<script type="Text/Javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
 <style>
 *{padding:0;margin:0;}
 body{background:#f0f9fd;}

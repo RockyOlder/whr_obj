@@ -46,16 +46,15 @@ class PropertyController extends IsloginController {
             if ($data) {
                 if ($action == "add") {
                     $data["add_time"] = time();
-                    if ($user->add($data)) {  $this->success("用户添加成功！", U('/Home/property/index'));//$url = U('/Home/property/index'); 
-                    } else { $this->error("用户添加失败！", 'index'); }
-                    } elseif ($action == "edit") {
-                    if ($user->save($data)) {  $this->success("修改成功！", U('/Home/property/index'));//$url = U('/Home/property/index');
-                    } else { $this->error("用户修改失败！", 'index'); }
-                    }
-            } else {
-                $this->error($user->getError(),'',1);
-            }
-        }
+                 
+                    if ($user->add($data)) {  $this->success("用户添加成功！", U('/Home/property/index'));} else { $this->error("用户添加失败！", 'index'); }
+            
+                } elseif ($action == "edit") {
+                   
+                    if ($user->save($data)) {  $this->success("修改成功！", U('/Home/property/index')); } else { $this->error("用户修改失败！", 'index'); } }
+         
+            } else { $this->error($user->getError(),'',1); } }
+            
         $id = I('get.id', 0);
 
         if ($id) {

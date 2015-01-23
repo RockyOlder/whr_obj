@@ -27,7 +27,7 @@ class BusinessController extends IsloginController {
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $type = M("type");
         $typeList = $type->select();
-        $data = $business->field('id,name,mobile_phone,fax_mobile,user_name,address,star,lock,list_pic')
+        $data = $business->field('id,name,mobile_phone,fax_mobile,user_name,address,star,lock,list_pic,num')
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
@@ -100,12 +100,12 @@ class BusinessController extends IsloginController {
                 'lock' => I('post.lock', 0)
             );
             $str = formant($post);
-            //    print_r($post);exit;
+          
             if ($act == 'add') {
                 $sql = "insert into " . C('DB_PREFIX') . "business set " . $str;
-                // dump($sql);die();
+                
                 $bool = M()->execute($sql);
-                // dump($bool);
+                
                 if ($bool) {
                     $this->success("添加成功！", U('Business/index'), 1, FALSE);
                 } else {
@@ -113,13 +113,11 @@ class BusinessController extends IsloginController {
                 }
             }
             if ($act == 'edit') {
-                // dump
-                //  print_r($_REQUEST);exit;
-                // echo 1;exit;
+           
                 $sql = "update " . C('DB_PREFIX') . "business set " . $str . " where id = $id";
-                // dump($sql);die();
+            
                 $bool = M()->execute($sql);
-                // dump($bool);
+          
                 if ($bool) {
                     $this->success("修改成功！", U('Business/index'), 1, FALSE);
                 } else {
@@ -130,8 +128,7 @@ class BusinessController extends IsloginController {
 
         //获取分类
         $cate = $this->topCate();
-        //   $this->assign('cate', $cate);
-        // dump($cate);
+
         $data['action'] = 'add';
         $data['title'] = "添加导航商家";
         $data['btn'] = "添加";
@@ -178,23 +175,57 @@ class BusinessController extends IsloginController {
     
      public function order() {
         $name=session('admin.name');
-        $id = session('admin.id');
-       if($name=='admin'){
-            $this->redirect("Order/index"); 
-        }
-        $order = M("Order");
-        $count = $order->where("bid=" . $id." and cate=0")->count();
+        $id = session('admin.shop_id');
+        $action = I('post.action');
+        $order = M("Order o");
+        
+       if($name=='admin'){$this->redirect("Order/index");  }
+                     
+        $count = $order  ->join('wrt_user AS u ON u.user_id=o.user_id')
+                         ->join('wrt_business AS b ON b.id=o.shop_id')
+                         ->where("shop_id=" . $id." and cate=".session('admin.type'))->count();
+                    
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
+     
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $order->where("bid=" . $id." and cate=0")
-                ->limit($page->firstRow . ',' . $page->listRows)
-                ->select();
-        $this->assign("currentPage", $currentPage);
-        $this->assign("totalPage", $page->totalPages);
-        $this->assign("page", $show);
-        $this->assign('data', $data);
+           $data = $order->field('o.*,u.user_id,b.id,b.name,b.list_pic,u.user_name')
+                         ->join('wrt_user AS u ON u.user_id=o.user_id')
+                         ->join('wrt_business AS b ON b.id=o.shop_id')
+                         ->where("shop_id=" . $id." and cate=".session('admin.type'))
+                         ->limit($page->firstRow . ',' . $page->listRows)
+                         ->select();
+      
+
+       //  print_r($data);exit;
+      $mycars=Array("新订单","未付款","待发货","配货中","发货","发货中","待收货","已收货","评论后");
+      
+      foreach ($data as $v){
+         if($v['statue']==0){$v['statue']=$mycars[0];} elseif($v['statue']==1){$v['statue']=$mycars[1];}
+         if($v['statue']==2){$v['statue']=$mycars[2];} elseif($v['statue']==3){$v['statue']=$mycars[3];}
+         if($v['statue']==4){$v['statue']=$mycars[4];} elseif($v['statue']==5){$v['statue']=$mycars[5];}    
+         if($v['statue']==6){$v['statue']=$mycars[6];} elseif($v['statue']==7){$v['statue']=$mycars[7];}    
+         if($v['statue']==8){$v['statue']=$mycars[8];}   
+         $arr[]=$v;
+      }
+         if (IS_POST) {  
+            $order = D('Order'); $data = $order->create();
+            
+            if ($data) {
+                if ($action == "add") {
+                  
+                    if ($order->add($data)) {  $this->success("用户添加成功！", U('/Home/Business/order'));} else { $this->error("用户添加失败！",U('/Home/Business/order')); }
+            
+                } elseif ($action == "edit") {
+                    
+                    if ($order->save($data)) {  $this->success("修改成功！", U('/Home/Business/order')); } else { $this->error("用户修改失败！", U('/Home/Business/order')); } 
+              
+               }  
+            } else { $this->error($order->getError(),'',1); } }
+        $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show); $this->assign('data', $arr);
+     
         $this->display();
+    
     }
     
 
@@ -237,7 +268,7 @@ class BusinessController extends IsloginController {
             $lifeGoods = D('lifeGoods');
             $data = $lifeGoods->create();
             if (!$data) {
-                $this->error($lifeGoods->getError(), '', 10);
+                $this->error($lifeGoods->getError(), '', 3);
             }
             $id = I('post.id');
             $act = I('post.action', '');
@@ -260,6 +291,7 @@ class BusinessController extends IsloginController {
             $goods_img = json_encode($path);
             $str = formantpost();
             if ($act == "add") {
+    
                 $sql = "insert into " . C('DB_PREFIX') . "life_goods set add_time=" . time() . "," . $str;
                 // dump($sql);die();
                 $bool = M()->execute($sql);
@@ -310,6 +342,76 @@ class BusinessController extends IsloginController {
         // $data['action'] = 'add';
         $this->display();
     }
+    
+    public function recommendedBusiness() {
+        $action = I('post.action');
+
+        if (IS_POST) {
+            if ($action == "edit") {
+
+                $id = I('post.sid');
+                //       print_r($id);exit;
+                $giveLifeShop= D("giveLifeShop"); $business=D("business");
+                $vipList = $giveLifeShop->where("shopid=$id")->find();
+                if (isset($vipList)) {  $this->error('该商品已有活动!',U('/Home/Business/index', '', false));}
+           
+                if ($data = $giveLifeShop->create()) {
+                     $data['shopid']=I('post.sid'); $data['range']=I('post.city'); $data["add_time"] = strtotime(I('post.add_time'));  $data["deadline"] = strtotime(I('post.deadline'));
+                     
+                    if ($giveLifeShop->add($data)) {  $business->where("id=".$id)->setInc('num');  $this->success("添加成功！", U('/Home/Give/shop')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
+              
+              } else {$this->error($giveLifeShop->getError()); }  } }
+
+        $id = I('get.id', 0);
+        if ($id) {
+            $data['action'] = 'edit'; $data['title'] = "编辑商品"; $data['btn'] = "编辑";
+            $business = M("business");
+            $businessObjFind = $business->where("id=$id")->find();
+        }
+        $pro = $this->getprovence();
+        // dump($pro);
+        $this->assign('pro', $pro);
+        $this->assign('info', $businessObjFind);
+        $this->assign('data', $data);
+        $this->display();
+    }
+    
+     public function recommendedGoods() {
+        $action = I('post.action');
+
+        if (IS_POST) {
+            if ($action == "edit") {
+
+                $id = I('post.sid');
+
+                $giveLifeGoods= D("giveLifeGoods");
+                $goods= D("LifeGoods");
+                $vipList = $giveLifeGoods->where("goodid=$id")->find();
+                if (isset($vipList)) {  $this->error('该商品已有活动!',U('/Home/Business/index', '', false));}
+           
+                if ($data = $giveLifeGoods->create()) {
+                     $data['goodid']=I('post.sid'); $data['city_id']=I('post.city'); $data["add_time"] = strtotime(I('post.add_time'));  $data["deadline"] = strtotime(I('post.deadline'));
+                     
+                    if ($giveLifeGoods->add($data)) {   $goods->where("lgid=".$id)->setInc('num'); $this->success("添加成功！", U('/Home/Give/good')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
+              
+              } else {$this->error($giveLifeGoods->getError()); }  } }
+
+        $id = I('get.id', 0);
+        if ($id) {
+            
+            $data['action'] = 'edit'; $data['title'] = "编辑商品"; $data['btn'] = "编辑";$data['name'] = session('admin.name');
+            $lifeGood = M("LifeGoods");
+            $businessObjFind = $lifeGood->where("lgid=$id")->find();
+            
+        }
+        $pro = $this->getprovence();
+        // dump($pro);
+        $this->assign('pro', $pro);
+        $this->assign('info', $businessObjFind);
+        $this->assign('data', $data);
+        $this->display();
+    }
+    
 
     // 异步获取次级分类
     public function sonCate() {
@@ -343,17 +445,18 @@ class BusinessController extends IsloginController {
         $this->ajaxReturn($typeList);
     }
     
-        public function urlAjaxOrderFind() {
-     //   echo 1;exit;
+ public function urlAjaxOrderFind() {
+
         $id = I('post.id', 0);
         if ($id) {
             $goods = M("Order o");
-            $goodsFind = $goods->field('o.*,u.user_id,b.id,b.name,u.user_name')
+            $goodsFind = $goods->field('o.*,u.user_id,b.id,b.name,b.list_pic,u.user_name')
                     ->join('wrt_user AS u ON u.user_id=o.user_id')
-                    ->join('wrt_business AS b ON b.id=o.bid')
+                    ->join('wrt_business AS b ON b.id=o.shop_id')
                     ->where('o.oid=' . $id)
                     ->find();
             $goodsFind['time'] = date("Y-m-d H:i:s", $goodsFind['time']);
+            $goodsFind['action']='edit';
         } else {
             $this->error($goods->getError());
         }

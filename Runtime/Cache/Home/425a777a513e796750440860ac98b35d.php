@@ -3,24 +3,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />       <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css"> jquery-1.8.3.min -->
-        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-1.8.3.min.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-            <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />       <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css"> jquery-1.8.3.min -->
+        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+            <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
                 <script type="text/javascript">
                     $(function(){
                         var img = "";
                         $('#upload_list').uploadify({
-                            'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                            'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                             'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                            'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                            'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                             'buttonText' : '列表上传',
                             'multi': false,
                             'onUploadSuccess' : function(file, data, response) {
@@ -77,12 +77,12 @@
                         $("form[name=myform]").attr("action",$("#examUpdate").val());
                         //  alert($("#table").val())
                         $.ajax({ 
-                            url:$("#url_ajaxCalendar").val(),
+                            url:$("#examUpdate").val(),
                             type:"post",
                             dataType:"json",
                             cache:false,
                             data: {
-                                "id":subId
+                                "pid":subId
                             },
                             timeout:30000,
                             error:function(data, msg){
@@ -129,9 +129,9 @@
                             <li><a href="#">邻里拼车</a></li>
                         </ul>
                     </div>
-                    <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/swap" id="examUpdate" name="examUpdate" />
+                    <input type="hidden" value="/default/index.php?s=/Home/ProInfo/swap" id="examUpdate" name="examUpdate" />
                     <input type="hidden" value="<?php echo ($data["table"]); ?>" id="table" name="examUpdate" />
-                    <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxswap" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                    <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxswap" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"  onclick="javascript:;" /></li>
 
                     <div style="display:none" id="skuNotice" class="sku_tip">
@@ -141,7 +141,7 @@
                         <thead>
                             <tr>
                                 <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                                <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                                <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                                 <th>公告标题</th>
                                 <th>公告内容</th>
                                 <th>手机号码</th> 
@@ -159,7 +159,7 @@
                                     <td><?php echo ($vo["phone"]); ?></td>
                                     <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                                     <td class="th_default">    
-                                        <a class="btn btn-default" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
+                                        <a href="<?php echo U('swap',array(id=>$vo['id']),'');?>" class="btn btn-default" title="编辑">详情</a>     
                                         <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                                     </td>
                                 </tr><?php endforeach; endif; else: echo "" ;endif; ?>    

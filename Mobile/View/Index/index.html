@@ -34,36 +34,18 @@
     </fieldset>
     <input type="hidden"value = "{$Think.get.id}" name = "id">
     <input type="hidden"value = "{$Think.get.uid}" name = "uid">
-    <input type="button" id="update" value="提交">
+    <input type="submit" data-role="button"
+　　       data-rel="back" data-theme="a" value="提交">
     <div data-role="footer"><h4>{$Think.config.web_copy}</h4></div>
-</form>	 
+</form>
+		 
+
+		 
+
+		 
 
 		</div>
 	</div>
 </body> 
-<script type="text/javascript">
-    $(function(){
-        $('#update').click(function(){
-            var date = $('form').serialize();
-            $.ajax({
-                type: "POST",
-                url: "mobile.php?s=Index/index",
-                data: date,
-                dataType: "json",
-                success: function(data){
-                if(data){
-                    if(confirm('感谢你的参与！')){
-                        window.opener=null;
-                        window.open('','_self');
-                        window.close();
-                    }                    
-                }
-                }, 
-                error:function(){
-                    alert('提交失败');
-                }
-            })
-        })
-    })
-</script>
+
 </html>  

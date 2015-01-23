@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-                <link href="/whr/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+                <link href="/default/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -71,18 +71,19 @@
                     $("#dialog-form").dialog("option","title","编辑调查");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         error:function(data, msg){
                             alert("error:"+msg);
                         },
                         success:function(data){
+                            console.log(data)
                             roleDataBak=data;
                             $("#title").val(data.title);
                             $("#add_id").val(data.id);
@@ -95,9 +96,9 @@
                 }
                 function checkInput(){
                     var bValid = true;
-                    bValid = bValid && checkLength( $("#title"), "商品名字", 2, 16 );
-                    bValid = bValid && checkEmpty( $("#content"), "\u8bf7选择分类！" );
-                    bValid = bValid && checkEmpty( $("#author"), "\u8bf7选择商家名称！" );
+                    bValid = bValid && checkLength( $("#title"), "公告标题", 2, 16 );
+                    bValid = bValid && checkEmpty( $("#content"), "公告内容不能为空！" );
+                    bValid = bValid && checkEmpty( $("#author"), "发布人不能为空！" );
                     return bValid;
                 }
                 
@@ -140,8 +141,8 @@
                 <li><a href="#">添加/修改关键词</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/examine" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/examine" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加调查卷"  onclick="javascript:;" /></li>
 
         <div style="display:none" id="skuNotice" class="sku_tip">
@@ -151,7 +152,7 @@
             <thead>
                 <tr>
                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>公告标题</th>
                     <th>公告内容</th>
                     <th>发布人</th> 
@@ -185,8 +186,8 @@
                         <td width="20px" class="th_default" align="center"  ><div class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" onclick="update_list(<?php echo ($vo["id"]); ?>)"><span class="ui-icon ui-icon-pencil"></span></div></td>
                         <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除" onclick="if(confirm('确认删除')){return true}else{return false}"><span class="ui-icon ui-icon-minus"></span></div></td>
 
-                       <!--   <td width="30px"><img src="/whr/App/Home/View/Public/Images/edit.gif" title="编辑" class="imgBtn" onclick="update_list(<?php echo ($vo["id"]); ?>)" /></td>
-                        <td width="30px"><img src="/whr/App/Home/View/Public/Images/delete.gif" title="删除" class="imgBtn" onclick="if(confirm('确认删除')){return true}else{return false}" /></td>
+                       <!--   <td width="30px"><img src="/default/App/Home/View/Public/Images/edit.gif" title="编辑" class="imgBtn" onclick="update_list(<?php echo ($vo["id"]); ?>)" /></td>
+                        <td width="30px"><img src="/default/App/Home/View/Public/Images/delete.gif" title="删除" class="imgBtn" onclick="if(confirm('确认删除')){return true}else{return false}" /></td>
                           <a class="btn btn-default" title="编辑" onclick="update_list(<?php echo ($vo["id"]); ?>)">修改</a>    
                             <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a> -->
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    

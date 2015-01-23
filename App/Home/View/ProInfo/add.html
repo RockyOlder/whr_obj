@@ -6,14 +6,14 @@
         <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
         <!-- <link href="__PUBLIC__/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
-        <script type="text/javascript" src='__PUBLIC__/Js/jquery.uploadify.min.js'></script>
             <script type="text/javascript" src ="__PUBLIC__/ueditor/editor_config.js"></script>
             <script type="text/javascript" src ="__PUBLIC__/ueditor/editor_all_min.js"></script>
+        <script type="text/javascript" src='__PUBLIC__/Js/jquery.uploadify.min.js'></script>
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/jquery.idTabs.min.js"></script> -->
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/select-ui.min.js"></script> -->
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script> -->
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
-            <script src='__PUBLIC__/Js/jquery.uploadify.min.js'></script>
+
                         <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
             <script type="text/javascript">
                 $(function(){
@@ -25,6 +25,7 @@
                         'buttonText' : '列表上传',
                         'multi': false,
                         'onUploadSuccess' : function(file, data, response) {
+                       //     console.log(data)
                             // alert(data);
                             obj= $.parseJSON(data);
                             img += "<img height='50px' src='"+obj.path+"'>";
@@ -69,7 +70,7 @@
                             <ul class="forminfo">
                                 <li><label>公告标题</label><input name="title" id="name" type="text" class="dfinput" value="{$info.title}" /><i id="name_info"></i></li>
                                 <li style="height:50px"><label>公告内容</label></li>
-                                <li><textarea rows="5"  cols='40' style="" name ="content" id="address" value="{$info.content}" >{$info.content}</textarea><i id="address_info"></i></li>
+                                <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="{$info.content}" >{$info.content}</textarea></li>
                                 <li><label>公告图片</label><div id="list_hidden"></div></li>
                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
                                             <if condition = "$info.pic neq ''">
@@ -95,7 +96,7 @@
                                                             </form>
                                                             <script type="Text/Javascript">
                                                                     var edit= new UE.ui.Editor({initialContent:'',initialFrameWidth:600});
-                                                                     edit.render("address");
+                                                                     edit.render("intro");
                                                             </script>
                                                             </body>
 

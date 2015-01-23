@@ -33,6 +33,7 @@
                                bValid = bValid && checkEmpty( $("#type_on"), "\u8bf7选择分类！" );//notice商品所属商店
                                bValid = bValid && checkEmpty( $("#bid"), "\u8bf7选择商品所属商店！" );//notice商品所属商店
                                bValid = bValid && checkEmpty( $("#des"), "商品描述不能为空！" );//notice商品所属商店
+                                  $("#des").removeClass('ui-state-error')
                                bValid = bValid && checkLength( $("#name"), $("#name").prev().text(), 2, 16 );
                               bValid = bValid && checkRegexp( $("#price"), /([0-9])+$/i, "价格只能是数字组成" );
                               bValid = bValid && checkRegexp( $("#m_price"), /([0-9])+$/i, "商场价格只能是数字组成" );
@@ -126,8 +127,8 @@
                                                     </div>
 
                                             <li><label>商品名称</label><input name="lgname" id="name" type="text" class="dfinput" value="{$info.lgname}" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" class="dfinput" name ="des" value="{$info.des}" >{$info.des}</textarea><i>描述</i></li>
-                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" class="dfinput" name ="server" value="{$info.server}" >{$info.server}</textarea><i>服务描述</i></li>
+                                            <li style="height:85px"><label>商品描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC"  name ="des" id="des" value="{$info.des}" >{$info.des}</textarea><i>描述</i></li>
+                                            <li style="height:85px"><label>商品服务</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="server" value="{$info.server}" >{$info.server}</textarea><i>服务描述</i></li>
                                             <li style="height:50px"><label>商品详情</label></li>
                                             <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="{$info.content}" >{$info.content}</textarea></li>
                                                 <li><label>列表图片</label>
@@ -162,9 +163,9 @@
                                                                  </if>
                                                                  </i></li>
                                             <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="{$info.star}"/><i></i></li>
-                                            <li><label>商场价格</label><input name="price" type="text" class="dfinput"  value="{$info.price}"/><i>只能输入数字</i></li>
-                                            <li><label>市场价格</label><input name="m_price" type="text" class="dfinput"  value="{$info.m_price}"/><i>只能输入数字</i></li> 
-                                            <li><label>促销价格</label><input name="t_price" type="text" class="dfinput"  value="{$info.t_price}"/><i>只能输入数字</i></li> 
+                                            <li><label>商场价格</label><input name="price" type="text" id="price" class="dfinput"  value="{$info.price}"/><i>只能输入数字</i></li>
+                                            <li><label>市场价格</label><input name="m_price" type="text" id="m_price" class="dfinput"  value="{$info.m_price}"/><i>只能输入数字</i></li> 
+                                            <li><label>促销价格</label><input name="t_price" type="text" id="t_price" class="dfinput"  value="{$info.t_price}"/><i>只能输入数字</i></li> 
                                             <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="{$info.pass_time}"/><i></i></li>  
 
                                             <li><label>競價排名</label><input name="sort" id="notice" type="text" class="dfinput" value="100"/><i></i></li>

@@ -3,15 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <link href="/whr/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <script language="javascript" type="text/javascript" src="/whr/App/Home/View/Public/Js/My97DatePicker/WdatePicker.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <link href="/default/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script language="javascript" type="text/javascript" src="/default/App/Home/View/Public/Js/My97DatePicker/WdatePicker.js"></script>
 
             <script type="text/javascript">
                 $(function(){
@@ -52,9 +52,8 @@
                         }
                     }).bind("blur",function(){
                         $(this).removeClass("focus");
-                        if($(this).val()==''){ 
-                            $(this).next().css("color","red"); }
-                        checkInput();
+
+                    //    checkInput();
                     });
                     $( document ).tooltip({
                         track: true,
@@ -87,7 +86,7 @@
                         },
                         success:function(data){
                             console.log(data)
-                            //   roleDataBak=data;
+                               roleDataBak=data;
                             $("#add_id").val(data.id);
                             $("#title").val(data.title);
 
@@ -102,7 +101,9 @@
                     var bValid = true;
                     bValid = bValid && checkLength( $("#title"), "活动标题", 2, 16 );
                     bValid = bValid && checkEmpty( $("#d412"), "开始时间不能为空！" );
+                         $("#d412").removeClass('ui-state-error')
                     bValid = bValid && checkEmpty( $("#d413"), "结束时间不能为空！" );
+                         $("#d413").removeClass('ui-state-error')
                     return bValid;
                 }
                 function resetInput(){
@@ -143,8 +144,8 @@
                 <li><a href="#">添加管理员</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/whr/index.php?s=/Home/Activity/add" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/whr/index.php?s=/Home/Activity/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/default/index.php?s=/Home/Activity/add" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/default/index.php?s=/Home/Activity/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加活动"  onclick="javascript:;" /></li>
         <table class="tablelist">
             <thead>

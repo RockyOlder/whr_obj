@@ -3,13 +3,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/bootstrap.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
                 <script type="text/javascript" type="text/javascript">
                     function deleteSum(id){
                         if(confirm("确认删除"))
@@ -50,7 +50,7 @@
                             <thead>
                                 <tr>
                                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                                     <th>名称</th>
                                     <th>描述</th>
                                     <th>分类图片</th>
@@ -62,7 +62,7 @@
                                 <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                                         <td><input name="num" type="checkbox" value="" /></td>
                                         <td><?php echo ($vo["cat_id"]); ?></td>
-                                        <td>  <img src="/whr/App/Home/View/Public/img/menu_minus.gif" id="icon_0_1" style="margin-left:<?php echo ($vo["lev"]); ?>px" /><?php echo ($vo["cat_name"]); ?></img>
+                                        <td>  <img src="/default/App/Home/View/Public/img/menu_minus.gif" id="icon_0_1" style="margin-left:<?php echo ($vo["lev"]); ?>px" /><?php echo ($vo["cat_name"]); ?></img>
                                         </td>
                                         <td><?php echo ($vo["intro"]); ?></td>
                                         <td><img height='50px' src="<?php echo ($vo["cat_img"]); ?>"  /></td>
@@ -92,7 +92,7 @@
                             <div class="tiptop"><span>提示信息</span><a></a></div>
 
                             <div class="tipinfo">
-                                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                                 <div class="tipright">
                                     <p>是否确认对信息的修改 ？</p>
                                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

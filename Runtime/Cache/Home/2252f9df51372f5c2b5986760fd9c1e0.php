@@ -3,16 +3,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
            
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-             <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+             <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script language="javascript">
 
                 function deleteSum(id){
@@ -99,7 +99,7 @@
 
 
     <body style="background: none;">
-        <input type="hidden" value="/whr/index.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
+        <input type="hidden" value="/default/index.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
         <div class="place">
             <span>位置： </span>
             <ul class="placeul">
@@ -140,7 +140,7 @@
 
                     <tbody>
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /whr/ -->
+                                <!--  /default/ -->
                                 <td class="imgtd"><img src="<?php echo ($vo["list_img"]); ?>" width="50px"/></td>
                                 <td><?php echo ($vo["goods_name"]); ?></a></td>
                                 <td><?php echo ($vo["number"]); ?></td>
@@ -149,7 +149,8 @@
                                 <td><a id="showlist<?php echo ($vo["goods_id"]); ?>" href="javascript:showDetail(<?php echo ($vo["goods_id"]); ?>)" title="详情">详情</a>
                                     <a href="<?php echo U('add',array(id=>$vo['goods_id']),'');?>">编辑</a>
                                     <a class="tablelink" onclick="deleteSum('<?php echo ($vo["goods_id"]); ?>')"> 删除</a>
-                                    <a href="<?php echo U('activity',array(id=>$vo['goods_id']),'');?>">促销</a>
+                                    <?php if($vo["num"] == 0): ?><a href="<?php echo U('activity',array(id=>$vo['goods_id']),'');?>">促销</a><?php endif; ?>
+                                    
                                 </td>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
 
@@ -227,7 +228,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -250,7 +251,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

@@ -10,7 +10,9 @@ class GoodsController extends IsloginController {
         // $xx='绿色,红色,黄色';
         //$aa=  explode(',', $xx);
         // print_r($aa);exit;
-       
+     //  $str = '<a href="#">href</a>';
+
+      // echo strip_tags($str);exit;
         $goods = M("Goods");
         if (IS_POST) {
             $name = I('post.name');
@@ -28,7 +30,7 @@ class GoodsController extends IsloginController {
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 12);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img')
+        $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img,num')
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
@@ -95,7 +97,7 @@ class GoodsController extends IsloginController {
                 if ($data = $goods->create()) {
                     $data["add_time"] = time();
                     $data["goods_img"] = $goods_img;
-
+                    $data['intro']=$_POST['intro'];
                     if ($add = $goods->add($data)) {
                         $specificationData = D("SpecificationData");
                         if ($obj = $specificationData->create()) {
@@ -244,21 +246,24 @@ class GoodsController extends IsloginController {
         $action = I('post.action');
         if (IS_POST) {
             if ($action == "edit") {
-                //  print_r(I('post.gid'));exit;
+
                 $gid = I('post.gid');
                 $goods = D("VipActGood");
+                $vipGoods=D("Goods");
+             
+           
                 $vipList = $goods->where("gid=$gid")->find();
                 if (isset($vipList)) {
-                    $url = U('/Home/Goods/index', '', false);
-                    $this->error('该商品已有活动!');
+                    $this->error('该商品已有活动!',U('/Home/Goods/index', '', false));
                 }
                 if ($data = $goods->create()) {
                     //      $data["goods_img"] = $goods_img;
+       
                     if ($goods->add($data)) {
-                        $url = U('/Home/Activity/index');
-                        $this->success("修改成功！", $url);
+                        $vipGoods->where("goods_id=".$gid)->setInc('num');
+                        $this->success("添加成功！", U('/Home/Activity/index'));
                     } else {
-                        $this->error("用户修改失败！", 'index');
+                        $this->error("用户添加失败！", 'index');
                     }
                 } else {
                     $this->error($goods->getError());
@@ -268,6 +273,7 @@ class GoodsController extends IsloginController {
 
         $id = I('get.id', 0);
         if ($id) {
+           
             $data['action'] = 'edit';
             $data['title'] = "编辑商品";
             $data['btn'] = "编辑";

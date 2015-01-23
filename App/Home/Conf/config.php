@@ -18,14 +18,14 @@ return array(
         'AUTH_RULE' => 'wrt_auth_rule', // 权限规则表
         'AUTH_USER' => 'wrt_admin', // 用户信息表
     ),
-    /* 数据库配置 */
+    /* 数据库配置 
     'DB_TYPE' => 'mysqli', // 数据库类型
     'DB_HOST' => '127.0.0.1', // 服务器地址
-    'DB_NAME' => 'wrtdata', // 数据库名
+    'DB_NAME' => 'wrtdate', // 数据库名
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => '', // 密码
     'DB_PORT' => '3306', // 端口
-    'DB_PREFIX' => 'wrt_', // 数据库表前缀
+    'DB_PREFIX' => 'wrt_', // 数据库表前缀*/
     //'配置项'=>'配置值'
     'TMPL_PARSE_STRING' => array(
         '__PUBLIC__' => __ROOT__ . "/App/Home/View/Public",

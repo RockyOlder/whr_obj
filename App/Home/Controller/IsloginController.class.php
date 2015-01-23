@@ -11,17 +11,18 @@ class IsloginController extends Controller {
 
     private $field = "region_id,region_name";
 
-	function __construct()
-	{
-		//调用父类的construct方法，免去覆盖父类的方法
-		parent::__construct();
-		if (session('admin') == "" || session('user_auth') == "") {
-			//$this->error('你还没有登录',U('Login/index','',''));
-            $this->redirect('Login/index','', 0, '');       //
-		}
-        $this->checkself();
-        
-	}
+    function __construct() {
+        //调用父类的construct方法，免去覆盖父类的方法
+        parent::__construct();
+        if (session('admin') == "" || session('user_auth') == "") {
+            //$this->error('你还没有登录',U('Login/index','',''));
+            $this->redirect('Login/index', '', 0, '');       //
+        }
+        if (!IS_AJAX) {
+            //    echo 1;exit;
+            $this->checkself();
+        }
+    }
 
     function checkself() {
         //检查权限
@@ -94,12 +95,12 @@ class IsloginController extends Controller {
     }
 
     function getSaveCity($id) {
-      if (empty($id))
+        if (empty($id))
             return null;
         $region = M("region");
         $typeList = $region->where("REGION_ID=" . $id)->find();
         $typeList['list'] = $region->where("PARENT_ID=" . $typeList['PARENT_ID'] . " and REGION_ID!=" . $typeList['REGION_ID'])->select();
-         return $typeList;
+        return $typeList;
     }
 
     //根据城市的id查询出所有的区列表

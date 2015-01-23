@@ -196,3 +196,14 @@ function assoc_unique($array2D, $key = null) {
     sort($array2D);
     return $array2D;
 }
+
+function maskWord($str) {
+    $word = D('ProKeyword');
+    $wordlist = $word->where("id=1")->find();
+    $list = json_decode($wordlist['pname']);
+    // dump($list);die();
+    foreach ($list as $v) {
+        $str = str_replace($v, '**', $str);
+    }
+    return $str;
+}

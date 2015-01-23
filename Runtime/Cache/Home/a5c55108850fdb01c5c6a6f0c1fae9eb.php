@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link href="/whr/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/bootstrap.min.js"></script>
-            <script src="/whr/App/Home/View/Public/bootstrap/js/jquery.v2.1.1.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link href="/default/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
+            <script src="/default/App/Home/View/Public/bootstrap/js/jquery.v2.1.1.js"></script>
 
             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
-                <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+                <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
                     <script type="text/javascript">
               
                         /*
@@ -122,15 +122,15 @@
                             <div class="tools">
 
                                 <!-- <ul class="toolbar">
-                                <li class="click"><span><img src="/whr/App/Home/View/Public/Images/t01.png" /></span>添加</li>
+                                <li class="click"><span><img src="/default/App/Home/View/Public/Images/t01.png" /></span>添加</li>
                                 
-                                <li><span><img src="/whr/App/Home/View/Public/Images/t03.png" /></span>删除</li>
-                                <li><span><img src="/whr/App/Home/View/Public/Images/t04.png" /></span>统计</li>
+                                <li><span><img src="/default/App/Home/View/Public/Images/t03.png" /></span>删除</li>
+                                <li><span><img src="/default/App/Home/View/Public/Images/t04.png" /></span>统计</li>
                                 </ul>
                                 
                                 
                                 <ul class="toolbar1">
-                                <li><span><img src="/whr/App/Home/View/Public/Images/t05.png" /></span>设置</li>
+                                <li><span><img src="/default/App/Home/View/Public/Images/t05.png" /></span>设置</li>
                                 </ul> -->
                                 <form action="" method="post" name="vform" id="vform">
                                     <ul>
@@ -143,7 +143,7 @@
                                         </li> -->
                                         <li>开发商名称:</li>
                                         <li><input type="text" value="" class="form-control" name ="name" /></li>
-                                        <li><span id="select_deve"><img src="/whr/App/Home/View/Public/Images/ico06.png" width="25"/>查找</span></li>
+                                        <li><span id="select_deve"><img src="/default/App/Home/View/Public/Images/ico06.png" width="25"/>查找</span></li>
                                         <!-- <li></li> -->
                                     </ul>
                                 </form>
@@ -155,7 +155,7 @@
                                 <thead>
                                     <tr>
                                         <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                                        <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                                        <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                                         <th>名称</th>
                                         <th>负责人</th>
                                         <th>电话</th>
@@ -202,7 +202,7 @@
                                 <div class="tiptop"><span>提示信息</span><a></a></div>
 
                                 <div class="tipinfo">
-                                    <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                                    <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
                                     <div class="tipright">
                                         <p>是否确认对信息的修改 ？</p>
                                         <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

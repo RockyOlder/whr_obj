@@ -42,7 +42,7 @@ class IndexController extends IsloginController {
 	}
 	// 用户退出方法
 	public function loginout() {		
-	//	admin_log('退出登录');
+		admin_log('退出登录');
 		session ( 'admin', null );
 		session ( 'user_auth', null );
 		$this->success ( '成功退出登录！', U ( 'Login/index' ) );

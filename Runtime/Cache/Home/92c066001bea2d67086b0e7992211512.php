@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-                <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
-                    <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-                    <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-                    <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-                    <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-                    <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
-                    <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script> -->
-                    <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script> -->
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+                <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
+                    <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+                    <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+                    <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+                    <script type="text/javascript" src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+                    <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
+                    <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script> -->
+                    <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script> -->
 
                     <script type="text/javascript">
                         $(function(){
@@ -52,15 +52,15 @@
                             var img = "";
                             //    var span="";
                             $('#upload_list').uploadify({
-                                'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                                 'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                                 'buttonText' : '列表上传',
                                 'multi': false,
                                 'onUploadSuccess' : function(file, data, response) {
                                     obj= $.parseJSON(data);
                                     img += "<img height='50px' src='"+obj.path+"'>";
-                                    img +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'>"
+                                    img +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'>"
                                     $('#imgs').html(img);
                                     var hid ="<input name='thumb_pic' type='hidden' value='"+obj.mid+"' />"
                                     $('#list_hidden').html(hid);
@@ -98,7 +98,7 @@
                         .pro span{width: 345px;height: 32px; }
                         #spanDes{ font-size: 13px; color: #7f7f7f; float: left; margin:0 300px; margin-top: -30px;}
                         #pro_category{float: left; margin: 0 345px; margin-top: -25px;}
-                        /*  .top_cate{background-image: url(/whr/App/Home/View/Public/img/menu_minus.gif); width:10px; height:10px;} */
+                        /*  .top_cate{background-image: url(/default/App/Home/View/Public/img/menu_minus.gif); width:10px; height:10px;} */
                     </style>
 
                     <body style="background: none;">
@@ -130,7 +130,7 @@
                                                 <li id="limage" style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
                                                             <?php if($info["cat_img"] != ''): ?><div class="up_list_pic">
                                                                     <img class="cat_img" height='50px' src='<?php echo ($info["cat_img"]); ?>'>
-                                                                        <img class="cat_img" src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                        <img class="cat_img" src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                             </div><?php endif; ?>
                                                                             </i><span id="spanDes">顶级分类无图片</span></li>
                                                                             <li><label>描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="intro" id="intro" value="<?php echo ($info["intro"]); ?>"><?php echo ($info["intro"]); ?></textarea><i id="name_intro">描述不能超过100个字符</i></li>

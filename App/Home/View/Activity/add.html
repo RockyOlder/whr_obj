@@ -52,9 +52,8 @@
                         }
                     }).bind("blur",function(){
                         $(this).removeClass("focus");
-                        if($(this).val()==''){ 
-                            $(this).next().css("color","red"); }
-                        checkInput();
+
+                    //    checkInput();
                     });
                     $( document ).tooltip({
                         track: true,
@@ -87,7 +86,7 @@
                         },
                         success:function(data){
                             console.log(data)
-                            //   roleDataBak=data;
+                               roleDataBak=data;
                             $("#add_id").val(data.id);
                             $("#title").val(data.title);
 
@@ -102,7 +101,9 @@
                     var bValid = true;
                     bValid = bValid && checkLength( $("#title"), "活动标题", 2, 16 );
                     bValid = bValid && checkEmpty( $("#d412"), "开始时间不能为空！" );
+                         $("#d412").removeClass('ui-state-error')
                     bValid = bValid && checkEmpty( $("#d413"), "结束时间不能为空！" );
+                         $("#d413").removeClass('ui-state-error')
                     return bValid;
                 }
                 function resetInput(){

@@ -3,10 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>"></input>
                 <script type="text/javascript">
                     function deleteSum(id){
@@ -85,7 +85,7 @@
                             <thead>
                                 <tr>
                                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                                    <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
                                     <th>名称</th>
                                     <th>负责人</th>
                                     <th>电话</th>
@@ -129,7 +129,7 @@
                             <div class="tiptop"><span>提示信息</span><a></a></div>
 
                             <div class="tipinfo">
-                                <span><img src="/whr/App/Home/View/Public/Images/ticon.png" /></span>
+                                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                                 <div class="tipright">
                                     <p>是否确认对信息的修改 ？</p>
                                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

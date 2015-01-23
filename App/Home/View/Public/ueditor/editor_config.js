@@ -26,7 +26,8 @@
      */
     var tmp = location.protocol.indexOf("file")==-1 ? location.pathname : location.href;
     URL = window.UEDITOR_HOME_URL||tmp.substr(0,tmp.lastIndexOf("\/")+1).replace("_examples/","").replace("website/","");//这里你可以配置成ueditor目录在您网站的相对路径或者绝对路径（指以http开头的绝对路径）
-	URL = 'http://localhost/whr/App/Home/View/Public/ueditor/';
+	URL = 'http://120.24.215.150/App/Home/View/Public/ueditor/';
+    //http://jun.cooldreamer.com/App/Home/View/Public/ueditor/
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
@@ -120,14 +121,14 @@
         //常用配置项目
         //,isShow : true    //默认显示编辑器
 
-        ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
         //,initialFrameWidth:750  //初始化编辑器宽度,默认1000
         //,initialFrameHeight:320  //初始化编辑器高度,默认320
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
-        ,iframeCssUrl: URL + '/themes/iframe.css' //给编辑器内部引入一个css文件
+        //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑器内部引入一个css文件
 
         //,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
@@ -259,7 +260,7 @@
 
         //elementPathEnabled
         //是否启用元素路径，默认是显示
-        ,elementPathEnabled : false
+        //,elementPathEnabled : true
 
         //removeFormat
         //清除格式时可以删除的标签和属性

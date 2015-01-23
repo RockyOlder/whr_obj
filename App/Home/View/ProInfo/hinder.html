@@ -84,12 +84,12 @@
                     $("#dialog-form").dialog("option","title","编辑维修保障");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         error:function(data, msg){
@@ -97,7 +97,7 @@
                         },
                         success:function(data){
                             roleDataBak=data;
-                            $("#add_id").val(data.rid);
+                            $("#add_id").val(data.id);
                             $("#title").val(data.title);
                             $("#owner").val(data.owner);
                             $("#content").val(data.content);
@@ -112,18 +112,18 @@
                     $("#dialog-edit").dialog("option","title","审核");
                     $("form[name=myname]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         success:function(data){
                             //roleDataBak=data;titleadd
                       
-                            $("#role_id").val(data.rid);
+                            $("#role_id").val(data.id);
                             $("#title2").text(data.title);
                             $("#titleADD").val(data.title)
                             $("#content2").text(data.content);
@@ -190,9 +190,9 @@
                         <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>      
                         <!--     <td class="role-list"><button class="btn btn-default" type="button">{$vo.done}</button></td> -->
                         <td class="th_default">    
-                            <!-- <a class="btn btn-default" onclick="update_list({$vo.rid})">修改</a>     -->
+                            <a href="{:U('hinder',array(id=>$vo['id']),'')}" class="btn btn-default" title="回复">回复</a>     
                             <a href="{:U('del',array(id=>$vo['nid']),'')}" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add({$vo.rid})"> 详情</a>
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add({$vo.id})"> 详情</a>
                         </td>
                     </tr> 
                 </volist>    

@@ -3,28 +3,29 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
-            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
-        <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
-        <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/select-ui.min.js"></script> -->
-        <!-- <script type="text/javascript" src="/whr/App/Home/View/Public/Js/kindeditor.js"></script> -->
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-                        <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_config.js"></script>
+            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+        <script type="text/javascript" src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+
+                        <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
             <script type="text/javascript">
                 $(function(){
                     var img = "";
                     $('#upload_list').uploadify({
-                        'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                        'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                         'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                        'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                        'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                         'buttonText' : '列表上传',
                         'multi': false,
                         'onUploadSuccess' : function(file, data, response) {
+                       //     console.log(data)
                             // alert(data);
                             obj= $.parseJSON(data);
                             img += "<img height='50px' src='"+obj.path+"'>";
@@ -69,12 +70,12 @@
                             <ul class="forminfo">
                                 <li><label>公告标题</label><input name="title" id="name" type="text" class="dfinput" value="<?php echo ($info["title"]); ?>" /><i id="name_info"></i></li>
                                 <li style="height:50px"><label>公告内容</label></li>
-                                <li><textarea rows="5"  cols='40' style="" name ="content" id="address" value="<?php echo ($info["content"]); ?>" ><?php echo ($info["content"]); ?></textarea><i id="address_info"></i></li>
+                                <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="<?php echo ($info["content"]); ?>" ><?php echo ($info["content"]); ?></textarea></li>
                                 <li><label>公告图片</label><div id="list_hidden"></div></li>
                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
                                             <?php if($info["pic"] != ''): ?><div class="up_list_pic">
                                                     <img class="cat_img" height='50px' src='<?php echo ($info["pic"]); ?>'>
-                                                        <img class="cat_img" src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                        <img class="cat_img" src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                             </div><?php endif; ?>
                                                             </i></li>
                                                             <li><label>所属开发商</label>
@@ -91,7 +92,7 @@
                                                             </form>
                                                             <script type="Text/Javascript">
                                                                     var edit= new UE.ui.Editor({initialContent:'',initialFrameWidth:600});
-                                                                     edit.render("address");
+                                                                     edit.render("intro");
                                                             </script>
                                                             </body>
 

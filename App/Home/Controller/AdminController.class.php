@@ -35,38 +35,43 @@ class AdminController extends IsloginController {
         $data['btn'] = "添加管理员";
         $action = I('post.action');
         if (IS_POST) {
-            $user = D('Admin');
-            $data = $user->create();
-            if ($data) {
-                if ($action == "add") {
+            if ($action == "add") {
+                $user = D('Admin');
+                if ($data = $user->create()) {
                     $salt = rand(999, 9999);
                     $data['salt'] = $salt;
                     $password = change($salt);
                     $data['password'] = $password;
                     $data['add_time'] = time();
                     unset($data['id']);
+                    // dump($data);die();
                     $bool = $user->add($data);
                     if ($bool) {
-                        $this->addRole($bool, $data['role_id']);
-                        $this->success("用户添加成功！", U('/Home/Admin/index'));
+                        $this->addRole($bool,$data['role_id']);
+                        $url = U('/Home/Admin/index');
+                        $this->success("用户添加成功！", $url);
                     } else {
-                        $this->error("用户添加失败！",U('/Home/Admin/add'));
+                        $this->error("用户添加失败！", 'index');
                     }
-                } elseif ($action == "edit") {
+                }
+            } elseif ($action == "edit") {
+                $admin = D("Admin");
+                if ($data = $admin->create()) {
                     $salt = rand(999, 9999);
                     $data['salt'] = $salt;
                     $password = change($salt);
                     $data['password'] = $password;
-                    if ($user->save($data)) {
+                    if ($admin->save($data)) {
                         // 修改用户的角色
-                        $this->changeRole($data['id'], $data['role_id']);
-                        $this->success("修改成功！",  U('/Home/Admin/index'));
+                        $this->changeRole($data['id'],$data['role_id']);
+                        $url = U('/Home/Admin/index');
+                        $this->success("修改成功！", $url);
                     } else {
-                        $this->error("用户修改失败！", U('/Home/Admin/add'));
+                        $this->error("用户修改失败！", 'index');
                     }
+                } else {
+                    $this->error($admin->getError());
                 }
-            } else {
-                $this->error($user->getError());
             }
         }
         $id = I('get.id', 0);
@@ -74,18 +79,25 @@ class AdminController extends IsloginController {
             $this->error('超级管理员不能修改');
         }
         $rule = M('auth_group')->field('id,title')->select();
-        $this->assign('rule', $rule);
+        $this->assign('rule',$rule);
         if ($id) {
-            //    echo 1;exit;
+        //echo 1;exit;
             $data['action'] = 'edit';
             $data['title'] = "编辑管理员";
             $data['btn'] = "编辑";
             $user = M("Admin");
             $userList = $user->where("id=" . $id)->find();
-            $rule_id = M('auth_group_access')->field('group_id')->where(array('uid' => $id))->find();
+            $rule_id =M('auth_group_access')->field('group_id')->where(array('uid'=>$id))->find();
             $rule_id = current($rule_id);
-            $this->assign('rule_id', $rule_id);
+            $this->assign('rule_id',$rule_id);
         }
+        //查找所有的vip商家
+        $vip= M('vip')->field('store_id,store_name')->select();   
+        $this->assign('vip',$vip);     
+        // 查找所有的生活导航商家
+        $life =M('business')->field('id,name')->select();
+        $this->assign('life',$life);
+        //dump($data);die();
         $this->assign('info', $userList);
         $this->assign('data', $data);
         $this->display();
@@ -94,25 +106,20 @@ class AdminController extends IsloginController {
     public function del() {
         $id = I('get.id', 0);
         $admin = D('Admin');
-        $admindelte = $admin->where("id=$id")->find();
-        if ($admindelte['name'] == 'admin') {
-            $url = U('/Home/Admin/index');
-            $this->error("admin不允许删除！", $url);
-        }
         $result = $admin->where("id=$id")->delete();
         if ($result) {
             redirect($_SERVER["HTTP_REFERER"]);
         }
     }
 
-    function addRole($uid, $rid) {
-        $arr = array('uid' => $uid, 'group_id' => $rid);
+    function addRole($uid,$rid){
+        $arr = array('uid'=>$uid,'group_id'=>$rid);
         M('auth_group_access')->add($arr);
-    }
 
-    function changeRole($uid, $rid) {
-        $w = array('uid' => $uid);
-        $arr = array('group_id' => $rid);
+    }
+    function changeRole($uid,$rid){
+        $w = array('uid'=>$uid);
+        $arr = array('group_id'=>$rid);
         M('auth_group_access')->where($w)->save($arr);
     }
 

@@ -4,17 +4,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
 
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-           <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css"> -->
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_config.js"></script>
-            <script type="text/javascript" src ="/whr/App/Home/View/Public/ueditor/editor_all_min.js"></script>
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
-            <script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+           <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css"> -->
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_config.js"></script>
+            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
+            <script src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
                         $(function(){
 
@@ -107,7 +107,7 @@
                     <form action="" method="post" name ="vform">
                         <input type ="hidden" name="goods_id" id="shopGoodsID" value="<?php echo ($info["goods_id"]); ?>">
                             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
-                                <input type="hidden" value="/whr/index.php?s=/Home/Goods/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                                <input type="hidden" value="/default/index.php?s=/Home/Goods/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
@@ -174,7 +174,7 @@
                                                                                     <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_img" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                                                             <?php if($info["list_img"] != ''): ?><div class="up_list_pic">
                                                                                                     <img height='50px' src='<?php echo ($info["list_img"]); ?>'>
-                                                                                                        <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                                                        <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                                                             </div><?php endif; ?>
                                                                                                             </i>
                                                                                                             </li>
@@ -188,7 +188,7 @@
                                                                                                                                         <input type='hidden' name='path[]'  value='<?php echo ($vo["pic"]); ?>'/>
                                                                                                                                         <input type='hidden' name='mid[]' value='<?php echo ($vo["mid"]); ?>'/>
                                                                                                                                         <input type='hidden' name='pic_name[]' value='<?php echo ($vo["name"]); ?>'/>
-                                                                                                                                        <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic(<?php echo ($k); ?>)' > 
+                                                                                                                                        <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic(<?php echo ($k); ?>)' > 
                                                                                                                                             </div><?php endforeach; endif; else: echo "" ;endif; endif; ?>
                                                                                                                                             </i></li>
 
@@ -204,16 +204,16 @@
                                                                     edit.render("intro");
                                                                     var list_img = "";
                                                                     $('#upload_list').uploadify({
-                                                                        'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                                        'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                                                                         'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                                                        'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                                        'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                         'buttonText' : '列表上传',
                                                                         'multi': false,
                                                                         'onUploadSuccess' : function(file, data, response) {
                                                                             //   alert(1)
                                                                             obj= $.parseJSON(data);
                                                                             list_img += "<img height='50px' src='"+obj.path+"'>";
-                                                                            list_img +=" <img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                                            list_img +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
                                                                             $('#imgs').html(list_img);
                                                                             var hid ="<input name='list_path' id='list_path' type='hidden' value='"+obj.path+"' />";
                                                                             hid +="<input name='suolie_img' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
@@ -227,9 +227,9 @@
                                                                     var num = $('.more_list_pic').last().attr('num')+1;
 
                                                                     $('#upload_more').uploadify({
-                                                                        'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                                                                        'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
                                                                         'uploader' : '<?php echo U("Uploads/photo",'','');?>',
-                                                                        'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                                        'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                         'buttonText' : '缩略图上传',
                                                                         'onUploadSuccess' : function(file, v, response) {
                                                                             // alert(data);
@@ -240,7 +240,7 @@
                                                                             img += "<input type='hidden' name='path[]'  value='"+obj.path+"'/>";
                                                                             img += "<input type='hidden' name='mid[]' value='"+obj.mid+"'/>";
                                                                             img += "<input type='hidden' name='pic_name[]' value='"+obj.name+"'/>";
-                                                                            img += "<img src='/whr/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
+                                                                            img += "<img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
                                                                             img += "</div>"
                                                                             $('#imgs_more').append(img);
                                                                             img = '';
@@ -456,7 +456,7 @@
                                                                                             if(key==1){
                                                                                                 str+="<tr>";
                                                                                                 str+="<td class='label'>"+val+"</td><td><input type='text' name='type["+val+"]' class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品的属性</p></td>"
+                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/default/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品的属性</p></td>"
                                                                                                 str+="<input type='hidden' name='parent_id' value='"+data.parent_id+"' class='dfinput'></tr>";
                                                                                             }else{
                                                                                                 str+='<tr>';
@@ -467,7 +467,7 @@
                                                                                             if(auto==1){
                                                                                                 str+="<tr>";
                                                                                                 str+="<td class='label'>"+key+"</td><td><input type='text' name='type["+key+"]' value='"+val+"' class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品的属性</p></td>"
+                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/default/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品的属性</p></td>"
                                                                                                 str+="<input type='hidden' name='parent_id' value='"+data.parent_id+"' class='dfinput'></tr>";
                                                                                             }else{
                                                                                                 str+='<tr>';
@@ -482,7 +482,7 @@
                                                                                             if(key==1){
                                                                                                 str+="<tr>";
                                                                                                 str+="<td class='label'>"+val+"</td><td><input type='checkbox' name='name["+val+"]' value='"+val+"' checked='true'  class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品规格</p></td>"
+                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/default/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品规格</p></td>"
                                                                                                 str+="<input type='hidden' name='did' value='"+data.did+"' class='dfinput'></tr>";
                                                                                             }else{
                                                                                                 str+='<tr>';
@@ -494,7 +494,7 @@
                                                                                             if(key==1){
                                                                                                 str+='<tr>';
                                                                                                 str+="<td class='label'>"+val+"</td><td><input type='checkbox' name='name["+val+"]' value='"+val+"'  class='dfinput'></td>";
-                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/whr/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品规格</p></td>"
+                                                                                                str+="<td rowspan='3' style='text-align:center' width='120px'><img class='imgSave' src='/default/App/Home/View/Public/img/20080527114121692.png' width='64px' height='64px'/><p class='spanSave'>商品规格</p></td>"
                                                                                                 str+='</tr>';
                                                                                             }else{
                                                                                                 str+='<tr>';

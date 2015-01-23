@@ -3,15 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/whr/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/whr/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/whr/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/whr/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -73,7 +73,7 @@
                     $("#dialog-form").dialog("option","title","修改投诉建议");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
@@ -99,17 +99,17 @@
                     $("#dialog-edit").dialog("option","title","审核");
                     $("form[name=myname]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         success:function(data){
                             console.log(data)
-                            $("#role_id").val(data.rid);
+                            $("#role_id").val(data.id);
                             $("#title").val(data.title)
                             $("#title2").text(data.title);
                             $("#content2").text(data.content);
@@ -142,8 +142,8 @@
                 <li><a href="#">投诉建议</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/whr/index.php?s=/Home/ProInfo/url_ajaxrepair" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxrepair" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <!--     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="投诉建议"  onclick="javascript:;" /></li>  -->
 
         <div style="display:none" id="skuNotice" class="sku_tip">
@@ -154,7 +154,7 @@
                 <tr>
 
                     <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/whr/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>标题</th>
                     <th>内容</th>
                     <th>发布时间</th>
@@ -164,15 +164,16 @@
             <tbody id="table_ajax_list">
                 <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                         <td><input name="num" type="checkbox" value="" /></td>
-                        <td><?php echo ($vo["rid"]); ?></td>
+                        <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
                         <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td> 
                         <!--  <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td> -->
                         <td class="th_default">    
                             <!--  <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>     -->
-                            <a href="<?php echo U('del',array(id=>$vo['rid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["rid"]); ?>)">详情</a>
+                            <a href="<?php echo U('repair',array(id=>$vo['id']),'');?>" class="btn btn-default" title="回复">回复</a>     
+                            <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)">详情</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
@@ -190,7 +191,7 @@
             </div>
         </div>
 
-        <!--       <div id="dialog-form" title="装修申请" style=" display: none;">
+        <!--  <div id="dialog-form" title="装修申请" style=" display: none;">
                    <div class="tip">
                        <p class="validateTips"></p>
                    </div>

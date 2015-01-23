@@ -130,11 +130,15 @@ class UserController extends IsloginController {
     }
 
     public function del() {
+       
         $id = I('get.id', 0);
+
         $admin = D('User');
-        $result = $admin->where("id=$id")->delete();
+        $result = $admin->where("user_id=$id")->delete();
         if ($result) {
             redirect($_SERVER["HTTP_REFERER"]);
+        }else {
+              $this->error("用户修改失败！", 'index');
         }
     }
 

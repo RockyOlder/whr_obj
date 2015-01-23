@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>添加开发商</title>
-<link href="/whr/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/whr/App/Home/View/Public/Js/jquery.js"></script>
+<link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="/whr/App/Home/View/Public/Css/bootstrap.min.css">
-	<link rel="stylesheet" href="/whr/App/Home/View/Public/Css/uploadify.css">
-		<script src='/whr/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+	href="/App/Home/View/Public/Css/bootstrap.min.css">
+	<link rel="stylesheet" href="/App/Home/View/Public/Css/uploadify.css">
+		<script src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
 		<script type="text/javascript">
                     $(function(){
                         // alert(1)
@@ -116,7 +116,9 @@
 								<?php if(is_array($property)): $i = 0; $__LIST__ = $property;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class="pro_in" value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
 						</select>
 					</span> <i></i></li>
-
+                    <li><label>业主账单样表</label>
+                       <span>如果你没有样板文件请 <a href="http://120.24.214.88/Uploads/file/user_info.xls">点击下载</a>否则选择文件直接上传</span>
+                        </li>
 					<li><label>业主信息表</label>
 						<div id="list_hidden">
 							<input type='text' name="file_path" value="请选择文件再上传">
@@ -137,9 +139,9 @@
     <script type="text/javascript">
          var img = "";
             $('#upload_file').uploadify({
-                'swf'      : '/whr/App/Home/View/Public/Images/uploadify.swf',
+                'swf'      : '/App/Home/View/Public/Images/uploadify.swf',
                 'uploader' : '<?php echo U("Uploads/file");?>',
-                'cancelImage':'/whr/App/Home/View/Public/Images/uploadify-cancel.png',
+                'cancelImage':'/App/Home/View/Public/Images/uploadify-cancel.png',
                 'buttonText' : '文件上传',
                 'multi': false,
                 'onUploadSuccess' : function(file, data, response) {

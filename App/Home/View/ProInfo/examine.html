@@ -71,18 +71,19 @@
                     $("#dialog-form").dialog("option","title","编辑调查");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         error:function(data, msg){
                             alert("error:"+msg);
                         },
                         success:function(data){
+                            console.log(data)
                             roleDataBak=data;
                             $("#title").val(data.title);
                             $("#add_id").val(data.id);
@@ -95,9 +96,9 @@
                 }
                 function checkInput(){
                     var bValid = true;
-                    bValid = bValid && checkLength( $("#title"), "商品名字", 2, 16 );
-                    bValid = bValid && checkEmpty( $("#content"), "\u8bf7选择分类！" );
-                    bValid = bValid && checkEmpty( $("#author"), "\u8bf7选择商家名称！" );
+                    bValid = bValid && checkLength( $("#title"), "公告标题", 2, 16 );
+                    bValid = bValid && checkEmpty( $("#content"), "公告内容不能为空！" );
+                    bValid = bValid && checkEmpty( $("#author"), "发布人不能为空！" );
                     return bValid;
                 }
                 
@@ -136,8 +137,8 @@
         <div class="place">
             <span>后台管理：</span>
             <ul class="placeul">
-                <li><a href="#">关键词管理</a></li>
-                <li><a href="#">添加/修改关键词</a></li>
+                <li><a href="#">物业管理</a></li>
+                <li><a href="#">添加/修改社区调查</a></li>
             </ul>
         </div>
         <input type="hidden" value="__CONTROLLER__/examine" id="examUpdate" name="examUpdate" />

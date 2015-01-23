@@ -18,6 +18,9 @@
                         if(confirm("确认删除"))
                             location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
                     }
+                         $(function(){
+                          initPager();
+                         })
                     function cats_Shop(id) {
                         art.dialog({
                             content:'你确定要删除？',
@@ -32,37 +35,15 @@
                         function(){
                             var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
                             if(msg){
-                                location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
+                                location.href=$("#url_ajaxCalendar").val()+id
                                 return false;
                             }        
                         },function(){
                             return true;
                         });
                     };
-                    function art_del_confirm(){  
-          
-                        art.dialog({  
-                            title: '确定框',  
-                            okValue:'确认',  
-                            cancelValue:'取消',  
-                            width: 230,  
-                            height: 100,  
-                            fixed: true,  
-                            content: '确定要继续操作么？',  
-                        
-                            ok: function () {  
-                                //  window.location.href=url;   
-                        
-                                return true;  
-                            },  
-                            cancel: function () {  
-                                return true;  
-                            },  
-                        });  
-                    }  
-                         $(function(){
-                          initPager();
-                         })
+                         
+                         
                 </script>
 
 
@@ -75,7 +56,7 @@
                 </style>
 
                 <body style="background: none;">
-
+              <input type="hidden" value="__CONTROLLER__/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
                         <span>后台管理：</span>
                         <ul class="placeul">

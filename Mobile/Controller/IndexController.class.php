@@ -5,7 +5,7 @@ class IndexController extends Controller {
     public function index(){
     	$id = I('request.id',0,'intval');
     	$w= array('id'=>$id);
-    	if (IS_AJAX) {
+    	if (IS_POST) {
     		if (!isset($_POST['answer'])) {
     			$this->error('没有选择任何答案');
     		}
@@ -34,11 +34,7 @@ class IndexController extends Controller {
             //dump($bool);die();
     		M('pro_survey')->where($w)->setInc($unit);
     		M('pro_survey')->where($w)->setInc('number');
-            if ($bool) {                
-                $this->ajaxReturn(1);
-            }else{
-                $this->ajaxReturn(0);
-            }
+            $this->display('end');
     	}  	
 
     	$data=M('pro_survey')->where($w)->find();
@@ -61,6 +57,4 @@ class IndexController extends Controller {
     	$this->assign('data',$data);
         $this->display();
         }
-
-
 }

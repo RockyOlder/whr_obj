@@ -34,18 +34,19 @@ class ActivityController extends IsloginController {
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $vip->limit($page->firstRow . ',' . $page->listRows)->select();
+        $vipLIst = $vip->limit($page->firstRow . ',' . $page->listRows)->select();
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
-        $this->assign('into', $data);
+        $this->assign('into', $vipLIst);
         if (IS_POST) {
-   //   print_r($_REQUEST);EXIT;
+
             $vip = D('VipActivity');
             $data = $vip->create();
             if ($data) {
                 $data["start_time"] = strtotime(I('post.start_time'));
                 $data["end_time"] = strtotime(I('post.end_time'));
+                   
                 if ($action == "add") {
                     if ($vip->add($data)) {
                         $this->success("用户添加成功！", U('/Home/Activity/add'));
@@ -81,6 +82,20 @@ class ActivityController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
+    
+    public function del(){
+        $id = I('get.id', 0);
+        $goods = D("VipActGood"); $vipGoods=D("Goods");
+        $vipFind=$goods->where("id=$id")->find();
+        $result = $goods->where("id=$id")->delete();
+        if ($result) {
+           $vipGoods->where("goods_id=".$vipFind['gid'])->setDec('num');
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        
+    }
+
+
 
     public function url_ajaxCalendar() {
           // echo 1;exit;

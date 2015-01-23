@@ -54,12 +54,12 @@
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     //  alert($("#table").val())
                     $.ajax({ 
-                        url:$("#url_ajaxCalendar").val(),
+                        url:$("#examUpdate").val(),
                         type:"post",
                         dataType:"json",
                         cache:false,
                         data: {
-                            "id":subId
+                            "pid":subId
                         },
                         timeout:30000,
                         error:function(data, msg){
@@ -131,7 +131,7 @@
 
 
                         <td class="th_default">    
-                            <a class="btn btn-default" onclick="update_list({$vo.id})">修改</a>    
+                            <a href="{:U('carpool',array(id=>$vo['id']),'')}" class="btn btn-default" title="编辑">详情</a>     
                             <a href="{:U('del',array(id=>$vo['nid']),'')}" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                         </td>
                     </tr> 
