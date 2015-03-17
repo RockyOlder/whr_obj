@@ -5,17 +5,28 @@ namespace Home\Controller;
 use Home\Controller\IsloginController;
 
 class GiveController extends IsloginController {
-
+    /*
+     商品查询分页显示
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function good() {
         //    echo 1;exit;
         $vip = M('GiveLifeGoods g');
-        $count = $vip->count();
+        if (IS_POST) {
+            $name = I('post.lgname');
+            if ($name)
+                $where['w.lgname'] = array('LIKE', '%' . $name . '%');
+        }
+        $count = $vip->where($where)->count();
         // dump($count);
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $find = $vip->field('g.*,w.lgname,w.list_pic')
                 ->join('wrt_life_goods AS w ON w.lgid=g.goodid')
+                ->where($where)
+                ->order('sort desc')
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
         //循环数据设置推荐范围
@@ -36,16 +47,29 @@ class GiveController extends IsloginController {
         $this->assign('data', $find);
         $this->display();
     }
+    /*
+     商店查询分页显示
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function shop() {
         //    echo 1;exit;
         $vip = M('GiveLifeShop g');
-        $count = $vip->count();
+        if (IS_POST) {
+            $name = I('post.name');
+            if ($name)
+                $where['b.name'] = array('LIKE', '%' . $name . '%');
+        }
+        
+        
+        $count = $vip->where($where)->count();
         // dump($count);
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $find = $vip->field('g.*,b.name,b.list_pic')
                 ->join('wrt_business AS b ON b.id=g.shopid')
+                ->where($where) 
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
         //循环数据设置推荐范围
@@ -66,7 +90,11 @@ class GiveController extends IsloginController {
         $this->assign('data', $find);
         $this->display();
     }
-    
+    /*
+     商店推荐修改
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function recommendedBusiness() {
          $action = I('post.action');
          $pro = $this->getprovence();
@@ -77,7 +105,7 @@ class GiveController extends IsloginController {
              
                   $data["add_time"] = strtotime(I('post.add_time')); $data["deadline"] = strtotime(I('post.deadline'));
               
-                if ($giveLifeShop->save($data)) {    $this->success("修改成功！", U('/Home/Give/shop')); } else {  $this->error("用户修改失败！", U('/Home/Give/recommendedBusiness'));  }
+                if ($giveLifeShop->save($data)) {    $this->success("修改成功！", U('/Home/Give/shop')); } else {  $this->error("修改失败！", U('/Home/Give/recommendedBusiness'));  }
            
            } else { $this->error($giveLifeShop->getError()); } }
 
@@ -100,7 +128,12 @@ class GiveController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-        public function recommendedGoods() {
+  /*
+     商品推荐修改
+     * @return [type]  
+     * @author phper丶li     
+    */
+    public function recommendedGoods() {
         $action = I('post.action');
        $pro = $this->getprovence();
 
@@ -134,7 +167,11 @@ class GiveController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-    
+  /*
+      商店推荐删除
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function ajax_del_shop() {
         // echo 1;exit;
     //    $id = I('request.id', 0,'intval');
@@ -143,6 +180,7 @@ class GiveController extends IsloginController {
         $vipFind=$model->where("id=$id")->find();
         $bool = $model->delete($id);
         if ($bool) {
+            admin_log("删除推荐商店");
            $business->where("id=".$vipFind['shopid'])->setDec('num');
             redirect($_SERVER["HTTP_REFERER"]);
         }else {
@@ -167,6 +205,7 @@ class GiveController extends IsloginController {
         $vipFind=$model->where("id=$id")->find();
         $bool = $model->delete($id);
         if ($bool) {
+            admin_log("删除推荐商品");
            $goods->where("lgid=".$vipFind['goodid'])->setDec('num');
             redirect($_SERVER["HTTP_REFERER"]);
         }else {

@@ -6,6 +6,11 @@ use Home\Controller\IsloginController;
 
 class AdController extends IsloginController {
 
+    /*
+     查询分页显示  广告
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function index() {
 
         $ad = M("Ad");
@@ -22,6 +27,11 @@ class AdController extends IsloginController {
         $this->display();
     }
 
+    /*
+      添加与修改 广告
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function add() {
         $data['action'] = 'add';
         $data['title'] = "添加";
@@ -37,6 +47,7 @@ class AdController extends IsloginController {
                 $data["end_time"] = strtotime(I('post.end_time'));
                 if ($action == "add") {
                     if ($ad->add($data)) {
+                        admin_log("添加广告");
                         $this->success("用户添加成功！", U('/Home/Ad/index'));
                     } else {
                         $this->error("用户添加失败！", U('/Home/Ad/add'));
@@ -68,20 +79,34 @@ class AdController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-
-    public function sort() {
-        
-    }
-
+    /*
+      广告统计
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function count() {
         $ad = M("Ad");
         $adcount = $ad->order('click desc')->select();
         $this->assign('data', $adcount);
         $this->display();
     }
+    /*
+      广告删除
+     * @return [type]  
+     * @author phper丶li     
+    */
+    public function del() {
+       
+        $id = I('get.id', 0);
 
-    public function divde() {
-        
+        $Ad = D('Ad');
+        $result = $Ad->where("ad_id=".$id)->delete();
+        if ($result) {
+             admin_log("删除广告");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }else {
+              $this->error("用户删除失败！", 'index');
+        }
     }
 
 }

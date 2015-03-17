@@ -30,7 +30,7 @@ $(function(){
 </head>
 
 <body style="background:#f0f9fd;">
-	<div class="lefttop"><span></span>首页</div>
+	<div class="lefttop"><span></span>系统导航</div>
     
     <dl class="leftmenu">
         

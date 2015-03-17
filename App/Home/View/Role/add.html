@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>添加开发商</title>
+        <title>添加角色</title>
         <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
         <!-- <link href="__PUBLIC__/Css/select.css" rel="stylesheet" type="text/css" /> -->
         <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
@@ -61,33 +61,35 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+            <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">管理员管理</a></li>
-                <li><a href="#">添加管理员</a></li>
+                <li><a href="{:U('Index/start')}">首页</a></li>
+                <li>系统管理</li>
+                <li><a href="{:U('Role/index')}">角色列表</a></li>
+                <li>添加角色</li>
             </ul>
         </div>
         <form action="" method="post" name ="vform">
             <input type ="hidden" name="id" value="{$info.id}">
-                <input type ="hidden" name="action" value="{$data.action}">
-                    <input type ="hidden" name="admin" value={$Think.session.admin.name}>
-                        <div class="formbody">
+            <input type ="hidden" name="pid" value="{$Think.session.admin.role_id}">
+           
+            <div class="formbody">
 
-                            <div class="formtitle"><span>{$data.title}角色</span></div>
+                <div class="formtitle"><span>{$data.title}角色</span></div>
 
-                            <ul class="forminfo">
-                                <li><label>角色名</label><input name="title" id="username" type="text" class="dfinput" value="{$info.title}" /><i id="name_info">角色名不能超过30个字符</i></li>
-                                <li><label>权限描述</label><input name="des" id="des" type="text" class="dfinput" value = "{$info.description}" /><i id="password_info">权限描述不能为空</i></li>
-                          
+                <ul class="forminfo">
+                    <li><label>角色名</label><input name="title" id="username" type="text" class="dfinput" value="{$info.title}" /><i id="name_info">角色名不能超过30个字符</i></li>
+                    <li><label>权限描述</label><input name="des" id="des" type="text" class="dfinput" value = "{$info.description}" /><i id="password_info">权限描述不能为空</i></li>
+              
 
-                                <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认{$data.btn}"  onclick="javascript:;" /></li>
-                            </ul>
-                            <div style="display:none" id="skuNotice" class="sku_tip">
-                                <span id="skuTitle2"></span>
-                            </div>
-                        </div>
-                        </form>
+                    <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认{$data.btn}"  onclick="javascript:;" /></li>
+                </ul>
+                <div style="display:none" id="skuNotice" class="sku_tip">
+                    <span id="skuTitle2"></span>
+                </div>
+            </div>
+        </form>
 
-                        </body>
+    </body>
 
-                        </html>
+</html>

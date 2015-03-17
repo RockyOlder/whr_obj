@@ -3,15 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -49,12 +49,13 @@
                             my: "center", 
                             at: "center", 
                             of: window
-                        },
+                        }, 
                         buttons: {
                             "提　交":function(){
                                 // allFields.removeClass( "ui-state-error" );
-                      
                                 $('form[name=myname]').submit();
+                            },
+                            "重　置":function(){	
                             }	
                         },
                         close: function() {
@@ -95,32 +96,33 @@
                     });
                 }
                  */
-                function rule_add(subId){
-                    $("#dialog-edit").dialog("option","title","审核");
-                    $("form[name=myname]").attr("action",$("#examUpdate").val());
-                    $.ajax({ 
-                        url:$("#examUpdate").val(),
-                        type:"post",
-                        dataType:"json",
-                        cache:false,
-                        data: {
-                            "pid":subId
-                        },
-                        timeout:30000,
-                        success:function(data){
-                            console.log(data)
-                            $("#role_id").val(data.id);
-                            $("#title").val(data.title)
-                            $("#title2").text(data.title);
-                            $("#content2").text(data.content);
-                            $("#address2").text(data.address);
-                            $("#phone2").text(data.phone);
-                             $("#action2").val(data.action);
-                            //    alert($("#action2").val());
-                            $("#dialog-edit").dialog("open");
-                        }
-                    });
-                }
+                    function rule_add(subId){
+                        $("#dialog-edit").dialog("option","title","审核");
+                        $("form[name=myname]").attr("action",$("#examUpdate").val());
+                        $.ajax({ 
+                            url:$("#examUpdate").val(),
+                            type:"post",
+                            dataType:"json",
+                            cache:false,
+                            data: {
+                                "pid":subId
+                            },
+                            timeout:30000,
+                            success:function(data){
+                                //roleDataBak=data;
+                      
+                                $("#role_id").val(data.id);
+                                $("#titleADD").val(data.title)
+                                $("#title2").text(data.title);
+                                $("#content2").text(data.content);
+                             //   $("#address2").text(data.address);
+                               // $("#phone2").text(data.phone);
+                                //   $("#action2").val(data.action);
+                                //    alert($("#action2").val());
+                                $("#dialog-edit").dialog("open");
+                            }
+                        });
+                    }
             </script>
     </head>
     <style type="text/css">
@@ -128,7 +130,7 @@
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
         #table_list tr td{ padding: 7px;}
-        .th_default a{ width: 70px;}
+        .th_default a{ width: 85px;}
         .th_default{ width: 300px;}
         #ig_primary{float: right; margin-top: 3px;}
     </style>
@@ -136,25 +138,30 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+           <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">物业管理 </a></li>
+                 <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
                 <li><a href="#">投诉建议</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxrepair" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <!--     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="投诉建议"  onclick="javascript:;" /></li>  -->
-
+            <form action="" method="post" name ="vform" id="from_sub">
+                <div  id="tab2" class="tabson">
+                    <ul class="seachform">
+                        <li><label>标题</label><input name="title" type="text" class="scinput"value="" /></li>
+                        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                    </ul>
+                </div>
+            </form>
         <div style="display:none" id="skuNotice" class="sku_tip">
             <span id="skuTitle2"></span>
         </div>
         <table class="tablelist">
             <thead>
                 <tr>
-
-                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>标题</th>
                     <th>内容</th>
                     <th>发布时间</th>
@@ -163,17 +170,17 @@
             </thead>
             <tbody id="table_ajax_list">
                 <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input name="num" type="checkbox" value="" /></td>
+
                         <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
                         <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
-                        <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td> 
+                        <td><?php echo (date("Y-m-d H:i:s",$vo["time"])); ?></td> 
                         <!--  <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td> -->
                         <td class="th_default">    
                             <!--  <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>     -->
-                            <a href="<?php echo U('repair',array(id=>$vo['id']),'');?>" class="btn btn-default" title="回复">回复</a>     
-                            <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)">详情</a>
+                            <a href="<?php echo U('repair',array(id=>$vo['id']),'');?>" class="btn btn-default" title="投诉详情">投诉详情</a>     
+                            <!--        <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a> -->
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)"> 回复</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
@@ -232,8 +239,8 @@
                     <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td align="right" width="110px">
-                                <label for="title">维修标题：</label>
-                    
+                                <label for="title">投诉标题：</label>
+
                             </td>
                             <td>
                                 <span id="title2"  /></span>
@@ -250,7 +257,7 @@
                         </tr>
                         <tr>
                             <td align="right" width="110px">
-                                <label for="address">故障地址：</label>
+                                <label for="address">地址：</label>
                             </td>
                             <td>
                                 <span id="address2"  /></span>
@@ -270,7 +277,7 @@
                             </td>
                             <td>
                                 <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
-                                                            
+
                             </td>
                         </tr>
 
@@ -286,10 +293,11 @@
                                  </select>
                              </td>
                          </tr>  -->
-                        <input type="hidden" name="id" id="role_id"  />
+                        <input type="hidden" name="yid" id="role_id"  />
                     </table>
                 </fieldset>
                 </form>
         </div>
+
     </body>
 </html>

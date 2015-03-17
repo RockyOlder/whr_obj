@@ -9,15 +9,43 @@ use Think\Controller;
  */
 class IsloginController extends Controller {
 
-    private $field = "region_id,region_name";
+    private $field = "REGION_ID,REGION_NAME";
 
     function __construct() {
         //调用父类的construct方法，免去覆盖父类的方法
         parent::__construct();
-        if (session('admin') == "" || session('user_auth') == "") {
+        if (cookie('admin') == "" || cookie('user_auth') == "") {
+            $bool =1;
+        }
+        if (session('admin') == "" || session('user_auth') == '') {
+            $bool1 = 1;
+        }
+        // dump($bool1);
+        if ($bool1) {
+            $arr = cookie('admin');
+            // dump($arr);
+            session('admin',cookie('admin'));
+            session('user_auth',cookie('user_auth'));
+        }
+        
+        // dump(session());
+        if ($bool && $bool1){ 
+            $bool = strpos($_SERVER[HTTP_REFERER], 'left');
+            // dump($bool);die();
+            if ($bool) {//frameset_box
+                echo "<script>parent.location.reload();</script>";
+            }
             //$this->error('你还没有登录',U('Login/index','',''));
             $this->redirect('Login/index', '', 0, '');       //
         }
+        if(session('admin.statue') != TYPE){
+            session ( 'admin', null );
+            session ( 'user_auth', null );
+            $this->success('你还没有登录', U('Login/index'), 0);
+        }
+        
+   
+        
         if (!IS_AJAX) {
             //    echo 1;exit;
             $this->checkself();
@@ -33,6 +61,7 @@ class IsloginController extends Controller {
 
     //获取左边的用户可访问列表
     function getleft() {
+        // dump(session());die();
         // 获取用的id
         $id = session('admin.id');
         //开发时间组织了登录，所以用户的id默认为1，显示全部的菜单
@@ -47,25 +76,25 @@ class IsloginController extends Controller {
         }
         // dump($rule == "all");
         // // 超级管理员查询出来所有的顶级数据
-        if ($rule == "all") {
-            $sql = "select id,title from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 1 and add_pid = 0 ";
+        if ($id == 1) {
+            $sql = "select id,title from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 1 and add_pid = 0 order by sort";
             // dump($sql);
             $data = M()->query($sql);
-            // dump($data);
+            // dump($data);die();
             // 循环顶级数据查询自己的数据
             foreach ($data as $k => $v) {
-                $sql = "select id,title,name from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id] ";
+                $sql = "select id,title,name from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id]  order by sort";
                 $son = M()->query($sql);
                 $data[$k]['son'] = $son;
             }
         } else {
-            $sql = "select id,title from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 1 and add_pid = 0 and id in (" . $rule . ")";
+            $sql = "select id,title from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 1 and add_pid = 0 and id in (" . $rule . ")  order by sort";
             // dump($sql);
             $data = M()->query($sql);
             // dump($data);
             // 循环顶级数据查询自己的数据
             foreach ($data as $k => $v) {
-                $sql = "select id,title,name from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id] and id in (" . $rule . ")";
+                $sql = "select id,title,name from " . $pre . "auth_rule where type = 1 and status = 1 and add_type = 2 and add_pid = $v[id] and id in (" . $rule . ")  order by sort";
                 $son = M()->query($sql);
                 $data[$k]['son'] = $son;
             }
@@ -93,7 +122,11 @@ class IsloginController extends Controller {
 //     	dump($sql);
         return M()->query($sql);
     }
-
+  /*
+   * @retuen array()
+   * @author phper丶li  
+   * @param number
+  */
     function getSaveCity($id) {
         if (empty($id))
             return null;
@@ -162,7 +195,12 @@ class IsloginController extends Controller {
         // dump($data);
         return $data;
     }
-
+  /*
+   * @retuen number
+   * @author phper丶li  
+   * @param time()
+   * @parm time  order to generate time 
+  */
     public function getChaBetweenTwoDate($date1, $date2) {
 
         $Date_List_a1 = explode("-", $date1);
@@ -177,7 +215,10 @@ class IsloginController extends Controller {
 
         return $Days;
     }
-
+  /*
+   * @param:int $id
+   * @return  array $id Section of the family tree 
+   */
     public function getTree($cat, $id = 0) {
         $tree = array();
         $cats = $cat->select();
@@ -194,7 +235,11 @@ class IsloginController extends Controller {
 
         return array_reverse($tree);
     }
-
+  /*
+   * @pram:int $id
+   * @retuen $id  Columns of the sons of the tree 
+   * @author phper丶li     
+  */
     public function getCatTree($arr, $id = 0, $lev = 0) {
         $tree = array();
         foreach ($arr as $v) {
@@ -207,17 +252,4 @@ class IsloginController extends Controller {
         return $tree;
     }
 
-    /*   function getdata($table) {
-
-      // dump($page);
-      // dump($pageSize);
-
-      $sql = "select * from " . C('DB_PREFIX') . $table;
-      // dump($sql);die();
-      $data = M()->query($sql);
-      // dump($data);die();
-      return $data;
-      }
-     * 
-     */
 }

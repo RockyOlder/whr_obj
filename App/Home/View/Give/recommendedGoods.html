@@ -50,7 +50,7 @@
                                     if(data != null){                                                                                                                              
                                         var str=""
                                         $.each(data,function(key,val){
-                                            str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                            str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                         })
                                         //   $('#city_list').append(str)
                                         $('#city_list').html(str);
@@ -78,7 +78,7 @@
                                             var inex= this//selected=selected
                                                                                                                                                                       
                                             $.each(data,function(key,val){
-                                                str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                             })
                                             $('#val_list').append(str);
                                             $('#val_list').show(200);
@@ -186,7 +186,7 @@
                                 if(data != null){
                                     var str=""
                                     $.each(data,function(key,val){
-                                        str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                        str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
                                     })
                                     $('#val_list').html(str);
                                     $('#val_list').show(200);
@@ -226,10 +226,10 @@
                 <body style="background: none;">
 
                     <div class="place">
-                        <span>后台管理：</span>
+                       <span>位置：</span>
                         <ul class="placeul">
-                            <li><a href="#">合作商家管理</a></li>
-                            <li><a href="#">添加商品</a></li>
+                            <li><a href="{:U('Index/start','','')}">首页</a></li>
+                            <li>添加或修改</li>
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
@@ -247,7 +247,7 @@
                                                         <select name = 'province'  class="form-control" id="addressAdd" >
                                                             <option class="cheng_in" value="{$region.REGION_ID}">{$region.REGION_NAME}</option>
                                                             <volist name='pro' id = "vo">
-                                                                <option class = "pro_in" value="{$vo.region_id}" >{$vo.region_name}</option>
+                                                                <option class = "pro_in" value="{$vo.REGION_ID}" >{$vo.REGION_NAME}</option>
                                                             </volist>
                                                         </select>
 

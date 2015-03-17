@@ -34,6 +34,21 @@ function _vialg($value) {
     }
     return $res;
 }
+
+function wrt_vialg($value) {
+
+    $sbust = implode(",", $value);
+    $word = D('ProKeyword');
+    $wordlist = $word->where("id=1")->find();
+    $list = json_decode($wordlist['wrt']);
+    foreach ($list as $v) {
+        if (strstr($sbust, $v)) {
+            $res = $v . "是关键字";
+        }
+    }
+    return $res;
+}
+
 function getdistance($lng1,$lat1,$lng2,$lat2){
 	//将角度转为狐度
 	$radLat1=deg2rad($lat1);//deg2rad()函数将角度转换为弧度
@@ -206,4 +221,8 @@ function maskWord($str) {
         $str = str_replace($v, '**', $str);
     }
     return $str;
+}
+function sendEmail($mail,$title,$content,$author){
+    import('Org.Util.Mail');
+    $back = SendMail($mail,$title,$content,$author);
 }

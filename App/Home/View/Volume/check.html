@@ -13,6 +13,7 @@
 		background: url();
 	}
 	#check{
+		background: #eeeeee;
 		padding: 20px;
 		font-family: '微软雅黑';
 		border: 1px solid #C6E5F3;
@@ -48,9 +49,10 @@
 
 <body style="background: none;">
 	<div class="place">
-		<span>后台管理：</span>
+		<span>位置：</span>
 		<ul class="placeul">
-			<li>消费卷管理</li>
+            <li><a href="{:U('Index/start')}">首页</a></li>
+			<li>电子消费劵管理</li>
 			<li>消费卷验证</li>
 		</ul>
 	</div>
@@ -69,11 +71,15 @@
 <script type="text/javascript">
 	function check(){
 		var num = $('input[name=number]').val(); 
-		$.post("{:U('check')}",{'data':num},function(data){
-            if (data) {
-                alert(data['msg']);
-            }                 
-        },'json')
+		if($.trim(num) == ''){
+			alert('请输入消费卷号码！再验证！');
+		}else{
+			$.post("{:U('check')}",{'data':num},function(data){
+	            if (data) {
+	                alert(data['msg']);
+	            }                 
+	        },'json')
+        }
 	}
 </script>
 </html>

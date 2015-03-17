@@ -40,6 +40,7 @@ class JoggleController extends IsloginController {
      * @return [type]                   [description]
      */
     public function insert(){
+        // dump($_POST);die();
         $act = I('get.act');
         $root = $this->getPath();
         switch ($act) {
@@ -60,9 +61,9 @@ class JoggleController extends IsloginController {
         $bool=file_put_contents($path, $json);
         if ($bool) {
            admin_log($msg);
-           $this->success('修改成功',U('index'));
+           $this->ajaxReturn(1);
         }else{
-            $this->error('修改失败');
+           $this->ajaxReturn(0);
         }
         //dump($_POST);die();
     }
@@ -81,6 +82,23 @@ class JoggleController extends IsloginController {
         
         // dump($file);
         return $start;
+    }
+    /**
+     * 验证密码是不是正确
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-02-08T16:01:29+0800
+     * @return [type]                   [description]
+     */
+    public function ajax_password(){
+        $password = md5(I('request.password'));
+
+        $old = change(session('admin.salt'),$password);
+        if ($old == session('admin.password')) {
+            $this->ajaxReturn(1);
+        }else{
+            $this->ajaxReturn(0);
+        }
     }
 
 }

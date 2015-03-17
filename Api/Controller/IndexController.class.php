@@ -1,7 +1,7 @@
 <?php
 namespace api\Controller;
-use Think\Controller;
-class IndexController extends Controller {
+use Api\Controller\CommonController;
+class IndexController extends CommonController {
     public function index(){
     	
         $data=$this->getjson();

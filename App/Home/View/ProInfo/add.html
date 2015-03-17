@@ -13,8 +13,8 @@
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/select-ui.min.js"></script> -->
         <!-- <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script> -->
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
-
-                        <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
+            <script language="javascript" type="text/javascript" src="__PUBLIC__/Js/My97DatePicker/WdatePicker.js"></script>
+            <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
             <script type="text/javascript">
                 $(function(){
                     var img = "";
@@ -53,25 +53,28 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+             <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">公告管理</a></li>
-                <li><a href="#">添加公告</a></li>
+                <li> <a href="{:U('Index/start')}">首页</a> </li>
+                <li>物业信息管理</li>
+                <li><a href="{:U('index')}">资讯列表</a></li>
+                <li>添加资讯</li>
             </ul>
         </div>
         <form action="" method="post" name ="vform">
-            <input type ="hidden" name="nid" value="{$info.nid}">
+            <input type ="hidden" name="id" value="{$info.id}">
                 <input type ="hidden" name="action" value="{$data.action}">
                     <input type ="hidden" name="admin" value={$Think.session.admin.name}>
+                    <input type ="hidden" name="vid" value={$Think.session.admin.village}>
                         <div class="formbody">
 
                             <div class="formtitle"><span>{$data.title}</span></div>
 
                             <ul class="forminfo">
-                                <li><label>公告标题</label><input name="title" id="name" type="text" class="dfinput" value="{$info.title}" /><i id="name_info"></i></li>
-                                <li style="height:50px"><label>公告内容</label></li>
+                                <li><label>资讯标题</label><input name="title" id="name" type="text" class="dfinput" value="{$info.title}" /><i id="name_info"></i></li>
+                                <li style="height:50px"><label>资讯内容</label></li>
                                 <li><textarea rows="5"  cols='40' style="" name ="content"id="intro" value="{$info.content}" >{$info.content}</textarea></li>
-                                <li><label>公告图片</label><div id="list_hidden"></div></li>
+                                <li><label>资讯图片</label><div id="list_hidden"></div></li>
                                 <li style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
                                             <if condition = "$info.pic neq ''">
                                                 <div class="up_list_pic">
@@ -80,13 +83,15 @@
                                                             </div>
                                                             </if>
                                                             </i></li>
-                                                            <li><label>所属开发商</label>
+                                                           <!-- <li><label>所属开发商</label>
                                                                 <select  class="form-control" name = 'proid' style="width: 345px;height: 32px;" >
                                                                     <option class="cheng_in" value="{$info.yid}">{$info.pname}</option>
                                                                     <volist name='pro' id = "list">
                                                                         <option  value="{$list.id}">{$list.pname}</option>
                                                                     </volist>
-                                                                </select></li>
+                                                                </select></li> -->
+                                            <li><label>开始时间</label><input readonly="readonly" name="add_time"  type="text"  class="dfinputInfo" id="d412" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$info.add_time}" /><i>开始时间不能为空</i></li>
+                                            <li><label>结束时间</label><input readonly="readonly" name="pass_time" type="text" class="dfinputInfo" id="d413" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$info.pass_time}" /><i>结束时间不能为空</i></li>
                                                             <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认{$data.btn}"  onclick="javascript:;" /></li>
                                                             </ul>
                                                             <div style="display:none" id="skuNotice" class="sku_tip">

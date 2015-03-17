@@ -1,14 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class HomeController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class HomeController extends  CommonController{
     // 获取城市列表
     public function city()
     {
@@ -166,7 +159,7 @@ class HomeController extends Controller {
             if (!$data) {
                 $sql ="select statue,is_price from ".C('DB_PREFIX')."system";
                 $data = m()->query($sql);
-                S('system',$data,36000); //存入缓存                
+                S('system',$data,600); //存入缓存                
             }
             if ($data[2]['statue'] == 1) { //表示推荐商店需要显示
                 $out['is_show'] = 1;
@@ -179,14 +172,14 @@ class HomeController extends Controller {
                 
                 $time = time();
                 // dump($time);
-                $sql ="select b.id,list_pic,g.title,g.info,g.id from ".C('DB_PREFIX')."give_life_shop as g join ".C('DB_PREFIX')."business as b on g.shopid = b.id where deadline > ".time()." and g.lock=0 and (g.range = '$type' or is_all = 1)";
+                $sql ="select b.id,list_pic,g.title,g.info,g.shopid as id from ".C('DB_PREFIX')."give_life_shop as g join ".C('DB_PREFIX')."business as b on g.shopid = b.id where deadline > ".time()." and g.lock=0 and (g.range = '$type' or is_all = 1)";
                 // dump($sql);
                 if ($data[1]['is_price'] == 1) {
                     $sql .= " order by g.sort desc limit 0,6";
                 }
                 // dump($sql);
                 $good = M()->query($sql);
-                S('homeShop_'.$type,$good,360);//添加进入缓存
+                S('homeShop_'.$type,$good,60);//添加进入缓存
                 $out['data']= $good;
                 
             }else{
@@ -212,7 +205,7 @@ class HomeController extends Controller {
             if (!$data) {
                 $sql ="select statue,is_price from ".C('DB_PREFIX')."system";
                 $data = m()->query($sql);
-                S('system',$data,36000); //存入缓存                
+                S('system',$data,600); //存入缓存                
             }
             if ($data[2]['statue'] == 1) { //表示推荐商店需要显示
                 $good = S('homeShop_'.$type.'_'.$page);//读取商品推荐的缓存
@@ -234,7 +227,7 @@ class HomeController extends Controller {
                 }
                 $good = M()->query($sql);
                 // dump($good);
-                S('homeShop_'.$type.'_'.$page,$good,360);//添加进入缓存
+                S('homeShop_'.$type.'_'.$page,$good,60);//添加进入缓存
                 $out['data']= $good;
                 
             }else{
@@ -297,7 +290,7 @@ class HomeController extends Controller {
                 $out['success'] = 0;
                 $out['data'] = array();
             }
-            S('homeGood_'.$type,$out,360);//存入缓存
+            S('homeGood_'.$type,$out,60);//存入缓存
             $this->ajaxReturn($out);      
         }
         
@@ -555,7 +548,7 @@ class HomeController extends Controller {
     //根据地址获取城市的id
     public function getcityid(){
         $id = I('request.version',1);
-        $city = I('request.cityname',234);
+        $city = I('request.cityname');
         if ($id == 1) {
             $out['success']  = 1;
     

@@ -21,13 +21,15 @@ function initPager(){
 			newUrl=newUrl.replace(patt,"/p/"+$("#gopage_input").val()); //把当前的url地址匹配为查询输入的页码的值并替换掉以前的页码值
 		}else{
 			newUrl=newUrl.replace(/\w+=$|\w+=&/g,""); // g 表示替代所有匹配此正则的 newUrl  \w+= 匹配多个数字、字符或下划线且结尾带个=&号的字符串 或者匹配多个数字、字符或下划线且结尾带=&的字符串
-			newUrl=newUrl.replace(/\?|&|=/g,"/");
+			//newUrl=newUrl.replace(/\?|&|=/g,"/");
 			if(newUrl.indexOf(".html")!=-1){
 				newUrl=newUrl.replace(/\.html/,"/p/"+$("#gopage_input").val()+".html");
 			}else{
 				newUrl=newUrl+"/p/"+$("#gopage_input").val();
 			}
 		}
+            //   if(newUrl.indexOf(".html")!=-1){ location.href=newUrl.replace(/\/\/p\//,"/p/");  }
+         //   alert(newUrl.replace(/\/\/p\//,"/p/"))
 		location.href=newUrl.replace(/\/\/p\//,"/p/");
 	});
 	

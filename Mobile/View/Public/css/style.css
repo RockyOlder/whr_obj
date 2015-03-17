@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0px; margin:0px;}
+body{ width:100%; margin:0 auto; font-family:"微软雅黑";}
+.container{ width:100%; margin:0 auto;}
+.title{ width:300px; margin:0 auto;}
+.title h2{ width:300px; margin:0 auto; text-align:center; height:50px; line-height:50px; font-size:40px; color:#019386; font-weight:600;}
+.menuset{ width:100%; margin:0 auto; padding:25px 15px 15px 15px;background:url(../images/ab--.png) center 70px no-repeat;}
+ul{list-style:none;}
+.menuset .menu{padding-top:2px;width:800px; height:100px; margin:0 auto; }
+.menuset .menu li{float:left; padding:10px 0px;  height:70px; width:240px; text-align:center;}
+.menuset .menu li a{display:block;float:left;color:#666;height:55px;line-height:15px;padding:0 60px;margin-left:2px; text-decoration:none; font-size:16px;}
+.menuset .menu .bg  {background:url(../images/gIco7.png)center 42px no-repeat;color:#666; font-weight:800;}
+.content{width:750px; margin:0 auto;}
+.name{ width:70%; margin:50px 0px 30px 100px;}
+.tel{width:70%; margin:0px 0px 30px 100px;}
+.QQ{width:70%; margin:0px 0px 30px 100px;}
+.postal{width:70%; margin:0px 0px 30px 100px;}
+.content p{color:#666; float:right;text-align:left; width:200px;}
+.con{ width:90%; margin-left:100px; height:35px; margin-top:20px;}
+.province{ float:left; width:200px;}
+ select{ width:120px; height:30px;}
+.describe{ width:80%; margin-left:100px; margin-top:30px;}
+
+.tt{ width:200px; text-align:right;}
+.photo{ width:80%; height:100px; margin-left:100px; margin-top:30px;}
+
+.aaa{ width:300px; text-align:left;}
+.con-con input{ margin-left:300px; margin-bottom:30px; margin-top:10px}
+
+
+.bb{ width:150px; text-align:left;}
+#preview{height:100px;overflow:hidden;}
+#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}

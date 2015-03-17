@@ -3,91 +3,62 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
+<link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+<link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+<link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+<script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
 
-            <script language="javascript">
+<script type="text/javascript" src="/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/kindeditor.js"></script>
+<link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
 
-                function deleteSum(id){
-                    if(confirm("确认删除"))
-                        location.href="/whr/index.php?s=/Home/Business/del/id/"+id
-                }
-            </script>
 
-            <script type="text/javascript">
-                $(document).ready(function(e) {
-                    $(".select1").uedSelect({
-                        width : 345           
-                    });
-                    $(".select2").uedSelect({
-                        width : 167  
-                    });
-                    $(".select3").uedSelect({
-                        width : 100
-                    });
-                });
-                $(function(){
-                    $('.scbtn').bind('click',function(){
-                        $('#from_sub').submit();
-                    });
-                    initPager();
-                });
-            </script>
     </head>
 
 
     <body style="background: none;">
 
         <div class="place">
-            <span>位置：</span>
+
+                <span>位置：</span>
             <ul class="placeul">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">图片列表</a></li>
+                <li><a href="<?php echo U('Index/start');?>">首页</a></li>
+                <li>操作日志</li>
+                <li>服务器异常日志</li>
             </ul>
         </div>
         <div class="rightinfo">
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">
                     <ul class="seachform">
-                        <li><label>名称</label><input name="name" type="text" class="scinput"value="" /></li>
-                        <li><label>店铺地址</label>   <input name="address" type="text" class="scinput" value="" />  </li>
-                        <li><label>分类</label>  
-                            <div class="vocation">
-                                <select class="select3" name = 'parent_type' >
-                                    <option class="pro_into" >请选择</option>
-                                    <?php if(is_array($type)): $i = 0; $__LIST__ = $type;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'parent_type' class = "top_cate" value="<?php echo ($list["type_id"]); ?>"><?php echo ($list["type_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
-                            </div>
-                        </li>
-                        <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" id="like"/></li>
+                        <li><label>开始时间</label><input name="start" type="text" class="scinput"value="" /></li>
+                        <li><label>结束时间</label>   <input name="end" type="text" class="scinput" value="" />  </li>
+                        
+                        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                       
+                        
                     </ul>
                 </div>
                 <table class="imgtable">
                     <thead>
                         <tr>
-                            <th>编号</th>
-                            <th>时间</th>
-                            <th>访问地址</th>
+                            <th width="5%">编号</th>
+                            <th width="10%">时间</th>
+                            <th width="10%">访问地址</th>
                             <th>错误内容</th>
-                            <th>操作</th>
+                            <th width="5%">操作</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /default/ -->
+                                <!--  / -->
                                
                                 <td><?php echo ($vo["id"]); ?></td>
-                                <td><?php echo ($vo["time"]); ?></td>
+                                <td><?php echo (date('Y-m-d H:i:s',$vo["time"])); ?></td>
                                 <td><?php echo ($vo["ip"]); ?></td>
                                 <td><?php echo ($vo["error"]); ?></td>
                                 <td>
@@ -99,21 +70,8 @@
                     </tbody>
 
                 </table>
-                <!--    <div class="pagin">
-                        <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-                        <ul class="paginList">
-                            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-                            <li class="paginItem"><a href="javascript:;">1</a></li>
-                            <li class="paginItem current"><a href="javascript:;">2</a></li>
-                            <li class="paginItem"><a href="javascript:;">3</a></li>
-                            <li class="paginItem"><a href="javascript:;">4</a></li>
-                            <li class="paginItem"><a href="javascript:;">5</a></li>
-                            <li class="paginItem more"><a href="javascript:;">...</a></li>
-                            <li class="paginItem"><a href="javascript:;">10</a></li>
-                            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-                        </ul>
-                    </div>
-                -->
+       <div class="pagin">
+
                 <div id="pager" class="pager">
                     <div class="fanye">
                         <div class="fanye1">
@@ -131,7 +89,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -154,7 +112,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

@@ -1,19 +1,13 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class OrderController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class OrderController extends CommonController {
     // 添加用户地址
     public function address()
     {
       // echo time();die();
         $id = I('request.version',1);
+        $pid = I('request.pid',0,'intval');
           // 获取商店需要的数据
          $arr = array(
             "user_id" =>I('request.userId',0,'intval'),
@@ -21,6 +15,7 @@ class OrderController extends Controller {
             'address' =>I('request.address'),
             "name"    =>I('request.userName'),
             "notice"  =>I('request.notice'),
+            "area"  =>I('request.area'),
           );
           if ($arr['user_id'] == 0) {
               $out['msg'] = C('no_id');
@@ -28,9 +23,19 @@ class OrderController extends Controller {
               $this->ajaxReturn($out);
           }
           if ($id == 1) {
-              $str = formant($arr);
-              $sql = "insert into ".C('DB_PREFIX')."user_address set ".$str;
-              $bool = M()->execute($sql);
+              if ($pid) {
+                $arr['id'] = $pid;
+                $bool = M('user_address')->save($arr);
+                if ($bool) {
+                    $out['success'] = 1;
+                    $out['msg'] ='地址修改成功';
+                }else{
+                    $out['success'] = 0;
+                    $out['msg'] ='地址修改失败';
+                }
+                 $this->ajaxReturn($out);
+              }
+              $bool = M('user_address')->add($arr);
               if ($bool) {
                   $out['success'] = 1;
                   $out['msg'] ='地址添加成功';
@@ -53,7 +58,7 @@ class OrderController extends Controller {
           }          
           // dump($number);
           if ($id == 1) {
-              $sql = "select id,phone,address,name,`default` from ".C('DB_PREFIX')."user_address where user_id = '$userId' and del = '0'";
+              $sql = "select id,phone,area,address,name,`default`,notice from ".C('DB_PREFIX')."user_address where user_id = '$userId' and del = '0'";
               // dump($sql);
               $data = M()->query($sql);
               if (!empty($data)) {
@@ -73,15 +78,11 @@ class OrderController extends Controller {
         $expressId = I('request.expressId',0,'intval');
         $city = I('request.city');
         // $num = I('request.num');
-        $info = I('request.info');
-        // $goods = array('1'=>1,'2'=>2,'3'=>3);
-        // $info = json_encode($goods);
-        // dump($info);die();
-        // $goods = json_encode($goods);
-        // dump($info);
-        // $info = '{"1":1,"2":2,"3":3}';
-        $pro = json_decode($info,true);
+        
+        $number =I('request.number');
+        $number = explode(',', $number);
         // dump($pro);
+        // dump($goodId);die();
         if ($id == 1) {
           $key = array_keys($pro);
           $key = implode(',', $key);
@@ -91,21 +92,29 @@ class OrderController extends Controller {
           // dump($city);die();
          /* dump($goods);
           $garr = explode(',', $goods);*/
+          $goodId = I('request.goodId');        
+          $w = 'goods_id in ('.$goodId.')';//组合出查询的条件
+          $goodId = explode(',', $goodId);
           // 查询商品是否有免运费
-          $data = M('goods')->field('is_free,weight,goods_id')->where($str)->select();
+          $data = M('goods')->field('is_free,weight,goods_id')->where($w)->select();
          
               if (!is_null($data)) {
             // dump($data);
             $weight = 0;
-            // dump($data);
+          //dump($data);
               foreach ($data as $k => $v) { //将数组组合为新的数组
                 // dump($weight);
                   $tem[] = $v['is_free'];    
                   //计算出商品的重量
-                  $id = $v['goods_id'];
-                  // dump($id);
-                  // dump($pro[$id]);
-                  $weight += $pro[$id] * $v['weight'];           
+                  foreach ($goodId as $k1 => $v1) {
+                    if ($v1 == $v['goods_id']) {
+                      $num = $number[$k1];
+                    }
+                  }
+                  //dump($v['goods_id']);
+                  //dump($num);
+                  $temp = $num * $v['weight']; 
+                  $weight += ($temp == 0)?1:$temp;         
               }
               // dump($tem);
               // dump($weight);die();
@@ -127,13 +136,14 @@ class OrderController extends Controller {
                 $express = M('express')->field('price')->where(array('id'=>$expressId))->find(); 
                 $price = $express['price'];
               }
+              // dump($weight);
               $out['price'] = $price * $weight;
+              $out['msg'] = '成功';
               $out['success'] =1;
               $this->ajaxReturn($out);
 
           }
-              // 搜索出用户选择的快递的内容
-            
+          // 搜索出用户选择的快递的内容            
         }    
     }
      // 获取默认收货地址
@@ -202,16 +212,16 @@ class OrderController extends Controller {
           // dump($number);
           if ($id == 1) {
             // 查询是否是默认地址
-            $w = array('id'=>$addressId);
-              $data = M('user_address')->where($w)->select();
-              if (!empty($data)) {
+            $w = array('id'=>$addressId,'default'=>0);
+              $data = M('user_address')->field('id')->where($w)->select();
+              // dump($data);
+              if (empty($data)) {
                 $out['success'] = 0;
                 $out['data'] = $bool;
                 $out['msg'] ='不能删除默认收货地址！';
                 $this->ajaxReturn($out);
               }
-              $sql = "update ".C('DB_PREFIX')."user_address set `del` = 1 where id = $addressId";
-              $bool = M()->execute($sql);
+              $bool = M('user_address')->delete($addressId);
               if ($bool) {                
                   $out['success'] = 1;
                   $out['data'] = $bool;
@@ -254,7 +264,7 @@ class OrderController extends Controller {
     public function orderAdd()
 
     {
-        $id = I('request.version',1);
+        $id = I('request.version',1,'intval');
         $info = I('request.info');
         $cate = I('request.cate',0,'intval');
         // $info = $info;
@@ -263,60 +273,84 @@ class OrderController extends Controller {
          $order = array(
             "user_id" =>I('request.userId',0,'intval'),
             'address' =>I('request.address',0,'intval'),
-            'bill_type'     =>I('request.billType',0,'intval'),            
-            'shop_id'       => I('request.shopId',0,'intval'),
+            'bill_type'     =>I('request.billType',0,'intval'),   
             'express'       => I('request.express',0,'intval'),
+            'freight'       => I('request.fee',0,'intval'),
             'time' =>time(),
             'number' => $number,
             'cate' => 1,
+            'totle'=>I('request.fee',0,'intval'),
           );
         
                     
-          // dump($number);
+          // dump($order);die();
           if ($id == 1) {   
-               if (!$order['user_id'] || !$order['address'] || !$order['shop_id']) {
-              $out['msg'] = C('no_id');
-              $out['data'] = null;
-              $out['success'] = 0;
-              $this->ajaxReturn($out);
-              }       
-              $info = '[{"goodid":"5","number":"1","price":"88"}]';
-              //dump($info);
-              $arr = json_decode($info,true);
-              //dump($arr);
-              // dump($arr);
+               if (!$order['user_id'] || !$order['address']) {
+                  $out['msg'] = C('no_id');
+                  $out['data'] = null;
+                  $out['success'] = 0;
+                  $this->ajaxReturn($out);
+              }
+
+              //$info = '[{"goodid":"5","number":"1","price":"88"}]';
+              $goodId = I('request.goodId');
+              $num = I('request.number');
+              $price = I('request.price');
+              // dump($goodId);
+              $arr = explode(',', $goodId);
+              $arrNum = explode(',',$num);
+              $arrPrice = explode(',', $price);
               $sum_price = 0;
               $weight = 0;
+              // dump($arr);
+              // dump($arrNum);die();
+              $shop_id = M('goods')->field('store_id')->where(array('goods_id'=>$arr[0]))->find();
+              $order[shop_id] = current($shop_id);
+              // dump($order);die();
+              M()->startTrans();
              foreach ($arr as $k => $v) {
               //dump($v);
+                
                 $sql = "select goods_name,list_img,price from ".C('DB_PREFIX')."goods where lgid = $v[goodid]";
                 $field = "goods_name,list_img,price";
-                $w = array('goods_id'=>$v['goodid']);
+                $w = array('goods_id'=>$v);
                 //dump($w);
                 $data = M('goods')->field($field)->where($w)->find();
                 //dump($data);die();
+                
                 if (!empty($data)) {
                   $info = array(
-                    'order_number'  => $number,
-                    'good_id'       => $v['goodid'],
+                    'order_number'  =>$number,
+                    'good_id'       => $v,
                     'good_name'     =>$data['goods_name'],
-                    'price'         =>$v['price'],
+                    'price'         =>$arrPrice[$k],
                     'list_pic'      =>$data['list_img'],
-                    'number'        =>$v['number'],
-                    'totle'         =>$v['number'] * $v['price']
+                    'number'        =>$arrNum[$k],
+                    'totle'         =>$arrNum[$k] * $arrPrice[$k]
                     );
+
+                  // dump($arrNum);
+                  // dump($arrPrice);
+                  //dump($info);die();
                   $bool=M('order_info')->add($info);//将 数据插入订单详情表中
-                  $sum_price += $v['number'] * $v['price'];//记录商品的总价格
-                  // $weith += $v['number'] * $data['weight'];
+                  if (!$bool) {
+                    $bool = false;
+                    return;
+                  }
+                  $order['totle'] +=$info['totle'];//将打个商品的总价计算进入商品订单列表
+                }else{
+                  $bool = false;
                 }
              }
-             $order['totle'] = $sum_price;
-             // $order['totle'] = $sum_price;
-              $bool = M('order')->add($order);
-              if ($bool) {
+              $bool1 = M('order')->add($order);
+              if ($bool && $bool1) {
+                  M()->commit();
+                  $out['data'] = $number;
                   $out['success'] = 1;
                   $out['msg'] ='添加订单成功';
               }else{
+                  M()->rollback();
+                  $out['data'] = null;
                   $out['success'] = 0;
                   $out['msg'] ='添加订单失败';
               }
@@ -340,6 +374,8 @@ class OrderController extends Controller {
         $price = I('request.price');
         $info = $info;
         $number = getOrderId();//获取唯一的订单号
+        $num = $this->getNumber($oid);//获取电子验证码
+                
           // 获取商店需要的数据
          $order = array(
             "user_id" =>$userId,        
@@ -350,8 +386,11 @@ class OrderController extends Controller {
             'number'=>$number,
             'goodid' =>$goodId,
             'price' =>$price,
-            'phone' =>I('request.phone')
+            'phone' =>I('request.phone'),
+            'check_number' =>$num
           );
+          //更新商品销售数量
+          M('life_goods')->where(array('lgid'=>$goodId))->setInc('sold',$sum);
           if ($id == 1) {  
               if (!$userId) {
                 $out['msg'] = C('no_id');
@@ -363,9 +402,11 @@ class OrderController extends Controller {
 
               $bool = M('order')->add($order);
                if ($bool) {
+                  $out['data'] = $number;
                   $out['success'] = 1;
                   $out['msg'] ='添加订单成功';
               }else{
+                  $out['data'] = null;
                   $out['success'] = 0;
                   $out['msg'] ='添加订单失败';
               }
@@ -373,7 +414,7 @@ class OrderController extends Controller {
            } 
      
     }
-    /**
+    /**orderInfo
      * 订单付款
      * @author xujun
      * @email  [jun0421@163.com]
@@ -394,8 +435,17 @@ class OrderController extends Controller {
               $data = array('oid'=>$oid,'statue'=>1);
               if ($type == 1) {//是生活导航的订单
                 $num = $this->getNumber($oid);//获取电子验证码
-                $data['check_number'] = $num;
+                $data['check_number'] = $num; 
+                $mobile = M('order') ->field('phone,price,check_number,shop_id,goodid')->where(array('oid'=>$oid))->find();
+                //查找消费卷的商品信息
+                // 根据商店的id查询商店的电话
+               $b_mobile = M('business')->field('mobile_phone')->where(array('id'=>$mobile['shop_id']))->find();
+                // dump($mobile);die();
+                $content = "您购买的$mobile[price]元【商品名】消费券为：$mobile[check_number],一经验证不能代表消费，不能退款，请你安排好你的验证时间，商家电话：$b_mobile[mobile_phone].客服电话： 400-700-8828<br/>【慧享园】";
+                // dump($content);die();
+                sendMsg($mobile[phone],$content);   //给客户发送提示编码           
               }
+              // dump($data);
               $bool = M('order')->save($data);
               // dump($bool);
               if ($bool) {
@@ -408,6 +458,40 @@ class OrderController extends Controller {
               }
                $this->ajaxReturn($out);
           }       
+    }
+    /**orderInfo
+     * 收货确认
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-09T19:58:37+0800
+     * @return [type]                   [description]
+     */
+     public function receipt()
+    {
+        $id = I('request.version',1);
+        $oid = I('request.orderId',0,'intval');
+          if (!$oid) {
+              $out['msg'] = C('no_id');
+              $out['success'] = 0;
+              $this->ajaxReturn($out);
+          }  
+          if ($id == 1) {
+              $data = array('oid'=>$oid,'statue'=>6);
+              
+              // dump($data);
+              $bool = M('order')->save($data);
+              // dump($bool);
+              $out['data'] = null;
+              if ($bool) {
+                
+                  $out['success'] = 1;
+                  $out['msg'] ='收货确认';
+              }else{
+                  $out['success'] = 0;
+                  $out['msg'] ='收货确认失败';
+              }
+               $this->ajaxReturn($out);
+        }       
     }
     // 取消订单
      public function orderDel()
@@ -444,30 +528,43 @@ class OrderController extends Controller {
               $out['success'] = 0;
               $this->ajaxReturn($out);
           }
+          if ($type == 2) {
+            $type = 5;
+          }
+          if ($type == 3) {
+            $type = 6;
+          }
+          // dump($type);die();
           if ($id == 1) {              
               //$sql = "select * from ".C('DB_PREFIX')."order where  statue = $type and user_id =$uid and is_end = 0 and cate = 1";
               // dump($sql);
               $w= array('statue' => $type , 'user_id' =>$uid , 'is_end' => 0 , 'cate' => 1);
               $bool = M('order')->where($w)->select();
-              // dump($bool);
-              // var_dump($bool);
-              if (is_array($bool) && empty($bool)) {
+              // dump(M('order')->getlastSql());
+              //dump($bool);
+              // var_dump(is_null($bool));die();
+              if (is_null($bool)) {
                   $out['success'] = 1;
                   $out['data'] = null;
                   $out['msg'] ="你没有相应订单";
+                  $this->ajaxReturn($out);
               }
               if (is_array($bool) && !empty($bool)) {
                   foreach ($bool as $k => $v) {
                     
                       $son = M('order_info')->where('order_number='.$v['number'])->select();
                       $v['son'] = $son;
-                      $bool[$k]=$v;
-                    
+                      // 查找出快递的名字
+                      // dump($v['express']);
+                      $v['express_name'] = current(M('express')->field('name')->where(array('id'=>$v['express']))->find());
+                      $bool[$k]=$v;                  
                   }
                   $out['success'] = 1;
+                  $out['msg'] = '成功';
                   $out['sum'] = $bool;
               }elseif($bool === false){
                   $out['success'] = 0;
+                  $out['msg'] = '失败';
                   $out['data'] = null;
               }
                $this->ajaxReturn($out);
@@ -485,7 +582,7 @@ class OrderController extends Controller {
               $this->ajaxReturn($out);
           }
           if ($id == 1) {              
-              $sql = "select * from ".C('DB_PREFIX')."order where user_id =$uid and is_end = 0 and cate = $type";
+              $sql = "select * from ".C('DB_PREFIX')."order where user_id =$uid and is_end = 0 and cate = $type order by time desc";
               // dump($sql);
               $bool = M()->query($sql);
               // dump($bool);
@@ -514,6 +611,61 @@ class OrderController extends Controller {
               }elseif($bool === false){
                   $out['success'] = 0;
                   $out['data'] = null;
+              }
+               $this->ajaxReturn($out);
+          }      
+    }
+     // 获取单个订单
+     public function orderInfo()
+    {
+         $id = I('request.version',1);
+        $oid = I('request.orderId',0,'intval');
+          if ($oid == 0) {
+              $out['msg'] = C('no_id');
+              $out['success'] = 0;
+              $this->ajaxReturn($out);
+          }
+          if ($id == 1) { 
+              // dump($sql);
+              $data = M('order')->where(array('oid'=>$oid))->find();
+              // dump($data);
+              // var_dump($bool);
+              $out['success'] = 1;
+              $out['msg'] = '成功！';
+              if (empty($data)) {                  
+                  $out['data'] = null;
+                  $out['msg'] ="你没有相应订单";
+              }else{
+                    if ($data['cate'] == 0) { //生活导航的订单
+                    $son = M('life_goods')->field('list_pic,lgname')->where(array('lgid'=>$data['goodid']))->find();
+                    $son['price'] = $data['price'];
+                    $son['oid'] = $data['oid'];
+                    $son['sum'] = $data['sum'];
+                    $son['statue'] = ($data['statue'] == 0)?'未付款':'付款成功';
+                    $son['number'] = $data['number'];
+                    $son['time'] = date('Y-m-d H:i:s',$data['add_time']);
+                    $son['check_number'] = $data['check_number'];
+                    $son['check_statue'] =  ($data['check_statue'] == 0)?'未验证':'已使用';
+                    // dump($son);die();
+                    $out['data'] = $son;
+                  }else{
+                    // dump($data);die();
+                    $box = M('user_address')->field('area,address,name,phone')->where(array('id'=>$data['address']))->find();
+                    $box['oid'] = $data['oid'];
+                    $box['number'] = $data['number'];
+                    $box['freight'] = $data['freight'];
+                    $box['statue'] = $data['statue'];
+                    $box['totle'] = $data['totle'];
+                    $box['express_num'] = $data['express_num'];
+                    $express = M('express')->field('id,name')->where(array('id'=>$data['express']))->find();
+                    $box[express] = $express[name];
+                    $box[expressId] = $express[id];
+                    $son = M('order_info')->field('good_id,list_pic,price,number,good_name,totle')->where('order_number='.$data['number'])->select();
+                    // dump(M('order_info')->getlastSql());                    
+                    $box['info'] = $son;
+                    // dump($box);die();
+                    $out['data'] = $box;
+                  }                  
               }
                $this->ajaxReturn($out);
           }      

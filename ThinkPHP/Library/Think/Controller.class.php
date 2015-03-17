@@ -14,11 +14,15 @@ namespace Think;
  */
 abstract class Controller {
 
+    
+    public $sessionObjectSave  = null;
+
     /**
      * 视图实例对象
      * @var view
      * @access protected
      */    
+
     protected $view     =  null;
 
     /**

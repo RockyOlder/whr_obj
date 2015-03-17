@@ -1,14 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class CollectController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class CollectController extends CommonController {
     // 添加商店收藏
     public function addshop()
     {

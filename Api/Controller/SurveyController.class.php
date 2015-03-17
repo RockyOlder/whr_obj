@@ -1,21 +1,16 @@
 <?php
 namespace Api\Controller;
 use Think\Controller;
-class SurveyController extends Controller {
+use Api\Controller\CommonController;
+class SurveyController extends CommonController {
   public $tem=array();
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
  
 
         // 社区调查列表
     public function index(){
         $id = I('request.version',1,'intval');
         $proId = I('request.propertyId',0,'intval');
+        $vid = I('request.vid',0,'intval');
         $userId = I('request.userId',0,'intval');
         $page = I('request.page',1,'intval');
         $pageSize = I('request.pageSize',20,'intval');
@@ -31,7 +26,7 @@ class SurveyController extends Controller {
         if ($id == 1) {
               $table = "pro_survey";
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
-            $where = "proid = $proId and sheild = 0 and pass_time >".time();
+            $where = "vid in (0,$vid) and proid = $proId and sheild = 0";// and pass_time >".time();
             //dump($userId != 0);
             if ($userId != 0) {
                 // 查找用户的参加的调查编号
@@ -84,7 +79,7 @@ class SurveyController extends Controller {
         if ($id == 1) {
             $table = "pro_fetch";
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
-            $where = "proid = $proId and sheild = 0 and pid = 0 and pass_time >".time();
+            $where = "vid = $proId and sheild = 0 and pid = 0";
             if ($userId) {
               $where .= " and uid =".$userId;
             }
@@ -93,7 +88,7 @@ class SurveyController extends Controller {
             $field = "id,add_time,title,content,pic,author";
             // dump($pageSize);
 
-            $data = M($table)->field($field)->where($where)->order('add_time desc')->limit($page)->select();
+            $data = M($table)->field($field)->where($where)->order('add_time asc')->limit($page)->select();
             if (is_array($data)) {
               $out['success'] = 1;
               $out['msg'] = "获取数据成功";
@@ -360,6 +355,7 @@ class SurveyController extends Controller {
               $arr = array(
                 'uid'=>$userId,
                 'proid'=>I('request.propertyId',0,'intval'),
+                'vid'=>I('request.villageId',0,'intval'),
                 'author'=>I('request.userName'),
                 'content'=>$content,
                 'title'=>$title,
@@ -368,9 +364,19 @@ class SurveyController extends Controller {
                 'pass_time'=>strtotime($passTime),
                 'phone' => I('request.phone')
                 );
-              if (!empty($_FILES)) {                
-                $arr['pic'] = uploud();
-              }
+              //查找用户所在小区
+            $vid = M('user')->field('village_id,property_id')->where(array('user_id'=>$arr['uid']))->find();
+            // dump($vid);
+            if ($vid) {
+              $arr['proid'] = $vid['property_id'];
+              $arr['vid'] = $vid['village_id'];
+            }
+              $pic = uploadMore();
+              if (!is_null($pic)) {
+                $arr['more_pic'] = $pic;
+                $pic = json_decode($pic,true);
+                $arr['pic']=$pic[0]['path'];
+              }              
               // dump($arr);die();
                 $data = M($table)->field('id')->where($arr)->find();
                 // dump(!is_null($data));
@@ -414,7 +420,7 @@ class SurveyController extends Controller {
               $arr = array('id'=>$fid);
               /*//更新浏览量
               M($table)->where($arr)->setInc('views');*/
-              $field = "id,add_time,title,content,pic,author,phone,price";
+              $field = "id,add_time,title,content,pic,author,phone,price,more_pic";
               $data = M($table)->field($field)->where($arr)->find();
             if ($data) {              
               $data['add_time'] = date('Y-m-d',$data['add_time']);              
@@ -437,68 +443,7 @@ class SurveyController extends Controller {
             $this->ajaxReturn($out);
         }
     } 
-    
-    // /**
 
-    // *获取子集评论
-
-    // */
-    // private function getSon($table,$son){
-    //     $num = 1;
-    //     foreach ($son as $k => $v) {
-          
-    //         $son = $this->initSon($table,$v);
-    //         if ($son) {
-    //           foreach ($son as  $m) {
-    //             $m['level'] = $num++;
-    //             $tem[] =$m;
-
-    //           }
-    //         }else{
-    //           $v['level'] = $num++;
-    //           $tem[] = $v;
-    //         }
-            
-    //     }
-    //     return $tem;
-    // }
-    // /**
-
-    //  * 邻里拼车获取评论数据
-
-    //  */
-    // private function initSon($table,$v){
-    //     if (!isset($v['content'])) {
-    //       return null;
-    //     }        
-    //     //查找该回复是否有楼主回复
-    //     $w1=array('pid'=>$v['id']);
-    //     $field = "id,content,add_time,author,uid,type";
-    //     $next = M($table)->field($field)->where($w1)->find();
-    //     // dump($next);//die();
-    //     if ($next) {
-    //       $next['add_time'] = date('Y-m-d H:i:s',$next['add_time']);
-    //       $w=array('user_id'=>$next['uid']);
-    //       $face = M('user')->field('face')->where($w)->find();
-
-    //       $next['face'] = current($face);
-    //       $next['level'] = 2;
-    //       $next['ptime'] = date('Y-m-d H:i:s',$v['add_time']);
-    //       $next['pauthor'] = $v['author'];
-    //       $next['pcontent'] = $v['content'];
-    //       $next['son'] = $this->initSon($next);
-    //       $tem[] = $next;
-    //     }else{
-    //       $v['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
-    //       $w=array('user_id'=>$v['uid']);
-    //       $face = M('user')->field('face')->where($w)->find();
-    //       $v['face'] = current($face);
-    //       // return false;
-    //       $tem[] = $v;
-    //     }
-    //     return $tem;
-        
-    // }
     /**
 
     *获取子集评论
@@ -566,5 +511,45 @@ class SurveyController extends Controller {
         }
         
     }
+            /**
+         
+         * //单张图片上传的方法
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-01-20T08:50:38+0800
+         * @return [type]                   [description]
+         
+         */
+function uploud(){
+    if (!empty($_FILES)) 
+        {
+         $config = array(
+              'maxSize' => 3145728,
+              'rootPath' => './Uploads/',
+              'savePath' => 'list/',
+              'saveName' => array('uniqid',''),
+              'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+              'autoSub' => true,
+              'subName' => array('date','Ymd'),
+              );
+
+          $upload = new \Think\Upload($config);// 实例化上传类                  
+          $info = $upload->upload();
+          $image = new \Think\Image();
+          // dump($info);
+          foreach($info as $file) {
+              $thumbWidth = array('url'=>250);
+              $thumb_file = './Uploads/' . $file['savepath'] . $file['savename'];
+              foreach ($thumbWidth as $k=> $v) {
+                 $save_path = './Uploads/' .$file['savepath']. $v."_" . $file['savename'];
+                  $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
+                  $out='http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/Uploads/'.$file['savepath']. $v.'_' .$file['savename'];     
+              }
+         }
+          return $out;         
+      }else{
+        return '';
+      }
+  }
 
 }

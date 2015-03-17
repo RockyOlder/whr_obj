@@ -25,9 +25,9 @@ $(function(){
 
     <div class="topleft" style="width:750px;">
     <a href="{:U('Index/index','','')}" target="_parent"><img src="{$Think.session.admin.top_logo}" title="系统首页" / style="float:left; margin-right:20px;"></a>
-    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;">{$Think.session.admin.top_name}后台管理系统</p>
+    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;">{$Think.session.admin.top_name}</p>
     </div>
-    <div style="position: absolute;right:300px;top:50px;text-align:center;font-size:16px;color:#fff">今天是{$time|date="Y年m月d日 H时",###}</div>
+    <div style="position: absolute;right:300px;top:60px;text-align:center;font-size:16px;color:#fff">今天是{$time|date="Y年m月d日 H时",###}</div>
         
     <!-- <ul class="nav">
     <li><a href="{:U('start')}" target="rightFrame" class="selected"><img src="__PUBLIC__/Images/top/shouye.png"><h2>首页</h2></a></li>
@@ -39,13 +39,13 @@ $(function(){
      
     <div class="topright">    
     <ul>
-    <li><span><img src="__PUBLIC__/Images/help.png"title="帮助"  class="helpimg"/></span><a href="http://120.24.215.150/mobile.php?s=help" target="_bank">帮助</a></li>
-    <li><a href="http://120.24.215.150/mobile.php?s=help/about" target="_bank">关于我们</a></li>
+    <li><span><img src="__PUBLIC__/Images/help.png"title="帮助"  class="helpimg"/></span><a href="{:U('Help/index')}" target="_parent">帮助</a></li>
+    <li><a href="{:U('Help/about')}" target="_parent">关于我们</a></li>
     <li><a href="{:U('Index/loginout','','')}" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">
-    <span>{$Think.session.admin.name}</span>
+    <span>{$Think.session.admin.true_name}</span>
     <i>欢迎你！</i>
     <!-- <b>5</b> -->
     </div>    

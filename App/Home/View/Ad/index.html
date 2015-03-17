@@ -11,7 +11,8 @@
             <script type="text/javascript" src="__PUBLIC__/Js/bootstrap.min.js"></script>
             <script type="text/javascript" src="__PUBLIC__/Js/artDialog.js"></script>
             <link id="artDialogSkin" href="__PUBLIC__/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
-
+            <script type="text/javascript" src="__PUBLIC__/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <link href="__PUBLIC__/Css/topShow.css" rel="stylesheet" type="text/css" />
             <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
                 <script type="text/javascript" type="text/javascript">
                     function deleteSum(id){
@@ -19,6 +20,7 @@
                             location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
                     }
                     function cats_Shop(id) {
+                    
                         art.dialog({
                             content:'你确定要删除？',
                             title: '确定框',  
@@ -32,7 +34,7 @@
                         function(){
                             var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
                             if(msg){
-                                location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
+                                location.href=$("#url_ajaxCalendar").val()+id
                                 return false;
                             }        
                         },function(){
@@ -61,6 +63,14 @@
                         });  
                     }  
                     $(function(){
+                        $( document ).tooltip({
+                            track: true,
+                            width: "100px",
+                            position: {
+                                my: "left+5 bottom-5", 
+                                at: "center top"
+                            }
+                        });
                         initPager();   
                     });
                 </script>
@@ -72,15 +82,20 @@
                     form ul li{float: left;width: 110px;line-height: 25px;text-align: center;}
                     form ul input{border: 1px solid #ccc;width: 100px;}
                     form ul select{border: 1px solid #ccc;width: 100px;}
+                    .th_default{padding: 0 3px;}
+                    .redclss{ color: red;}
+                    #ig_primary{float: right; margin-top: 3px;}
+                    .divBtn {position:relative;display:inline-block;padding:3px;cursor:pointer}
+                    .tablelist td{line-height:35px; text-indent: 10px; border-right: dotted 1px #c7c7c7;}
                 </style>
 
                 <body style="background: none;">
-
+                    <input type="hidden" value="__CONTROLLER__/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
-                        <span>后台管理：</span>
+                      <span>位置： </span>
                         <ul class="placeul">
-                            <li><a href="#" id="xasda">开发商管理</a></li>
-                            <li><a href="#" id="nidaye">开发商列表</a></li>
+                           <li><a href="{:U('Index/start','','')}">首页</a></li>
+                            <li>广告列表</li>
                         </ul>
                     </div>
 
@@ -94,7 +109,7 @@
                         <table class="tablelist">
                             <thead>
                                 <tr>
-                                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
+
                                     <th>图片</th>
                                     <th>广告名称</th>
                                     <th>浏览量</th>
@@ -102,14 +117,14 @@
                                     <th>购买数</th>
                                     <th>开始时间</th>
                                     <th>结束时间</th>
-                                    <th>操作</th>
+                                    <th colspan="2">操作</th>
                                 </tr>
                             </thead>
 
                             <tbody id="table_ajax_list">
                                 <volist name="data" id ="vo">
                                     <tr>
-                                        <td><input name="num" type="checkbox" value="" /></td>
+
                                         <td class="imgtd"><img src="{$vo.pic}" width="50px"/></td>
                                         <td>{$vo.ad_name}</td>
                                         <td>{$vo.skim}</td>
@@ -117,11 +132,9 @@
                                         <td>{$vo.buy}</td>
                                         <td>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
                                         <td>{$vo.end_time|date="Y-m-d H:i:s",###}</td>      
-                                        <td>
-                                            <a href="{:U('add',array(id=>$vo['ad_id']),'')}" class="tablelink">修改</a>  <!--  href="{:U('del',array(id=>$vo['id']),'')}" onclick="if(confirm('确认删除')){return true}else{return false}" -->
 
-                                            <a  class="tablelink" class="love_obj" onclick="return cats_Shop({$vo.ad_id})" > 删除</a>
-                                        </td>
+                                        <td width="20px" class="th_default" align="center"><a href="{:U('add',array(id=>$vo['ad_id']),'')}" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td>
+                                        <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除"onclick="return cats_Shop({$vo.ad_id})"><span class="ui-icon ui-icon-minus"></span></div></td>
                                     </tr> 
 
                                 </volist>    

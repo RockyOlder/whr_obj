@@ -42,6 +42,20 @@ define('APP_NAME','Api');
 // 定义常亮用来判断是否为接口链接
 define('IS_API', True);
 // 引入ThinkPHP入口文件
+// var_dump('<pre>');
+// var_dump($_SERVER['REQUEST_URI']);
+// var_dump('</pre>');die();
+$bool = strpos($_SERVER['REQUEST_URI'], 'api.php/Recharge/pay');
+if ($bool) {
+	$str = $_SERVER['REQUEST_URI'];
+	$str = str_replace('api.php/Recharge/pay', 'api.php?s=Recharge/pay', $str);
+	$str = str_replace('/version/', '&version=', $str);
+	$str = str_replace('/type/', '&type=', $str);
+	$str = str_replace('/number/', '&number=', $str);
+	var_dump($str);die;
+	$_SERVER['REQUEST_URI'] = $str;
+}
+// die();
 // require './ThinkPHP/ThinkPHP.class.php';
 require './ThinkPHP/ThinkPHP.php';
 // 亲^_^ 后面不需要任何代码了 就是如此简单

@@ -1,21 +1,13 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class HotalController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class HotalController extends CommonController {
     // 酒店列表
     function hotalList(){
         //$this->admin_log('你访问网页了');
         $id = I('request.version',1,'intval');
-        if ($id == 1) {
-            
-            //初始化携程的常亮
+        if ($id == 1) {            
+        //初始化携程的常亮
         $this->initDefine();
         // 引入携程的实例化类
         import("Org.Ctrip.class.CU");
@@ -23,11 +15,13 @@ class HotalController extends Controller {
         $cu = new \CU('group','SearchLife.php');
         // dump($cu);
         //dump($_REQUEST);
-        $this->admin_log(json_encode($_REQUEST));
         //$this->admin_log('城市：'.$_GET['city'].'/关键字：'.$_GET['keyword']);
         // 第二个参数为返回类型参数，支持string，json，xml，array，object，缺省默认执行对应方法中的respond_xml
         $_POST['city'] = I('request.city');
         $_POST['keyword'] = I('request.keyword');
+        $_POST['sort'] = I('request.sort');
+        $_POST['page'] = I('request.page');
+        $_POST['pageSize'] = I('request.pageSize');
         $rt = $cu->SearchLife($_POST,'array');
         //dump($rt);
         $data = $rt['SearchProductRS']['GroupProductInfoList']['GroupProductInfo']; 
@@ -45,6 +39,96 @@ class HotalController extends Controller {
                 );
                 //dump($temp);
 
+            }
+            $out['data'] = $temp;
+            $out['success']  = 1;
+            $out['msg'] = '成功';
+            $this->ajaxReturn($out);
+        }
+        
+    }
+    // 酒店列表
+    function hotal(){
+        //$this->admin_log('你访问网页了');
+        $id = I('request.version',1,'intval');
+        if ($id == 1) {            
+        //初始化携程的常亮
+        $this->initDefine();
+        // 引入携程的实例化类
+        import("Org.Ctrip.class.CU");
+        //要导入的xls文件，位于根目录下的Public文件夹
+        $cu = new \CU('group','SearchHotal.php');
+        // dump($cu);die();
+        // dump($cu);
+        //dump($_REQUEST);
+        //$this->admin_log('城市：'.$_GET['city'].'/关键字：'.$_GET['keyword']);
+        // 第二个参数为返回类型参数，支持string，json，xml，array，object，缺省默认执行对应方法中的respond_xml
+        // $_POST['city'] = I('request.city');
+        // $_POST['keyword'] = I('request.keyword');
+        // $_POST['sort'] = I('request.sort');
+        // $_POST['page'] = I('request.page');
+        // $_POST['pageSize'] = I('request.pageSize');
+        $rt = $cu->SearchHotal($_POST,'array');
+        // dump($rt);
+        $data = $rt['GroupProductListResponse']['GroupDataList']['GroupProductListEntity']; 
+        //dump($data);      
+            foreach ($data as $k => $v) {
+                // dump($v);die();
+                $temp[]=array(
+                    'hotelName'=>$v['Name'],
+                    'url'=>$v['OUrl'],
+                    'price'=>$v['Price'],
+                    'VendorInfos'=>$v['Description'],
+                    'pic'=>$v['Pictures'],
+                    'type'=>$v['ProductItemType'],
+                );
+                // dump($temp);
+
+            }
+            $out['data'] = $temp;
+            $out['success']  = 1;
+            $out['msg'] = '成功';
+            $this->ajaxReturn($out);
+        }
+        
+    }
+     // 酒店列表
+    function group(){
+        //$this->admin_log('你访问网页了');
+        $id = I('request.version',1,'intval');
+        if ($id == 1) {            
+        //初始化携程的常亮
+        $this->initDefine();
+        // 引入携程的实例化类
+        import("Org.Ctrip.class.CU");
+        //要导入的xls文件，位于根目录下的Public文件夹
+        $cu = new \CU('group','SearchGroup.php');
+        // dump($cu);die();
+        // dump($cu);
+        //dump($_REQUEST);
+        //$this->admin_log('城市：'.$_GET['city'].'/关键字：'.$_GET['keyword']);
+        // 第二个参数为返回类型参数，支持string，json，xml，array，object，缺省默认执行对应方法中的respond_xml
+        // $_POST['city'] = I('request.city');
+        // $_POST['keyword'] = I('request.keyword');
+        // $_POST['sort'] = I('request.sort');
+        // $_POST['page'] = I('request.page');
+        // $_POST['pageSize'] = I('request.pageSize');
+        // dump($_POST);die();
+        $rt = $cu->SearchGroup($_POST,'array');
+        // dump($rt);
+        $data = $rt['SearchProductRS']['GroupProductInfoList']['GroupProductInfo']; 
+        //dump($data);      
+            foreach ($data as $k => $v) {
+                // dump($v);die();
+                $temp[]=array(
+                    'hotelName'=>$v['@attributes']['HotelName'],
+                    'url'=>$v['@attributes']['ProductURL'],
+                    'ProductID'=>$v['@attributes']['ProductID'],
+                    'price'=>$v['ProductPrice']['SalePrice']["@attributes"]['Price'],
+                    'VendorInfos'=>$v['Descriptions']['Description']['Content']["Text"],
+                    'pic'=>$v['ProductPictures']['ProductPicture'][1]['Content']['URL'],
+                    'start'=>$v['ProductScores']['CommentScore'],
+                );
             }
             $out['data'] = $temp;
             $out['success']  = 1;

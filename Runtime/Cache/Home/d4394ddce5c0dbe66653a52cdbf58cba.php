@@ -3,12 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
 
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
                 <script type="text/javascript">
                     $(function(){
                         function setout(){
@@ -23,7 +23,8 @@
                             var bValid = true;
                             bValid = bValid && checkLength( $("#name"), "楼盘名字", 2, 16 );
                             bValid = bValid && checkEmpty( $("#info"), "楼盘不能为空！" );
-                            bValid = bValid && checkEmpty( $("#developer_id"), "开发商不能为空！" );
+                                 $("#info").removeClass('ui-state-error')
+                         //   bValid = bValid && checkEmpty( $("#developer_id"), "开发商不能为空！" );
                             if(bValid==false){ setout(); }
                             return bValid;
                         }
@@ -83,11 +84,11 @@
                                         <ul class="forminfo">
                                             <li><label>楼盘名字</label><input name="name" id="name" type="text" class="dfinput" value="<?php echo ($info["name"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
                                             <li><label>楼盘信息</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="info" id="info" value="<?php echo ($info["info"]); ?>"><?php echo ($info["info"]); ?></textarea><i>描述</i></li>
-                                            <li><label>所属开发商</label>
+                                         <!--   <li><label>所属开发商</label>
                                                 <select  class="form-control" name = 'developer_id' id="developer_id" style="width: 345px;height: 32px;" >
                                                     <option class="cheng_in" value="<?php echo ($info["did"]); ?>"><?php echo ($info["dname"]); ?></option>
                                                     <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($list["id"]); ?>"><?php echo ($list["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                                </select></li>
+                                                </select></li> -->
                                             <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
                                         </ul>
                                         <div style="display:none" id="skuNotice" class="sku_tip">

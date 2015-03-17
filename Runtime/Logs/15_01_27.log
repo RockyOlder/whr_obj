@@ -1,0 +1,48 @@
+[ 2015-01-27T16:26:30+08:00 ] 183.12.246.154 /api.php?s=Home/hobby&user_id=1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000061s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:30+08:00 ] 183.12.246.154 /api.php?s=Home%2Fgetcityid&cityname=%E6%B7%B1%E5%9C%B3
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000054s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:30+08:00 ] 183.12.246.154 /api.php?s=Home/homeShopAll
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000048s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:31+08:00 ] 183.12.246.154 /api.php?s=Home/homeGood
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000056s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:35+08:00 ] 183.12.246.154 /api.php?s=Home/cityArea&cityid=null
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000056s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:37+08:00 ] 183.12.246.154 /api.php?s=Home%2Fad&version=1&type=2
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000079s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:37+08:00 ] 183.12.246.154 /api.php?s=vip%2Findex&version=1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000053s ]
+ERR: 没有定义数据库配置
+
+[ 2015-01-27T16:26:37+08:00 ] 183.12.246.154 /api.php?s=vip/vipCate
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000047s ]
+ERR: 没有定义数据库配置
+

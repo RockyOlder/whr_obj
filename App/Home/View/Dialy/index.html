@@ -13,15 +13,8 @@
             <script type="text/javascript" src="__PUBLIC__/Js/jquery.idTabs.min.js"></script>
             <script type="text/javascript" src="__PUBLIC__/Js/select-ui.min.js"></script>
             <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script>
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
 
-            <script language="javascript">
-
-                function deleteSum(id){
-                    if(confirm("确认删除"))
-                        location.href="/whr/index.php?s=/Home/Business/del/id/"+id
-                }
-            </script>
 
             <script type="text/javascript">
                 $(document).ready(function(e) {
@@ -48,29 +41,25 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>位置：</span>
+
+                <span>位置：</span>
             <ul class="placeul">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">图片列表</a></li>
+                <li><a href="{:U('Index/start')}">首页</a></li>
+                <li>日志管理</li>
+                <li>管理员操作日志</li>
             </ul>
         </div>
+
         <div class="rightinfo">
-            <form action="" method="post" name ="vform" id="from_sub">
+           <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">
                     <ul class="seachform">
-                        <li><label>名称</label><input name="name" type="text" class="scinput"value="" /></li>
-                        <li><label>店铺地址</label>   <input name="address" type="text" class="scinput" value="" />  </li>
-                        <li><label>分类</label>  
-                            <div class="vocation">
-                                <select class="select3" name = 'parent_type' >
-                                    <option class="pro_into" >请选择</option>
-                                    <volist name='type' id = "list">
-                                        <option name = 'parent_type' class = "top_cate" value="{$list.type_id}">{$list.type_name}</option>
-                                    </volist>
-                                </select>
-                            </div>
-                        </li>
-                        <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" id="like"/></li>
+                        <li><label>开始时间</label><input name="start" type="text" class="scinput"value="" /></li>
+                        <li><label>结束时间</label>   <input name="end" type="text" class="scinput" value="" />  </li>
+                        
+                        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                       
+                        
                     </ul>
                 </div>
                 <table class="imgtable">
@@ -134,7 +123,7 @@
                     </div>
 
                 </div>
-            </form>
+            
 
 
 

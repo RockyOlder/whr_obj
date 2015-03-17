@@ -13,7 +13,7 @@
             <script type="text/javascript" src="__PUBLIC__/Js/jquery.idTabs.min.js"></script>
             <script type="text/javascript" src="__PUBLIC__/Js/select-ui.min.js"></script>
             <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="__PUBLIC__/Js/kindeditor.js"></script>
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/bootstrap.min.css">
 
             <script language="javascript">
 
@@ -48,9 +48,10 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>位置：</span>
+                <span>位置：</span>
             <ul class="placeul">
-                <li>电子消费卷</li>
+                <li><a href="{:U('Index/start')}">首页</a></li>
+                <li>电子消费劵管理</li>
                 <li>消费卷列表</li>
             </ul>
         </div>
@@ -59,6 +60,7 @@
                 <div  id="tab2" class="tabson">
                     <ul class="seachform">
                         <li><label>订单号码</label>   <input name="number" type="text" class="scinput" value="" />  </li>
+                        <li><label>消费卷号码</label>   <input name="check_number" type="text" class="scinput" value="" />  </li>
                         <li><label>消费状态</label>  
                             <div class="vocation">
                                 <select class="select3" name = 'statue' >
@@ -77,13 +79,13 @@
                     <thead>
                         <tr>
                             <th>订单号</th>
-                            <!-- <th>付款状态</th> -->                
+                            <th>付款状态</th>              
                             <th>消费金额</th>
                             <th>电子消费卷</th>
                             <th>是否消费</th>
                             <th>买家电话</th>
                             <th>生成时间</th>
-                            <th>操作</th>
+                           <!--  <th>操作</th> -->
                         </tr>
                     </thead>
 
@@ -92,11 +94,9 @@
                             <tr>
                                
                                 <td>{$vo.number}</td>
-                                <!-- <td>{$vo.statue}
-                                    <if  condition="$vo.statue eq 0">未付款</if>
-                                    <if  condition="$vo.statue eq 1">已经付款</if>
-                                    <if  condition="$vo.statue eq 2">已经付款</if>
-                                </td> -->
+                                <td>
+                                    <if  condition="$vo.statue eq 0">未付款<else/>已经付款</if>
+                                </td>
                                 <td>{$vo.totle}</td>
                                 <td>{$vo.check_number}</td>
                                 <td>
@@ -111,8 +111,8 @@
                                 <td>
                                     
                                     
-                                    <a href="{:U('upload',array(id=>$vo['id']),'')}" class="btn btn-primary">编辑</a>
-                                    <a href="{:U('del',array(id=>$vo['id']),'')}"onclick="if(confirm('确认删除')){return true}else{return false}" class="btn btn-danger"> 删除</a>
+                                    <!-- <a href="{:U('upload',array(id=>$vo['id']),'')}" class="btn btn-primary">编辑</a>
+                                    <a href="{:U('del',array(id=>$vo['id']),'')}"onclick="if(confirm('确认删除')){return true}else{return false}" class="btn btn-danger"> 删除</a> -->
                                 </td>
                             </tr>
                         </volist>  

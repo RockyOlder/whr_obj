@@ -24,7 +24,7 @@ html, body { padding: 0; margin: 0; background: #f8f8f8;}
       </div>
     </div>
     <div data-role="content">
-        <p>{$info.intro}</p>
+        <?php echo $info['intro'];?>
     </div>
 </div>
 <div data-role="page" id = "pageTwo"> 
@@ -40,11 +40,10 @@ html, body { padding: 0; margin: 0; background: #f8f8f8;}
       <div data-role="navbar">
         <div data-role="content">
             
-              <volist name="info.type" id ="vo" key="k">
-                
-                <p style="dispaly:block">{$vo}</p>
+              <?php foreach ($type as $k => $v) {
+                  echo "<p style='dispaly:block'>$k$v</p>";
+              }?>
 
-              </volist>
             
             <!--<table>
               <volist name="info.type" id ="vo" key="k">

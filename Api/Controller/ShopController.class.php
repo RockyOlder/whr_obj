@@ -1,14 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class ShopController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class ShopController extends CommonController {
     // 获取商店列表
     public function slist()
     {
@@ -31,7 +24,16 @@ class ShopController extends Controller {
           $limit = "limit ".($page-1)*$pageSize.",".$pageSize;
           $out['success']=1;
           if ($id == 1){
-               $sql = "SELECT id,name,list_pic,star,type,des,latitude,longitude FROM ".C('DB_PREFIX')."business WHERE";
+               $sql = "SELECT id,name,list_pic,star,type,des,latitude,longitude ";
+               if ($sort == '1') { // 如果是按照离我最近来排序
+                  $latitude = I('request.latitude');
+                  $longitude = I('request.longitude');
+                  $sql .=",ROUND(6378.138*2*ASIN(SQRT(POW(SIN((".$latitude."*PI()/180-latitude*PI()/180)/2),2)+COS(".$latitude."*PI()/180)*COS(latitude*PI()/180)*POW(SIN((".$longitude."*PI()/180-longitude*PI()/180)/2),2)))*1000)
+                               AS
+                               distent ";
+               }
+               
+               $sql .= " FROM ".C('DB_PREFIX')."business WHERE";
                $where = " `lock` = 0 ";
                if ($type != 0 ) $where .= "and (parent_type = $type or type = $type) "; 
                if ($city_id != 0 && in_array($city_id, array('2','3','10','23'))) {
@@ -62,6 +64,9 @@ class ShopController extends Controller {
                switch ($sort) {
                  case '0':
                        $sql .= " order by sort desc ";
+                   break;
+                 case '1':
+                       $sql .= " order by distent asc ";
                    break;
                 
                  case '2':
@@ -97,7 +102,7 @@ class ShopController extends Controller {
                  }else{
                   $out['success'] = 0;
                  }  
-               if ($sort == '1') { // 如果是按照离我最近来排序
+               /*if ($sort == '1') { // 如果是按照离我最近来排序
                   $latitude = I('request.latitude');
                   $longitude = I('request.longitude');
                   foreach ($data as $k => $v) {
@@ -112,10 +117,8 @@ class ShopController extends Controller {
                   //dump($data);
                   $data = $this->sysSortArray($data,'distance');
                   //dump($data);
-               }
-               if ($sort == '3' || $sort == '4') {
-                 # code...
-               }
+               }*/
+               
                $out['data']=$data;    
                $this->ajaxReturn($out);
           }

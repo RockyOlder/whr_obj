@@ -1,0 +1,154 @@
+[ 2015-01-02T17:45:37+08:00 ] 183.16.90.29 /api.php?s=order/getAddress
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000298s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000520s ]
+SQL: select id,phone,address,name,`default` from wrt_user_address where user_id = '8' and del = '0' [ RunTime:0.000299s ]
+
+[ 2015-01-02T17:52:17+08:00 ] 113.88.83.26 /api.php?s=order/getDefault
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000530s ]
+SQL: select id,phone,address,name from wrt_user_address where user_id = '8' and del = '0' and `default` = 1 [ RunTime:0.000287s ]
+
+[ 2015-01-02T17:52:22+08:00 ] 113.88.83.26 /api.php?s=order/getAddress
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000308s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000553s ]
+SQL: select id,phone,address,name,`default` from wrt_user_address where user_id = '8' and del = '0' [ RunTime:0.000277s ]
+
+[ 2015-01-02T20:25:14+08:00 ] 183.16.90.29 /api.php?s=order/getDefault
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000301s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000523s ]
+SQL: select id,phone,address,name from wrt_user_address where user_id = '8' and del = '0' and `default` = 1 [ RunTime:0.000287s ]
+
+[ 2015-01-02T20:28:33+08:00 ] 183.16.90.29 /api.php?s=order/isDefault
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000526s ]
+
+[ 2015-01-02T20:31:23+08:00 ] 183.16.89.173 /api.php?s=order/getAddress
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000304s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000539s ]
+SQL: select id,phone,address,name,`default` from wrt_user_address where user_id = '8' and del = '0' [ RunTime:0.000282s ]
+
+[ 2015-01-02T20:45:21+08:00 ] 183.16.89.173 /api.php?s=order/getAddress
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000303s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000527s ]
+SQL: select id,phone,address,name,`default` from wrt_user_address where user_id = '8' and del = '0' [ RunTime:0.000280s ]
+
+[ 2015-01-02T20:45:31+08:00 ] 183.16.89.173 /api.php?s=order/getDefault
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000322s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000545s ]
+SQL: select id,phone,address,name from wrt_user_address where user_id = '8' and del = '0' and `default` = 1 [ RunTime:0.000302s ]
+
+[ 2015-01-02T20:53:11+08:00 ] 183.16.90.29 /api.php?s=Home/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000325s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000559s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'A' and region_level = 2 [ RunTime:0.002676s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'B' and region_level = 2) or region_id = 2 [ RunTime:0.002650s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'C' and region_level = 2) or region_id = 23 [ RunTime:0.002568s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'D' and region_level = 2 [ RunTime:0.002440s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'E' and region_level = 2 [ RunTime:0.002780s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'F' and region_level = 2 [ RunTime:0.002461s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'G' and region_level = 2 [ RunTime:0.002703s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'H' and region_level = 2 [ RunTime:0.002566s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'I' and region_level = 2 [ RunTime:0.002430s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'K' and region_level = 2 [ RunTime:0.002606s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'L' and region_level = 2 [ RunTime:0.002494s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'M' and region_level = 2 [ RunTime:0.002430s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'N' and region_level = 2 [ RunTime:0.002425s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'O' and region_level = 2 [ RunTime:0.002400s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'P' and region_level = 2 [ RunTime:0.002430s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Q' and region_level = 2 [ RunTime:0.002425s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'R' and region_level = 2 [ RunTime:0.002388s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'S' and region_level = 2) or region_id = 10 [ RunTime:0.002557s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'T' and region_level = 2) or region_id = 3 [ RunTime:0.002559s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'U' and region_level = 2 [ RunTime:0.002390s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'V' and region_level = 2 [ RunTime:0.002398s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'W' and region_level = 2 [ RunTime:0.002476s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'X' and region_level = 2 [ RunTime:0.002415s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Y' and region_level = 2 [ RunTime:0.002507s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Z' and region_level = 2 [ RunTime:0.002489s ]
+
+[ 2015-01-02T20:53:41+08:00 ] 183.16.90.29 /api.php?s=Home/cityArea
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000527s ]
+SQL: select region_id,region_code,region_name from wrt_region where parent_id = 234 and region_level = 3 [ RunTime:0.002455s ]
+
+[ 2015-01-02T20:54:20+08:00 ] 183.16.90.29 /api.php?s=Home/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000305s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000535s ]
+
+[ 2015-01-02T22:14:44+08:00 ] 183.16.90.29 /api.php?s=Home/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000304s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000529s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'A' and region_level = 2 [ RunTime:0.002634s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'B' and region_level = 2) or region_id = 2 [ RunTime:0.002548s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'C' and region_level = 2) or region_id = 23 [ RunTime:0.002560s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'D' and region_level = 2 [ RunTime:0.002433s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'E' and region_level = 2 [ RunTime:0.002393s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'F' and region_level = 2 [ RunTime:0.002411s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'G' and region_level = 2 [ RunTime:0.002417s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'H' and region_level = 2 [ RunTime:0.002432s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'I' and region_level = 2 [ RunTime:0.002405s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'K' and region_level = 2 [ RunTime:0.002394s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'L' and region_level = 2 [ RunTime:0.002426s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'M' and region_level = 2 [ RunTime:0.002449s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'N' and region_level = 2 [ RunTime:0.002407s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'O' and region_level = 2 [ RunTime:0.002397s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'P' and region_level = 2 [ RunTime:0.002406s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Q' and region_level = 2 [ RunTime:0.002467s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'R' and region_level = 2 [ RunTime:0.002405s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'S' and region_level = 2) or region_id = 10 [ RunTime:0.002536s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'T' and region_level = 2) or region_id = 3 [ RunTime:0.002541s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'U' and region_level = 2 [ RunTime:0.002420s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'V' and region_level = 2 [ RunTime:0.002390s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'W' and region_level = 2 [ RunTime:0.002413s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'X' and region_level = 2 [ RunTime:0.002425s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Y' and region_level = 2 [ RunTime:0.002450s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Z' and region_level = 2 [ RunTime:0.002513s ]
+
+[ 2015-01-02T23:23:31+08:00 ] 183.16.90.29 /api.php?s=Home/cityArea
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000308s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000536s ]
+SQL: select region_id,region_code,region_name from wrt_region where parent_id = 234 and region_level = 3 [ RunTime:0.002478s ]
+
+[ 2015-01-02T23:42:39+08:00 ] 113.88.83.26 /api.php?s=Home/city
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000304s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000526s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'A' and region_level = 2 [ RunTime:0.002758s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'B' and region_level = 2) or region_id = 2 [ RunTime:0.002600s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'C' and region_level = 2) or region_id = 23 [ RunTime:0.002605s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'D' and region_level = 2 [ RunTime:0.002448s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'E' and region_level = 2 [ RunTime:0.002469s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'F' and region_level = 2 [ RunTime:0.002427s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'G' and region_level = 2 [ RunTime:0.002498s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'H' and region_level = 2 [ RunTime:0.002496s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'I' and region_level = 2 [ RunTime:0.002427s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'K' and region_level = 2 [ RunTime:0.002424s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'L' and region_level = 2 [ RunTime:0.002494s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'M' and region_level = 2 [ RunTime:0.002431s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'N' and region_level = 2 [ RunTime:0.002458s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'O' and region_level = 2 [ RunTime:0.002420s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'P' and region_level = 2 [ RunTime:0.002464s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Q' and region_level = 2 [ RunTime:0.002434s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'R' and region_level = 2 [ RunTime:0.002446s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'S' and region_level = 2) or region_id = 10 [ RunTime:0.002586s ]
+SQL: select region_id,region_code,region_name from wrt_region where (region_initial = 'T' and region_level = 2) or region_id = 3 [ RunTime:0.002599s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'U' and region_level = 2 [ RunTime:0.002445s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'V' and region_level = 2 [ RunTime:0.002441s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'W' and region_level = 2 [ RunTime:0.002440s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'X' and region_level = 2 [ RunTime:0.002776s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Y' and region_level = 2 [ RunTime:0.002472s ]
+SQL: select region_id,region_code,region_name from wrt_region where region_initial = 'Z' and region_level = 2 [ RunTime:0.002494s ]
+

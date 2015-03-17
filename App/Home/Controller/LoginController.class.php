@@ -5,24 +5,53 @@ namespace Home\Controller;
 use Think\Controller;
 
 class LoginController extends Controller {
+    
+        /*
+     *登陆
+     * @return [type]      
+     * @time 2015-2-27 10:54:47 
+     * @author phper丶li     
+    */
 	public function index() {
-		// dump(session());
+
 		if (IS_POST) {
+
+			if(isset($_POST['remeber']) && $_POST['remeber'] == 1){
+				cookie('login_passwd',$_POST[password],60*60*24*7);
+				cookie('login_name',$_POST[username],60*60*24*7);
+			}else{
+                            setcookie('PHPSESSID');setcookie('login_passwd');setcookie('login_name');
+                        }
+			
+			if (session('num') == 1) {
+				$code = I('post.verify');
+				$verify = new \Think\Verify();
+				$bool = $verify->check($code);
+
+				if(!$bool){
+					$this->error('验证码输入错误');
+				}
+			}
+			session('num',1);
 			// 实例化类
 			$model = D ( 'admin' );
-			// dump($model->create());开启自动验证
-			if (! $model->create ()) {
-				show_bug ( $model->getError () );
-			}
+			
 			$name = I ( 'post.username', '' );
-               
+            $w = array('name'=>$name,'statue'=>TYPE);
+            // dump($w);die();
 			// 查询出来数据库中的数据
-			$data = $model->where ( "name='$name'" )->find ();
-			// dump()
-		//	dump($data);die();
+			$data = $model->where ($w)->find ();
+			//dump()
+			//dump($data);die();
 
 			if (empty ( $data )) {
 				$this->error ( '不存在该管理员！' );
+			}
+			if ($data[flag] == 1) {
+				$this->error ( '该用户的申请还没有审核，请等待审核' );
+			}
+			if ($data[flag] == 2) {
+				$this->error ( '该用户的申请还没有通过，请联系慧锐通' );
 			}
 			// 判断用户是否被锁定
 			if ($data ['is_lock'] == 1) {
@@ -46,15 +75,23 @@ class LoginController extends Controller {
 				// 保存用户的session				
 				session ( 'admin', $admin );
 				session ( 'user_auth', $auth ); // 用来做权限验证
+				cookie ( 'admin', $admin );
+				cookie ( 'user_auth', $auth ); 
 				                                // dump(session());
-				admin_log('登录');//记录管理员日志
+				//admin_log('登录');//记录管理员日志
 				$this->redirect('Index/index','', 0, '');
 				//$this->success ( '登录成功', U ( 'Index/index', '', '' ) );
 			} else {
 				$this->error ( '用户名或者密码输入错误' );
 			}
 		}
-		$this->display ();
+		$str = $this->logo();
+		$this->assign('logo',$str);
+		$tpl = 'index';
+		if(TYPE == 2)$tpl = 'life';
+		if(TYPE == 3)$tpl = 'vip';
+		if(TYPE == 4)$tpl = 'property';
+		$this->display ($tpl);
 	}
 	// 异步验证验证码是否正确
 	public function check() {
@@ -81,5 +118,29 @@ class LoginController extends Controller {
 	function check_verify($code, $id = '') {
 		$verify = new \Think\Verify ();
 		return $verify->check ( $code, $id );
+	}
+	/**
+	 * 登录顶部不同的欢迎语句
+	 * @author xujun
+	 * @email  [jun0421@163.com]
+	 * @time   2015-01-27T13:43:54+0800
+	 * @return [type]                   [description]
+	 */
+	function logo(){
+		switch (TYPE) {
+			case '1':
+				return '慧享园智慧社区运营管理系统';
+				break;
+			case '2':
+				return '慧享园-生活导航商家管理系统';
+				break;
+			case '3':
+				return ' 慧享园-VIP商家管理系统';
+				break;
+			case '4':
+				return ' 慧享园-小区服务管理系统';
+				break;
+			
+		}
 	}
 }

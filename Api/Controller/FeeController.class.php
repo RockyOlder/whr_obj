@@ -1,14 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class FeeController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class FeeController extends CommonController {
     // 获取获取水电费；
     public function water()
     {      
@@ -108,11 +101,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['manage_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }
@@ -121,6 +116,7 @@ class FeeController extends Controller {
     {      
       $id = I('request.version',1);
         if ($id == 1) {
+          
           $uid = I('request.userId',0,"intval");
           $start= I('request.startTime','');
           $end = I('request.endTime',''); 
@@ -138,15 +134,18 @@ class FeeController extends Controller {
             $out['data'] =null;
             $this->ajaxReturn($out);
           }
+          //G('begin');测试某个代码段的运行时间
           //查询出用户的oid
           $oid = M('pro_owner')->field('id')->where(array('uid'=>$uid))->find();
-            if (!$oid) {
-              $out['success'] = 0;
-              $out['msg'] ='你还没有申请为vip会员';
-              $out['data'] =null;
-              $this->ajaxReturn($out);
-            }
-            $oid = current($oid);
+          if (!$oid) {
+            $out['success'] = 0;
+            $out['msg'] ='你还没有申请为vip会员';
+            $out['data'] =null;
+            $this->ajaxReturn($out);
+          }
+          $oid = current($oid);
+            //G('end');
+            //echo G('begin','end').'s';
             $w = array('oid'=>$oid);
             $start = strtotime($start);
             $end = strtotime($end);            
@@ -159,11 +158,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['car_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }
@@ -211,11 +212,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['net_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }
@@ -262,11 +265,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['mobile_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }
@@ -313,11 +318,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['swim_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }
@@ -364,11 +371,13 @@ class FeeController extends Controller {
             foreach ($data as $k => $v) {
               $v['date'] = 1000*$v['date'];
               // dump($v);die();
-              $data[$k]=$v;
+              if ($v['fit_fee'] != 0) {
+                $tem[] = $v;
+              }
             }
             $out['success'] = 1;
             $out['msg']='成功';
-            $out['data']=$data;
+            $out['data']=$tem;
             $this->ajaxReturn($out);
         }       
     }

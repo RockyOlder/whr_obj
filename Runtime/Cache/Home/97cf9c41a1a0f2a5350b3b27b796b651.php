@@ -3,44 +3,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-        <link href="/default/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
-            <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-             <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_config.js"></script>
-            <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_all_min.js"></script>
-            <script type="text/javascript" src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-            <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
-            <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script> -->
-            <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script> -->
-            <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <link href="/App/Home/View/Public/Css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="/App/Home/View/Public/Css/uploadify.css">
+            <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+             <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+            <script type="text/javascript" src ="/App/Home/View/Public/ueditor/editor_config.js"></script>
+            <script type="text/javascript" src ="/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+
+            <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
+            <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script> -->
+            <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/kindeditor.js"></script> -->
+
 
                 <script type="text/javascript">
                         $(function(){
 
-                            function setout(){
-                                $('.validateTips').text()
-                                $('#skuNotice').show();
-                                var dingshi= setTimeout( function(){
-                                    $( '#skuNotice' ).fadeOut();
-                                }, ( 1 * 1000 ) );  
-                                return dingshi;
-                            } 
-                            function checkInput(){
-                                var bValid = true;
-                               bValid = bValid && checkEmpty( $("#type_on"), "\u8bf7选择分类！" );//notice商品所属商店
-                               bValid = bValid && checkEmpty( $("#bid"), "\u8bf7选择商品所属商店！" );//notice商品所属商店
-                               bValid = bValid && checkEmpty( $("#des"), "商品描述不能为空！" );//notice商品所属商店
-                                  $("#des").removeClass('ui-state-error')
-                               bValid = bValid && checkLength( $("#name"), $("#name").prev().text(), 2, 16 );
-                              bValid = bValid && checkRegexp( $("#price"), /([0-9])+$/i, "价格只能是数字组成" );
-                              bValid = bValid && checkRegexp( $("#m_price"), /([0-9])+$/i, "商场价格只能是数字组成" );
-                              bValid = bValid && checkRegexp( $("#t_price"), /([0-9])+$/i, "促销价只能是数字组成" );
-                                if(bValid==false){ setout(); }
-                                return bValid;
-                            }
                             $('form').submit(function(){
                                 if(!checkInput()){
                                     $('.dfinput').each(function () {
@@ -69,6 +50,28 @@
                                 checkInput();
                             });
                         })
+
+                            function setout(){
+                                $('.validateTips').text()
+                                $('#skuNotice').show();
+                                var dingshi= setTimeout( function(){
+                                    $( '#skuNotice' ).fadeOut();
+                                }, ( 1 * 1000 ) );  
+                                return dingshi;
+                            } 
+                            function checkInput(){
+                                var bValid = true;
+                               bValid = bValid && checkEmpty( $("#type_on"), "\u8bf7选择分类！" );//notice商品所属商店
+                      //         bValid = bValid && checkEmpty( $("#bid"), "\u8bf7选择商品所属商店！" );//notice商品所属商店
+                               bValid = bValid && checkEmpty( $("#des"), "商品描述不能为空！" );//notice商品所属商店
+                                  $("#des").removeClass('ui-state-error')
+                               bValid = bValid && checkLength( $("#name"), $("#name").prev().text(), 2, 16 );
+                              bValid = bValid && checkRegexp( $("#price"), /([0-9])+$/i, "价格只能是数字组成" );
+                              bValid = bValid && checkRegexp( $("#m_price"), /([0-9])+$/i, "商场价格只能是数字组成" );
+                        //      bValid = bValid && checkRegexp( $("#t_price"), /([0-9])+$/i, "促销价只能是数字组成" );
+                                if(bValid==false){ setout(); }
+                                return bValid;
+                            }
                 </script>
                 <style type="text/css">
                     .pro{
@@ -87,15 +90,17 @@
                 <body style="background: none;">
 
                     <div class="place">
-                        <span>后台管理：</span>
+                          <span>位置： </span>
                         <ul class="placeul">
-                            <li><a href="#">合作商家管理</a></li>
-                            <li><a href="#">添加生活导航商品</a></li>
+                             <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                      
+                            <li>添加生活导航商品</li>
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
                         <input id="typeId" type ="hidden" name="lgid" value="<?php echo ($info["lgid"]); ?>">
                             <input id="action" type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
+                            <input id="sessionid" type ="hidden" name="seesion" value="<?php echo ($data["session_id"]); ?>">
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
@@ -111,13 +116,13 @@
                                                     </select>
                                                 </span>
                                                 <i id="type_info"></i></li> 
-                                            <li><label>商品所属商店</label>
+                                          <!--  <li><label>商品所属商店</label>
                                                 <span class = 'pro'>
                                                     <select name = 'bid'class="form-control" id="bid" >
                                                         <?php if(is_array($shop)): $i = 0; $__LIST__ = $shop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
                                                 </span>
-                                                <i id="type_info"></i></li> 
+                                                <i id="type_info"></i></li> -->
                                                     <div style="display:none" id="skuNotice" class="sku_tip">
                                                         <span class="validateTips"></span>
                                                     </div>
@@ -136,7 +141,7 @@
                                                                     <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_pic" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                                      <?php if($info["list_pic"] != ''): ?><div class="up_list_pic">
                                                                      <img height='50px' src='<?php echo ($info["list_pic"]); ?>'>
-                                                                     <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                     <img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                     </div><?php endif; ?>
                                                                     </i></li>
                                                          <li><label>店铺图册</label><i></i></li> 
@@ -149,14 +154,14 @@
                                                                            <input type='hidden' name='path[]'  value='<?php echo ($vo["pic"]); ?>'/>
                                                                            <input type='hidden' name='mid[]' value='<?php echo ($vo["mid"]); ?>'/>
                                                                            <input type='hidden' name='pic_name[]' value='<?php echo ($vo["name"]); ?>'/>
-                                                                           <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic(<?php echo ($k); ?>)' > 
+                                                                           <img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic(<?php echo ($k); ?>)' > 
                                                                     </div><?php endforeach; endif; else: echo "" ;endif; endif; ?>
                                                                  </i></li>
-                                            <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="<?php echo ($info["star"]); ?>"/><i></i></li>
+                                           <!-- <li><label>商品星级</label><input name="star" id="notice" type="text" class="dfinput" value="<?php echo ($info["star"]); ?>"/><i></i></li> -->
                                             <li><label>商场价格</label><input name="price" type="text" id="price" class="dfinput"  value="<?php echo ($info["price"]); ?>"/><i>只能输入数字</i></li>
                                             <li><label>市场价格</label><input name="m_price" type="text" id="m_price" class="dfinput"  value="<?php echo ($info["m_price"]); ?>"/><i>只能输入数字</i></li> 
-                                            <li><label>促销价格</label><input name="t_price" type="text" id="t_price" class="dfinput"  value="<?php echo ($info["t_price"]); ?>"/><i>只能输入数字</i></li> 
-                                            <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="<?php echo ($info["pass_time"]); ?>"/><i></i></li>  
+                                         <!--   <li><label>促销价格</label><input name="t_price" type="text" id="t_price" class="dfinput"  value="<?php echo ($info["t_price"]); ?>"/><i>只能输入数字</i></li>  -->
+                                        <!--    <li><label>过期时间</label><input name="pass_time" type="text" class="dfinput"  value="<?php echo ($info["pass_time"]); ?>"/><i></i></li>  -->
 
                                             <li><label>競價排名</label><input name="sort" id="notice" type="text" class="dfinput" value="100"/><i></i></li>
                                             <li><label>是否鎖定</label><span style="line-height:30px"><input name="is_lock" id="lock" type="radio" class="dfinput" value="0" style="width:50px" checked="checked"/>正常<input name="is_lock" id="lock" type="radio" class="dfinput" value="1" style="width:50px" />鎖定</span><i></i></li>              
@@ -183,40 +188,45 @@
                                         */
                                             var list_pic = "";
                                             $('#upload_list').uploadify({
-                                                'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
+                                                'swf'      : '/App/Home/View/Public/Images/uploadify.swf',
                                                 'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                                'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                'cancelImage':'/App/Home/View/Public/Images/uploadify-cancel.png',
                                                 'buttonText' : '列表上传',
                                                 'multi': false,
-                                                'onUploadSuccess' : function(file, data, response) {
+                                                'scriptData': {"SESSION_ID":$('#sessionid').val()},
+
+                                              'onUploadSuccess' : function(file, data, response) {
                                                     // alert(data);
                                                     obj= $.parseJSON(data);
                                                     list_pic += "<img height='50px' src='"+obj.path+"'>";
-                                                    list_pic +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                    list_pic +=" <img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
                                                     $('#imgs').html(list_pic);
                                                     var hid ="<input name='thumb_pic' id='list_path' type='hidden' value='"+obj.path+"' />";
                                                     hid +="<input name='pic' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
                                                     hid +="<input name='list_pic' id='list_pic' type='hidden' value='"+obj.min+"' />"
                                                     $('#list_hidden').html(hid);
+                                                     list_pic = '';
+                                                     hid='';
                                                 }
                                             });
                                             var img = '';
                                             var num = $('.more_list_pic').last().attr('num')+1;
 
                                             $('#upload_more').uploadify({
-                                                'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
+                                                'swf'      : '/App/Home/View/Public/Images/uploadify.swf',
                                                 'uploader' : '<?php echo U("Uploads/photo",'','');?>',
-                                                'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                'cancelImage':'/App/Home/View/Public/Images/uploadify-cancel.png',
                                                 'buttonText' : '缩略图上传',
+                                                'scriptData': {"SESSION_ID":$('#sessionid').val()},
                                                 'onUploadSuccess' : function(file, v, response) {
                                                     obj= $.parseJSON(v);
                                                     // console.log(obj)
-                                                    img += "<div id = 'more_"+num+"' class = ' more_list_pic' num = '"+num+"'>"
+                                                    img += "<div id = 'more_"+num+"' class = ' more_list_pic' num = '"+num+"' style='float: left'>"
                                                     img += "<img width='50px' src='"+obj.path+"' name ='path'>";
                                                     img += "<input type='hidden' name='path[]'  value='"+obj.path+"'/>";
                                                     img += "<input type='hidden' name='mid[]' value='"+obj.mid+"'/>";
                                                     img += "<input type='hidden' name='pic_name[]' value='"+obj.name+"'/>";
-                                                    img += "<img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
+                                                    img += "<img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deletePic("+num+")'> ";
                                                     img += "</div>"
                                                     $('#imgs_more').append(img);
                                                     img = '';
@@ -228,10 +238,11 @@
                                                 // $('this').parent('.more_list_pic').remove();
                                             }
                                             function deleteListPic(){
-                                                $(".up_list_pic").html('');
-                                                $('#list_hidden').html('');
+
+                                                    $("#imgs img").remove();
+                                                    $('#list_hidde input').remove();
                                             }
-                                        function openwindow()
+                                   /*     function openwindow()
                                         {
                                             var url = 'http://api.map.baidu.com/lbsapi/getpoint/'; //转向网页的地址;
                                             var name="获取经纬"; //网页名称，可为空;
@@ -246,7 +257,7 @@
                                         {
                                             showModalDialog('http://api.map.baidu.com/lbsapi/getpoint/','example04','dialogWidth:400px;dialogHeight:300px;dialogLeft:200px;dialogTop:150px;center: yes;help:no;resizable:no;status:no')
                                         }
-
+                               */
                                     </script>
                                     <script type="Text/Javascript">
                                     $(function(){
@@ -275,8 +286,7 @@
                                         });         
                                     })
 
-                                    // getvallage($(".city_in").val());
-
+                             
                                 var pro = function() {
                                     var id=$("#typeId").val();
 

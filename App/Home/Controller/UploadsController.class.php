@@ -51,7 +51,8 @@ class UploadsController extends Controller
     {
      if (!empty($_FILES)) 
         {
-        // dump($_FILES);
+//session_start(); 
+       // dump($_FILES);
             //图片上传设置
             $config = array(
                 'maxSize' => 3145728,
@@ -90,6 +91,7 @@ class UploadsController extends Controller
     }
     public function photo(){
      if (!empty($_FILES)) {
+
         // dump($_FILES);
             //图片上传设置
             $config = array(
@@ -273,3 +275,4 @@ class UploadsController extends Controller
         }
     }
 }
+

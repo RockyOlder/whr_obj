@@ -1,14 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class SystemController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class SystemController extends CommonController {
   /**
    * 获取大众点评的appkey和secrat
    * @author xujun

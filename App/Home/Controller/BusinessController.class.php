@@ -5,20 +5,26 @@ namespace Home\Controller;
 use Home\Controller\IsloginController;
 
 class BusinessController extends IsloginController {
-
+    /*
+     查询分页显示
+     * @POST  参数模糊查询
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function index() {
+
         $business = M("business");
+
         if (IS_POST) {
             $name = I('post.name');
             $parent_type = I('post.parent_type');
-            $address = I('post.address');
+
             if ($name)
                 $where['name'] = array('LIKE', '%' . $name . '%');
-            if ($address)
-                $where['address'] = array('LIKE', '%' . $address . '%');
-            if ($parent_type)
+            if ($parent_type!=='请选择')
                 $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
         }
+
         $count = $business->where($where)
                 ->count();
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
@@ -107,6 +113,7 @@ class BusinessController extends IsloginController {
                 $bool = M()->execute($sql);
                 
                 if ($bool) {
+                     admin_log("添加商家");
                     $this->success("添加成功！", U('Business/index'), 1, FALSE);
                 } else {
                     $this->error('添加失败');
@@ -160,57 +167,161 @@ class BusinessController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-
+    /*
+     *锁定
+     * @return [type]       
+     * @author phper丶li     
+    */
     public function del() {
-        // echo 1;exit;
-        $id = I('get.id', 0);
+
+        $id = I('get.id', 0); $vid= I('get.vid');
 
         $class = D('business');
-        $result = $class->where("id=$id")->delete();
+        
+     /*   if($id){  $result= $class->where("id=$id")->setInc('ls_lock'); }
+     
+        if($vid){ $result= $class->where("id=".$vid)->setDec('ls_lock'); }*/
+        
+        if($id){$data['lock']=1;$data['id']=$id; $result= $class->save($data);  }
+     
+        if($vid){$data['lock']=0;$data['id']=$vid; $result= $class->save($data);  }
+        
+        
+ //       $result = $class->where("id=$id")->delete();
 
         if ($result) {
+            
             redirect($_SERVER["HTTP_REFERER"]);
         }
     }
-    
+    /*
+     *删除商家
+     * @return [type]   
+     * @POST id    
+     * @author phper丶li     
+    */
+    public function shopDel(){
+        
+         $id = I('get.id', 0);
+
+        $giveLifeShop= D("LifeGoods");   $business= M("business");
+        $info= $giveLifeShop->where("bid=".$id)->find();
+        
+        if($info){ $this->error('该商店有商品！ 删除失败!',U('/Home/Business/index', '', false));}else{ $result = $business->where("id=$id")->delete();}
+       
+        if ($result) {
+             admin_log("删除商家");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        
+        
+    }
+    /*
+     *删除商品
+     * @return [type]   
+     * @POST id    
+     * @author phper丶li     
+    */
+    public function GoodsDel(){
+        
+         $id = I('get.id', 0);
+
+        $giveLifeGoods= D("LifeGoods");   $GiveLifeGoods= M("GiveLifeGoods");
+        $info= $GiveLifeGoods->where("goodid=".$id)->find();
+        
+        if($info){ $this->error('该商品有促销！ 删除失败!',U('/Home/Business/goods', '', false));}else{ $result = $giveLifeGoods->where("lgid=$id")->delete();}
+       
+        if ($result) {
+            admin_log("删除商品");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        
+        
+    }
+    /*
+     *删除订单
+     * @return [type]   
+     * @POST id    
+     * @author phper丶li     
+     * @getChaBetweenTwoDate(参数,参数)
+     * @参数1：当前时间
+     * @参数2：订单生成时间
+    */
+    public function orderDel() {
+        //print_r($_REQUEST);exit;
+        $id = I('post.oid', 0);
+        $name=I('post.admin');
+        $content=I("post.content");
+
+        $order = D('Order');
+        $result = $order->where("oid=$id")->find();
+        $order_info=json_encode($result);
+
+        $ordertime = date("Y-m-d", $result['time']);
+        if ($this->getChaBetweenTwoDate(date("Y-m-d"), $ordertime) > 7) {//
+      
+            $orderDelete = D('OrderDelete');
+            $data['admin']=$name;  $data['time']=time();   $data['uid']=$result['user_id']; $data['order_number']=$result['number'];
+            
+            $data['oid']=$id;     $data['order_info']=$order_info;   $data['cate']=$result['cate'];  $data['content']=$content;
+         
+            if(!$orderDelete->add($data)){ $this->error('订单删除失败!',U('/Home/Business/order', '', false));}
+            
+          if ($order->where("oid=$id")->delete()) {    admin_log("删除订单"); redirect($_SERVER["HTTP_REFERER"]); } } else { $this->error('订单未过期!',U('/Home/Business/order', '', false)); }
+    }
+    /*
+     *订单详情  
+     * @return [type]   
+     * @POST id    
+     * @author phper丶li     
+     * 不是服务商家禁止访问
+     * session判断所属商家
+
+    */
      public function order() {
         $name=session('admin.name');
         $id = session('admin.shop_id');
         $action = I('post.action');
-        $order = M("Order o");
-        
-       if($name=='admin'){$this->redirect("Order/index");  }
-                     
-        $count = $order  ->join('wrt_user AS u ON u.user_id=o.user_id')
-                         ->join('wrt_business AS b ON b.id=o.shop_id')
-                         ->where("shop_id=" . $id." and cate=".session('admin.type'))->count();
-                    
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
-        $show = $page->show();
-     
-        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-           $data = $order->field('o.*,u.user_id,b.id,b.name,b.list_pic,u.user_name')
-                         ->join('wrt_user AS u ON u.user_id=o.user_id')
-                         ->join('wrt_business AS b ON b.id=o.shop_id')
-                         ->where("shop_id=" . $id." and cate=".session('admin.type'))
-                         ->limit($page->firstRow . ',' . $page->listRows)
-                         ->select();
-      
+        $fid=I('get.fid', 0);     
+          
+    
+         if($id==0){$this->redirect("Order/index");  }
 
-       //  print_r($data);exit;
-      $mycars=Array("新订单","未付款","待发货","配货中","发货","发货中","待收货","已收货","评论后");
-      
-      foreach ($data as $v){
-         if($v['statue']==0){$v['statue']=$mycars[0];} elseif($v['statue']==1){$v['statue']=$mycars[1];}
-         if($v['statue']==2){$v['statue']=$mycars[2];} elseif($v['statue']==3){$v['statue']=$mycars[3];}
-         if($v['statue']==4){$v['statue']=$mycars[4];} elseif($v['statue']==5){$v['statue']=$mycars[5];}    
-         if($v['statue']==6){$v['statue']=$mycars[6];} elseif($v['statue']==7){$v['statue']=$mycars[7];}    
-         if($v['statue']==8){$v['statue']=$mycars[8];}   
-         $arr[]=$v;
-      }
-         if (IS_POST) {  
-            $order = D('Order'); $data = $order->create();
+         if ($id){
+         //    echo 1;exit;
+           $where[] = array('shop_id' => $id);
+          //  $where['shop_id'] = array('LIKE', '%' . $id . '%');
+    } 
+         if (session('admin.type'))
+              $where[] = array('cate' => session('admin.type'));
+          // $where['cate'] = array('LIKE', '%' . session('admin.type') . '%');
+         
+        if(IS_GET)
+        {
+            $statue = I('get.statue');
+            if ($statue!=='')  
+                 $where[] = array('o.statue' => $statue);
             
+            $where[] = array('o.cate' => 0);
+         //   $where['o.statue'] = array('LIKE', '%' . $statue . '%');   
+        }
+         
+         if (IS_POST) {  
+            $number = I('post.number'); $user_name= I('post.user_name');   $statue = I('post.statue');
+          
+            if ($number)
+                 $where[] = array('o.number' => $number);
+              //  $where['o.number'] = array('LIKE', '%' . $number . '%');
+            if ($user_name)
+                 $where[] = array('u.user_name' => $user_name);
+      //          $where['u.user_name'] = array('LIKE', '%' . $user_name . '%');
+            if ($statue!=='')
+                $where[] = array('o.statue' => $statue);
+          
+                $where[] = array('o.cate' => 0);
+            
+            $order = D('Order'); $data = $order->create();
+           
             if ($data) {
                 if ($action == "add") {
                   
@@ -222,33 +333,100 @@ class BusinessController extends IsloginController {
               
                }  
             } else { $this->error($order->getError(),'',1); } }
+            
+        if($fid){
+            
+         $order = M("Order o");
+         $list= $order->field('o.*,i.number as info_number,i.good_name,i.totle as info_totle,i.list_pic,i.order_number')
+          //      ->join('wrt_user AS u ON u.user_id=o.user_id')
+                ->join('wrt_order_info AS i ON i.order_number=o.number')
+                ->where("o.oid=".$fid)
+                ->select();
+    
+         $info= $order->field('o.*,u.user_name,u.fax_phone,u.address,u.face,r.REGION_ID,r.REGION_NAME as rname,v.REGION_NAME as cityname,a.REGION_NAME as areaname')
+                ->join('wrt_user AS u ON u.user_id=o.user_id')
+                ->join('wrt_region AS r ON u.province=r.REGION_ID')          
+                ->join('wrt_region AS v ON u.city=v.REGION_ID')   
+                ->join('wrt_region AS a ON u.area=a.REGION_ID')   
+                ->where("o.oid=".$fid)
+                ->find();
+ 
+       $mycars=Array("未付款","未消费","已消费","退款");
+      
+      if($info['statue']==0){$info['statue']=$mycars[0];} elseif($info['statue']==1){$info['statue']=$mycars[1];}  if($info['statue']==2){$info['statue']=$mycars[2];} elseif($info['statue']==3){$info['statue']=$mycars[3];}// if($info['statue']==4){$info['statue']=$mycars[4];} elseif($info['statue']==5){$info['statue']=$mycars[5];}  if($info['statue']==6){$info['statue']=$mycars[6];} elseif($info['statue']==7){$info['statue']=$mycars[7];}  if($info['statue']==8){$info['statue']=$mycars[8];} elseif($info['statue']==9){$info['statue']=$mycars[9];}       
+      
+         foreach ($list as $value){ $total+=$value['info_totle']; }
+        
+         $total+=$info['freight'];
+
+          $this->assign('data', $list); $this->assign('total', $total);$this->assign('info', $info);
+          
+          $this->display('Order/orderfind');
+          exit;
+        }   
+        $order = M("Order o");
+       
+        $count = $order  ->join('wrt_user AS u ON u.user_id=o.user_id')
+                    //     ->join('wrt_business AS b ON b.id=o.shop_id')
+                         ->where($where)->count();
+                    
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
+        $show = $page->show();
+     
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+           $data = $order->field('o.*,u.user_id,u.user_name')//,b.id,b.name,b.list_pic
+                         ->join('wrt_user AS u ON u.user_id=o.user_id')
+                       //  ->join('wrt_business AS b ON b.id=o.shop_id')
+                         ->where($where)
+                         ->limit($page->firstRow . ',' . $page->listRows)
+                         ->select();
+      
+       //echo  $order->getLastSql(); exit;
+       //  print_r($data);exit;
+       $mycars=Array("未付款","未消费","已消费","退款");
+      
+      foreach ($data as $v){
+         if($v['statue']==0){$v['statue']=$mycars[0];} elseif($v['statue']==1){$v['statue']=$mycars[1];}
+         if($v['statue']==2){$v['statue']=$mycars[2];}
+
+         $arr[]=$v;
+      }
+
         $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show); $this->assign('data', $arr);
      
         $this->display();
     
     }
     
-
+    /*
+     查询分页显示
+     * @return [type]  
+     * @POST 参数-模糊查询
+     * @author phper丶li     
+    */
     public function goods() {
 
         $lifeGood = M("LifeGoods l");
+        $id=session("admin.shop_id");
         if (IS_POST) {
             $lgname = I('post.lgname');
-            $name = I('post.name');
-            $type = I('post.type');
+
+            $type = I('post.cate_pid');
             if ($lgname)
-                $where['lgname'] = array('LIKE', '%' . $lgname . '%');
-            if ($name)
-                $where['address'] = array('LIKE', '%' . $name . '%');
-            if ($type)
-                $where['type'] = array('LIKE', '%' . $type . '%');
-        }
-        $count = $lifeGood->where($where)
-                ->count();
+                $where['l.lgname'] = array('LIKE', '%' . $lgname . '%');
+
+            if ($type!=="请选择")
+                $where['l.cate_pid'] = array('LIKE', '%' . $type . '%');
+        } 
+            if ($id!=0)
+                $where['bid'] = array('LIKE', '%' . $id . '%');
+      
+        $count = $lifeGood->where($where) ->count();
+        
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $type = M("type")->select();
+        $type = M("type")->where("parent_id=0")->select();
         $data = $lifeGood->field('l.*,b.id,b.name')
                 ->join('wrt_business AS b ON l.bid=b.id')
                 ->where($where)
@@ -264,8 +442,12 @@ class BusinessController extends IsloginController {
 
     // 添加导航商品
     public function goodsadd() {
+         $sessid=session_id();
         if (IS_POST) {
             $lifeGoods = D('lifeGoods');
+            
+           if (session("admin.shop_id")==0) {$this->error("无权限操作！", U('/Home/Business/goods')); };
+            
             $data = $lifeGoods->create();
             if (!$data) {
                 $this->error($lifeGoods->getError(), '', 3);
@@ -292,14 +474,14 @@ class BusinessController extends IsloginController {
             $str = formantpost();
             if ($act == "add") {
     
-                $sql = "insert into " . C('DB_PREFIX') . "life_goods set add_time=" . time() . "," . $str;
-                // dump($sql);die();
+                $sql = "insert into " . C('DB_PREFIX') . "life_goods set bid=".session("admin.shop_id").", add_time=" . time() . "," . $str;
+               
                 $bool = M()->execute($sql);
 
                 if ($bool) {
-                    $this->success('添加成功');
+                    $this->success('添加成功',U('/Home/Business/goods'));
                 } else {
-                    $this->error('添加失败');
+                    $this->error('添加失败',U('/Home/Business/goodsadd'));
                 }
             }
             if ($act == "edit") {
@@ -312,12 +494,13 @@ class BusinessController extends IsloginController {
                 }
             }
         }
-
+        $data['session_id']=session_id();
         $data['action'] = 'add';
         $data['title'] = "添加导航商品";
         $data['btn'] = "添加";
         $data['id'] = I('request.id', 0);
         $cate = $this->topCate();
+        
         //$this->assign('cate', $cate);
         if ($data['id']) {
             $data['action'] = 'edit';
@@ -333,16 +516,24 @@ class BusinessController extends IsloginController {
             $this->assign("find", $class_find);
             $this->assign("info", $info);
         }
+   
+        $pro = $this->getprovence();      
+        $shop = $this->getshop();
+        $this->assign('sessid',$sessid);
         $this->assign('cate', $cate);
         $this->assign('data', $data);  //获取商店的信息
-        $shop = $this->getshop();
-        $this->assign('shop', $shop);
-        $pro = $this->getprovence();        // 获取省份列表
+
+        $this->assign('shop', $shop);   // 获取省份列表
+
         $this->assign('pro', $pro);       //获取分类
-        // $data['action'] = 'add';
+
         $this->display();
     }
-    
+    /*
+      添加活动
+     * @return [type]  
+     * @author phper丶li     
+    */
     public function recommendedBusiness() {
         $action = I('post.action');
 
@@ -350,21 +541,21 @@ class BusinessController extends IsloginController {
             if ($action == "edit") {
 
                 $id = I('post.sid');
-                //       print_r($id);exit;
+        
                 $giveLifeShop= D("giveLifeShop"); $business=D("business");
                 $vipList = $giveLifeShop->where("shopid=$id")->find();
-                if (isset($vipList)) {  $this->error('该商品已有活动!',U('/Home/Business/index', '', false));}
+                if (isset($vipList)) {  $this->error('该商店已有活动!',U('/Home/Business/index', '', false));}
            
                 if ($data = $giveLifeShop->create()) {
                      $data['shopid']=I('post.sid'); $data['range']=I('post.city'); $data["add_time"] = strtotime(I('post.add_time'));  $data["deadline"] = strtotime(I('post.deadline'));
                      
-                    if ($giveLifeShop->add($data)) {  $business->where("id=".$id)->setInc('num');  $this->success("添加成功！", U('/Home/Give/shop')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
+                    if ($giveLifeShop->add($data)) { admin_log("添加活动商家"); $business->where("id=".$id)->setInc('num');  $this->success("添加成功！", U('/Home/Give/shop')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
               
               } else {$this->error($giveLifeShop->getError()); }  } }
 
         $id = I('get.id', 0);
         if ($id) {
-            $data['action'] = 'edit'; $data['title'] = "编辑商品"; $data['btn'] = "编辑";
+            $data['action'] = 'edit'; $data['title'] = "推荐商店"; $data['btn'] = "编辑";
             $business = M("business");
             $businessObjFind = $business->where("id=$id")->find();
         }
@@ -375,7 +566,11 @@ class BusinessController extends IsloginController {
         $this->assign('data', $data);
         $this->display();
     }
-    
+    /*
+      添加活动
+     * @return [type]  
+     * @author phper丶li     
+    */
      public function recommendedGoods() {
         $action = I('post.action');
 
@@ -392,7 +587,7 @@ class BusinessController extends IsloginController {
                 if ($data = $giveLifeGoods->create()) {
                      $data['goodid']=I('post.sid'); $data['city_id']=I('post.city'); $data["add_time"] = strtotime(I('post.add_time'));  $data["deadline"] = strtotime(I('post.deadline'));
                      
-                    if ($giveLifeGoods->add($data)) {   $goods->where("lgid=".$id)->setInc('num'); $this->success("添加成功！", U('/Home/Give/good')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
+                    if ($giveLifeGoods->add($data)) { admin_log("添加商品");  $goods->where("lgid=".$id)->setInc('num'); $this->success("添加成功！", U('/Home/Give/good')); } else {  $this->error("用户修改失败！", U('/Home/Business/recommendedBusiness'));  }
               
               } else {$this->error($giveLifeGoods->getError()); }  } }
 
@@ -424,7 +619,12 @@ class BusinessController extends IsloginController {
         // dump($data);
         $this->ajaxReturn($data);
     }
-
+    /*
+      查询详细商家
+     * @return json
+     * @author phper丶li     
+     * @param number  POST 传递ID   
+    */
     public function typeAjax($id) {
         // $id = I('post.id');
         $type = M("Type");
@@ -433,8 +633,13 @@ class BusinessController extends IsloginController {
         $typeList = $type->where("type_id=" . $find['type'])->find();
         $typeList['list'] = $type->where("parent_id=" . $find['parent_type'] . " and type_id!=" . $typeList['type_id'])->select();
         $this->ajaxReturn($typeList);
-    }
-
+    }     
+    /*
+      查询详细商品
+     * @return json
+     * @author phper丶li     
+     * @param number  POST 传递ID   
+    */
     public function GoodstypeAjax($id) {
         //  $id = I('post.id');
         $type = M("Type");
@@ -444,7 +649,12 @@ class BusinessController extends IsloginController {
         $typeList['list'] = $type->where("parent_id=" . $find['cate_pid'] . " and type_id!=" . $typeList['type_id'])->select();
         $this->ajaxReturn($typeList);
     }
-    
+    /*
+      查询详细订单
+     * @return json
+     * @author phper丶li     
+     * @param number  POST 传递ID   
+    */
  public function urlAjaxOrderFind() {
 
         $id = I('post.id', 0);

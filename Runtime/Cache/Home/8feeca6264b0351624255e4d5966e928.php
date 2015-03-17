@@ -25,9 +25,9 @@ $(function(){
 
     <div class="topleft" style="width:750px;">
     <a href="<?php echo U('Index/index','','');?>" target="_parent"><img src="<?php echo ($_SESSION['admin']['top_logo']); ?>" title="系统首页" / style="float:left; margin-right:20px;"></a>
-    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;"><?php echo ($_SESSION['admin']['top_name']); ?>后台管理系统</p>
+    <p style="font-size:30px; color:#FFF; height:88px; line-height:88px;"><?php echo ($_SESSION['admin']['top_name']); ?></p>
     </div>
-    <div style="position: absolute;right:300px;top:50px;text-align:center;font-size:16px;color:#fff">今天是<?php echo (date("Y年m月d日 H时",$time)); ?></div>
+    <div style="position: absolute;right:300px;top:60px;text-align:center;font-size:16px;color:#fff">今天是<?php echo (date("Y年m月d日 H时",$time)); ?></div>
         
     <!-- <ul class="nav">
     <li><a href="<?php echo U('start');?>" target="rightFrame" class="selected"><img src="/default/App/Home/View/Public/Images/top/shouye.png"><h2>首页</h2></a></li>
@@ -39,13 +39,13 @@ $(function(){
      
     <div class="topright">    
     <ul>
-    <li><span><img src="/default/App/Home/View/Public/Images/help.png"title="帮助"  class="helpimg"/></span><a href="http://120.24.215.150/mobile.php?s=help" target="_bank">帮助</a></li>
-    <li><a href="http://120.24.215.150/mobile.php?s=help/about" target="_bank">关于我们</a></li>
+    <li><span><img src="/default/App/Home/View/Public/Images/help.png"title="帮助"  class="helpimg"/></span><a href="<?php echo U('Help/index');?>" target="_parent">帮助</a></li>
+    <li><a href="<?php echo U('Help/about');?>" target="_parent">关于我们</a></li>
     <li><a href="<?php echo U('Index/loginout','','');?>" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">
-    <span><?php echo ($_SESSION['admin']['name']); ?></span>
+    <span><?php echo ($_SESSION['admin']['true_name']); ?></span>
     <i>欢迎你！</i>
     <!-- <b>5</b> -->
     </div>    

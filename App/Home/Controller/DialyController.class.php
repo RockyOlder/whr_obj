@@ -8,20 +8,22 @@ class DialyController extends IsloginController {
 
     public function index() {
         $table = M("admin_log");
-        // if (IS_POST) {
-        //     $name = I('post.name');
-        //     $parent_type = I('post.parent_type');
-        //     $address = I('post.address');
-        //     if ($name)
-        //         $where['name'] = array('LIKE', '%' . $name . '%');
-        //     if ($address)
-        //         $where['address'] = array('LIKE', '%' . $address . '%');
-        //     if ($parent_type)
-        //         $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
-        // }
+        if (IS_POST) {
+            $start = I('post.start');
+            $start = strtotime($start);
+            $end = I('post.end');
+            $end = strtotime($end);
+            if ($start && $end)
+                $where = 'time > '. $start.' and time < '.$end;
+            elseif($start)
+                $where = 'time >'. $start;
+            elseif($end)
+                $where = 'time <'.$end;
+            // dump($where);die();
+        }
         $count = $table->where($where)
                 ->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 30);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 20);
         $show = $page->show();
      //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
@@ -31,6 +33,7 @@ class DialyController extends IsloginController {
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        // dump($table->getlastSql());die();
         $this->assign('type', $typeList);
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
@@ -41,19 +44,21 @@ class DialyController extends IsloginController {
 
     public function wrong() {
         $table = M("error_log");
-        /*if (IS_POST) {
-            $name = I('post.name');
-            $parent_type = I('post.parent_type');
-            $address = I('post.address');
-            if ($name)
-                $where['name'] = array('LIKE', '%' . $name . '%');
-            if ($address)
-                $where['address'] = array('LIKE', '%' . $address . '%');
-            if ($parent_type)
-                $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
-        }*/
+        if (IS_POST) {
+            $start = I('post.start');
+            $start = strtotime($start);
+            $end = I('post.end');
+            $end = strtotime($end);
+            if ($start && $end)
+                $where = 'time > '. $start.' and time < '.$end;
+            elseif($start)
+                $where = 'time >'. $start;
+            elseif($end)
+                $where = 'time <'.$end;
+            // dump($where);die();
+        }
         $count = $table->where($where)->count();
-        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 30);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 20);
         $show = $page->show();
      //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);

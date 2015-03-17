@@ -3,16 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-            <link href="/default/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <script language="javascript" type="text/javascript" src="/default/App/Home/View/Public/Js/My97DatePicker/WdatePicker.js"></script>
-
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <link href="/App/Home/View/Public/Css/calendor.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <script language="javascript" type="text/javascript" src="/App/Home/View/Public/Js/My97DatePicker/WdatePicker.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -41,7 +42,7 @@
                     });
                     $("#ig_primary").click(function(){
                         $("button[title=close]").attr({ title: "关 闭"})
-                        $("#dialog-form").dialog("option","title","添加调查表");            
+                        $("#dialog-form").dialog("option","title","添加活动");            
                         $("#dialog-form").dialog("open");
                     });
                     $(".dfinput").bind("focus",function(){
@@ -69,7 +70,7 @@
                 var allFields=$( [] );
                 function update_list(subId){
                     $("button[title=close]").attr({ title: "关 闭"})
-                    $("#dialog-form").dialog("option","title","编辑调查");
+                    $("#dialog-form").dialog("option","title","编辑活动");
                     $("form[name=myform]").attr("action",$("#examUpdate").val());
                     //         alert($("#url_ajaxCalendar").val())
                     $.ajax({ 
@@ -82,10 +83,10 @@
                         },
                         timeout:30000,
                         error:function(data, msg){
-                            alert("error:"+msg);
+                          //  alert("error:"+msg);
                         },
                         success:function(data){
-                            console.log(data)
+                      //      console.log(data)
                                roleDataBak=data;
                             $("#add_id").val(data.id);
                             $("#title").val(data.title);
@@ -121,6 +122,29 @@
                 
                     }
                 }
+                function cats_Shop(id) {
+                    
+                    art.dialog({
+                        content:'你确定要删除？',
+                        title: '确定框',  
+                        okValue:'确认',  
+                        cancelValue:'取消', 
+                        width: 230,  
+                        height: 100,  
+                        fixed:true,
+                        id:'bnt4_test',
+                        style:'confirm'}, 
+                    function(){
+                        var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                        if(msg){
+                            location.href=$("#url_ajaxDelect").val()+id
+                            return false;
+                        }        
+                    },function(){
+                        return true;
+                    });
+                };
+                
             </script>
     </head>
     <style type="text/css">
@@ -136,36 +160,40 @@
     </style>
 
     <body style="background: none;">
-
+   <input type="hidden" value="/index.php?s=/Home/Activity/act/id/" id="url_ajaxDelect" name="url_ajaxCalendar" />
         <div class="place">
-            <span>后台管理：</span>
+            <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">楼盘管理</a></li>
-                <li><a href="#">添加管理员</a></li>
+                <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                <li>活动列表</li>
+                
             </ul>
         </div>
-        <input type="hidden" value="/default/index.php?s=/Home/Activity/add" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/default/index.php?s=/Home/Activity/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/Activity/add" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/index.php?s=/Home/Activity/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加活动"  onclick="javascript:;" /></li>
         <table class="tablelist">
             <thead>
                 <tr>
-                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
+
                     <th>活动标题</th>
+                    <th>活动商品数量</th>         
                     <th>开始时间</th>
                     <th>结束时间</th>
-                    <th colspan="2">操作</th>
+                    <th colspan="3">操作</th>
                 </tr>
             </thead>
 
             <tbody id="table_ajax_list">
                 <?php if(is_array($into)): $i = 0; $__LIST__ = $into;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input name="num" type="checkbox" value="" /></td>
+
                         <td><?php echo ($vo["title"]); ?></td>
+                        <td><?php echo ($vo["count"]); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["start_time"])); ?></td>
                         <td><?php echo (date("Y-m-d H:i:s",$vo["end_time"])); ?></td>      
+                        <td width="20px" class="th_default" align="center"><a href="<?php echo U('Activity/index',array('id'=>$vo['id']));?>" class="divBtn editBtn ui-state-default ui-corner-all" title="查看详情" ><span class="ui-icon ui-icon-add"></span></a></td>
                         <td width="20px" class="th_default" align="center"  ><div class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" onclick="update_list(<?php echo ($vo["id"]); ?>)"><span class="ui-icon ui-icon-pencil"></span></div></td>
-                        <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除" onclick="if(confirm('确认删除')){return true}else{return false}"><span class="ui-icon ui-icon-minus"></span></div></td>
+                        <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除" onclick="cats_Shop(<?php echo ($vo["id"]); ?>)"><span class="ui-icon ui-icon-minus"></span></div></td>
 
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
@@ -182,7 +210,7 @@
                 </div>
             </div>
         </div>
-        <div id="dialog-form" title="添加调查卷">
+        <div id="dialog-form" title="添加调查卷" style=" display:  none;">
             <div class="tiplist">
                 <p class="validateTips"></p>
             </div>

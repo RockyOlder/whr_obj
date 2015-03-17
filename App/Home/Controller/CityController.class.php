@@ -10,11 +10,28 @@ use Home\Controller\IsloginController;
 class CityController extends IsloginController {
 
     function index() {
+        if (IS_POST) {
+          $action = I('post.action');   $region=D("region"); $data = $region->create();
+            if($data){
+ 
+              if ($action == "add") {   
 
-// 		$data=$this->fullcity();
-        //dump($data);
+                if ($region->add($data)) { admin_log("添加城市");$this->success("城市添加成功！", U('/Home/City/index'));  } else { $this->error("城市添加失败！", U('/Home/City/index'));  }
+            
+                 }elseif ($action == "delete") {
+			$password = change(session('admin.salt'));
+			if (session('admin.password') == $password) {
+                            $info= $region->where("PARENT_ID=".$data['REGION_ID'])->find();     
+                             if($info){ $this->error('该城市有下级城市！ 删除失败!',U('/Home/City/index', '', false));}else{$result=$region->where("REGION_ID=".$data['REGION_ID'])->delete();}
+                             if($result){ admin_log("删除城市");$this->success("删除成功！", U('/Home/City/index'));  }
+                             }else{
+                          $this->error('密码错误！ 删除失败!',U('/Home/City/index', '', false));
+                      }
+                  }
+             }
+        }
         $data = $this->getprovence();
-        // dump($data);
+     
         $this->assign('data', $data);
         $this->display();
     }

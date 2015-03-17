@@ -6,13 +6,13 @@
         <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
         <script type="text/javascript" src="/App/Home/View/Public/Js/bootstrap.min.js"></script>
+        <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
         <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+        <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>"></input>
                 <script type="text/javascript">
-                    function deleteSum(id){
-                        if(confirm("确认删除"))
-                            location.href="/whr/index.php?s=/Home/Developer/del/pid/"+id
-                    }
+
                     /*       function getLocalTime(nS) {     
                         return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
                     }    
@@ -42,11 +42,35 @@
                         });
                     };
                     selectDeveloper()
-                    $(function(){
-                        $('#select_deve').bind('click',function(){
-                            selectDeveloper()
-                        });
+      
                     });*/
+                  $(function(){
+                        $('#select_deve').bind('click',function(){
+                        //    selectDeveloper()
+                        });
+                    });
+                    function cats_Shop(id) {
+                    
+                        art.dialog({
+                            content:'你确定要删除？',
+                            title: '确定框',  
+                            okValue:'确认',  
+                            cancelValue:'取消', 
+                            width: 230,  
+                            height: 100,  
+                            fixed:true,
+                            id:'bnt4_test',
+                            style:'confirm'}, 
+                        function(){
+                            var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                            if(msg){
+                                location.href=$("#url_ajaxCalendar").val()+id
+                                return false;
+                            }        
+                        },function(){
+                            return true;
+                        });
+                    };
                 </script>
 
 
@@ -56,10 +80,15 @@
                     form ul li{float: left;width: 110px;line-height: 25px;text-align: center;}
                     form ul input{border: 1px solid #ccc;width: 100px;}
                     form ul select{border: 1px solid #ccc;width: 100px;}
+                    .th_default{padding: 0 3px;}
+                    .redclss{ color: red;}
+                    #ig_primary{float: right; margin-top: 3px;}
+                    .divBtn {position:relative;display:inline-block;padding:3px;cursor:pointer}
+                    .tablelist td{line-height:35px; text-indent: 10px; border-right: dotted 1px #c7c7c7;}
                 </style>
 
                 <body style="background: none;">
-
+              <input type="hidden" value="/index.php?s=/Home/Developer/del/pid/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
                         <span>后台管理：</span>
                         <ul class="placeul">
@@ -91,7 +120,7 @@
                                     <th>电话</th>
                                     <th>添加时间</th>
                                     <th>添加人</th>
-                                    <th>操作</th>
+                                    <th colspan="2">操作</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -104,10 +133,8 @@
                                         <td><?php echo (date("Y-m-d H:i:s",$vo["addtime"])); ?></td>
                                         <td><?php echo ($vo["admin"]); ?></td>
 
-                                        <td>
-                                            <a href="<?php echo U('class_Update',array(id=>$vo['id']),'');?>" class="tablelink">修改</a>    
-                                            <a class="tablelink" onclick="deleteSum('<?php echo ($vo["id"]); ?>')"> 删除</a>
-                                        </td>
+                                        <td width="20px" class="th_default" align="center"><a href="<?php echo U('class_Update',array(id=>$vo['id']),'');?>" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td> 
+                                        <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除"onclick="return cats_Shop(<?php echo ($vo["id"]); ?>)"><span class="ui-icon ui-icon-minus"></span></div></td>
                                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>   
                             </tbody>
                         </table>

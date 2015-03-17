@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <title>装修申请列表</title>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -147,18 +147,27 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+            <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">物业管理 </a></li>
-                <li><a href="#">维修报障</a></li>
+                 <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                 <li>物业信息管理</li>
+                <li>装修申请</li>
             </ul>
         </div>
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/decorate" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/ajax_rule" id="url_rule" name="url_rule" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/decorate" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/ajax_rule" id="url_rule" name="url_rule" />
         <input type="hidden" value="<?php echo ($obj); ?>" id="model" />
-        <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="装修申请"  onclick="javascript:;" /></li>
-
+     <!--   <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="装修申请"  onclick="javascript:;" /></li> -->
+            <form action="" method="post" name ="vform" id="from_sub">
+                <div  id="tab2" class="tabson">
+                    <ul class="seachform">
+                        <li><label>标题</label><input name="title" type="text" class="scinput"value="" /></li>
+                        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                    </ul>
+                </div>
+            </form>
+     
         <div style="display:none" id="skuNotice" class="sku_tip">
             <span id="skuTitle2"></span>
         </div>
@@ -166,11 +175,11 @@
             <thead>
                 <tr>
 
-                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
                     <th>业主名字</th> 
-                    <th>公告标题</th>
-                    <th>公告内容</th>
+                    <th>装修标题</th>
+                    <th>装修内容</th>
+                    <th>所属小区</th>
                     <th>故障地址</th>
                     <th>联系电话</th>
                     <th>发布时间</th>
@@ -180,20 +189,21 @@
             </thead>
             <tbody id="table_ajax_list">
                 <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input name="num" type="checkbox" value="" /></td>
+
                         <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["owner"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
                         <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
+                        <td><?php echo ($vo["vname"]); echo ($village); ?></td>
                         <td><?php echo ($vo["address"]); ?></td>
                         <td><?php echo ($vo["phone"]); ?></td>
-                        <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
+                        <td><?php echo (date("Y-m-d H:i:s",$vo["time"])); ?></td>      
                <!--         <td class="role-list"><button class="btn btn-default" type="button"><?php echo ($vo["done"]); ?></button></td> -->
                         <td class="th_default">    
                             <!--    <a class="btn btn-default" onclick="update_list(<?php echo ($vo["rid"]); ?>)">修改</a>    <!-- btn btn-danger -->
-                            <a href="<?php echo U('decorate',array(id=>$vo['id']),'');?>" class="btn btn-default" title="回复">回复</a>     
-                            <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
-                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)"> 详情</a>
+                            <a href="<?php echo U('decorate',array(id=>$vo['id']),'');?>" class="btn btn-default" title="装修详情">装修详情</a>     
+                     <!--       <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>-->
+                            <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)"> 回复</a>
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
@@ -222,7 +232,7 @@
                         <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                             <tr>
                                 <td align="right" width="110px">
-                                    <label for="title">维修标题：</label>
+                                    <label for="title">标题：</label>
                                 </td>
                                 <td>
                                     <input type="text" name="title" id="title"  class="form-control" />
@@ -238,7 +248,7 @@
                             </tr>
                             <tr>
                                 <td align="right" width="110px">
-                                    <label for="address">故障地址：</label>
+                                    <label for="address">地址：</label>
                                 </td>
                                 <td>
                                     <input type="text" name="address" id="address" class="form-control" />
@@ -265,7 +275,7 @@
                                 <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
                                     <tr>
                                         <td align="right" width="110px">
-                                            <label for="title">维修标题：</label>
+                                            <label for="title">标题：</label>
                                         </td>
                                         <td>
                                             <span id="title2"  /></span>
@@ -282,7 +292,7 @@
                                     </tr>
                                     <tr>
                                         <td align="right" width="150px">
-                                            <label for="address">故障地址：</label>
+                                            <label for="address">地址：</label>
                                         </td>
                                         <td>
                                             <span id="address2"  /></span>
@@ -317,7 +327,7 @@
                                         </td>
                                     </tr>
                                     <input type="hidden" name="rid" id="role_id"  /> -->
-                                    <input type="hidden" name="id" id="role_id"  />
+                                    <input type="hidden" name="yid" id="role_id"  />
                                 </table>
                             </fieldset>
                             </form>

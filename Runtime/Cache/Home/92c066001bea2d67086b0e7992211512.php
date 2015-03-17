@@ -86,6 +86,7 @@
                             var bValid = true;
                             bValid = bValid && checkLength( $("#name"), "分类名称", 2, 16 );
                             bValid = bValid && checkEmpty( $("#intro"), "描述不能为空！" );
+                            $("#intro").removeClass('ui-state-error')
                             if(bValid==false){ setout(); }
                             return bValid;
                         }
@@ -104,10 +105,11 @@
                     <body style="background: none;">
 
                         <div class="place">
-                            <span>后台管理：</span>
+                            <span>位置： </span>
                             <ul class="placeul">
-                                <li><a href="#">分类管理</a></li>
-                                <li><a href="#">添加分类</a></li>
+                                <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                                <li><a href="/default/index.php?s=/Home/Category">分类管理</a></li>
+                                <li>添加分类</li>
                             </ul>
                         </div>
                         <form action="" method="post" name ="vform">
@@ -126,14 +128,14 @@
                                                             <?php if(is_array($arr)): $i = 0; $__LIST__ = $arr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["cat_id"]); ?>" <?php echo ($vo["selected"]); ?>><span><?php echo ($vo["cat_name"]); ?></span></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                         </select><i id="pro_category">顶级分类不用选择</i></span>
                                                 </li>
-                                                <li><label>分类图片</label><div id="list_hidden"></div></li>
+                                                <!--<li><label>分类图片</label><div id="list_hidden"></div></li>
                                                 <li id="limage" style="position:relative;margin-bottom:5px;height:55px"><input name="" id="upload_list" type="file" class="dfinput" style=""/><i  id ="imgs" style="position:absolute;left:150px;top:-5px;"><img src="" style="" height="50px">
                                                             <?php if($info["cat_img"] != ''): ?><div class="up_list_pic">
                                                                     <img class="cat_img" height='50px' src='<?php echo ($info["cat_img"]); ?>'>
                                                                         <img class="cat_img" src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                             </div><?php endif; ?>
-                                                                            </i><span id="spanDes">顶级分类无图片</span></li>
-                                                                            <li><label>描述</label><textarea rows="5"  cols='50' style="border:1px solid #A7B5BC" name ="intro" id="intro" value="<?php echo ($info["intro"]); ?>"><?php echo ($info["intro"]); ?></textarea><i id="name_intro">描述不能超过100个字符</i></li>
+                                                                            </i><span id="spanDes">顶级分类无图片</span></li> -->
+                                                                            <li><label>描述</label><textarea rows="7"  cols='56' style="border:1px solid #A7B5BC; width: 345px;" name ="intro" class="form-control" id="intro" value="<?php echo ($info["intro"]); ?>"><?php echo ($info["intro"]); ?></textarea></li>
                                                                             <li><label>&nbsp;</label><input type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
                                                                             </ul>
                                                                             <div style="display:none" id="skuNotice" class="sku_tip">

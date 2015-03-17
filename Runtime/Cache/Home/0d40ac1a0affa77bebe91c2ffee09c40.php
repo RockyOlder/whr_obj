@@ -3,77 +3,104 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/bootstrap.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
                 <script type="text/javascript" type="text/javascript">
-                    function deleteSum(id){
-                        if(confirm("确认删除"))
-                            location.href="/whr/index.php?s=/Home/Admin/del/id/"+id
-                    }
+
                     $(function(){
                         initPager();
                     })
-
+                    function cats_Shop(id) {
+                    
+                        art.dialog({
+                            content:'你确定要删除？',
+                            title: '确定框',  
+                            okValue:'确认',  
+                            cancelValue:'取消', 
+                            width: 230,  
+                            height: 100,  
+                            fixed:true,
+                            id:'bnt4_test',
+                            style:'confirm'}, 
+                        function(){
+                            var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                            if(msg){
+                                location.href=$("#url_ajaxCalendar").val()+id
+                                return false;
+                            }        
+                        },function(){
+                            return true;
+                        });
+                    };
                 </script>
 
 
                 </head>
                 <style type="text/css">
-                    form ul{width: 100%;}
-                    form ul li{float: left;width: 110px;line-height: 25px;text-align: center;}
-                    form ul input{border: 1px solid #ccc;width: 100px;}
-                    form ul select{border: 1px solid #ccc;width: 100px;}
+
                     #table_ajax_list a{ width: 70px;}
                     .tablelist td{ overflow:  auto;}
+                    #tab2{ float: left;}
+                    #like{ float: left;}
                 </style>
 
                 <body style="background: none;">
-
+                    <input type="hidden" value="/server.php?s=/Home/ProInfo/Nodel/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
-                        <span>后台管理：</span>
+                        <span>位置： </span>
                         <ul class="placeul">
-                            <li><a href="#">开发商管理</a></li>
-                            <li><a href="#">开发商列表</a></li>
+                            <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                            <li><a href="#">资讯列表</a></li>
                         </ul>
                     </div>
-
+                    <form action="" method="post" name ="vform" id="from_sub">
+                        <div  id="tab2" class="tabson">
+                            <ul class="seachform">
+                                <li><label>标题</label><input name="title" type="text" class="scinput"value="" /></li>
+                                <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                            </ul>
+                        </div>
+                    </form>
                     <div class="rightinfo">
 
-                        <div class="tools">
-                            <a href="<?php echo U('add');?>" style="float: right; margin-top: 3px;" class="btn btn-primary">添加</a>    
-                        </div>
+
+                        <a href="<?php echo U('add');?>" style="float: right; margin-top: 3px;" class="btn btn-primary">添加</a>    
+
 
 
                         <table class="tablelist">
                             <thead>
                                 <tr>
-                                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
-                                    <th>公告标题</th>
-                                  <!--  <th>公告内容</th> -->
-                                    <th>所属物业</th> 
-                                    <th>添加时间</th>
+
+
+                                    <th>资讯标题</th>
+                                    <th width="100px;">资讯图片</th>
+                                  <!--  <th>资讯内容</th>  -->
+                                    <th>发布方</th> 
+                                    <th>发布时间</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
 
                             <tbody id="table_ajax_list">
                                 <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                        <td><input name="num" type="checkbox" value="" /></td>
-                                        <td><?php echo ($vo["id"]); ?></td>
                                         <td><?php echo ($vo["title"]); ?></td>
-                                      <!--  <td width="300"><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td> -->
-                                        <td><?php echo ($vo["pname"]); ?></td>
+                                        <td><img src="<?php echo ($vo["pic"]); ?>" width="50px;"></td>
+                                    <!--    <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td> -->
+                                        <td><?php echo ($vo["author"]); ?></td>
                                         <td><?php echo (date("Y-m-d H:i:s",$vo["add_time"])); ?></td>      
                                         <td>
-                                            <a href="<?php echo U('add',array(nid=>$vo['id']),'');?>" class="btn btn-default" title="回复">回复</a>     
+                                            <a href="<?php echo U('add',array(nid=>$vo['id']),'');?>" class="btn btn-default" title="资讯详情" style=" width: 84px;">资讯详情</a>     
                                             <a href="<?php echo U('add',array(id=>$vo['id']),'');?>" class="btn btn-default">修改</a>    
-                                            <a href="<?php echo U('del',array(id=>$vo['id']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                                               <a class="btn btn-danger" onclick="return cats_Shop(<?php echo ($vo["id"]); ?>)"> 删除</a>
+                                            <a href="<?php echo U('index',array(id=>$vo['id']),'');?>" class="btn btn-info" title="置顶">置顶</a>     
                                         </td>
                                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
                             </tbody>
@@ -94,7 +121,7 @@
                             <div class="tiptop"><span>提示信息</span><a></a></div>
 
                             <div class="tipinfo">
-                                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                                 <div class="tipright">
                                     <p>是否确认对信息的修改 ？</p>
                                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

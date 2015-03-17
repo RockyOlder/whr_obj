@@ -3,16 +3,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-                <script src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+                <script src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
                 <script type="text/javascript">
                     $(function(){
-
+                        if($("#action").val()=='edit'){
+                            $("#adminName").remove();
+                            $("#password").remove();
+                            $(".removeUser").remove()
+                        }
                         function setout(){
                             $('.validateTips').text()
                             $('#skuNotice').show();
@@ -24,14 +28,19 @@
                         function checkInput(){
                             var bValid = true;
                             bValid = bValid && checkLength( $("#pname"), "物业名称", 2, 16 );
-                            bValid = bValid && checkEmpty( $("#address"), "详细地址不能为空！" );
                             bValid = bValid && checkEmpty( $("#addressAdd"), "请选择省市！" );
-                            bValid = bValid && checkEmpty( $("#city_list"), "请选择市区！" );
+                            //                bValid = bValid && checkEmpty( $("#city_list"), "请选择市区！" );
                             bValid = bValid && checkEmpty( $("#val_list"), "请选择区县！" );
+                            bValid = bValid && checkEmpty( $("#address"), "详细地址不能为空！" );
                             bValid = bValid && (checkRegexp( $("#phone"), /\d{3}-\d{8}|\d{4}-\d{7}/ , "电话格式不正确！" ));
                             bValid = bValid && checkEmpty( $("#manager"), "详细地址不能为空！" );
                             bValid = bValid && (checkRegexp( $("#manage_phone"), /(^1[0-9]{10}$)|(^00[1-9]{1}[0-9]{3,15}$)/ , "手机格式不正确！" ));
-                            if(bValid==false){ setout(); }
+                            if($("#action").val()=='add'){
+                                bValid = bValid && checkLength( $("#adminName"), "管理员用户名", 2, 16 );
+                                bValid = bValid && checkLength( $("#password"), "\u5bc6码", 6, 16 )
+                            }
+                           
+                           if(bValid==false){ setout(); }
                             return bValid;
                         }
                         $('form').submit(function(){
@@ -70,34 +79,36 @@
                     .pro{  float: left;line-height: 30px;margin-bottom: 10px; margin-left: 0px; }
                     .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
                     .pro select{width: 345px;height: 32px; }
+                    .info_start{ color: red;}
                     /*#val_list{width: 345px;height: 32px;  margin-left: 85px;} -*/
                 </style>
 
                 <body style="background: none;">
 
                     <div class="place">
-                        <span>后台管理：</span>
+                            <span>位置： </span>
                         <ul class="placeul">
-                            <li><a href="#">管理员管理</a></li>
-                            <li><a href="#">添加管理员</a></li>
+                            <!--<li>位置：</li> -->
+                            <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                            <li><a href="/server.php?s=/Home/Property">物业管理</a></li>
+                            <li>添加物业</li>
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
                         <input type ="hidden" name="id" value="<?php echo ($info["id"]); ?>">
-                            <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
+                            <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>" id="action">
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
 
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
 
                                         <ul class="forminfo">
-                                            <li><label>物业名称</label><input name="pname" id="pname" type="text" class="dfinput" value="<?php echo ($info["pname"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
-                                            <li><label>详细地址</label><input name="address" id="address" type="text" class="dfinput" value="<?php echo ($info["address"]); ?>" /><i id="address_info">密码不能为空</i></li>
-                                            <li><label>地 址</label>
+                                            <li><label>物业名称<a class="info_start">&nbsp; *</a></label><input name="pname" id="pname" type="text" class="dfinput" value="<?php echo ($info["pname"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
+                                            <li><label>地 址<a class="info_start">&nbsp; *</a></label>
                                                 <span class = 'pro'>
                                                     <select name = 'province'  class="form-control" id="addressAdd" >
                                                         <option class="cheng_in" value="<?php echo ($region["REGION_ID"]); ?>"><?php echo ($region["REGION_NAME"]); ?></option>
-                                                        <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["region_id"]); ?>" ><?php echo ($vo["region_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                        <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["REGION_ID"]); ?>" ><?php echo ($vo["REGION_NAME"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                     </select>
 
                                                     <select name = 'city' style="display:none" id ="city_list" class="form-control" <!--onclick="saveCity()" -->>
@@ -109,12 +120,21 @@
                                                     </select>
 
                                                 </span> <i class="errorColor">请选择地址</i></li>
-                                            <li><label>物业电话</label><input name="phone" type="text" id="phone" class="dfinput" value="<?php echo ($info["phone"]); ?>" /><i>格式：0755-xxxxzz</i></li>
-                                            <li><label>主管名字</label><input name="manager" type="text" id="manager" class="dfinput"  value="<?php echo ($info["manager"]); ?>"/><i>不能为空</i></li>
-                                            <li><label>主管电话</label><input name="manage_phone" id="manage_phone" type="text" class="dfinput"  value="<?php echo ($info["manage_phone"]); ?>"/><i>格式：134xxxxxxxx</i></li>
+                                            <li><label>详细地址 <a class="info_start">&nbsp; *</a></label><input name="address" id="address" type="text" class="dfinput" value="<?php echo ($info["address"]); ?>" /><i id="address_info">请选择地址</i></li>
+                                            <li><label>物业电话<a class="info_start">&nbsp; *</a></label><input name="phone" type="text" id="phone" class="dfinput" value="<?php echo ($info["phone"]); ?>" /><i>格式：0755-xxxxzz</i></li>
+                                            <li><label>主管名字<a class="info_start">&nbsp; *</a></label><input name="manager" type="text" id="manager" class="dfinput"  value="<?php echo ($info["manager"]); ?>"/><i>不能为空</i></li>
+                                            <li><label>主管电话<a class="info_start">&nbsp; *</a></label><input name="manage_phone" id="manage_phone" type="text" class="dfinput"  value="<?php echo ($info["manage_phone"]); ?>"/><i>格式：134xxxxxxxx</i></li>
+                                            <li class="removeUser"><label>管理员用户名<a class="info_start">&nbsp; *</a></label><input name="adminName" id="adminName" type="text" class="dfinput" /><i>管理员用户名不能为空</i></li>
+                                            <li class="removeUser"><label>密码<a class="info_start">&nbsp; *</a></label><input name="password" id="password" type="password" class="dfinput"  /><i>管理员密码不能为空</i></li>
                                             <input name="staue" value="0" type="hidden"  />
                                             <input name="add_time" value="0" type="hidden"  />
-
+                                            <!-- <li><label>所属楼盘</label>
+                                                     <span class = 'pro'>
+                                                     <select  class="form-control" id="property_id" name = 'property_id' style="width: 345px;height: 32px;" >
+                                                         <option name = 'property_id' class="pro_into"  value="<?php echo ($housefin["id"]); ?>"><?php echo ($housefin["name"]); ?></option>
+                                                         <?php if(is_array($hlist)): $i = 0; $__LIST__ = $hlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'property_id'  value="<?php echo ($list["id"]); ?>"><?php echo ($list["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                     </select>
+                                                 </span>  <i class="errorColor">请选择楼盘</i> -->
 
                                             <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
                                         </ul>
@@ -144,7 +164,7 @@
                                                                                                                                                                    
                                                             var str=""
                                                             $.each(data,function(key,val){
-                                                                str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                             })
                                                             //   $('#city_list').append(str)
                                                             $('#city_list').html(str);
@@ -155,7 +175,7 @@
                                             })
                                                                                                                                                     
                                             $('#city_list').bind('change',function(){
-                                                //   alert(1)
+                                                $(this).parent().next().css("color","#7f7f7f")
                                                 var id=$(this).val();
                                                                                                                                                         
                                                 $.ajax({
@@ -173,10 +193,10 @@
                                                                 var inex= this//selected=selected
                                                                                                                                                                       
                                                                 $.each(data,function(key,val){
-                                                                    str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                    str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                                 })
-                                                                $('#val_list').append(str);
-                                                                $('#val_list').show(200);
+                                      
+                                                                if(str==''){$('#val_list').hide(200);}else{ $('#val_list').append(str); $('#val_list').show(200);}
                                                             }
                                                         }
                                                     }
@@ -207,6 +227,7 @@
                                                 });  
                                             };
                                             var area = function() {
+                                          
                                                 var id=$(".area_on").val();
                                                 $.ajax({
                                                     url : "<?php echo U('City/vallcage','','');?>",
@@ -234,7 +255,7 @@
  
                                         })
                                         function getvallage(id){
-                                            //          alert(1)
+                                               console.log(id)   
                                             var id = id;
                                             $('#vallage').attr('city',id);
                                             $.ajax({
@@ -244,9 +265,10 @@
                                                 dataType : "json",
                                                 success : function(data){                       
                                                     if(data != null){
+                                                      
                                                         var str=""
                                                         $.each(data,function(key,val){
-                                                            str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                                            str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
                                                         })
                                                         $('#val_list').html(str);
                                                         $('#val_list').show(200);

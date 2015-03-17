@@ -1,0 +1,63 @@
+[ 2015-01-01T02:31:33+08:00 ] 14.155.225.28 /api.php?s=pro%2Fnotice&version=1&proId=1
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T02:32:36+08:00 ] 14.155.225.28 /api.php?s=pro%2Fnotice&version=1&proId=1
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T02:32:42+08:00 ] 14.154.181.51 /api.php?s=pro%2FcarList&proId=1&type=0&page=1&pageSize=5
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T13:36:00+08:00 ] 112.97.39.216 /api.php?s=pro%2Fnotice&version=1&proId=1
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T13:36:01+08:00 ] 112.97.39.216 /api.php?s=pro%2FcarList&proId=1&type=0&page=1&pageSize=20
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T13:36:09+08:00 ] 112.97.39.216 /api.php?s=pro%2FactivityList&proId=1&page=1&pageSize=20
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-01T21:48:25+08:00 ] 116.24.102.4 /api.php?s=order/getExpress
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000303s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000526s ]
+
+[ 2015-01-01T21:48:57+08:00 ] 116.24.102.4 /api.php?s=vip/vipCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000310s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000546s ]
+
+[ 2015-01-01T23:51:34+08:00 ] 116.24.102.4 /api.php?s=vip/vipGoods
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000306s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000529s ]
+
+[ 2015-01-01T23:51:35+08:00 ] 116.24.102.4 /api.php?s=vip/vipGoods
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000308s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000533s ]
+
+[ 2015-01-01T23:51:44+08:00 ] 116.24.102.4 /api.php?s=vip/vipsearch
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000306s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000532s ]
+SQL: SHOW COLUMNS FROM `wrt_goods` [ RunTime:0.001091s ]
+SQL: SELECT `goods_id`,`price`,`markdown`,`goods_name`,`list_img`,`number`,`store_id` FROM `wrt_goods` WHERE ( goods_name like '%关键字%' ) ORDER BY number desc LIMIT 0,20   [ RunTime:0.000245s ]
+
+[ 2015-01-01T23:51:48+08:00 ] 116.24.102.4 /api.php?s=vip/vipCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000305s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000537s ]
+
+[ 2015-01-01T23:51:57+08:00 ] 116.24.102.4 /api.php?s=vip/vipInfo
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000307s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000533s ]
+SQL: SHOW COLUMNS FROM `wrt_goods` [ RunTime:0.001114s ]
+SQL: SELECT `goods_id`,`sales`,`store_id`,`goods_name`,`goods_img`,`description`,`price`,`weight` FROM `wrt_goods` WHERE ( goods_id ='1' ) LIMIT 1   [ RunTime:0.000234s ]
+SQL: SHOW COLUMNS FROM `wrt_vip` [ RunTime:0.000575s ]
+SQL: SELECT `mobile_phone`,`qq` FROM `wrt_vip` WHERE ( store_id=1 ) LIMIT 1   [ RunTime:0.000161s ]
+SQL: SHOW COLUMNS FROM `wrt_vip_comment` [ RunTime:0.000422s ]
+SQL: SELECT count(*) as sum FROM `wrt_vip_comment` WHERE ( shopid=1 )  [ RunTime:0.000117s ]
+ERR: 1054:Unknown column 'shopid' in 'where clause'
+ [ SQL语句 ] : SELECT count(*) as sum FROM `wrt_vip_comment` WHERE ( shopid=1 ) 
+

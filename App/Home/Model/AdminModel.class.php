@@ -13,8 +13,8 @@ class AdminModel extends Model {
         array('password', 'require', '密码不能为空！'), //验证密码
         array('password', '6,18', '密码必须六位以上！', 3, 'length'),
         array('repassword', 'password', '确认密码不正确！', 0, 'confirm'), //验证确认密码是否与密码一致
-        array('email', 'require', '邮箱不能为空！'), //验证邮箱		
-        array('email', 'email', '邮箱格式不对！', 2), //验证邮箱		
+      //  array('email', 'require', '邮箱不能为空！'), //验证邮箱		
+      //  array('email', 'email', '邮箱格式不对！', 2), //验证邮箱		
     );
 
 }

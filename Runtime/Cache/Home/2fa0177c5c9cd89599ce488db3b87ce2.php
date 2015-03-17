@@ -3,18 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-                <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
-                <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script> -->
-                <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script> -->
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+                <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
+                <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script> -->
+                <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/kindeditor.js"></script> -->
                 <script type="text/javascript">
                     $(function(){
-
+                       
+                       if($("#action").val()=='edit'){ $("#adminName").remove();   $("#password").remove();  $(".removeUser").remove()  }
                         if($(".pro_into").val()==''){  $(".pro_into").text("请选择"); }
                         if($(".cheng_in").val()==''){ $(".cheng_in").text("请选择"); }
                         if($(".house_into").val()==''){ $(".house_into").text("请选择"); }
@@ -34,7 +35,7 @@
                                     if(data != null){                                                                                                                              
                                         var str=""
                                         $.each(data,function(key,val){
-                                            str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                            str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                         })
                                         //   $('#city_list').append(str)
                                         $('#city_list').html(str);
@@ -58,11 +59,11 @@
                                         $("#val_list .city_in").remove();
                                         if($(".city_in").val()!==''){
                               
-                                            var str=""
+                                            var str="<option>请选择</option>"
                                             var inex= this//selected=selected
                                                                                                                                                                       
                                             $.each(data,function(key,val){
-                                                str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                             })
                                             $('#val_list').append(str);
                                             $('#val_list').show(200);
@@ -84,7 +85,7 @@
                                     //  console.log(data)
                                     if(data != null){
                                         if($(".cheng_in").val()!==''){
-                                            var str=""
+                                            var str="<option>请选择</option>"
                                             str += "<option value="+data.REGION_ID+">"+data.REGION_NAME+"</option>";
                                             $.each(data.list,function(key,val){
                                                 str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
@@ -108,7 +109,7 @@
                                     //       console.log(data)
                                     if(data != null){
                                         if($(".city_in").val()!==''){
-                                            var str=""
+                                            var str="<option>请选择</option>"
                                             str += "<option value="+data.REGION_ID+">"+data.REGION_NAME+"</option>";
                                             $.each(data.list,function(key,val){
                                                 str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
@@ -166,9 +167,9 @@
                             dataType : "json",
                             success : function(data){                       
                                 if(data != null){
-                                    var str=""
+                                    var str="option "
                                     $.each(data,function(key,val){
-                                        str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                        str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
                                     })
                                     $('#val_list').html(str);
                                     $('#val_list').show(200);
@@ -190,9 +191,15 @@
                         bValid = bValid && checkEmpty( $("#addressAdd"), "\u8bf7选择省市！" );
                         bValid = bValid && checkEmpty( $("#city_list"), "\u8bf7选择市区！" );
                         bValid = bValid && checkEmpty( $("#val_list"), "\u8bf7选择区县！" );
-                        bValid = bValid && checkEmpty( $("#house_id"), "\u8bf7选择省市！" );
-                        bValid = bValid && checkEmpty( $("#property_id"), "\u8bf7选择楼盘！" );
-                        bValid = bValid && checkEmpty( $("#val_list"), "\u8bf7选择物业！" );
+                        //   bValid = bValid && checkEmpty( $("#house_id"), "\u8bf7选择省市！" );
+                        //   bValid = bValid && checkEmpty( $("#property_id"), "\u8bf7选择楼盘！" );
+                      if($("#developerRole").val()!=0){ bValid = bValid && checkEmpty( $("#property_id"), "\u8bf7选择物业！" );}
+               
+                        if($("#action").val()=='add'){
+                            bValid = bValid && checkLength( $("#adminName"), "管理员用户名", 2, 16 );
+                            bValid = bValid && checkLength( $("#password"), "\u5bc6码", 6, 16 )
+                        }
+                        
                         //bValid = bValid && checkRegexp( $("#username"), /^[a-z]([0-9a-z_])+$/i, "用户名只能是数字和字母组成" );
                         if(bValid==false){ setout(); }
                         return bValid;
@@ -203,23 +210,24 @@
                     .pro{  float: left;line-height: 30px;margin-bottom: 10px; margin-left: 0px; }
                     .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
                     .pro select{width: 345px;height: 32px; }
-                /*    #val_list{width: 345px;height: 32px;  margin-left: 85px;}*/
+                    /*    #val_list{width: 345px;height: 32px;  margin-left: 85px;}*/
                 </style>
 
                 <body style="background: none;">
-
+                    <input type ="hidden" value="<?php echo ($data["developer"]); ?>" id="developerRole">
                     <div class="place">
-                        <span>后台管理：</span>
+                            <span>位置： </span>
                         <ul class="placeul">
-                            <li><a href="#">管理员管理</a></li>
-                            <li><a href="#">添加管理员</a></li>
+                            <li><a href="<?php echo U('Index/start');?>">首页</a> </li>
+                            <li>小区管理</li>
+                            <li>添加小区</li><option></option>
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
                         <input type ="hidden" name="add_time">
                             <input type ="hidden" name="id" value="<?php echo ($info["id"]); ?>">
-                                <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
-                                    <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
+                                <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>" id="action">
+                                   <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                         <div class="formbody">
                                             <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
                                             <ul class="forminfo">
@@ -228,7 +236,7 @@
                                                     <span class = 'pro'>
                                                         <select name = 'province'  class="form-control" id="addressAdd" >
                                                             <option class="cheng_in" value="<?php echo ($info["REGION_ID"]); ?>"><?php echo ($info["REGION_NAME"]); ?></option>
-                                                            <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["region_id"]); ?>" ><?php echo ($vo["region_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                            <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["REGION_ID"]); ?>" ><?php echo ($vo["REGION_NAME"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                         </select>
 
                                                         <select name = 'city' style="display:none" id ="city_list" class="form-control" <!--onclick="saveCity()" -->>
@@ -240,23 +248,18 @@
                                                         </select>
 
                                                     </span> <i class="errorColor">请选择地址</i></li>
-                                                <li><label>所属楼盘</label>
-                                                    <span class = 'pro'>
-                                                    <select  class="form-control" id="house_id" name= 'house_id' style="width: 345px;height: 32px;" >
-                                                        <option name = 'house_id' class="house_into"  value="<?php echo ($info["hid"]); ?>"><?php echo ($info["hname"]); ?></option>
-                                                        <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option name = 'house_id'  value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                                    </select>
-                                                  </span>  <i class="errorColor">请选择楼盘</i>
-                                                </li>
-                                                <li><label>所属物业</label>
-                                                    <span class = 'pro'>
-                                                    <select  class="form-control" id="property_id" name = 'property_id' style="width: 345px;height: 32px;" >
-                                                        <option name = 'property_id' class="pro_into"  value="<?php echo ($info["pid"]); ?>"><?php echo ($info["pname"]); ?></option>
-                                                        <?php if(is_array($prolist)): $i = 0; $__LIST__ = $prolist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'property_id'  value="<?php echo ($list["id"]); ?>"><?php echo ($list["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                                    </select>
-                                                  </span>  <i class="errorColor">请选择物业</i>
-                                                    <input name="add_time" type="hidden"  />
-                                                    <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
+                                                <?php if($data["developer"] != 0): ?><li><label>所属物业</label>
+                                                        <span class = 'pro'>
+                                                            <select  class="form-control" id="property_id" name = 'property_id' style="width: 345px;height: 32px;" >
+                                                                <option name = 'property_id' class="pro_into"  value="<?php echo ($info["pid"]); ?>"><?php echo ($info["pname"]); ?></option>
+                                                                <?php if(is_array($prolist)): $i = 0; $__LIST__ = $prolist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'property_id'  value="<?php echo ($list["id"]); ?>"><?php echo ($list["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                            </select>
+                                                        </span>  <i class="errorColor">请选择物业</i><?php endif; ?>
+
+                                                <li class="removeUser"><label>管理员用户名</label><input name="adminName" id="adminName" type="text" class="dfinput" /><i>管理员用户名不能为空</i></li>
+                                                <li class="removeUser"><label>密码</label><input name="password" id="password" type="password" class="dfinput"  /><i>管理员密码不能为空</i></li>
+                                                <input name="add_time" type="hidden"  />
+                                                <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
                                             </ul>
                                             <div style="display:none" id="skuNotice" class="sku_tip">
                                                 <span class="validateTips"></span>

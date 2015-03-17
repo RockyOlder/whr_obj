@@ -1,15 +1,8 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class ProController extends Controller {
+use Api\Controller\CommonController;
+class ProController extends CommonController {
   public $tem=array();
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
     // 获取公告的内容
     public function notice()
     {
@@ -22,7 +15,8 @@ class ProController extends Controller {
               $this->ajaxReturn($out);
           }
           if ($id == 1) {
-            $where = array('proid'=>$proId,'pid'=>0);
+            // $where = array('proid'=>$proId,'pid'=>0);
+            $where = "vid in(0,$proId) and pid = 0";
             $data = M('pro_notice')->field('title,id')->where($where)->order('add_time desc')->limit(3)->select();
             // dump($data);
             if (!is_null($data)) {
@@ -41,7 +35,9 @@ class ProController extends Controller {
     public function noticelist(){
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
+        $vid = I('request.vId',0,'intval');
         $userId = I('request.userId',0,'intval');
+        $search = I('request.search');
         $page = I('request.page',1,'intval');
         $pageSize = I('request.pageSize',20,'intval');
         if ($page == 0) $page = 1;
@@ -55,6 +51,10 @@ class ProController extends Controller {
         if ($id == 1) {
             $out['success'] = 1; 
             $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
+            if ($search) {
+              $where ="vid in (0,$vId) and proid = $proId and pid = 0 and sheild = 0 and ( title like '%$search%' or content like '%$search%')";
+            }
+            // 查找出用户的id
             if ($userId) {
                 //查找用户的参与的id
                 $w = array('uid'=>$userId);
@@ -64,20 +64,36 @@ class ProController extends Controller {
                   $tem[] = $v['pid'];
                 }
                 $where = "id in (".implode(',', $tem).") and sheild = 0";
+                if ($search) {
+                  $where .=' and title like %'.$search.'%';
+                }
             }
+            
+            // dump($where);
             $page = ($page - 1) * $pageSize.",".$pageSize;
             // dump($pageSize);
             $field = "id,title,content,add_time,author,pic,comment_num";
              $data= M('pro_notice')->field($field)->where($where)->order('add_time desc')->limit($page)->select();
-             foreach ($data as $k => $v) {
-               $v['add_time'] = date('m-d',$v['add_time']);
-               $data[$k]=$v;
+             //dump(M('pro_notice')->getLastSql());
+             if ($data) {
+                 foreach ($data as $k => $v) {
+                 $v['add_time'] = date('m-d',$v['add_time']);
+                 // $v['content'] = strip_tags($v['content']);
+                 $v['content'] = htmlspecialchars_decode($v['content']);
+                 $v['content'] = str_replace('&nbsp;', '', $v['content']);
+                 $v['content'] = strip_tags($v['content']);
+                 $data[$k]=$v;
+               }
+               $out['data'] = $data;
+             }else{
+                $out['data'] = array();
              }
-             $out['data'] = $data;
+             
             $this->ajaxReturn($out);
         }
 
     }
+    
     //资讯详情数据
      public function noticeOne(){
         $id = I('request.version',1,'intval');
@@ -98,8 +114,9 @@ class ProController extends Controller {
             M('pro_notice')->where($where)->setInc('views');
             // dump($pageSize);
             $data = M('pro_notice')->where($where)->find();
+            $data['content'] = htmlspecialchars_decode($data['content']);
             $data['add_time'] = date('Y-m-d H:i:s',$data['add_time']);
-            $where = array('pid'=>$noticeId);
+            $where = array('pid'=>$noticeId,'sheild'=>0);
             // dump($where);
             $son = M('pro_notice')->field('id,content,add_time,uid,author')->where($where)->select();
             foreach ($son as $k => $v) {
@@ -184,19 +201,18 @@ class ProController extends Controller {
             $table = "pro_car";
             $out['success'] = 1; 
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
-            $where = "proid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
+            $where = "vid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
+            
             $page = ($page - 1) * $pageSize.",".$pageSize;
             $field = "id,title,content,pic,author,add_time,views,uid";
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('add_time desc')->limit($page)->select();
-            foreach ($data as $k => $v) {
-              // $face = M('user')->field('face')->where(array('user_id'=>$v['uid']))->find();
-              // if ($face) {
-              //   $v['face'] = current($face);
-              // }
+            if ($data) {
+              foreach ($data as $k => $v) {
               $v['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
               $data[$k] =$v;
-            }
+              }
+            }else{$data = array();}
             $out['msg'] ="成功获取数据";
             $out['data'] = $data;          
             $this->ajaxReturn($out);
@@ -224,11 +240,15 @@ class ProController extends Controller {
             $table = "pro_activity";
             $out['success'] = 1; 
             // $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
-            $where = "proid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
+            $where = "vid = $proId and pid = 0 and sheild = 0 and pass_time >".time();
             $page = ($page - 1) * $pageSize.",".$pageSize;
+            // dump($page);
             $field = "id,title,content,pic,author,add_time,views,uid";
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('add_time desc')->limit($page)->select();
+            // dump($where);
+            // dump($table);
+            // dump($data);
             foreach ($data as $k => $v) {                
                 $v['add_time'] = date('m-d',$v['add_time']);
                 $data[$k] =$v;
@@ -260,9 +280,10 @@ class ProController extends Controller {
             M($table)->where($w)->setInc('views');
             // 搜索对应的详情
             
-            //$field =->field($field) "id,title,content,pic,author,add_time,views,phone,uid";
-            $data = M($table)->where($w)->find();
+            $field ="id,title,content,pic,author,add_time,start_time,pass_time,views,phone,uid,address,number,more_pic";
+            $data = M($table)->field($field)->where($w)->find();
             $data['add_time'] = date('m-d',$data['add_time']);
+            $data['pass_time'] = date('Y-m-d H:i:s',$data['pass_time']);
             $w = array('pid'=>$aid);
             // dump($w);
             // dump($table);//查找所有的回复->field($field)
@@ -299,10 +320,11 @@ class ProController extends Controller {
             // 更新浏览量
             M($table)->where($w)->setInc('views');
             
-            $field = "id,title,content,pic,author,add_time,pass_time,views,number,address"; 
+            $field = "id,title,content,pic,author,add_time,pass_time,views,number,address,more_pic"; 
             // dump($w);           
             // dump($field);
             $data = M($table)->field($field)->where($w)->find();
+            // dump(M($table)->getlastSql());
             // dump($data);
             $data['start_time'] = date('Y-m-d H:s',$data['add_time']);
             $data['end_time'] = date('Y-m-d H:s',$data['pass_time']);
@@ -428,20 +450,28 @@ class ProController extends Controller {
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
         //修改邻里拼车的时候获取数据
-        $cid = I('require.id',0,"intval");
+        $cid = I('request.id',0,"intval");
         $arr['title'] = maskWord(I('request.title'));
         $arr['content'] = maskWord(I('request.content'));
+        $arr['vid'] = I('request.villageId');
         $arr['pass_time'] = strtotime(I('request.passTime'));
         $arr['start_time'] = I('request.startTime');
         $arr['add_time'] = time();
         $arr['uid'] = I('request.userId',0,'intval');
-        $arr['author'] = I('request.userName');
-        $arr['pic']=is_null(uploud())?'':uploud();
-          // $arr['pic'] = uploud();
+        $arr['author'] = $this->user['nickname'];
+        $arr['address'] = I('request.address');
+        $pic = uploadMore();
+        if (!is_null($pic)) {
+          $arr['more_pic'] = $pic;
+          $pic = json_decode($pic,true);
+          $arr['pic']=$pic[0]['path'];
+        }          
+          //dump($pic);die();
+        $arr['number'] =  I('request.number',0,'intval');
         $arr['phone'] =  I('request.phone');
         $arr['pid'] = I('request.pid',0,'intval');
         $arr['proid'] = $proId;
-       
+       //dump($arr);die();
         if (!$proId && $arr['pid'] == 0) {
               $out['success'] = 0;
               $out['msg']=C('no_id');
@@ -450,17 +480,28 @@ class ProController extends Controller {
         if ($id == 1) {
             // dump($arr);die();
             $arr['add_time'] = time();
+            //查找用户所在小区
+            $vid = M('user')->field('village_id,property_id')->where(array('user_id'=>$arr['uid']))->find();
+            // dump($vid);
+            if ($vid) {
+
+              $arr['vid'] = $vid['village_id'];
+              $arr['proid'] = $vid['property_id'];
+            }
             if ($cid != 0) {
               $arr['id']=$cid;
               $bool = M("ProCar")->save($arr);
             }else{
               $bool = M("ProCar")->add($arr);
             }
+            // dump(M('ProCar')->getlastSql());
            // dump($bool);
             if ($bool) {
               $out['success'] = 1; 
               if($arr['pid'] != 0){
                   $out['msg']='回复成功';
+              }elseif($cid != 0){
+                 $out['msg']='修改成功';
               }else{
                  $out['msg']='发布成功';
               }
@@ -480,6 +521,7 @@ class ProController extends Controller {
         $type = I('request.type',0,'intval');
         $arr['title'] = maskWord(I('request.title'));
         $arr['proid'] = I('request.proId',0,'intval');
+        $arr['vid'] = I('request.villageId',0,'intval');
         $arr['content'] = maskWord(I('request.content'));
         $passTime =I('request.passTime');
         $arr['pass_time'] = strtotime($passTime);
@@ -488,7 +530,13 @@ class ProController extends Controller {
         $arr['uid'] = I('request.userId',0,'intval');
         $arr['author'] = I('request.userName');
         $arr['phone'] = I('request.phone');
-        $arr['pic']=is_null(uploud())?'':uploud();
+
+        $pic = uploadMore();
+        if (!is_null($pic)) {
+          $arr['more_pic'] = $pic;
+          $pic = json_decode($pic,true);
+          $arr['pic']=$pic[0]['path'];
+        }
         $number = I('request.number',0,'intval');
         if ($number != 0) {
               $arr['number'] = $number;
@@ -499,7 +547,15 @@ class ProController extends Controller {
               $out['msg']=C('no_id');
               $this->ajaxReturn($out);
           }
-        if ($id == 1) {            
+        if ($id == 1) {   
+            //查找用户所在小区
+            $vid = M('user')->field('village_id,property_id')->where(array('user_id'=>$arr['uid']))->find();
+            // dump($vid);
+            if ($vid) {
+
+              $arr['vid'] = $vid['village_id'];
+              $arr['proid'] = $vid['property_id'];
+            }         
             // dump($arr);die();
             $arr['add_time'] = time();
             $table = 'pro_activity';
@@ -524,7 +580,7 @@ class ProController extends Controller {
             $this->ajaxReturn($out);
         }
     }
-    // 物管信息添加
+    //物管信息添加
     public function propertyAdd(){
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
@@ -561,7 +617,13 @@ class ProController extends Controller {
             
             // dump($pageSize);
             // dump($table);
-            // dump($arr);
+            // 查找到用户的物业id
+            $property = M('user')->field('property_id,village_id')->where(array('user_id'=>$arr['uid']))->find();
+            // dump($property);
+            $arr['proid'] = $property['property_id'];
+            $arr['vid'] = $property['village_id'];
+            // dump($table);
+            // dump($arr);die();
             $bool = M($table)->add($arr);
             $out['data'] = $bool;
             if ($bool) {
@@ -569,7 +631,7 @@ class ProController extends Controller {
 
               if($arr['pid'] != 0){
                    //如果pid不等于0的时候那么提交的时候讲计数加个一
-                  M($table)->where(array('rid'=>$arr['pid']))->setInc('num');
+                  M($table)->where(array('id'=>$arr['pid']))->setInc('num');
                   $out['msg']='回复成功';
               }else{
                  $out['msg']='发布成功';
@@ -580,7 +642,6 @@ class ProController extends Controller {
               $out['msg']='提交失败';
               
             }
-
             $this->ajaxReturn($out);
         }
     }
@@ -610,20 +671,32 @@ class ProController extends Controller {
             $where = "pid = 0 and uid = $uid";
             // dump($where);
             $page = ($page - 1) * $pageSize.",".$pageSize;
-            $field = "rid,owner as name,title,content,time,pic,num";//
+            $field = "id,owner as name,title,content,time,pic,num";//
             // dump($pageSize);
             $data = M($table)->field($field)->where($where)->order('time desc')->limit($page)->select();
+            // dump(M($table)->getlastSql());
+            // dump($data);
             // $sql = "select * from ".C('DB_PREFIX')."pro_repair where pid = 0 and uid = $uid and pass_time >".time();
             // dump($sql);
             // $data = M()->query($sql);
             // dump($data);
-            foreach ($data as $k => $v) {
+            if($data){
+              foreach ($data as $k => $v) {
+                $w = array('pid'=>$v['id']);
+                $new = M($table)->field('time')->where($w)->order('time desc')->limit(1)->find();
+                //dump($time);
+                
+                if ($new) {
+                  $new = current($new);
+                }else{
+                  $new = 0;
+                }
+                $v['new'] = $new;
                 $v['time'] = date('Y-m-d H:i:s',$v['time']);
                 $data[$k] =$v;
+              }
             }
-            if ($data == false) {
-              $data = null;
-            }
+
             $out['data'] = $data;
 
             $this->ajaxReturn($out);
@@ -648,15 +721,15 @@ class ProController extends Controller {
             $out['success'] = 1;
             $out['msg'] = "成功";
             $table = $this->changeTable($type);
-            $where = "rid = $msgId";
+            $where = "id = $msgId";
 
             $data= M($table)->where($where)->find();
             //dump($data);
             $data['time'] = date('Y-m-d H:i:s',$data['time']);
             //dump($data);
             // 查找出来用户的回复和物业的回复
-            $field="rid,time,content,owner,uid,pid";
-            $son = M($table)->field($field)->where(array('pid'=>$data['rid']))->order('time asc')->select();
+            $field="id,time,content,owner,uid,pid";
+            $son = M($table)->field($field)->where(array('pid'=>$data['id'],'sheild'=>0))->order('time asc')->select();
             if (!$son) {
               $son = array();
             }else{
@@ -678,7 +751,49 @@ class ProController extends Controller {
         }
 
     }
-    
+    /**
+     * 删除物管信息
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-01-14T14:37:47+0800
+     * @return [type]                   [description]
+     */
+    public function propertyDel(){
+      // $data = sendMsg('18691988421','测试看看成功不');
+      // dump($data);
+        $id = I('request.version',1,'intval');
+        $msgId = I('request.msgId',0,'intval');
+        $type = I('request.type',0,'intval');
+        if ($page == 0) $page = 1;
+        if($pageSize == 0) $pageSize = 20;
+        // dump(!$proid);
+        if (!$msgId) {
+             $out['success'] = 0;
+              $out['msg']=C('no_id');
+              $this->ajaxReturn($out);
+          }
+        if ($id == 1) {
+            $out['success'] = 1;
+            $out['msg'] = "成功";
+            $table = $this->changeTable($type);
+            $where = "id = $msgId";
+            //删除用户的发布
+            $data= M($table)->delete($msgId);
+            //删除用户和物业的回复
+            $bool = M($table)->where(array('pid'=>$msgId))->delete();
+            if($data){
+              $out['data'] = $data;
+              $out['msg'] = '成功';
+              $out['success'] = 1;
+            }else{
+              $out['data'] = 0;
+              $out['msg'] = '失败';
+              $out['success'] = 0;
+            }
+            $this->ajaxReturn($out);
+        }
+
+    }
     private function changeTable($type){
         switch ($type) {
           case '1':
@@ -754,8 +869,7 @@ class ProController extends Controller {
         // dump($next);//die();
         if ($next) {
             foreach ($next as $k => $s) {
-              //$next['add_time'] = date('Y-m-d H:i:s',$next['add_time']);
-            
+              //$next['add_time'] = date('Y-m-d H:i:s',$next['add_time']);            
             $s['level'] = 2;
             $s['ptime'] =  date('Y-m-d H:i:s',$v['add_time']);
             $s['pauthor'] = $v['author'];
@@ -772,6 +886,46 @@ class ProController extends Controller {
         }
         
     }
+        /**
+         
+         * //单张图片上传的方法
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-01-20T08:50:38+0800
+         * @return [type]                   [description]
+         
+         */
+function uploud(){
+    if (!empty($_FILES)) 
+        {
+         $config = array(
+              'maxSize' => 3145728,
+              'rootPath' => './Uploads/',
+              'savePath' => 'list/',
+              'saveName' => array('uniqid',''),
+              'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+              'autoSub' => true,
+              'subName' => array('date','Ymd'),
+              );
+
+          $upload = new \Think\Upload($config);// 实例化上传类                  
+          $info = $upload->upload();
+          $image = new \Think\Image();
+          // dump($info);
+          foreach($info as $file) {
+              $thumbWidth = array('url'=>250);
+              $thumb_file = './Uploads/' . $file['savepath'] . $file['savename'];
+              foreach ($thumbWidth as $k=> $v) {
+                 $save_path = './Uploads/' .$file['savepath']. $v."_" . $file['savename'];
+                  $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
+                  $out='http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/Uploads/'.$file['savepath']. $v.'_' .$file['savename'];     
+              }
+         }
+          return $out;         
+      }else{
+        return '';
+      }
+  }
     
   
 }

@@ -3,15 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
-        <link type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">  -->
+        <link type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
             <script type="text/javascript">
                 $(function(){
                     $( "#dialog-form" ).dialog({
@@ -40,6 +40,28 @@
                             //     resetInput();
                         }
                     });
+                    
+                        
+                        $( "#dialog-edit" ).dialog({
+                            width: 500,
+                            autoOpen: false,
+                            modal:true,
+                            position:{
+                                my: "center", 
+                                at: "center", 
+                                of: window
+                            }, 
+                            buttons: {
+                                "提　交":function(){
+                                    // allFields.removeClass( "ui-state-error" );
+                                    $('form[name=myname]').submit();
+                                },
+                                "重　置":function(){	
+                                }	
+                            },
+                            close: function() {
+                            }
+                        });
                     $("#ig_primary").click(function(){
                         $("#dialog-form").dialog("option","title","添加");            
                         $("#dialog-form").dialog("open");
@@ -77,6 +99,33 @@
                         }
                     });
                 }
+                    function rule_add(subId){
+                        $("#dialog-edit").dialog("option","title","审核");
+                        $("form[name=myname]").attr("action",$("#examUpdate").val());
+                        $.ajax({ 
+                            url:$("#examUpdate").val(),
+                            type:"post",
+                            dataType:"json",
+                            cache:false,
+                            data: {
+                                "pid":subId
+                            },
+                            timeout:30000,
+                            success:function(data){
+                                //roleDataBak=data;
+                      
+                                $("#role_id").val(data.id);
+                                $("#titleADD").val(data.title)
+                                $("#title2").text(data.title);
+                                $("#content2").text(data.content);
+                         //       $("#address2").text(data.address);
+                         //       $("#phone2").text(data.phone);
+                                //   $("#action2").val(data.action);
+                                //    alert($("#action2").val());
+                                $("#dialog-edit").dialog("open");
+                            }
+                        });
+                    }
             </script>
     </head>
     <style type="text/css">
@@ -84,34 +133,40 @@
         .pro select{width: 345px;height: 32px; }
         #val_list{width: 345px;height: 32px;  margin-left: 85px;}
         #table_list tr td{ padding: 7px;}
-        .th_default a{ width: 70px;}
+        .th_default a{ width: 85px;}
         #ig_primary{float: right; margin-top: 3px;}
     </style>
 
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+        <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">物业信息管理</a></li>
-                <li><a href="#">邻里拼车</a></li>
+              <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                <li>邻里拼车</li>
             </ul>
         </div>
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/carpool" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="<?php echo ($data["table"]); ?>" id="table" name="examUpdate" />
-        <input type="hidden" value="/default/index.php?s=/Home/ProInfo/url_ajaxCarpool" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"  onclick="javascript:;" /></li>
-
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/carpool" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <!--     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"  onclick="javascript:;" /></li> -->
+            <form action="" method="post" name ="vform" id="from_sub">
+                <div  id="tab2" class="tabson">
+                    <ul class="seachform">
+                        <li><label>标题</label><input name="title" type="text" class="scinput"value="" /></li>
+                        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询" id="like"/></li>
+                    </ul>
+                </div>
+            </form>
         <div style="display:none" id="skuNotice" class="sku_tip">
             <span id="skuTitle2"></span>
         </div>
         <table class="tablelist">
             <thead>
                 <tr>
-                    <th><input name="" type="checkbox" value="" checked="checked"/></th>
-                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
-                    <th>公告标题</th>
-                    <th>公告内容</th>
+
+                    <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
+                    <th>拼车标题</th>
+                    <th>拼车描述</th>
                     <th>手机号码</th> 
                     <th>发布时间</th>
 
@@ -121,7 +176,7 @@
 
             <tbody id="table_ajax_list">
                 <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input name="num" type="checkbox" value="" /></td>
+
                         <td><?php echo ($vo["id"]); ?></td>
                         <td><?php echo ($vo["title"]); ?></td>
                         <td><?php echo (msubstr($vo["content"],0,20,'utf-8',true)); ?></td>
@@ -130,8 +185,9 @@
 
 
                         <td class="th_default">    
-                            <a href="<?php echo U('carpool',array(id=>$vo['id']),'');?>" class="btn btn-default" title="编辑">详情</a>     
-                            <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
+                            <a href="<?php echo U('carpool',array(id=>$vo['id']),'');?>" class="btn btn-default" title="拼车详情">拼车详情</a>     
+                       <!--     <a href="<?php echo U('del',array(id=>$vo['nid']),'');?>" class="btn btn-danger" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a> -->
+                                    <!--    <a id="done_add" class="btn btn-info"   onclick="rule_add(<?php echo ($vo["id"]); ?>)"> 回复</a> -->
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>    
             </tbody>
@@ -188,5 +244,55 @@
                     </fieldset>
                     </form>
                     </div>
+                    <div id="dialog-edit" title="问题提交" style=" display: none;">
+                        <form action="#" method="post" name="myname" class="form-input" />
+                        <input type ="hidden" name="action" id="action2" value="edit" >
+                            <fieldset>
+                                <table id="table_list" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td align="right" width="110px">
+                                            <label for="title">活动标题：</label>
+                                        </td>
+                                        <td>
+                                            <span id="title2"  /></span>
+                                            <input type="hidden" name="title" id="titleADD"  class="form-control" />   
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <label for="content">内容：</label>
+                                        </td>
+                                        <td>
+                                            <span id="content2" ></span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="right">
+                                            <label for="content">回复：</label>
+                                        </td>
+                                        <td>
+                                            <textarea rows="5"  cols='50' name="content" id="content" class="inputInfo ui-widget-content ui-corner-all"></textarea>
+                                        </td>
+                                    </tr> 
+                                    <!--     <tr>
+                                             <td align="right" width="90px">
+                                                 <label for="title">提交审核：</label>
+                                             </td>
+                                             <td>
+                                                 <select name = 'done' id="type_on" class="form-control">
+                                                     <option class = "top_cate">请选择</option>
+                                                     <option class = "top_cate"  value="0">未通过审核</option>
+                                                     <option class = "top_cate" value="1" >已审核</option>
+                                                 </select>
+                                             </td>
+                                         </tr>
+                                         <input type="hidden" name="rid" id="role_id"  /> -->
+                                    <input type="hidden" name="yid" id="role_id"  />
+                                </table>
+                            </fieldset>
+                            </form>
+                    </div>
+
                     </body>
                     </html>

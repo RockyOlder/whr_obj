@@ -1,0 +1,41 @@
+[ 2015-01-03T00:12:56+08:00 ] 183.16.90.29 /api.php?s=vip/vipCate
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000309s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000543s ]
+
+[ 2015-01-03T00:33:25+08:00 ] 183.16.90.29 /api.php?s=vip/vipGoods
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000317s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000541s ]
+SQL: SHOW COLUMNS FROM `wrt_goods` [ RunTime:0.001088s ]
+SQL: SELECT `goods_id`,`price`,`markdown`,`goods_name`,`list_img`,`number`,`store_id` FROM `wrt_goods` WHERE ( cat_id = 4 ) ORDER BY number desc LIMIT 0,20   [ RunTime:0.000244s ]
+
+[ 2015-01-03T00:33:29+08:00 ] 183.16.90.29 /api.php?s=vip/vipGoods
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000305s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000545s ]
+SQL: SHOW COLUMNS FROM `wrt_goods` [ RunTime:0.001119s ]
+SQL: SELECT `goods_id`,`price`,`markdown`,`goods_name`,`list_img`,`number`,`store_id` FROM `wrt_goods` WHERE ( cat_id = 1 ) ORDER BY number desc LIMIT 0,20   [ RunTime:0.000296s ]
+
+[ 2015-01-03T02:24:55+08:00 ] 119.137.61.137 /api.php?s=pro%2Fnotice&version=1&proId=1
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-03T12:27:08+08:00 ] 14.155.79.160 /api.php?s=pro/notice
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000527s ]
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-03T12:27:18+08:00 ] 14.155.79.160 /api.php?s=pro/property
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000524s ]
+ERR: 无法加载控制器:Pro
+
+[ 2015-01-03T12:28:22+08:00 ] 14.155.79.160 /api.php?s=pro/property
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000303s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000527s ]
+SQL: SHOW COLUMNS FROM `wrt_pro_repair` [ RunTime:0.000812s ]
+SQL: SELECT `rid`,owner as name,`title`,`content`,`time`,`pic` FROM `wrt_pro_repair` WHERE ( pid = 0 and uid = 1 and pass_time >1420259302 ) ORDER BY time desc LIMIT 0,20   [ RunTime:0.000324s ]
+

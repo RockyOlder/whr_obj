@@ -7,7 +7,6 @@
 <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/style.css">
 <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
 <script type="text/javascript" src="/default/App/Home/View/Public/Js/cloud.js"></script>
-
 <script language="javascript">
 	$(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
@@ -23,6 +22,13 @@
     li span{
         position: absolute;
         color: red;
+        top: 50px ;
+        left: 10px;
+    }
+    li img{
+        position: absolute;
+        top: 0px;
+        left: 186px;
     }
 </style>
 </head>
@@ -38,24 +44,25 @@
 
 
 <div class="logintop">    
-    <span>欢迎登录后台管理界面平台</span>    
+    <span>欢迎登录&nbsp&nbsp&nbsp&nbsp<?php echo ($logo); ?></span>    
     <ul>
-    <li><a href="#">回首页</a></li>
-    <li><a href="#">帮助</a></li>
-    <li><a href="#">关于</a></li>
+    <li><a href="http://www.huishare.com">回首页</a></li>
+    <li><a href="<?php echo U('Help/login');?>">帮助</a></li>
     </ul>    
     </div>
     
     <div class="loginbody">
     
     <span class="systemlogo"></span> 
-       
+    
     <div class="loginbox">
+    
     <form name="form" method="post" action="">
     <ul>
-    <li><input name="username" type="text" id="username" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/><span id ="username_info"></span></li>
-    <li><input name="password" type="password" id="password" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/><span id ="password_info"></span></li>
-    <li><input name="" type="submit" class="loginbtn" value="登录"  onclick="javascript:;"  /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+    <li><input name="username" type="text" id="username" class="loginuser" value="<?php echo (cookie('login_name')); ?>" onclick="JavaScript:this.value=''"/><span id ="username_info"></span></li>
+    <li><input name="password" type="password" id="password" class="loginpwd" value="<?php echo (cookie('login_passwd')); ?>" onclick="JavaScript:this.value=''"/><span id ="password_info"></span></li>
+    <?php if($_SESSION['num']== 1): ?><li><input name="verify" type="text" class = "verify" value="验证码" onclick="JavaScript:this.value=''" style="width:200px;"/><img src="<?php echo U('verify','','');?>" style="width:150px;height:48px" onclick="this.src=this.src+'&'+Math.random(0,9999)"><span id ="verify_info"></span></li><?php endif; ?>
+    <li><input name="" type="submit" class="loginbtn" value="登录"  onclick="javascript:;"  /><label><input name="remeber" type="checkbox" value="1" checked="checked" />记住密码</label><label><a href="<?php echo U('Passwd/index');?>">忘记密码？</a></label></li>
     </ul>
     
     </form>

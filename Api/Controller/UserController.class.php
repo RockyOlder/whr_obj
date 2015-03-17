@@ -1,15 +1,11 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class UserController extends Controller {
-		function __construct()
-	{
 
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class UserController extends CommonController {
+
     public function register(){
+        //dump($this->user);
     		$id = I('request.version',1);
     		$username=I('request.phone',1);
     		$password = md5(I('request.password'));
@@ -19,12 +15,13 @@ class UserController extends Controller {
             $time=time();
 
     		if ($id == 1) {
-    			$sql = "insert into ".C('DB_PREFIX')."user set user_name = '$username',password = '$password',reg_time=$time,salt = $salt";
-    			$bool = M()->query($sql);
+    			//$sql = "insert into ".C('DB_PREFIX')."user set user_name = '$username',password = '$password',reg_time=$time,salt = $salt";
+    			$data = array('user_name'=>$username,'password'=>$password);
+                $bool = M('user')->add($data);
                 // dump($bool);
     			if ($bool != '') {
     				$out['success']  = 1;
-                    
+                    $out['data']  = $bool;
     				$out['msg']="注册成功";
 
                     //给用户添加上一个首页爱好
@@ -173,10 +170,12 @@ class UserController extends Controller {
     }
         //修改用户昵称
     public function changeNick(){
+        //dump($this->user);
         $id = I('request.version',1);
         $userId = I('request.userId',0,"intval");
         $nickName = I('request.nickName','');
          $out['success'] = 0;
+         $out['data'] = array();
         if ($userId == 0) {           
             $out['msg'] =C('no_id');
             $this->ajaxReturn($out);
@@ -210,6 +209,7 @@ class UserController extends Controller {
         }
     }
      public function changeEmail(){
+        //dump($this->user);die();
         $id = I('request.version',1);
         $userId = I('request.userId',0,"intval");
         $email = I('request.email','');
@@ -223,7 +223,7 @@ class UserController extends Controller {
             // dump($sql);
             $bool = M()->query($sql);
             if ($bool) {
-                $out['msg'] = '昵称不能和原来的一样';
+                $out['msg'] = '邮箱不能和原来的一样';
                 $out['success'] = 0;
                 $this->ajaxReturn($out);
             }
@@ -465,6 +465,138 @@ class UserController extends Controller {
         } else {
             $out['success'] = 1;
             $out['data']=$data;
+            $this->ajaxReturn($out);
+        }
+    }
+    /**
+     * 根据地区id获取物业的列表
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-01-19T09:24:14+0800
+     * @return [type]                   [description]
+     */
+    public function getProList(){
+        $id = I('request.version',0,'intval');
+        if ($id == 1) {
+            $areaId = I('request.areaId',0,'intval');
+            if (!$areaId) {
+                $out['data'] = null;
+                $out['success'] = 0;
+                $out['msg'] ='失败';
+                $this->ajaxReturn($out);
+            }
+            $w = array('area'=>$areaId);
+            $data = M('property')->field('id,pname as name')->where($w)->select();
+            if ($data) {
+                $out['data'] = $data;
+            }else{
+                $out['data'] = array();
+            }
+            $out['success'] = 1;
+            $out['msg'] = '成功';
+            $this->ajaxReturn($out);
+        }
+    }
+    /**
+     * 根据物业id获取小区的列表
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-01-19T09:24:14+0800
+     * @return [type]                   [description]
+     */
+    public function getVilList(){
+        $id = I('request.version',0,'intval');
+        if ($id == 1) {
+            $propertyId = I('request.propertyId',0,'intval');
+            if (!$propertyId) {
+                $out['data'] = null;
+                $out['success'] = 0;
+                $out['msg'] =C('no_id');
+                $this->ajaxReturn($out);
+            }
+            $w = array('property_id'=>$propertyId);
+            $data = M('village')->field('id,name')->where($w)->select();
+            if ($data) {
+                $out['data'] = $data;
+            }else{
+                $out['data'] = array();
+            }
+            $out['success'] = 1;
+            $out['msg'] = '成功';
+            $this->ajaxReturn($out);
+        }
+    }
+    /**
+     * 用户绑定第二个小区
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-01-19T09:24:14+0800
+     * @return [type]                   [description]
+     */
+    public function bandTwo(){
+        $id = I('request.version',0,'intval');
+        if ($id == 1) {
+            $propertyId = I('request.propertyId',0,'intval');
+            $userId = I('request.userId',0,'intval');
+            $villageId = I('request.villageId',0,'intval');
+            $name = I('request.name');
+            $mobile = I('request.mobile');
+            if (!$propertyId || $userId || $villageId) {
+                $out['data'] = null;
+                $out['success'] = 0;
+                $out['msg'] =C('no_id');
+                $this->ajaxReturn($out);
+            }
+            //查找用户要绑定的小区是否有用户提供的电话和姓名如果没有就不能添加
+            $w = array('name'=>$name,'mobile'=>$mobile,'property_id'=>$villageId);
+
+            $data = M('pro_owner')->where($w)->find();
+
+            if ($data) {
+                $up = array('id'=>$data['id'],'uid'=>$userId);
+
+                $out['data'] = M('pro_owner')->save($up);                
+                $out['msg'] = '添加成功';
+            }else{
+                $out['msg'] = '你要添加的小区没有你的信息，请核对信息后重试';
+                $out['data'] = array();
+            }
+            $out['success'] = 1;
+            $this->ajaxReturn($out);
+        }
+    }
+     /**
+     * 获取用户的所有小区
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-01-19T09:24:14+0800
+     * @return [type]                   [description]
+     */
+    public function getUserVil(){
+        $id = I('request.version',0,'intval');
+        if ($id == 1) {
+            $userId = I('request.userId',0,'intval');
+            if (!$userId) {
+                $out['data'] = null;
+                $out['success'] = 0;
+                $out['msg'] =C('no_id');
+                $this->ajaxReturn($out);
+            }
+            $w = array('uid'=>$userId);
+            //查找用户的小区id
+            $data = M('pro_owner')->field('property_id')->where($w)->select();
+            foreach ($data as $k => $v) {
+                $tem[] = $v['property_id'];
+            }
+            $w = 'id in ('.implode(',', $tem).')';
+            $data = M('village')->field('id,name')->where($w)->select();
+            if ($data) {
+                $out['data'] = $data;               
+            }else{
+               $out['data'] = array();
+            }
+            $out['msg'] = '成功';
+            $out['success'] = 1;
             $this->ajaxReturn($out);
         }
     }

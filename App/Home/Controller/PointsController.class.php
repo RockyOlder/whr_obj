@@ -18,33 +18,24 @@ class PointsController extends IsloginController {
             $data['action'] = 'edit';
             $this->assign('word', $goodsintefind);
         }
-        if (IS_POST) {
-            if ($action == "add") {
-                $goodsinte = M('GoodsIntegral');
-                if ($data = $goodsinte->create()) {
-                    if ($goodsinte->add($data)) {
-                        $url = U('/Home/Points/index');
-                        $this->success("用户添加成功！", $url);
-                    } else {
-                        $this->error("用户添加失败！", 'index');
-                    }
-                }
-            } elseif ($action == "edit") {
-                 $goodsinte = M('GoodsIntegral');
-                if ($data = $goodsinte->create()) {
-                    if ($goodsinte->save($data)) {
-                        $url = U('/Home/Points/index');
-                        $this->success("修改成功！", $url);
-                    } else {
-                        $this->error("用户修改失败！", 'index');
-                    }
-                } else {
-                    $this->error($goodsinte->getError());
-                }
-            }
-        }
+    
         $this->assign('data', $data);
         $this->display();
+    }
+    public function ajax_edit(){
+        if (IS_AJAX) {            
+             $goodsinte = M('GoodsIntegral');
+            $data = $_POST;
+            $bool = $goodsinte->save($data);
+            // dump($bool);
+            if ($bool) {
+                $this->ajaxReturn(1);
+            } else {
+                $this->ajaxReturn(0);
+            }           
+        }else{
+            return;
+        }
     }
 
 }

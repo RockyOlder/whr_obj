@@ -1,0 +1,12 @@
+[ 2015-03-13T11:19:42+08:00 ] 183.13.160.214 /api.php?s=Home/cityArea&cityid=234
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000056s ]
+ERR: 没有定义数据库配置
+
+[ 2015-03-13T11:19:45+08:00 ] 183.13.160.214 /api.php?s=Home/city
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000250s ]
+ERR: 没有定义数据库配置
+

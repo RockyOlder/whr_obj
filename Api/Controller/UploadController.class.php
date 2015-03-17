@@ -1,7 +1,7 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class UploadController extends Controller {
+use Api\Controller\CommonController;
+class UploadController extends CommonController{
 		function __construct()
 	{
 

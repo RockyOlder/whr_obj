@@ -3,19 +3,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
 
-        <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_config.js"></script>
-        <script type="text/javascript" src ="/default/App/Home/View/Public/ueditor/editor_all_min.js"></script>
-        <script type="text/javascript" src='/default/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+        <script type="text/javascript" src ="/App/Home/View/Public/ueditor/editor_config.js"></script>
+        <script type="text/javascript" src ="/App/Home/View/Public/ueditor/editor_all_min.js"></script>
+        <script type="text/javascript" src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
 
-                <link rel="stylesheet" href="/default/App/Home/View/Public/Css/uploadify.css">
+                <link rel="stylesheet" href="/App/Home/View/Public/Css/uploadify.css">
 
                     <script type="text/javascript">
                         $(function(){
@@ -116,7 +116,7 @@
                                                         <span class = 'pro'>
                                                             <select name = 'province'  class="form-control" id="addressAdd" >
                                                                 <option class="cheng_in" value="<?php echo ($region["REGION_ID"]); ?>"><?php echo ($region["REGION_NAME"]); ?></option>
-                                                                <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["region_id"]); ?>" ><?php echo ($vo["region_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                                                <?php if(is_array($pro)): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "pro_in" value="<?php echo ($vo["REGION_ID"]); ?>" ><?php echo ($vo["REGION_NAME"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                                             </select>
 
                                                             <select name = 'city' style="display:none" id ="city_list" class="form-control" <!--onclick="saveCity()" -->>
@@ -139,10 +139,10 @@
                                                     <li style="position:relative;margin-bottom:5px;height:55px"><input name="list_pic" id="upload_list" type="file" class="dfinput" style="" value="<?php echo ($info["list_pic"]); ?>" /><i  id ="imgs" style="position:absolute;left:150px;top:-5px;">
                                                             <?php if($info["face"] != ''): ?><div class="up_list_pic">
                                                                     <img height='50px' src='<?php echo ($info["face"]); ?>'>
-                                                                        <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
+                                                                        <img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> 
                                                                             </div><?php endif; ?>
                                                                             </i></li>
-                                                                            <li><label>手机号码</label><input name="mobile_phone" id="mobile_phone" type="text" class="dfinput" value="<?php echo ($info["mobile_phone"]); ?>" /><i>格式：13525155853</i></li>
+                                                                      <!--      <li><label>手机号码</label><input name="mobile_phone" id="mobile_phone" type="text" class="dfinput" value="<?php echo ($info["mobile_phone"]); ?>" /><i>格式：13525155853</i></li> -->
                                                                             <li><label>固定电话</label><input name="fax_phone" id="fax_phone" type="text" class="dfinput"  value="<?php echo ($info["fax_phone"]); ?>"/><i>格式:0755-1234568</i></li>
                                                                             <li><label>邮箱</label><input name="email" type="text" id="email" class="dfinput"  value="<?php echo ($info["email"]); ?>"/><i>格式:xxxxxx@xx.com</i></li> 
                                                                             <li><label>真实姓名</label><input name="true_name" type="text" class="dfinput"  value="<?php echo ($info["true_name"]); ?>"/><i></i></li> 
@@ -173,16 +173,16 @@
                                                                                  */
                                                                                 var list_pic = "";
                                                                                 $('#upload_list').uploadify({
-                                                                                    'swf'      : '/default/App/Home/View/Public/Images/uploadify.swf',
+                                                                                    'swf'      : '/App/Home/View/Public/Images/uploadify.swf',
                                                                                     'uploader' : '<?php echo U("Uploads/listUpload");?>',
-                                                                                    'cancelImage':'/default/App/Home/View/Public/Images/uploadify-cancel.png',
+                                                                                    'cancelImage':'/App/Home/View/Public/Images/uploadify-cancel.png',
                                                                                     'buttonText' : '列表上传',
                                                                                     'multi': false,
                                                                                     'onUploadSuccess' : function(file, data, response) {
                                                                                         //alert(data);
                                                                                         obj= $.parseJSON(data);
                                                                                         list_pic += "<img height='50px' src='"+obj.path+"'>";
-                                                                                        list_pic +=" <img src='/default/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
+                                                                                        list_pic +=" <img src='/App/Home/View/Public/Images/uploadify-cancel.png' class ='close' onclick = 'javascript:deleteListPic()'> "
                                                                                         $('#imgs').html(list_pic);
                                                                                         var hid ="<input name='face' type='hidden' value='"+obj.mid+"' />"
                                                                                         //   hid +="<input name='mid_pic' id='mid_pic' type='hidden' value='"+obj.mid+"' />"
@@ -239,7 +239,7 @@
                                                                                                                                                                    
                                                                                                     var str=""
                                                                                                     $.each(data,function(key,val){
-                                                                                                        str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                                                        str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                                                                     })
                                                                                                     //   $('#city_list').append(str)
                                                                                                     $('#city_list').html(str);
@@ -268,7 +268,7 @@
                                                                                                         var inex= this//selected=selected
                                                                                                                                                                       
                                                                                                         $.each(data,function(key,val){
-                                                                                                            str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                                                            str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                                                                         })
                                                                                                         $('#val_list').append(str);
                                                                                                         $('#val_list').show(200);
@@ -345,7 +345,7 @@
                                                                                             if(data != null){
                                                                                                 var str=""
                                                                                                 $.each(data,function(key,val){
-                                                                                                    str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                                                                                    str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
                                                                                                 })
                                                                                                 $('#val_list').html(str);
                                                                                                 $('#val_list').show(200);

@@ -119,7 +119,7 @@
                                                             <select name = 'province'  class="form-control" id="addressAdd" >
                                                                 <option class="cheng_in" value="{$region.REGION_ID}">{$region.REGION_NAME}</option>
                                                                 <volist name='pro' id = "vo">
-                                                                    <option class = "pro_in" value="{$vo.region_id}" >{$vo.region_name}</option>
+                                                                    <option class = "pro_in" value="{$vo.REGION_ID}" >{$vo.REGION_NAME}</option>
                                                                 </volist>
                                                             </select>
 
@@ -148,7 +148,7 @@
                                                                             </div>
                                                                             </if>
                                                                             </i></li>
-                                                                            <li><label>手机号码</label><input name="mobile_phone" id="mobile_phone" type="text" class="dfinput" value="{$info.mobile_phone}" /><i>格式：13525155853</i></li>
+                                                                      <!--      <li><label>手机号码</label><input name="mobile_phone" id="mobile_phone" type="text" class="dfinput" value="{$info.mobile_phone}" /><i>格式：13525155853</i></li> -->
                                                                             <li><label>固定电话</label><input name="fax_phone" id="fax_phone" type="text" class="dfinput"  value="{$info.fax_phone}"/><i>格式:0755-1234568</i></li>
                                                                             <li><label>邮箱</label><input name="email" type="text" id="email" class="dfinput"  value="{$info.email}"/><i>格式:xxxxxx@xx.com</i></li> 
                                                                             <li><label>真实姓名</label><input name="true_name" type="text" class="dfinput"  value="{$info.true_name}"/><i></i></li> 
@@ -245,7 +245,7 @@
                                                                                                                                                                    
                                                                                                     var str=""
                                                                                                     $.each(data,function(key,val){
-                                                                                                        str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                                                        str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                                                                     })
                                                                                                     //   $('#city_list').append(str)
                                                                                                     $('#city_list').html(str);
@@ -274,7 +274,7 @@
                                                                                                         var inex= this//selected=selected
                                                                                                                                                                       
                                                                                                         $.each(data,function(key,val){
-                                                                                                            str += "<option class='city_in' value="+val['region_id']+" onclick='javascript:getvallage("+val['region_id']+")'>"+val['region_name']+"</option>";
+                                                                                                            str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
                                                                                                         })
                                                                                                         $('#val_list').append(str);
                                                                                                         $('#val_list').show(200);
@@ -351,7 +351,7 @@
                                                                                             if(data != null){
                                                                                                 var str=""
                                                                                                 $.each(data,function(key,val){
-                                                                                                    str += "<option class='city_in' value="+val['region_id']+">"+val['region_name']+"</option>";
+                                                                                                    str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
                                                                                                 })
                                                                                                 $('#val_list').html(str);
                                                                                                 $('#val_list').show(200);

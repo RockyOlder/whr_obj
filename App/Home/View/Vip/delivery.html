@@ -182,7 +182,7 @@
                                     </div>
 
                                     <div id="divTotlePrice" class="current ui-state-focus">
-                                        <input name="" type="button" class="scbtn" id="addSubmit"  value="发货" id="like"/>
+                                         <if condition = "$Think.session.admin.type eq 1"> <input name="" type="button" class="scbtn" id="addSubmit"  value="发货" id="like"/> </if>
                                         <div id="centnRight">合计:<span id="priceTotal" class="priceSpan">{$total}</span>元含(运费：<span id="priceFreight" class="priceSpan">{$find.freight}</span>元)</div>
 
                                     </div>

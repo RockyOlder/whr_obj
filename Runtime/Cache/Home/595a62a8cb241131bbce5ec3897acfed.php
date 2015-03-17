@@ -3,15 +3,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+            <link href="/App/Home/View/Public/Css/topShow.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <link href="/App/Home/View/Public/Css/topShow.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
             <script language="javascript">
  
                 function deleteSum(id){
@@ -36,36 +41,87 @@
                     $('.scbtn').bind('click',function(){
                         $('#from_sub').submit();
                     });
+                           $( document ).tooltip({
+                            track: true,
+                            width: "100px",
+                            position: {
+                                my: "left+5 bottom-5", 
+                                at: "center top"
+                            }
+                        });
+                    
                     initPager();
                 });
+                function cats_Shop(id) {
+                    
+                    art.dialog({
+                        content:'你确定要删除？',
+                        title: '确定框',  
+                        okValue:'确认',  
+                        cancelValue:'取消', 
+                        width: 230,  
+                        height: 100,  
+                        fixed:true,
+                        id:'bnt4_test',
+                        style:'confirm'}, 
+                    function(){
+                        var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                        if(msg){
+                            location.href=$("#url_ajaxCalendar").val()+id
+                            return false;
+                        }        
+                    },function(){
+                        return true;
+                    });
+                };
             </script>
-    </head>
+            <style>
+                .th_default{ width: 20px; }
+                .redclss{ color: red;}
+                #ig_primary{float: right; margin-top: 3px;}
+                .divBtn {position:relative;display:inline-block;padding:4px;cursor:pointer}
+                .tablelist td{line-height:35px; border-right: dotted 1px #c7c7c7;}        
+                .imgtable{width:100%;border:solid 1px #cbcbcb; }
+                #close{ margin-top: -5px;}
+                .imgtable td{line-height:15px; text-indent:5px; border-right: dotted 1px #c7c7c7;}
+                .imgtable td img{margin:10px 20px 10px 0;}
+                .imgtable td p{color:#919191;}
+                .imgtable td i{font-style:normal; color:#ea2020;}
+                .imgtd{text-indent:0;}
+                .imgtable tbody tr.odd{background:#f5f8fa;}
+                .imgtable tbody tr:hover{background:#e5ebee;}
 
+
+
+            </style>
+    </head>
+   <input type="hidden" value="/life.php?s=/Home/Business/GoodsDel/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
 
     <body style="background: none;">
 
         <div class="place">
-            <span>位置：</span>
+            <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">图片列表</a></li>
+                <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                <li>商品列表</li>
             </ul>
         </div>
         <div class="rightinfo">
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">
                     <ul class="seachform">
-                        <li><label>名称</label><input name="name" type="text" class="scinput"value="" /></li>
-                        <li><label>店铺地址</label>   <input name="address" type="text" class="scinput" value="" />  </li>
+                        <li><label>名称</label><input name="lgname" type="text" class="scinput"value="" /></li>
+
                         <li><label>分类</label>  
                             <div class="vocation">
-                                <select class="select3" name = 'parent_type' >
+                                <select class="select3" name = 'cate_pid' >
                                     <option class="pro_into" >请选择</option>
                                     <?php if(is_array($type)): $i = 0; $__LIST__ = $type;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'parent_type' class = "top_cate" value="<?php echo ($list["type_id"]); ?>"><?php echo ($list["type_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                 </select>
                             </div>
                         </li>
                         <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" id="like"/></li>
+               
                     </ul>
                 </div>
                 <table class="imgtable">
@@ -76,22 +132,25 @@
                             <th>所属商家</th>
                             <th>价格</th>
                             <th>市场价</th>
-                            <th>操作</th>
+                            <th colspan="3">操作</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /default/ -->
+                                <!--  / -->
                                 <td class="imgtd"><img src="<?php echo ($vo["list_pic"]); ?>" width="50px"/></td>
-                                <td><a href="#"><?php echo ($vo["lgname"]); ?></a></td>
+                                <td><?php echo ($vo["lgname"]); ?></td>
                                 <td><?php echo ($vo["name"]); ?></td>
                                 <td><?php echo ($vo["price"]); ?></td>
                                 <td><?php echo ($vo["m_price"]); ?></td>
-                                <td><a href="<?php echo U('goodsadd',array(id=>$vo['lgid']),'');?>">编辑</a>
+                                <!--<td><a href="<?php echo U('goodsadd',array(id=>$vo['lgid']),'');?>">编辑</a>
                                     <a href="<?php echo U('del',array(id=>$vo['lgid']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
                                     <?php if($vo["num"] == 0): ?><a href="<?php echo U('recommendedGoods',array(id=>$vo['lgid']),'');?>">推荐</a><?php endif; ?>
-                                </td>
+                                </td> -->
+                                <td width="20px" class="th_default" align="center"><a href="<?php echo U('goodsadd',array(id=>$vo['lgid']),'');?>" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td>
+                                <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除"onclick="return cats_Shop(<?php echo ($vo["lgid"]); ?>)"><span class="ui-icon ui-icon-minus"></span></div></td>
+                                <!--<td width="20px" class="th_default" align="center"> <?php if($vo["num"] == 0): ?><a href="<?php echo U('recommendedGoods',array(id=>$vo['lgid']),'');?>" class="divBtn editBtn ui-state-default ui-corner-all" title="推荐" ><span class="ui-icon ui-icon-shop"></span></a></td><?php endif; ?>-->
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
 
                     </tbody>
@@ -115,7 +174,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -138,7 +197,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

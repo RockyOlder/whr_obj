@@ -1,14 +1,8 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class MemberController extends Controller {
-		function __construct()
-	{
 
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+use Api\Controller\CommonController;
+class MemberController extends CommonController {
     /**
      * 获取个人中心用户数据
      * @author xujun
@@ -32,7 +26,7 @@ class MemberController extends Controller {
       if ($id == 1)
       {
         //获取用的积分及金额
-        $sql  = "select user_id,source,user_money,face,true_name,user_name,user_rank from ".C('DB_PREFIX')."user where user_id = $user_id";
+        $sql  = "select user_id,source,user_money,face,true_name,user_name,user_rank,nickname from ".C('DB_PREFIX')."user where user_id = $user_id";
         $data = M()->query($sql);
         if ($data) {
             $data = current($data);
@@ -43,7 +37,7 @@ class MemberController extends Controller {
           $this->ajaxReturn($out);
         }
         // dump($data);
-        $arr=array('no_pay','no_out','no_get','no_comm');
+        $arr=array('0'=>'no_pay','1'=>'no_out','5'=>'no_get','6'=>'no_comm');
         foreach ($arr as $k => $v) {
           $where = array('user_id'=>$user_id,'is_end' => '0','statue' => $k,'cate'=>'1');
           $order[$v] = M('order')->where($where)->count();
@@ -56,7 +50,7 @@ class MemberController extends Controller {
        
   }
   /**
-   * 用户申请vip
+   * 用户完善信息和申请vip
    * @author xujun
    * @email  [jun0421@163.com]
    * @date   2015-01-06T19:10:49+0800
@@ -70,6 +64,8 @@ class MemberController extends Controller {
       $cityId =I('request.cityId',0,'intval');
       $area =I('request.areaId',0,'intval');
       $phone = I('request.phone');
+      $village_id =I('request.village',0,'intval');
+
       $arr = array(
         'province'=>$provenceId,
         'city'=>$cityId,
@@ -77,8 +73,8 @@ class MemberController extends Controller {
         'nickname' => I('request.nickName'),
         'email'    => I('request.email'),
         'true_name'     => I('request.name'),
-        'village'      =>I('request.village'),
-        'property'   =>I('request.property'),
+        'village_id'      =>$village_id,
+        // 'property_id'   =>I('request.property'),
         'flag'=>1,
       );
        // 获取用户id
@@ -93,37 +89,28 @@ class MemberController extends Controller {
       
       if ($id == 1)
       {
-        // 根据用户所给的地区id和物业字段查询物业的id
-        $w="area_id = $area and pname like '%".$arr['property']."%'";
-        // dump($w);
-        $property = M('property')->field('id,pname')->where($w)->find();
-        // dump($property);die();
-        if (!is_null($property)) {
-            $arr['property_id'] = $property['id'];
-            $arr['property'] = $property['pname'];            
-        }else{
-          $out['success'] = 0;
-          $out['data'] = null;
-          $out['msg'] = "你所在的物业没有与慧锐通合作，请联系物业！";
-          $this->ajaxReturn($out);
-        }
+        
+        
         // 根据物业查找用户的小区
-        $w = "property_id =".$property['id']." and name like '%".$arr['village']."%'";
+        $w = "id =".$arr['village_id'];
         // dump($w);
-        $village = M('village')->field('id,name')->where($w)->find();
+        $village = M('village')->field('name,property_id')->where($w)->find();
         // dump($village);
         if (!is_null($village)) {
-            $arr['village_id'] = $village['id'];
-            $arr['village'] = $village['name'];            
-        }else{
-          $out['success'] = 0;
-          $out['data'] = null;
-          $out['msg'] = "你所在的物业没有该小区，请联系小区管理员！";
-          $this->ajaxReturn($out);
+            $arr['village'] = $village['name']; 
+            $arr['property_id'] = $village['property_id'];           
+        }
+        // 根据用户所给的地区id和物业字段查询物业的id
+        $w="id = ".$arr['property_id'];
+        // dump($w);
+        $property = M('property')->field('pname')->where($w)->find();
+        // dump($property);die();
+        if (!is_null($property)) {
+            $arr['property'] = $property['pname'];            
         }
         //dump($arr);
         //判断用户的电话和姓名是否在该物业的业主中并查询出用户的***oid
-        $where = array('name'=>$arr['true_name'],'mobile'=>$phone);
+        $where = array('name'=>$arr['true_name'],'mobile'=>$phone,'property_id'=>$arr['village_id']);
         $up = array('uid'=>I('request.userId',0,'intval'));
         // dump($where);
         // dump($up);
@@ -226,7 +213,7 @@ class MemberController extends Controller {
               }
               $join = M($table)->field($field)->where($aid)->select();
               //dump($join);
-           }else{
+           }elseif($type==3){
               // 查找用户参加的闲置交换id
               // dump($w);die();
              unset($w['pid']);
@@ -245,17 +232,49 @@ class MemberController extends Controller {
              $where = 'id in ('.implode(',', $tem).')';
              $join = M($table)->field($field)->where($where)->select();
              $my = array();
-             foreach ($join as $k => $v) {
-               if ($v['title'] != "") {
-                 $my[] = $v;
+               foreach ($join as $k => $v) {
+                 if ($v['title'] != "") {
+
+                   $my[] = $v;
+                 }
                }
+             $join = $my;
+             // 删除没有标题的用户
+             //dump($join);die();
+             
+           }elseif($type == 1){
+              // 查找用户参加的闲置交换id
+              // dump($w);die();
+             unset($w['pid']);
+             $id = M($table)->distinct(true)->field('pid')->where($w)->select();
+             //dump($id);
+             // 组合数组
+             if ($id) {
+               foreach ($id as $k => $v) {
+                  if ($v['pid'] != 0) {
+                    $tem[] = $v['pid'];
+                  }           
+                }
              }
+             $where = 'id in ('.implode(',', $tem).')';
+             // dump($where);//->field($field)
+             $join = M($table)->where($where)->select();
+             // dump($m)
+             $my = array();
+               foreach ($join as $k => $v) {
+                 if ($v['title'] != "") {
+                   $my[] = $v;
+                 }
+               }
              $join = $my;
              // 删除没有标题的用户
              //dump($join);die();
              
            }
-
+           foreach ($join as $k => $v) {
+              $v['add_time'] =  date('Y-m-d H:i:s',$v['add_time']);
+              $join[$k] = $v;
+           }
          $out['join']=$join;
          $out['data']=$data;
          $out['msg'] = '成功';
@@ -284,7 +303,7 @@ class MemberController extends Controller {
          $this->ajaxReturn($out);
       }  
       $field = "id,pname";   
-      $w = array('area_id'=>$areaId);
+      $w = array('area'=>$areaId);
       $data = M('property')->field($field)->where($w)->select();       
          $out['data']=$data;
          $out['msg'] = '成功';
@@ -301,18 +320,19 @@ class MemberController extends Controller {
    * @return [type]                   [description]
    */
   public function village(){
-    $id = I('request.version',0,'intval');
-    $propertyId = I('request.propertyId',0,'intval');
+    $id = I('request.version',0,'intval');    
+    $areaId = I('request.areaId',0,'intval');
     if ($id == 1) {
-      if (!$propertyId) {
+      if (!$areaId) {
          $out['data']=null;
          $out['msg'] = C('no_id');
          $out['success'] = 0;
          $this->ajaxReturn($out);
       }  
       $field = "id,name";   
-      $w = array('property_id'=>$propertyId);
-      $data = M('village')->field($field)->where($w)->select();       
+      $w = array('area'=>$areaId);
+      $data = M('village')->field($field)->where($w)->select();  
+      // dump()     
          $out['data']=$data;
          $out['msg'] = '成功';
          $out['success'] = 1;
@@ -344,13 +364,8 @@ class MemberController extends Controller {
       unset($w['pid']);//->distinct(true)->field('pid')
       //dump($w);
       $w= "pid != 0 and uid = $userId";
-      $data['fetch_in'] = M('pro_fetch')->distinct(true)->field('pid')->where($w)->count();
-      //查找用户的邻里活动发布数量
-      $w = array('pid'=>0,'uid'=>$userId);
-      $data['action_my'] = M('pro_activity')->where($w)->count();
-      unset($w['pid']);//->distinct(true)->field('pid')
-      //dump($w);       
-      $pid= M('pro_activity_sign')->where($w)->select();
+       
+      $pid= M('pro_fetch')->distinct(true)->field('pid')->where($w)->select();
       if ($pid) {
         foreach ($pid as $k => $v) {
           if ($v['pid'] != 0) {
@@ -361,12 +376,35 @@ class MemberController extends Controller {
         $tem = array();
       }
       $w = "id in (".implode(',', $tem).") and pid =0";
-      $in = M('pro_activity')->where($w)->count();
+      $in = M('pro_fetch')->where($w)->count();
       if ($in) {
-        $data['action_in'] = $in;
+        $data['fetch_in'] = $in;
       }else{
-        $data['action_in'] = 0;
+        $data['fetch_in'] = 0;
       }
+      //查找用户的邻里活动发布数量
+      $w = array('pid'=>0,'uid'=>$userId);
+      $data['action_my'] = M('pro_activity')->where($w)->count();
+      unset($w['pid']);//->distinct(true)->field('pid')
+      //dump($w);       
+      $pid= M('pro_activity_sign')->distinct(true)->field('aid')->where($w)->select();
+      $data['action_in']= M('pro_activity_sign')->distinct(true)->field('aid')->where($w)->count();
+      // if ($pid) {
+      //   foreach ($pid as $k => $v) {
+      //     if ($v['pid'] != 0) {
+      //       $tem[] = $v['pid'];
+      //     }
+      //   }
+      // }else{
+      //   $tem = array();
+      // }
+      // $w = "id in (".implode(',', $tem).") and pid =0";
+      // $in = M('pro_activity')->where($w)->count();
+      // if ($in) {
+      //   $data['action_in'] = $in;
+      // }else{
+      //   $data['action_in'] = 0;
+      // }
       //查找用户的邻里拼车发布数量
       $w = array('pid'=>0,'uid'=>$userId);
       $data['car_my'] = M('pro_car')->where($w)->count();
@@ -419,6 +457,9 @@ class MemberController extends Controller {
       if ($id == 1) {
           $table = $this->changeTable($type);
           $bool = M($table)->delete($mId);
+          // 删除子类的回复
+          if($type == 2){M('activity_sign')->where(array('aid'=>$mId))->delete();
+          }else{$this->deleteSon($table,$mId);}
           if ($bool) {
             $out['success'] = 1;
             $out['data'] = $bool;
@@ -446,6 +487,22 @@ class MemberController extends Controller {
             break;   
         }
         return $table;
-    }
+  }
+
+  private function deleteSon($table,$mId){
+      if (!$table || !$mId) {
+        return;
+      }
+      // 查找出所有的子类
+      $w = array('pid'=>$mId);
+      $pid=M($table)->field('id')->where($w)->select();
+      if($pid){
+        foreach ($pid as $k => $v) {
+          $this->deleteSon($table,$v['id']);
+        }
+        
+      }
+      M($table)->where($w)->delete();
+  }
    
 }

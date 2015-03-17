@@ -30,5 +30,11 @@ return array(
     'TMPL_PARSE_STRING' => array(
         '__PUBLIC__' => __ROOT__ . "/App/Home/View/Public",
     ),
-    'web_copy' => '版权所有 2014 深圳市慧锐通只能电器股份有限公司',
+     //备份数据的配置
+    'DB_PATH_NAME'=> 'BackUp',//备份文件存储目录名称
+    'DB_PATH'     => './BackUp/',//备份文件存储路径
+    'DB_PART'     => '20971520',//备份文件限制大小
+    'DB_COMPRESS' => '1',         //压缩备份文件需要PHP环境支持gzopen,gzwrite函数 0为不压缩1为启用压缩
+    'DB_LEVEL'    => '9',         //压缩级别   1:普通   4:一般   9:最高
+    'DB_BACKUP'   => './BackUp/',
 );

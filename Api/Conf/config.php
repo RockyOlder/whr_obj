@@ -40,5 +40,7 @@ return array(
     // 'DATA_CACHE_PATH'=>__ROOT__."Api/data/cache"
    'LOAD_EXT_CONFIG' => 'add',
 // 		用户上传配置
-   "no_id"=>"没有传入所需id"
+   "no_id"=>"没有传入所需id",
+    'LOG_RECORD' => true, // 关闭日志自动记录功能
+   'LOG_LEVEL' =>'EMERG,ALERT,CRIT,ERR,WARN',
 );

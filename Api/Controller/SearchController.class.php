@@ -1,15 +1,8 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
+use Api\Controller\CommonController;
 use Common\api\CClass\CU;
-class SearchController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
+class SearchController extends CommonController {
 	
 	//根据首页的用户设置的喜好分类来搜索商品数据
   //没用

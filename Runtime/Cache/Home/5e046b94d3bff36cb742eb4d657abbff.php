@@ -2,60 +2,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加开发商</title>
+<title></title>
 <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/App/Home/View/Public/Css/bootstrap.min.css">
-	<link rel="stylesheet" href="/App/Home/View/Public/Css/uploadify.css">
-		<script src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
-		<script type="text/javascript">
-                    $(function(){
-                        // alert(1)
-                        //简单验证
-                        /*    var validate = {
-                            'username' : false,
-                            'type_id':false
-                        };
-                        $('#name').blur(function(){
-                            if($.trim($(this).val()) == ''){
-                                $('#name_info').text('商家名字不能为空').css('color','red');
-                                validate.username = false;
-                            }else{
-                                $('#name_info').text('');
-                                validate.username = true;
-                            }
-                        });
-                        $('#soncate').change(function(){
-                            if($.trim($(this).val()) == 0){
-                                $('#type_info').text('请选择分类').css('color','red');
-                                validate.type_id = false;
-                            }else{
-                                $('#type_info').text('');
-                                validate.type_id = true;
-                            }
-                        });
+<link rel="stylesheet" href="/App/Home/View/Public/Css/uploadify.css">
+<script src='/App/Home/View/Public/Js/jquery.uploadify.min.js'></script>
+<script type="text/javascript">
                     
-       
-                        $('form').submit(function(){
-                            $('#name').trigger('blur');
-                            var isOK = validate.username && validate.type_id
-                            if(!isOK){
-                                if($(".pro_into").text()=="请选择"){
-                                    $('#skuTitle2').text("您还未选择分类")
-                                    $('#skuNotice').show();
-                                    setTimeout( function(){
-                                        $( '#skuNotice' ).fadeOut();
-                                    }, ( 1 * 1000 ) ); 
-                                    return false;
-                                }
-                            }
-                            return true;
+                                         
+    function check(){
+        var data=$('#file').val()
+        var id = $('#village').val();
+
+        if(data == ''){
+
+            alert('你还没有选择文件！');
+        }else if(id == ''){
+            alert('你不是小区管理员，不能导入业主');
+        }else{
+            var url = $('#url_ajax').val();
             
-                        });
-                         */
-                    })
-                </script>
+            $.ajax({
+                'url': url,
+                'data':{'file':data,'id':id},
+                'dataType': 'json',
+                'type' : 'post',
+                success:function(data){
+				//console.log(data)
+                    if (data == 1) {
+                        alert('住户导入成功');
+                        $('#file').val('');
+                    }else{
+                        alert('住户导入失败');
+                    };
+                },
+                error:function(data){
+                    alert('缺少参数');
+                }
+            })
+        }
+    }
+                         
+                    
+</script>
 <style type="text/css">
     .pro {
     	float: left;
@@ -96,13 +87,15 @@
 <body style="background: none;">
 
 	<div class="place">
-		<span>后台管理：</span>
+        <span>位置： </span>
 		<ul class="placeul">
-			<li><a href="#">合作商家管理</a></li>
-			<li><a href="#">添加商品</a></li>
+            <li><a href="<?php echo U('Index/start');?>">首页</a></li>
+			<li>住户管理</li>
+			<li><?php echo ($data["title"]); ?></li>
 		</ul>
 	</div>
-	<form action="" method="post" name="vform">
+    <input type="hidden" value="<?php echo U('owner_ajax');?>" id="url_ajax">
+	<!-- <form action="" method="post" name="vform"> -->
 		<input type="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
 			<div class="formbody">
 				<div class="formtitle">
@@ -110,32 +103,34 @@
 				</div>
 				<ul class="forminfo">
 
-					<li><label>所属物业</label> <span class='pro'> <select
-							name='property_id' class="form-control">
-								<option class="cheng" value="0">请选择</option>
-								<?php if(is_array($property)): $i = 0; $__LIST__ = $property;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class="pro_in" value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["pname"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-						</select>
-					</span> <i></i></li>
+					<li><label>所属小区:</label> <label><?php echo ($village["name"]); ?></label> 
+                        <input type="hidden" name="property_id" value="<?php echo ($_SESSION['admin']['village']); ?>" id="village">
+                        
+					<i></i></li>
                     <li><label>业主账单样表</label>
-                       <span>如果你没有样板文件请 <a href="http://120.24.214.88/Uploads/file/user_info.xls">点击下载</a>否则选择文件直接上传</span>
+                       <label style="width:auto;font-weight:400">温馨提示：如果你没有样板文件请 <a href="http://120.24.214.88/Uploads/file/user_info.xls">点击下载</a>否则选择文件直接上传</label>
                         </li>
 					<li><label>业主信息表</label>
-						<div id="list_hidden">
-							<input type='text' name="file_path" value="请选择文件再上传">
+						<div id="list_hidden" style="line-height:30px;">
+							<input type='text' name="file_path" value="">
 						</div></li>
-					<li style="position: relative; margin-bottom: 5px; height: 55px"><input
+					<li style="position: relative; margin-bottom: 5px; height: 55px">
+                        <input
 						name="file" id="upload_file" type="file" class="dfinput"
 						style="" value="" />
+                        <input
+                         id="file" type="hidden" class="dfinput"
+                        style="" value="" />
                         <i id="imgs"
 						style="position: absolute; left: 150px; top: -5px;"> 
 
 					</i></li>
 					<li><label>&nbsp;</label><input name="" type="submit"
 						class="btn btn-primary" value="确认<?php echo ($data["btn"]); ?>"
-						onclick="javascript:;" /></li>
+						onclick="check()" /></li>
 				</ul>
 			</div>
-	</form>
+	<!-- </form> -->
     <script type="text/javascript">
          var img = "";
             $('#upload_file').uploadify({
@@ -154,6 +149,7 @@
                     var hid ="<input name='thumb_pic' type='hidden' value='"+obj+"' />"
                    
                     $('#list_hidden').html(hid);
+                    $('#file').val(obj);
                     img = '';
                     hid='';
                 }

@@ -80,92 +80,123 @@ function updateSource($oid){
 }
 //多张图片上传的方法
 function uploadMore(){
-        if ($_FILES) {
-          $config = array(
-          'maxSize' => 3145728,
-          'rootPath' => './default/Uploads/',
-          'savePath' => '',
-          'saveName' => array('uniqid',''),
-          'exts' => array('jpg', 'gif', 'png', 'jpeg'),
-          'autoSub' => true,
-          'subName' => array('date','Ymd')
-          );
-          $ftpConfig = array(
-          'host' => '120.24.214.88', //服务器
-          'port' => 21, //端口
-          'timeout' => 90, //超时时间
-          'username' => 'www', //用户名
-          'password' => '4398eea99' //密码 
-          );
-          $upload = new \Think\Upload($config,'Ftp',$ftpConfig);// 实例化上传类
+    if ($_FILES) {
+      $config = array(
+      'maxSize' => 3145728,
+      'rootPath' => './default/Uploads/',
+      'savePath' => '',
+      'saveName' => array('uniqid',''),
+      'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+      'autoSub' => true,
+      'subName' => array('date','Ymd')
+      );
+      $ftpConfig = array(
+      'host' => '120.24.214.88', //服务器
+      'port' => 21, //端口
+      'timeout' => 90, //超时时间
+      'username' => 'www', //用户名
+      'password' => '4398eea99' //密码 
+      );
+      $upload = new \Think\Upload($config,'Ftp',$ftpConfig);// 实例化上传类
 
-          $upload->maxSize = 3145728 ;// 设置附件上传大小
-          $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-          $upload->rootPath = './default/Uploads/'; // 设置附件上传根目录
-          $upload->savePath = ''; // 设置附件上传（子）目录
-          // 上传文件
-          $info = $upload->upload();
-          // dump($info);
-          //die();
-          if(!$info) {// 上传错误提示错误信息
-          echo $upload->getError();
-          }else{// 上传成功
-               
+      $upload->maxSize = 3145728 ;// 设置附件上传大小
+      $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+      $upload->rootPath = './default/Uploads/'; // 设置附件上传根目录
+      $upload->savePath = ''; // 设置附件上传（子）目录
+      // 上传文件
+      $info = $upload->upload();
+      // dump($info);
+      //die();
+      if(!$info) {// 上传错误提示错误信息
+      echo $upload->getError();
+      }else{// 上传成功
+           
 
-                foreach($info as $file) {
-                    $out['path']='http://120.24.214.88/Uploads/'.$file['savepath'].$file['savename'];
-                    // $image = new \Think\Image();
-                    // $thumbWidth = array('mid'=>700);
-                    // $thumb_file = $out['path'];
-                    // // dump($thumb_file);die();
-                    // foreach ($thumbWidth as $k=> $v) {
-                    //    $save_path = 'http://120.24.214.88/Uploads/thumb' .$file['savepath']. $v."_" . $file['savename'];
-                    //     $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
-                    //     $out[$k]='http://120.24.214.88/Uploads/thumb'.$file['savepath']. $v.'_' .$file['savename'];
-                      
-                    // }                   
-                    $arr = explode('.', $file['name']);
-                    $out['name'] = $arr[0];
-                    $tem[] = $out;
-                }
-              return json_encode($tem);
-          }
-        }
+            foreach($info as $file) {
+                $out['path']='http://120.24.214.88/Uploads/'.$file['savepath'].$file['savename'];
+                // $image = new \Think\Image();
+                // $thumbWidth = array('mid'=>700);
+                // $thumb_file = $out['path'];
+                // // dump($thumb_file);die();
+                // foreach ($thumbWidth as $k=> $v) {
+                //    $save_path = 'http://120.24.214.88/Uploads/thumb' .$file['savepath']. $v."_" . $file['savename'];
+                //     $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
+                //     $out[$k]='http://120.24.214.88/Uploads/thumb'.$file['savepath']. $v.'_' .$file['savename'];
+                  
+                // }                   
+                $arr = explode('.', $file['name']);
+                $out['name'] = $arr[0];
+                $tem[] = $out;
+            }
+          return json_encode($tem);
+      }
     }
-    //多张图片上传的方法
+}
+    //单张图片上传的方法
 function uploud(){
-        if ($_FILES) {
-          $config = array(
-          'maxSize' => 3145728,
-          'rootPath' => './default/Uploads/',
-          'savePath' => '',
-          'saveName' => array('uniqid',''),
-          'exts' => array('jpg', 'gif', 'png', 'jpeg'),
-          'autoSub' => true,
-          'subName' => array('date','Ymd')
-          );
-          $ftpConfig = array(
-          'host' => '120.24.214.88', //服务器
-          'port' => 21, //端口
-          'timeout' => 90, //超时时间
-          'username' => 'www', //用户名
-          'password' => '4398eea99' //密码 
-          );
-          $upload = new \Think\Upload($config,'Ftp',$ftpConfig);// 实例化上传类
+    if (!empty($_FILES)) 
+        {
+         $config = array(
+              'maxSize' => 3145728,
+              'rootPath' => './Uploads/',
+              'savePath' => '',
+              'saveName' => array('uniqid',''),
+              'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+              'autoSub' => true,
+              'subName' => array('date','Ymd'),
+              );
 
-          $upload->maxSize = 3145728 ;// 设置附件上传大小
-          $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-          $upload->rootPath = './default/Uploads/'; // 设置附件上传根目录
-          $upload->savePath = ''; // 设置附件上传（子）目录
-          // 上传文件
+          $upload = new \Think\Upload($config);// 实例化上传类                  
           $info = $upload->upload();
-          // dump($info);
-          // die();
-          if(!$info) {// 上传错误提示错误信息
-          echo $upload->getError();
-          }else{// 上传成功       
-              $path='http://120.24.214.88/Uploads/'.$info['picture']['savepath'].$info['picture']['savename'];  
-              return $path;
+          if($info){
+              $out['path']='http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'Uploads/'.$info['file_upload']['savepath'].$info['file_upload']['savename'];
+              $image = new \Think\Image();
+
+              foreach($info as $file) {
+                  $out['success'] = 1;
+                  $thumbWidth = array('url'=>250);
+                  $thumb_file = './Uploads/' . $file['savepath'] . $file['savename'];
+                  foreach ($thumbWidth as $k=> $v) {
+                     $save_path = './Uploads/' .$file['savepath']. $v."_" . $file['savename'];
+                      $image->open( $thumb_file )->thumb( $v, $v )->save( $save_path );
+                      $out[$k]='http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/Uploads/'.$file['savepath']. $v.'_' .$file['savename'];
+                      
+                      $arr=array('face'=>$out[$k],'user_id'=>$uid);
+                      $bool = M('user')->save($arr);
+                      // $bool = M()->query($sql);
+                      if (!$bool) {
+                          $out['success'] = 0;
+                          $out['msg']="数据库写入失败";
+                      }
+                  }
+                  // dump($out);die();
+                  return $out['url'];
+              //$this->ajaxReturn($out);
+             }
+          
+          }else{
+                  //echo $this->error($upload->getError());
+                  return '';
           }
-        }
+      }else{
+        return '';
+      } 
+}
+
+    // 讲数组转化为字符串
+function formant($arr ){
+    // dump($_POST);
+    $k=array_keys($arr);
+    // dump($k);
+    $v = array_values($arr);
+    // dump($v);
+    $sk = "";
+    foreach ($k as $k1 => $v1) {
+        // dump($v1);
+        // dump($v[$k]);
+        $sk .= "`".$v1."`='".$v[$k1]."',";
     }
+    $sk = substr($sk, 0,-1);
+    // dump($sk);die();
+    return $sk;
+}

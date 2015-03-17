@@ -1,0 +1,1 @@
+a:8:{i:0;s:7:"type_id";i:1;s:9:"type_name";i:2;s:9:"parent_id";i:3;s:10:"type_level";i:4;s:9:"open_type";i:5;s:4:"sort";s:3:"_pk";s:7:"type_id";s:5:"_type";a:6:{s:7:"type_id";s:6:"double";s:9:"type_name";s:8:"tinytext";s:9:"parent_id";s:6:"double";s:10:"type_level";s:6:"double";s:9:"open_type";s:6:"double";s:4:"sort";s:7:"int(11)";}}

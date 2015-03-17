@@ -24,10 +24,12 @@
     <body style="background: none;">
 
         <div class="place">
-            <span>后台管理：</span>
+            <span>位置： </span>
             <ul class="placeul">
-                <li><a href="#">角色管理</a></li>
-                <li><a href="#">角色列表</a></li>
+                <li><a href="{:U('Index/start')}">首页</a></li>
+                <li>系统管理</li>
+                <li><a href="{:U('Role/index')}">角色列表</a></li>
+                <li>分配权限</li>
             </ul>
         </div>
          <div class="tools" style="font-size:15px;line-height:45px;text-indent:20px;font-weight:700">
@@ -51,10 +53,12 @@
                     <volist name="data" id ="vo">
                         <tr> 
 
-                            <td><input type = "checkbox" value="{$vo.id}" name ="check[]"  id = "{$vo.id}">{$vo.title}</td>    
+                            <td><input type = "checkbox" value="{$vo.id}" name ="check[]"  class= "checkOne" onclick="checkOne({$vo.id})" statue='0' 
+                                <if condition="in_array($vo['id'],$info['rules'])">checked = "true"</if>
+                                >{$vo.title}</td>
                             <td>
                                 <volist name="vo.son" id ="son">
-                                <div class="info"><input type = "checkbox" value="{$son.id}" name ="check[]" class = "one_{$vo.id}">{$son.title}</div>
+                                <div class="info"><input type = "checkbox" value="{$son.id}" name ="check[]" class = "one_{$vo.id}" onclick="chechfirst({$vo.id})" <if condition="in_array($vo['id'],$info['rules'])">checked = "true"</if>>{$son.title}</div>
                                 </volist >
                             </td>
                         </tr> 
@@ -63,6 +67,7 @@
                 </tbody>
             </table>
                 <input type ="hidden" value="{$info.id}" name="id">
+                <input type ="hidden" value="{$Think.session.admin.id}" name="pid">
                  <div style="text-align:center"><input type="checkbox" value= "0"  data="0" id="checkall" name="checkall">  全选
                 <input type="submit" value="提交" border="1px solid red" class="btn btn-info"></div>
             </form>
@@ -118,42 +123,27 @@
         })(jQuery);
        
         </script>
-        <script type="text/javascript">
-            function checkAll(num){
-                // alert(num);
-                // $(".one_"+num).attr('checked',true);
-                // $(".one_"+num+":checked").length == $('.one_'+num).length ? $("#"+num).attr('checked',!0) : $("#"+num).attr('checked',!1);
-                $('this').parents('tr')
-            }
-
-        </script>
-<script type="text/javascript">
+    <script type="text/javascript">
+    // $(function(){
+    //     $('.checkOne').bind('click',function(){
             
-//         $(function (num) { 
-// //调用全选插件
-//     $.fn.checkone({ checkall_name: "#"+num, checkbox_name: ".one_"+num })
-//     });
-//     //全选插件
-//     //checkall_name   操作全选的复选框name
-//     //checkbox_name   被操作的复选框的name  name值可不统一 设置包含值 以XXX开头 自己修改
-//     (function ($) {
-//         $.fn.checkone = function (options) {
-//             var defaults = {
-//                 checkall_name: "checkall_name", //全选框name
-//                 checkbox_name: "checkbox_name" //被操作的复选框name
-//             },
-//             ops = $.extend(defaults, options);
-//             e = $(ops.checkall_name), //全选
-//             f = $(ops.checkbox_name), //单选
-//             g = f.length; //被操作的复选框数量
-//             f.click(function () {
-//                 $(ops.checkbox_name + ":checked").length == $( ops.checkbox_name ).length ? e.attr("checked", !0) : e.attr("checked", !1);
-//             }), e.click(function () {
-//                 for (i = 0; g > i; i++) f[i].checked = this.checked;
-//             });
-//         };
-//     })(jQuery);
-</script>
+    //     })
+    // })
+       function checkOne(num){
+             var sum =$('.checkOne_'+num).attr('statue');
+            if (sum == 0) {
+                $('.checkOne_'+num).attr('statue',1);
+                $('.one_'+num).attr('checked',1)
+            }else{
+                $('.checkOne_'+num).attr('statue',0);
+                $('.one_'+num).attr('checked',0)
+            };
+            // alert($(this).val());            
+       }
+       function chechfirst(num){
+            $('.checkOne_'+num).attr('checked',1)
+       }
+    </script>
 
     </body>
 

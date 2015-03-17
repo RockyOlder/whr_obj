@@ -26,6 +26,9 @@ class VolumeController extends IsloginController {
         if ($_POST['number'] !='') {
             $where['number']= $_POST[number];
         }
+        if ($_POST['check_number'] !='') {
+            $where['check_number']= $_POST[check_number];
+        }
         //dump($where);
         $count = $table->where($where)
                 ->count();
@@ -64,10 +67,19 @@ class VolumeController extends IsloginController {
             // 查找电子消费码是否未验证
             
             $w = array('check_number'=>$number);
-            $bool = M('order')->field('check_statue,oid')->where($w)->find();
-            //dump($bool);die();
-            if ($bool['check_statue'] == 0) {
-                $data = array('oid'=>$bool['oid'],'check_statue'=>1);
+            $bool = M('order')->field('statue,check_statue,oid')->where($w)->find();
+            if (is_null($bool)) {
+                $out['statue'] = 0;
+                $out['msg'] = "你输入的电子劵不存在，请查证后再验证！";
+                $this->ajaxReturn($out);
+            }
+            if ($bool['statue'] == 0) {
+                $out['statue'] = 0;
+                $out['msg'] = "该订单未付款，请付款后再来验证消费";
+                $this->ajaxReturn($out);
+            }
+            if ($bool['statue'] == 1) {
+                $data = array('oid'=>$bool['oid'],'statue'=>2,'check_statue'=>1);
                 $n = M('order')->save($data);
                 if($n){
                     $out['statue']=1;
@@ -78,10 +90,14 @@ class VolumeController extends IsloginController {
                 }
                 
 
-            }elseif($bool['check_statue'] == 1){
+            }elseif($bool['statue'] == 2){
                 $out['statue'] = 0;
-                $out['msg'] = "改电子劵已经验证使用";
+                $out['msg'] = "该电子劵已经验证使用";
+            }else{
+                $out['statue'] = 0;
+                $out['msg'] = "你输入的电子劵不存在，请查证后再验证！";
             }
+
             $this->ajaxReturn($out);
         }
         $this->display();

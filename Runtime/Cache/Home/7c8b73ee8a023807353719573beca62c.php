@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>添加开发商</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <!-- <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
-        <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
-        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script> -->
-        <!-- <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script> -->
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+        <title><?php echo ($data["title"]); ?></title>
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" /> -->
+        <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+        <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.idTabs.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/App/Home/View/Public/Js/kindeditor.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+        <script src="/App/Home/View/Public/Js/jquery-1.8.3.min.js"></script>
+        <script src="/App/Home/View/Public/Js/easy_validator.pack.js"></script>
+        <link href="/App/Home/View/Public/Css/validate.css" rel="stylesheet" type="text/css">
         <script type="text/javascript">
             $(function(){
                 //简单验证
@@ -70,24 +73,28 @@
 <body style="background: none;">
 
     <div class="place">
-        <span>后台管理：</span>
+        <span>位置： </span>
         <ul class="placeul">
-            <li>管理员管理</li>
-            <li>添加管理员</li>
+            <li><a href="<?php echo U('Index/start');?>">首页</a></li>
+            <li>系统管理</li>
+            <li><a href="<?php echo U('Admin/index');?>">管理员列表</a></li>
+            <li><?php echo ($data["title"]); ?></li>
         </ul>
     </div>
     <form action="" method="post" name ="vform">
         <input type ="hidden" name="id" value="<?php echo ($info["id"]); ?>">
         <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
-        <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
-        <div class="formbody">
+        <input type ="hidden" name="admin" value="<?php echo ($_SESSION['admin']['name']); ?>">
+            <div class="formbody">
 
-                <div class="formtitle"><span><?php echo ($data["title"]); ?>管理员</span></div>
+                <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>
 
                 <ul class="forminfo">
                     <li><label>用户名</label><input name="name" id="name" type="text" class="dfinput" value="<?php echo ($info["name"]); ?>" /><i id="name_info">名称不能超过30个字符</i></li>
                     <li><label>密码</label><input name="password" id="password" type="password" class="dfinput"  /><i id="password_info">密码不能为空</i></li>
                     <li><label>确认密码</label><input type="password" id="password2" class="dfinput" /><i id="passwd_inf2">两次密码要一致</i></li>
+                    <li><label>真实姓名</label><input name="true_name" id="flishtno" reg="\S+" type="text" class="dfinput" tip="请输入管理员姓名"  value="<?php echo ($info["true_name"]); ?>"/><i></i></li>
+                    <li><label>手机</label><input name="mobile" reg="1\d{10}" tip="请输入手机号码" type="text" class="dfinput"  value="<?php echo ($info["mobile"]); ?>"/><i></i></li>
                     <li><label>邮箱</label><input name="email" type="text" class="dfinput"  value="<?php echo ($info["email"]); ?>"/><i></i></li>
                      <li><label>角色</label>
                         <span class = 'pro'>
@@ -95,27 +102,11 @@
                                 <option class="pro_into"  value="0">请选择角色</option>
                                 <?php if(is_array($rule)): $i = 0; $__LIST__ = $rule;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["id"]); ?>"  selected="selected"><?php echo ($vo["title"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                             </select></span>
-                    </li>
-
-                    <li><label>所属商家:</label><input name="type" type="radio"  value="0" style="margin:10px" onclick="show('life')"/>导航商家<input name="type" type="radio"  value="1" style="margin:10px" onclick="show('vip')"/>VIP商家</li>
-                    <li id = "life" style="display:none"><label>所属导航商家</label>
-                        <span class = 'pro'>
-                            <select name = 'shop_id' id="rule" class="form-control" >
-                                <option class="pro_into"  value="0">请选择商家</option>
-                                <?php if(is_array($life)): $i = 0; $__LIST__ = $life;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["id"]); ?>"  selected="selected"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                            </select></span><i></i>
-                    </li>
-                    <li id="vip" style="display:none"><label>所属VIP商家</label>
-                        <span class = 'pro'>
-                            <select name = 'shop_id' id="rule" class="form-control" >
-                                <option class="pro_into"  value="0">请选择商家</option>
-                                <?php if(is_array($vip)): $i = 0; $__LIST__ = $vip;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option class = "top_cate" value="<?php echo ($vo["store_id"]); ?>"  selected="selected"><?php echo ($vo["store_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                            </select></span>
-                        <i></i>
-                    </li>                      
+                    </li>                   
+                                     
                     <input type="hidden" id ="chenge_type" value="<?php echo ($info["type"]); ?>">
                     <input type="hidden" id ="chenge_shop" value="<?php echo ($info["shop_id"]); ?>">
-                    <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-info" value="确认<?php echo ($data["btn"]); ?>"  onclick="javascript:;" /></li>
+                    <li><label>&nbsp;</label><input name="" type="submit" class="btn btn-info" value="确认"  onclick="javascript:;" /></li>
                 </ul>
                 <div style="display:none" id="skuNotice" class="sku_tip">
                     <span id="skuTitle2"></span>

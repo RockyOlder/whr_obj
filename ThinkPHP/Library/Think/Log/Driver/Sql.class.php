@@ -31,11 +31,10 @@ class Sql {
      * @return void
      */
     public function write($log,$destination='') {
-        $now = date($this->config['log_time_format']);
         
         //检测日志文件大小，超过配置大小则备份日志文件重新生成
         $arr = array(
-            'time'=>$now,
+            'time'=>time(),
             'ip'=>$_SERVER['REMOTE_ADDR'],
             'url'=>$_SERVER['REQUEST_URI'],
             'error'=>$log

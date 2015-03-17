@@ -3,15 +3,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+              <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
+            <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/select-ui.min.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <link href="/App/Home/View/Public/Css/topShow.css" rel="stylesheet" type="text/css" />
             <script language="javascript">
           
                 function deleteSum(id){
@@ -37,37 +40,104 @@
                     });
                 });
                 $(function(){
+                        $( document ).tooltip({
+                            track: true,
+                            width: "100px",
+                            position: {
+                                my: "left+5 bottom-5", 
+                                at: "center top"
+                            }
+                        });
+                    
                     $('.scbtn').bind('click',function(){
                         $('#from_sub').submit();
                     });
+                    $('#select_deve img').bind('click',function(){
+                        $("#from_sub").submit();
+                        //     selectDeveloper()
+                    });
+                    
                     initPager();
                 });
+                function cats_Shop(id) {
+                    
+                    art.dialog({
+                        content:'你确定要锁定？',
+                        title: '确定框',  
+                        okValue:'确认',  
+                        cancelValue:'取消', 
+                        width: 230,  
+                        height: 100,  
+                        fixed:true,
+                        id:'bnt4_test',
+                        style:'confirm'}, 
+                    function(){
+                        var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                        if(msg){
+                            location.href=$("#url_ajaxCalendar").val()+id
+                            return false;
+                        }        
+                    },function(){
+                        return true;
+                    });
+                };
+                function vip_Shop(id) {
+                    
+                    art.dialog({
+                        content:'你确定要解锁？',
+                        title: '确定框',  
+                        okValue:'确认',  
+                        cancelValue:'取消', 
+                        width: 230,  
+                        height: 100,  
+                        fixed:true,
+                        id:'bnt4_test',
+                        style:'confirm'}, 
+                    function(){
+                        var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                        if(msg){
+                            location.href=$("#url_ajaxVid").val()+id
+                            return false;
+                        }        
+                    },function(){
+                        return true;
+                    });
+                };
             </script>
+            <style type="text/css">
+                .th_default{ width: 20px; }
+                .redclss{ color: red;}
+                #ig_primary{float: right; margin-top: 3px;}
+                .divBtn {position:relative;display:inline-block;padding:4px;cursor:pointer}
+                .tablelist td{line-height:35px; border-right: dotted 1px #c7c7c7;}        
+                .imgtable{width:100%;border:solid 1px #cbcbcb; }
+                #close{ margin-top: -5px;}
+                .imgtable td{line-height:15px; text-indent:5px; border-right: dotted 1px #c7c7c7;}
+                .imgtable td img{margin:10px 20px 10px 0;}
+                .imgtable td p{color:#919191;}
+                .imgtable td i{font-style:normal; color:#ea2020;}
+                .imgtd{text-indent:0;}
+                .imgtable tbody tr.odd{background:#f5f8fa;}
+                .imgtable tbody tr:hover{background:#e5ebee;}
+
+            </style>
     </head>
     <body style="background: none;">
-
+        <input type="hidden" value="/index.php?s=/Home/Vip/vdel/id/" id="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/Vip/vdel/vid/" id="url_ajaxVid" />
         <div class="place">
             <span>位置：</span>
             <ul class="placeul">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">图片列表</a></li>
+                <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                <li>VIP商家列表</li>
             </ul>
         </div>
         <div class="rightinfo">
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">
                     <ul class="seachform">
-                        <li><label>名称</label><input name="name" type="text" class="scinput"value="" /></li>
-                        <li><label>店铺地址</label>   <input name="address" type="text" class="scinput" value="" />  </li>
-                        <li><label>分类</label>  
-                            <div class="vocation">
-                                <select class="select3" name = 'parent_type' >
-                                    <option class="pro_into" >请选择</option>
-                                    <?php if(is_array($type)): $i = 0; $__LIST__ = $type;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><option name = 'parent_type' class = "top_cate" value="<?php echo ($list["type_id"]); ?>"><?php echo ($list["type_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
-                            </div>
-                        </li>
-                        <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" id="like"/></li>
+                        <li><label>名称</label><input name="store_name" type="text" class="scinput"value="" /></li>
+                        <li><span id="select_deve"><img src="/App/Home/View/Public/Images/ico06.png" width="25"/></span></li>
                     </ul>
                 </div>
                 <table class="imgtable">
@@ -77,20 +147,20 @@
                             <th>店主</th>
                             <th>店铺地址</th>
                             <th>店铺电话</th>
-                            <th>操作</th>
+                            <th style=" width:50px;">操作</th>
                         </tr>
                     </thead>
                     <tbody id="table_ajax_list">
                         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /default/ -->
-                                <td><a href="#"><?php echo ($vo["store_name"]); ?></a></td>
+                                <!--  / -->
+                                <td><?php echo ($vo["store_name"]); ?></td>
                                 <td><?php echo ($vo["user_name"]); ?></td>
                                 <td><?php echo ($vo["provate_name"]); echo ($vo["city_name"]); echo ($vo["area_name"]); echo ($vo["address"]); ?></td>
                                 <td><?php echo ($vo["mobile_phone"]); ?></td>
-                                <td><a href="<?php echo U('vadd',array(id=>$vo['store_id']),'');?>">编辑</a>
-                                    <a href="<?php echo U('del',array(id=>$vo['store_id']),'');?>" class="tablelink" onclick="if(confirm('确认删除')){return true}else{return false}"> 删除</a>
 
-                                </td>
+                       <!--         <td width="20px" class="th_default" align="center"><a href="<?php echo U('vadd',array(id=>$vo['store_id']),'');?>" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td> -->
+                                <?php if($vo["lock"] == 0): ?><td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="锁定"onclick="return cats_Shop(<?php echo ($vo["store_id"]); ?>)"><span class="ui-icon ui-icon-locked"></span></div></td><?php endif; ?>
+                                <?php if($vo["lock"] == 1): ?><td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="解锁"onclick="return vip_Shop(<?php echo ($vo["store_id"]); ?>)"><span class="ui-icon ui-icon-unlocked"></span></div></td><?php endif; ?>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
                     </tbody>
                 </table>
@@ -110,7 +180,7 @@
                     <div class="tiptop"><span>提示信息</span><a></a></div>
 
                     <div class="tipinfo">
-                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                        <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                         <div class="tipright">
                             <p>是否确认对信息的修改 ？</p>
                             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
@@ -130,7 +200,7 @@
             <div class="tiptop"><span>提示信息</span><a></a></div>
 
             <div class="tipinfo">
-                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                 <div class="tipright">
                     <p>是否确认对信息的修改 ？</p>
                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

@@ -1,0 +1,30 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+ <title>关于我们</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <link rel="stylesheet" href="/Mobile/View/Public/jquery.mobile-1.4.5.min.css" /> 
+ <script src="/Mobile/View/Public/jquery-1.8.0.min.js"></script> 
+ <script src="/Mobile/View/Public/jquery.mobile-1.4.5.min.js"></script> 
+</head>
+<body> 
+	<div data-role="page"> 
+		<div data-role="content">
+			<p style ="text-indent:2em;">慧锐通智能科技股份有限公司（以下简称WRT）创建于2001年，是一家集研发、生产、销售、服务为一体的国家级高新技术企业。公司总部位于深圳市龙华新区大富工业区WRT科技园，拥有面积超3万平方米的产学研基地，现有员工800多名，产品服务全球20多个国家，目前在国内已成立50多家销售服务网点，以专业专注的服务理念，提供业内完美的综合服务解决方案。</p><p style ="text-indent:2em;">
+
+WRT秉承“专业保障、恒久关爱”的经营理念，务实求真，富于创新，作为中国安全防范产品行业协会副理事长单位，勇做国际安防行业的开拓者和领导者，始终引领行业的发展方向。曾连续七度蝉联中国安防 “中国安防十大品牌”、“中国安防十大民族品牌”、“十大新锐品牌”称号，荣获“国家级高新技术企业”、“中国名牌”、“3C认证”、“3A级企业信用评价证书”等荣誉称号，拥有外观专利近80项、软件著作权50项、实用新型专利超过35项以及申请发明专利3项 ，WRT一直走在行业前列。</p><p style ="text-indent:2em;">
+
+多年来，WRT实现跨越式的发展，逐步完成由供应商向系统服务解决方案提供商的全方位格局转变。打造以社区安防技术为核心，集楼宇对讲、智能家居、智能监控为一体，融合各系列产品的关联性和优势，着力成为国内外安防领域和智能家居领域配套最齐全的知名的集成服务提供商。</p><p style ="text-indent:2em;">
+
+WRT继往开来，以技术求发展，以质量求生存，以市场为导向，以服务为宗旨，一如既往为用户提供全方位、多元化、宽层次的业内最完善的服务解决方案。用WRT人的智慧和业内标杆性的服务标准，守护用户的生活安全，提升用户的生活品味，实现“人在外，家在身边”的人居合一的智慧生活，乐享生活的无限乐趣！
+		</p>
+		<div><!-- <img src="http://120.24.214.88/Uploads/ad/help_pic/aboutus.jpg" width="100%"> --></div>
+	</div>
+        <div data-role="footer"> 
+        <h1><?php echo (C("web_copy")); ?></h1> 
+        </div>
+	</div>
+</body> 
+
+</html>

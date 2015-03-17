@@ -3,258 +3,200 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/select.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.idTabs.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/select-ui.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/kindeditor.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <script language="javascript">
-
-                function deleteSum(id){
-                    if(confirm("确认删除"))
-                        location.href="/whr/index.php?s=/Home/Business/del/id/"+id
-                }
-            </script>
-
+        <link href="/App/Home/View/Public/Css/style_table.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList_obj.css" rel="stylesheet" type="text/css" />
+        <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
             <script type="text/javascript">
                 $(function(){
-                    $('.scbtn').bind('click',function(){
-                        $('#from_sub').submit();
-                    
-                    });
-                    $("#detailDialog").draggable({
-                        cancel:"table"
-                    });
-                    $("#close").bind("click",function(e){
-                        $("#detailDialog").css({
-                            'top':'50px',
-                            "left":'0px'
-                        })
-                        $(this).parent().hide(1000);  
-                    })
-                    $("#ig_primary").bind("click",function(){ 
-                        window.location.href=$("#url_add").val();          
-                        // $("#ig_primary").sumbit($("#url_add").val())    
-                             
-                    });
-                    initPager();  
-                });
-                function showDetail(teacherId){
-                    var xtop= $(".showlist"+teacherId).position().top;
-                    var xleft=$(".showlist"+teacherId).position().left;
-                    //   alert(xtop)
-                    $("#detailDialog").position(
+                    $('#button_edit').bind('click',function()
                     {
-                        my: "top"+xtop+"px",
-                        at: xleft+"px",
-                        of: window
-                    });
-                    $.ajax({ 
-                        url:$("#url_getTeacher").val(),
-                        type:"post",
-                        dataType:"json",
-                        cache:false,
-                        data: {"id":teacherId},
-                        timeout:30000,
-                        error:function(data, msg){
-                            alert("error:"+msg);
-                        },
-                        success:function(data){
-                            console.log(data)
-                            /*  $("#goods_name").text(data.goods_name?data.goods_name:"");
-                            $("#price").text(data.price?data.price:"");
-                            $("#show_mobile").text(data.mobile?data.mobile:"");
-                            $("#if_show").text(data.sex==1?"是":data.sex==0?"否":"保密");
-                            $("#show_officePhone").text(data.office_phone?data.office_phone:"");
-                            $("#show_homePhone").text(data.home_phone?data.home_phone:"");
-                            $("#show_entryTime").text(data.qq?data.qq:"");
-                            $("#show_teacherPid").text(data.qq?data.qq:"");
-                            $("#show_qq").text(data.qq?data.qq:"");
-                            $("#show_email").text(data.email?data.email:"");
-                            $("#show_wechatNo").text(data.wechat_no?data.wechat_no:"");
-                            $("#show_homePage").text(data.home_page?data.home_page:"");
-                            $("#show_idcardNumber").text(data.idcard_number?data.idcard_number:"");
-                            $("#show_officeAddress").text(data.office_address?data.office_address:"");
-                            $("#show_homeAddress").text(data.home_address?data.home_address:"");
-                            //$("#photo_path").attr("src",data.photo_path);*/
-                            $("#detailDialog").fadeIn(1000);
+                        if($("#deleteselete").val()==0)
+                        {
+                            $("#deleteselete").val(1); $("#detailDialog").hide();$("#button_submit").show(400); $("#detailDialog_edit").fadeIn(1000);$("#button_edit button").text("返回");
+                        }else
+                        { 
+                            $("#deleteselete").val(0); $("#detailDialog").fadeIn(1000);$("#button_submit").hide(400); $("#detailDialog_edit").hide();$("#button_edit button").text("修改"); 
                         }
                     });
-                }
-            </script>
-            <style>
-                #close{ font-size: 16px; border: 2px solid;}
-                #ig_primary{float: right; margin-top: 3px; margin-right: 10px;    }
-            </style>
-    </head>
 
+                        
+                })
+                function cats_Shop() {
+                    
+                    art.dialog({
+                        content:'你确定要修改？',
+                        title: '确定框',  
+                        okValue:'确认',  
+                        cancelValue:'取消', 
+                        width: 230,  
+                        height: 100,  
+                        fixed:true,
+                        id:'bnt4_test',
+                        style:'confirm'}, 
+                    function(){
+                        var msg = art.dialog({id:'bnt4_test'}).data.content; // 使用内置接口获取消息容器对象
+                        if(msg){
+                            $("#vform").submit();
+                            return false;
+                        }        
+                    },function(){
+                        return true;
+                    });
+                };
+            </script>
+    </head>
+    <style type="text/css">
+        .sku_tip { background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);border-radius: 4px;box-shadow: 0 0 3px 3px rgba(150, 150, 150, 0.7);color: #fff;display: none;left: 50%;margin-left: -70px; padding: 5px 10px;position: fixed; text-align: center; top: 50%;z-index: 25;}
+        #divTotlePrice{ height: 50px; background: url(/App/Home/View/Public/Images/righttop.gif) repeat-x; border: 0px; margin-top: 15px; }
+        #centnRight{color:  red;  font-size: 18px; float: right; margin-top: 10px; margin-right: 50px;}
+        #centnRight span{ color:  red;  font-size: 18px; }
+        #addSubmit{ float: right; margin-top: 3px; text-align: center; font-size: 16px; line-height:}
+        #tab2{ margin-left: 32%}
+        .place{  font-size: 12px;}
+        .userOrder{ text-align: center; padding: 5px; color: red;}
+        .userOrder h2{ font-size: 16px;}
+        .placeul li a{ color:#428bca; }
+        #button_edit{margin-top: 33%; margin-left:35%;  }
+        #button_edit button { width: 85px; height: 40px; font-size: 16px;}
+        #button_submit {margin-top: -40px; margin-left:45%;  display: none; }
+        #button_submit button { width: 85px; height: 40px; font-size: 16px;}
+    </style>
 
     <body style="background: none;">
-        <input type="hidden" value="/default/index.php?s=/Home/Config/details" id="url_getTeacher" name="url_getTeacher" />
-        <input type="hidden" value="/default/index.php?s=/Home/Config/add" id="url_add" name="url_getTeacher" />
+
         <div class="place">
             <span>位置：</span>
             <ul class="placeul">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">图片列表</a></li>
+                <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
+                <li>店铺信息</li>
             </ul>
+            <input type="hidden" id="selectadd" value="0" />
+            <input type="hidden" id="deleteselete" value="0" />
         </div>
-        <input id="ig_primary" type="button" class="btn btn-primary" value="添加"  onclick="javascript:;" />
-        <div class="rightinfo">
-            <form action="" method="post" name ="vform" id="from_sub">
+        <!--  <div id="detailDialog" style=" display: block;">
+              <table cellpadding="0" cellspacing="0" border="1">
+                  <tr>
+                      <td width="80px" class="label">商家名称</td>
+                      <td width="120px"><span id="goods_name"><?php echo ($info["name"]); ?></span></td>
+                      <td class="label">移动电话</td>
+                      <td><span id="show_sex"><?php echo ($info["mobile_phone"]); ?></span></td>
+                      <td rowspan="3" style="text-align:center" width="120px"><img src="http://img1.3lian.com/gif/more/11/201211/72c8280fdd1c9c0d228c37891eb388b5.jpg" width="100px" height="110px"/></td>
+                  </tr>
+                  <tr>
+                      <td width="80px" class="label">固定电话</td>
+                      <td width="150px"><span id="price"><?php echo ($info["fax_mobile"]); ?></span></td>
+                      <td class="label">所属类型</td>
+                      <td><span id="show_mobile">商家</span></td>
+                  </tr>
+                  <tr>
+                      <td class="label">具体地址</td>
+                      <td><span id="store_id"><?php echo ($info["address"]); ?></span></td>
+                      <td class="label">营业执照</td>
+                      <td><span id="number"><?php echo ($info["business_license"]); ?></span></td>
+                  </tr>
+                  <tr>
+                      <td class="label">qq</td>
+                      <td><span id="cat_id"><?php echo ($info["qq"]); ?></span></td>
+                      <td class="label">描述</td>
+                      <td height="50px" width="300px;"><span id="if_show"><?php echo ($info["des"]); ?></span></td>
+                  </tr>
+  
+              </table>
+          </div> -->
+        <div id="detailDialog" style=" display: block;">
 
+            <table cellpadding="0" cellspacing="0" border="1">
+                <tr>
+                    <td width="80px" class="label">商家名称</td>
+                    <td width="120px"><span id="show_name"><?php echo ($info["name"]); ?></span></td>
+                    <td width="80px" class="label">移动电话</td>
+                    <td width="120px"><span id="show_teacherNo"><?php echo ($info["mobile_phone"]); ?></span></td>
+                    <td rowspan="3" style="text-align:center" width="120px"><img src="<?php echo ($info["company"]); ?>" width="100px" height="110px"/></td>
+                  
 
-                <table class="imgtable">
-                    <thead>
-                        <tr>
-                            <th width="100px;">列表图片</th>
-                            <th>店铺名字</th>
-                            <th>店铺客服qq</th>
-                            <th>商店电话</th>
-                            <th>店家负责人</th>
-                            <th>店铺地址</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-                                <!--  /default/ -->
-                                <td class="imgtd"><img src="<?php echo ($vo["list_pic"]); ?>" width="50px"/></td>
-                                <td><?php echo ($vo["bsname"]); ?></a></td>
-                                <td><?php echo ($vo["qq"]); ?></td>
-                                <td><?php echo ($vo["phone"]); ?></td>
-                                <td><?php echo ($vo["owner"]); ?></td>
-                                <td><?php echo ($vo["address"]); ?></td>
-                                <!--   <td><?php echo ($vo["content"]); ?></td>
-                                   <td><?php echo ($vo["server"]); ?></td> -->
-                                <td><a class="showlist<?php echo ($vo["bsid"]); ?>" href="javascript:showDetail(<?php echo ($vo["bsid"]); ?>)" title="详情">详情</a>
-                                    <a href="<?php echo U('add',array(id=>$vo['bsid']),'');?>">编辑</a>
-                                    <a class="tablelink" onclick="deleteSum('<?php echo ($vo["bsid"]); ?>')"> 删除</a>
-                                </td>
-                            </tr><?php endforeach; endif; else: echo "" ;endif; ?>  
-
-                    </tbody>
-
-                </table>
-                <div id="pager" class="pager">
-                    <div class="fanye">
-                        <div class="fanye1">
-                            <?php echo ($page); ?>
-                        </div>
-                        <div class="fanye2">
-                            <span class="">共<?php echo ($currentPage); ?>/<?php echo ($totalPage); ?>页</span>
-                            转到<input type="text" value="<?php echo ($currentPage); ?>" id="gopage_input" class="ui-widget-header" />页&nbsp;
-                            <input type="button" value="确定" id="gopage_btn_confirm" />
-                        </div>
-                    </div>
-                </div>
-                <div id="detailDialog">
-                    <div id="close" title="关闭" class="ui-button-icon-primary ui-icon ui-icon-closethick"></div>
-                    <table cellpadding="0" cellspacing="0" border="1">
-                        <tr>
-                            <td width="80px" class="label">商品名字</td>
-                            <td width="120px"><span id="goods_name"></span></td>
-                            <td width="80px" class="label">价 格</td>
-                            <td width="120px"><span id="price"></span></td>
-                            <td rowspan="3" style="text-align:center" width="120px"><img src="http://img1.3lian.com/gif/more/11/201211/72c8280fdd1c9c0d228c37891eb388b5.jpg" width="100px" height="110px"/></td>
-                        </tr>
-                        <tr>
-                            <td class="label">库 存</td>
-                            <td><span id="show_sex"></span></td>
-                            <td class="label">地 址</td>
-                            <td><span id="show_mobile"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="label">是否上架</td>
-                            <td><span id="if_show"></span></td>
-                            <td class="label">销售数量</td>
-                            <td><span id="number"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="label">分类</td>
-                            <td><span id="cat_id"></span></td>
-                            <td class="label">商家名称</td>
-                            <td colspan="2"><span id="store_id"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="label">促销价</td>
-                            <td><span id="markdown"></span></td>
-                            <td class="label">添加时间</td>
-                            <td colspan="2"><span id="add_time"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="label">商品赠送积分</td>
-                            <td><span id="points"></span></td>
-                            <td class="label">品牌</td>
-                            <td colspan="2"><span id="brand"></span></td>
-                        </tr>	
-                        <!-- <tr>
-                             <td class="label">身份证号</td>
-                             <td colspan="4"><span id="show_idcardNumber"></span></td>
-                         </tr>
-                         <tr>
-                             <td class="label">办公地址</td>
-                             <td colspan="4"><span id="show_officeAddress"></span></td>
-                         </tr>
-                         <tr>
-                             <td class="label">家庭地址</td>
-                             <td colspan="4"><span id="show_homeAddress"></span></td>
-                         </tr> 
-                        -->
-                    </table>
-                </div>
-                <div class="tip">
-                    <div class="tiptop"><span>提示信息</span><a></a></div>
-
-                    <div class="tipinfo">
-                        <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
-                        <div class="tipright">
-                            <p>是否确认对信息的修改 ？</p>
-                            <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
-                        </div>
-                    </div>
-
-                    <div class="tipbtn">
-                        <input name="" type="button"  class="sure" value="确定" />&nbsp;
-                        <input name="" type="button"  class="cancel" value="取消" />
-                    </div>
-
-                </div>
-            </form>
-
-
-
+                </tr>
+                <tr>
+                    <td class="label">邮政编码</td>
+                    <td><span id="show_sex"><?php echo ($info["zone"]); ?></span></td>
+                    <td class="label">所属类型</td>
+                    <?php if($data == '0'): ?><td><span id="show_mobile">生活导航商家</span></td><?php endif; ?>
+                    <?php if($data == '1'): ?><td><span id="show_mobile">VIP商家</span></td><?php endif; ?>
+                </tr>
+                <tr>
+                    <td class="label">qq</td>
+                    <td><span id="show_qq"><?php echo ($info["qq"]); ?></span></td>
+                 <?php if($data == '1'): ?><td class="label">微信号</td>  <td><span id="show_homePhone"><?php echo ($info["weinxin"]); ?></span></td><?php endif; ?> 
+                 <?php if($data == '0'): ?><td class="label">固定电话</td><td><span id="show_homePhone"><?php echo ($info["fax_mobile"]); ?></span></td><?php endif; ?> 
+                </tr>
+                <tr>
+                    <td class="label">具体地址</td>
+                    <td colspan="4"><span id="show_idcardNumber"><?php echo ($info["address"]); ?></span></td>
+                </tr>
+                <tr>
+                    <td class="label">描述</td>
+                    <td colspan="4"><span id="show_officeAddress"><?php echo ($info["des"]); ?></span></td>
+                </tr>
+                <!--  <tr>
+                      <td class="label">家庭地址</td>
+                      <td colspan="4"><span id="show_homeAddress"></span></td>
+                  </tr> -->
+            </table>
         </div>
+        <div id="detailDialog_edit">
+            <form action="/vip.php?s=/Home/Config/userEdit" method="post" name="vform" id="vform">
+                <table cellpadding="0" cellspacing="0" border="1">
+                    <tr>
+                        <td width="80px" class="label">商家名称</td>
+                        <td width="120px"><input type="text" id="show_name" class="dfinput" disabled="disabled" value="<?php echo ($info["name"]); ?>" ></input></td>
+                        <td width="80px" class="label">移动电话</td>
+                        <td width="120px"><input type="text"  id="show_teacherNo" class="dfinput" disabled="disabled" value="<?php echo ($info["mobile_phone"]); ?>"></input></td>
+                     <!--   <?php if($data == '0'): ?><td rowspan="3" style="text-align:center" width="120px"><img src="<?php echo ($info["list_path"]); ?>" width="100px" height="110px"/></td><?php endif; ?>
+                        <?php if($data == '1'): ?><td rowspan="3" style="text-align:center" width="120px"><img src="http://img1.3lian.com/gif/more/11/201211/72c8280fdd1c9c0d228c37891eb388b5.jpg" width="100px" height="110px"/></td><?php endif; ?> -->
+                         <td rowspan="3" style="text-align:center" width="120px"><img src="<?php echo ($info["company"]); ?>" width="100px" height="110px"/></td>
+                    </tr>
+                    <tr>
+                        <?php if($data == '0'): ?><td class="label">固定电话</td>
+                        <td><input type="text" id="show_homePhone" name="fax_mobile" class="dfinput" value="<?php echo ($info["fax_mobile"]); ?>"></input></td><?php endif; ?> 
+                        <?php if($data == '1'): ?><td class="label">邮政编码</td>
+                        <td><input type="text" id="show_qq"  name="zone"class="dfinput" value="<?php echo ($info["zone"]); ?>"></input></td><?php endif; ?> 
+                        <td class="label">所属类型</td>
+                       
+                    <?php if($data == '0'): ?><td><input type="text" id="show_mobile" disabled="disabled" class="dfinput" value="生活导航商家" ></input></td><?php endif; ?>
+                   <?php if($data == '1'): ?><td><input type="text" id="show_mobile" disabled="disabled" class="dfinput" value="VIP商家" ></input></td><?php endif; ?>
+                    </tr>
+                    <tr>
+                        <?php if($data == '1'): ?><td class="label">qq</td>
+                        <td><input type="text" id="show_qq"  name="qq" class="dfinput" value="<?php echo ($info["qq"]); ?>"></input></td><?php endif; ?> 
+                        <?php if($data == '0'): ?><td class="label">邮政编码</td>
+                        <td><input type="text" id="show_qq"  name="zone"class="dfinput" value="<?php echo ($info["zone"]); ?>"></input></td><?php endif; ?> 
+                        <?php if($data == '1'): ?><td class="label">微信号</td>
+                        <td><input type="text" id="show_homePhone" name="weinxin"  class="dfinput" value="<?php echo ($info["weinxin"]); ?>"></input></td><?php endif; ?> 
+                    </tr>
+                    <tr>
+                        <td class="label">具体地址</td>
+                        <td colspan="4"><input type="text" name="address" class="dfinput" id="show_idcardNumber" value="<?php echo ($info["address"]); ?>"></input></td>
+                    </tr>
+                    <tr>
+                        <td class="label">描述</td>
 
-        <div class="tip">
-            <div class="tiptop"><span>提示信息</span><a></a></div>
+                        <td colspan="4"><textarea rows="10"  cols='40' style=""  name ="des" id="intro" value="<?php echo ($info["des"]); ?>"  ><?php echo ($info["des"]); ?></textarea></input></td>
+                    </tr>
+                    <!--  <tr>
+                          <td class="label">家庭地址</td>
+                          <td colspan="4"><span id="show_homeAddress"></span></td>
+                      </tr> -->
+                    <input type ="hidden" name="id" value="<?php echo ($info["id"]); ?>">
+                    <input type ="hidden" name="bsid" value="<?php echo ($info["bsid"]); ?>">
+                            </table>
+                            </form>
+                            </div>
 
-            <div class="tipinfo">
-                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
-                <div class="tipright">
-                    <p>是否确认对信息的修改 ？</p>
-                    <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
-                </div>
-            </div>
+                            <div id="button_edit" class="th_default" ><button class="divBtn deleteBtn ui-state-default ui-corner-all"  >修改</div></button> 
+                            <div id="button_submit" class="th_default" ><button class="divBtn deleteBtn ui-state-default ui-corner-all" onclick="return cats_Shop({})" >提交</div></button> 
+                            </body>
 
-            <div class="tipbtn">
-                <input name="" type="button"  class="sure" value="确定" />&nbsp;
-                <input name="" type="button"  class="cancel" value="取消" />
-            </div>
-
-        </div>
-
-        <script type="text/javascript">
-            $('.imgtable tbody tr:odd').addClass('odd');
-        </script>
-
-    </body>
-
-</html>
+                            </html>

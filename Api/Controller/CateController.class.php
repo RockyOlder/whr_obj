@@ -1,35 +1,40 @@
 <?php
 namespace Api\Controller;
-use Think\Controller;
-class CateController extends Controller {
-		function __construct()
-	{
-
-		 if (!IS_API) {
-	        	die("你无权访问该页面！");
-	        }
-	}
-    // 获取顶级分类列表
+use Api\Controller\CommonController;
+class CateController extends CommonController {
+   /**
+    * [获取顶级分类列表]
+    * @author xujun
+    * @email  [jun0421@163.com]
+    * @date   2015-01-06T17:26:59+0800
+    * @return [type]                   [description]
+    */
     public function topCate(){
-    		$id = I('request.version',1);
-    		if ($id == 1) {
-                $out['success']  = 1;
-                $cate = S('top_cate');//读取缓存数据
-                // dump($cate);
-                // var_dump(empty($cate));die();
-                if (empty($cate)) {
-                    $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0 and open_type=0";
-                    // dump($sql);die();
-                    $cate = M()->query($sql);
+    	$id = I('request.version',1);
+    	if ($id == 1) {
+            $out['success']  = 1;
+            $cate = S('top_cate');//读取缓存数据
+            // dump($cate);
+            // var_dump(empty($cate));die();
+            if (empty($cate)) {
+                $sql = "select type_id,type_name,open_type from ".C('DB_PREFIX')."type where parent_id = 0 and type_level = 0 and open_type=0";
+                // dump($sql);die();
+                $cate = M()->query($sql);
 
-                    S("top_cate",$cate,600);
-                }
-    			$out['data'] = $cate;   			
-    			$this->ajaxReturn($out);
-    		}
-	       
-        }
-    //根据父级id获取分类列表
+                S("top_cate",$cate,600);
+            }
+    		$out['data'] = $cate;   			
+    		$this->ajaxReturn($out);
+    	}
+       
+    }
+    /**
+     * 根据父级id获取分类列表
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-06T17:27:49+0800
+     * @return [type]                   [description]
+     */
     public function sonCate(){
         $id = I('request.version',1);
         $pid = I('request.pid',1);
@@ -48,7 +53,14 @@ class CateController extends Controller {
             $out['data'] = $cate;               
             $this->ajaxReturn($out);
         }
-    } 
+    }
+    /**
+     * 获取所有分类
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @date   2015-01-06T17:30:12+0800
+     * @return [type]                   [description]
+     */
     public function allCate(){
        $id = I('request.version',1);
             if ($id == 1) {

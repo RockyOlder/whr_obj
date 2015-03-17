@@ -36,6 +36,11 @@ class SystemController extends IsloginController {
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        foreach ($data as $k => $v) {
+            $v[des] = mb_strcut($v[des], 0,15).'...';
+            $v['url'] = basename($v[url]);
+            $data[$k] = $v;
+        }
         $this->assign('type', $typeList);
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
@@ -202,6 +207,42 @@ class SystemController extends IsloginController {
 
 
     }
+	
+    public function word() {
+        $data['action'] = 'add'; $data['title'] = "添加/修改"; $data['btn'] = "提交关键词";
+    
+        $action = I('post.action');
+     
+        $word = M('ProKeyword');  $wordfind = $word->find();
+     
+        if ($wordfind) {
+            $data['action'] = 'edit';
+            $wordfind['wrt'] = implode(",", json_decode($wordfind['wrt']));
+            $this->assign('word', $wordfind);
+        }
+        if (IS_POST) {
+             $word = D('ProKeyword');
+             $data = $word->create();
+          if ($data) { 
+              $data['wrt'] = json_encode(explode(",", $data['wrt']));// $dataname = explode(",", $data['pname']);
+              
+             if ($action == "add") {
+
+                if ($wordfind) {  $this->error('已有关键设置,添加失败!',U('/Home/System/word', '', false));  }   //  $url = U('/Home/proInfo/word', '', false);
+
+                    if ($word->add($data)) { $this->success("用户添加成功！", U('/Home/System/word')); } else { $this->error("用户添加失败！", U('/Home/System/word'));}
+                
+              } elseif ($action == "edit") {
+                    
+                    if ($word->save($data)) { $this->success("修改成功！", U('/Home/System/word')); } else { $this->error("用户修改失败！", U('/Home/System/word'));
+                        
+          } } } else { $this->error($word->getError());  } }
+          
+        $this->assign('data', $data);
+        $this->display();
+    }
+    
+	
     
 
     

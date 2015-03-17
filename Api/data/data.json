@@ -877,6 +877,48 @@
 				}
 			}
 		}
+		,"POST Hotal/hotal" :
+		{
+			"__desc__" : "获取酒店列表-2",
+			"request" :
+			{
+				"version":"1",
+				"city"    : "城市名称",
+				"keyword"    : "搜索关键字",
+				"startTime"    : "开始时间",
+				"endTime"    : "结束时间",
+				"heightPrice"    : "最高价格",
+				"lowPrice"    : "最低价格",
+				"sort"    : "0:携程推荐,1:折扣从高到低,2:折扣从低到高,3:价格从高到低,4:价格从低到高,5:销量从高到低,6:销量从低到高,7:星级从高到低,8:星级从低到高,9:产品即将开团,10:产品即将到期",
+				"page"    : "页码",
+				"pageSize"    : "每页显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Hotal/group" :
+		{
+			"__desc__" : "获取酒店列表-2",
+			"request" :
+			{
+				"version":"1",
+				"city"    : "城市名称",
+				"keyword"    : "搜索关键字",
+				"startTime"    : "开始时间",
+				"endTime"    : "结束时间",
+				"heightPrice"    : "最高价格",
+				"lowPrice"    : "最低价格",
+				"sort"    : "排序0默认 2折扣从高到低 3价格从高到低 4价格从低到高 5销量从高到低 11点评从高到低",
+				"page"    : "页码",
+				"pageSize"    : "每页显示数量"
+			},
+			"response" :
+			{
+				
+			}
+		}
 		,"POST Hotal/hotalinfo" :
 		{
 			"__desc__" : "酒店详情-1",
@@ -924,10 +966,12 @@
 			{
 				"version":"1",
 				"userId":"用户的id",
+				"area"    : "所在地区",
 				"address"    : "广东省深圳市宝安区街道",
 				"userName"    : "收货人姓名",
 				"phone"    : "电话",
-				"notice"	:"备注信息"
+				"notice"	:"备注信息",
+				"pid"	:"修改地址的时候添加"
 			},
 			"response" :
 			{
@@ -1014,11 +1058,13 @@
 			{
 				"version":"1",
 				"userId":"用户的id",
-				"shopId":"商店的id",
 				"address"    : "地址id",
 				"express":"1",
+				"fee"    : "运费",
 				"billType":"发票类型0为不要发票1为普通2为增值税发票",
-				"info"    : "gooid:1,number:1,price:1(json格式提交)"
+				"goodId"    : "多个(英文)逗号隔开",
+				"number"    : "多个(英文)逗号隔开",
+				"price"    : "多个(英文)逗号隔开"
 
 			},
 			"response" :
@@ -1038,6 +1084,7 @@
 				"version":"1",
 				"shopId":"商店的id",
 				"userId":"用户的id",
+				"phone":"电话号码",
 				"goodId":"商品的id",
 				"number":"商品数量",
 				"price":"价格"
@@ -1087,6 +1134,23 @@
 				}
 			}
 		}
+		,"POST order/orderInfo" :
+		{
+			"__desc__" : "获取订单详情",
+			"request" :
+			{
+				"version":"1",
+				"orderId":"订单的id"
+			},
+			"response" :
+			{
+				"status"   : "{STATUS}",
+				"data"     :
+				{
+					"verify"          : "5.00"
+				}
+			}
+		}
 		,"POST order/userBill" :
 		{
 			"__desc__" : "设置用户发票2",
@@ -1121,6 +1185,19 @@
 				{
 					"verify"          : "5.00"
 				}
+			}
+		}
+		,"POST order/receipt" :
+		{
+			"__desc__" : "确认收货-1，2",
+			"request" :
+			{
+				"version":"1",
+				"orderId":"订单id"
+			},
+			"response" :
+			{
+				
 			}
 		}
 		,"POST order/orderDel" :
@@ -1181,7 +1258,8 @@
 				"version":"1",
 				"expressId":"快递的id",
 				"city":"收货地址",
-				"info":"商品id：商品数量json格式"
+				"goodId":"商品id",
+				"number":"商品数量"
 			},
 			"response" :
 			{
@@ -1223,8 +1301,7 @@
 				"name":"真是姓名",
 				"provenceId":"省份id",
 				"cityId":"城市id",
-				"areaId":"地区id",
-				"property":"所在物业",				
+				"areaId":"地区id",				
 				"village":"所在小区"
 			},
 			"response" :
@@ -1247,11 +1324,11 @@
 		}
 		,"POST member/village" :
 		{
-			"__desc__" : "获取物业的小区4",
+			"__desc__" : "获取地区的小区4",
 			"request" :
 			{
 				"version":"1",
-				"propertyId":"物业id"
+				"areaId":"地区id"
 			},
 			"response" :
 			{
@@ -1438,7 +1515,7 @@
 			"request" :
 			{
 				"version":"1",
-				"proId":"物业id"
+				"proId":"小区id"
 			},
 			"response" :
 			{
@@ -1452,7 +1529,9 @@
 			{
 				"version":"1",
 				"proId":"物业id",
+				"vid":"小区id",
 				"userId":"用户id（我的参与进来添加）",
+				"search":"搜索关键字",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1496,7 +1575,7 @@
 			"request" :
 			{
 				"version":"1",
-				"proId":"物业id",
+				"proId":"小区id",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1511,7 +1590,7 @@
 			"request" :
 			{
 				"version":"1",
-				"proId":"物业id",
+				"proId":"小区id",
 				"page":"页码",
 				"pageSize":"显示数量"
 			},
@@ -1527,6 +1606,7 @@
 			{
 				"version":"1",
 				"proId":"物业id(回复时可不用填写)",
+				"villageId":"小区id(回复时可不用填写)",
 				"title":"标题(回复时不用填写)",
 				"content":"内容",
 				"startTime":"开始时间",
@@ -1550,6 +1630,7 @@
 			{
 				"version":"1",
 				"proId":"物业id",
+				"villageId":"小区id(回复时可不用填写)",
 				"title":"标题",
 				"content":"内容",
 				"startTime":"开始时间",
@@ -1582,6 +1663,19 @@
 			"response" :
 			{
 				
+			}
+		}
+		,"POST pro/propertyDel" :
+		{
+			"__desc__" : "3物管信息删除",
+			"request" :
+			{
+				"version":"1",
+				"msgId":"物管信息id",
+				"type":"0维修报障1装修申请2投诉建议"
+			},
+			"response" :
+			{				
 			}
 		}
 		,"POST pro/propertyInfo" :
@@ -1697,6 +1791,7 @@
 			{
 				"version":"1",
 				"propertyId":"物业id",
+				"vid":"小区id",
 				"userId":"用户id（我的进入添加）",
 				"page":"页码",
 				"pageSize":"显示数量"
@@ -1786,6 +1881,7 @@
 			{
 				"version":"1",
 				"propertyId":"物业id",
+				"villageId":"小区id",
 				"userId":"用户id",
 				"userName":"用户名称",
 				"title":"标题",
@@ -2060,7 +2156,7 @@
 			"request" :
 			{
 				"version":"1",
-				"id":"用户id",
+				"id":"发布信息id",
 				"type":"类型1闲置交换2活动3拼车"
 			},
 			"response" :
@@ -2068,5 +2164,146 @@
 				
 			}
 		}
+		,"POST user/getProList" :
+		{
+			"__desc__" : "4-地区id获取物业列表",
+			"request" :
+			{
+				"version":"1",
+				"areaId":"地区id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST user/getVilList" :
+		{
+			"__desc__" : "4-物业id获取小区列表",
+			"request" :
+			{
+				"version":"1",
+				"propertyId":"物业id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST user/bandTwo":
+		{
+			"__desc__" : "4-绑定第二个小区",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"propertyId":"物业id",
+				"villageId":"小区id",
+				"name":"业主姓名",
+				"mobile":"业主电话"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST user/getUserVil":
+		{
+			"__desc__" : "4-获取用户的所有小区",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Recharge/index":
+		{
+			"__desc__" : "5-生成充值订单号",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"total":"金额"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Recharge/pay":
+		{
+			"__desc__" : "5-充值订单确认付款",
+			"request" :
+			{
+				"version":"1",
+				"number":"订单号",
+				"type":"1：充值，2：购物"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Recharge/notes":
+		{
+			"__desc__" : "5-用户充值记录",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		
+		,"POST Balance/pay":
+		{
+			"__desc__" : "5-用户余额付款",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"number":"订单号",
+				"password":"用户付款密码"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Balance/setting":
+		{
+			"__desc__" : "5-付款密码设置",
+			"request" :
+			{
+				"version":"1",
+				"userId":"用户id",
+				"password":"密码",
+				"newPwd":"修改的新密码"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Test/change":
+		{
+			"__desc__" : "修改服务器数据",
+			"request" :
+			{
+				
+			},
+			"response" :
+			{
+				
+			}
+		}
+		
 	}
 }

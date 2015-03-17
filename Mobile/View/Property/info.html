@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>开发商信息登记</title>
+<link href="__PUBLIC__/css/validate.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/jquery-1.8.0.min.js"></script>
+<script src="__PUBLIC__/js/easy_validator.pack.js"></script>
+<script type="text/javascript" src='__PUBLIC__/js/jquery.uploadify.min.js'></script>
+<link rel="stylesheet" href="__PUBLIC__/css/uploadify.css">
+<style type="text/css">
+.padding{padding: 5px 50px 5px 2px;}
+.tt{width: 100px;display: block;float: left;height: 30px;}
+</style>
+</head>
+
+<body>
+<form name="validateForm1" action="" method="post">
+<div class="container">
+<div class="menuset">
+  <ul class="menu">
+  <li><a href="#"><img src="__PUBLIC__/images/t1.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">设置登录名</a></li>
+  <li class="bg"><a href="#"><img src="__PUBLIC__/images/tit2.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">填写信息</a></li>
+  <li style=" padding:10px 0px 0px 0px;"><a href="#"><img src="__PUBLIC__/images/t3.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">注册成功</a></li>
+ </ul>
+ </div>
+ 
+ <div style="text-align:center;font-size:25px ;">慧享园的开发商信息登记</div>
+<div class="conten">
+ 
+<div class="content">
+
+  <div class="name">
+  <div class="tt">开发商名：</div>
+  <input name="name" type="text"  value=""  id="flightno" reg="\S+" tip=" 商家名称 如: 中粮地产" url="{:U('ajax_check_vip','','')}"  class='padding'>
+  <p><span style="color:red">*</span>至少3个汉字</p>
+  </div>
+  <div class="name">
+  <span class="tt">负责人姓名：</span>
+  <input name="owner" type="text"  value="" id="flightno" reg="\S+" tip="法人代表"  class='padding'>
+  <p><span style="color:red">*</span>法人代表</p>
+  </div>
+  <div class="name">
+  <span class="tt">开发商电话：</span>
+  <input name="phone" type="text"  value="" id="flightno" reg="^\d{3}-\d{8}$|^\d{4}-\d{7}$|^\d{4}-\d{8}$" tip="国内电话号码，格式: 0832-4405222 或 021-87888822"  class='padding'>
+  <p><span style="color:red">*</span>有效号码</p>
+  </div>
+
+  
+ 
+ 
+  <div class="con" style="height:auto;overflow:hidden">
+    <span class="ad" style="float:left; width:80px; text-align:right">城 市：</span>
+    <div class="province" style=" width:230px;">
+      <span class = 'pro'>
+        <select name = 'province'  class="form-control" id="addressAdd" style="float:left; width:230px;" reg="[^0]" tip="一定要选择哟">
+        
+        <volist name='pro' id = "vo">
+            <option class = "pro_in" value="{$vo.REGION_ID}" >{$vo.REGION_NAME}</option>
+        </volist>
+        </select>
+
+        <select name = 'city' style="display:none; width:230px;margin-top:15px;" id ="city_list" class="form-control" reg="[^0]" tip="一定要选择哟">
+            <option class = "city_in" value="{$info.city}"></option>
+        </select>
+
+        <select name = 'area' style="display:none; width:230px;margin-top:15px;"  id ="val_list" class="form-control" style="float:left; width:230px;" reg="[^0]" tip="一定要选择哟" >
+        <option class="area_on" value="{$info.area}"></option>
+        </select>
+      </span>
+    </div>
+</div>
+<div class="name" style="both:clear;margin-top:20px;">
+  <span class="tt">详细地址：</span>
+  <input name="address" type="text" id="flightno" reg="\S+" tip="详细地址" class='padding'>
+  <p>街道小区门牌号</p>
+  </div>
+  <div class="name">
+  <span class="tt">网址：</span>
+  <input name="url" type="text"  value=""  class='padding'>
+  <p><span style="color:red"></span>开发商网站地址</p>
+  </div>
+  <div class="name">
+  <span class="tt">联系人姓名：</span>
+  <input name="contact" type="text"  value="" id="flightno" reg="\S+" tip="联系人姓名" class='padding' >
+  <p><span style="color:red">*</span>联系人姓名</p>
+  </div>
+  <div class="name">
+  <span class="tt">联系人电话：</span>
+  <input name="adminPhone" type="text"  value="" id="flightno" reg="^1\d{10}" tip="联系人手机号码" class='padding' >
+  <p><span style="color:red">*</span>联系人手机号码</p>
+  </div>
+  
+  <div class="name">
+  <span class="tt">职位身份：</span>
+  <input name="Posts" type="text"  id="flightno" reg="\S+" tip="公司担任职位，如经理等" class='padding'/>
+  <p></p>
+  </div>
+ 
+  
+  <div class="name">
+  <span class="tt">身份证号码：</span>
+  <input name="certificate" type="text" id="str" reg="\d{6}" tip="联系人身份证号码" class='padding'>
+  <p></p>
+  </div>
+
+
+
+<script type="Text/Javascript">
+    $(function(){
+
+        if($("#actionSave").val()=='edit'){
+            $(".pwsave").remove();
+            //  $("#password2").remove(); 
+        }
+        $('#addressAdd').bind('change',function(){
+            //  $('#vallage').hide(200);
+            $(this).parent().next().css("color","#7f7f7f")
+            var id =$(this).val();
+            // alert(id);
+            $('#city').attr('pro',id);
+            $('#val_list').html("<p>请选择城市</p>")
+            $.ajax({
+                url : "{:U('City/city','','')}",
+                type : "post",
+                data : "id="+id,
+                dataType : "json",
+                success : function(data){                   
+                    if(data != null){
+                                                                                       
+                        var str=""
+                        $.each(data,function(key,val){
+                            str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
+                        })
+                        //   $('#city_list').append(str)
+                        $('#city_list').html(str);
+                        $('#city_list').show(200);
+                    }
+                }
+            });         
+        })
+
+                                                                        
+        $('#city_list').bind('change',function(){
+            //   alert(1)
+            var id=$(this).val();
+                                                                            
+            $.ajax({
+                url : "{:U('City/city','','')}",
+                type : "post",
+                data : "id="+id,
+                dataType : "json",
+                success : function(data){        
+                                                                               
+                    if(data != null){
+                        $("#val_list .city_in").remove();
+                        if($(".city_in").val()!==''){
+
+                            var str=""
+                            var inex= this//selected=selected
+                                                                                          
+                            $.each(data,function(key,val){
+                                str += "<option class='city_in' value="+val['REGION_ID']+" onclick='javascript:getvallage("+val['REGION_ID']+")'>"+val['REGION_NAME']+"</option>";
+                            })
+                            $('#val_list').append(str);
+                            $('#val_list').show(200);
+                        }
+                    }
+                }
+                                                                                  
+            });  
+        })
+      $('#type_on').bind('change',function(){
+            //  $('#vallage').hide(200);
+            $(this).parent().next().css("color","#7f7f7f")
+            var id =$(this).val();
+         
+            $.ajax({
+                url : "{:U('soncate','','')}",
+                type : "post",
+                data : "id="+id,
+                dataType : "json",
+                success : function(data){                   
+                    if(data != null){
+                                                                                       
+                        var str=""
+                        $.each(data,function(key,val){
+                            str += "<option value="+val['type_id']+" >"+val['type_name']+"</option>";
+                        })
+                        //   $('#city_list').append(str)
+                        $('#son_cate').html(str);
+                        $('#son_cate').show(200);
+                    }
+                }
+            });         
+        })
+
+
+    })
+    function getvallage(id){
+
+        var id = id;
+        $('#vallage').attr('city',id);
+        $.ajax({
+            url : "{:U('City/vallage','','')}",
+            type : "post",
+            data : "id="+id,
+            dataType : "json",
+            success : function(data){  
+
+                if(data != null){
+                    var str=""
+                    $.each(data,function(key,val){
+                        str += "<option class='city_in' value="+val['REGION_ID']+">"+val['REGION_NAME']+"</option>";
+                    })
+                    $('#val_list').html(str);
+                    $('#val_list').show(200);
+                }
+            }
+        });
+
+    }
+</script>
+
+  <div class="con-con">
+
+  <input type="submit" value="提交" style=" width:250px; padding:5px 0px; color:#fff; background-color:#019386; font-size:24px; font-weight:bold; border:none;">
+  </div> 
+  
+</div>
+</form>
+</div>
+</div>
+
+</body>
+
+</html>
