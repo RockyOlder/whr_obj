@@ -11,6 +11,7 @@ class PropertyController extends Controller {
      */
     public function register(){
         if (IS_POST) {
+              
         	//获取用户输入的密码是否一致！
         	$pass1 = I('post.passWord');
 			$pass2 = I('post.passWordDemo');
@@ -48,6 +49,7 @@ class PropertyController extends Controller {
      */
     public function info(){       
         if (IS_POST) {  
+             
             // dump($_POST);//die;
             // dump(cookie());          
             // 添加到开发商表中
@@ -114,6 +116,7 @@ class PropertyController extends Controller {
     }
     public function end(){
         // dump(session());
+    
         $id = I('get.id');
         if (!$id) {
             $this->error('你无权访问该页面');
@@ -134,11 +137,13 @@ class PropertyController extends Controller {
      * @return [type]                   [description]
      */
     public function sendMsg(){
-    	$code = cookie('mobile_time')+60000;
-    	if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
+         
+    	//$code = cookie('mobile_time')+60000;
+   	//if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
     	$mobile = I('request.mobile');
         //给客户手机发送验证码
         $code = mt_rand(99999,999999);
+    //    $mobile_add="mobile";
         cookie('mobile',$mobile);
 		cookie($mobile,$code,360);
 		cookie('mobile_time',$code,3600);
@@ -166,13 +171,16 @@ class PropertyController extends Controller {
         	$verify = I('request.mobile_code');//获取传递过来的验证码
         	$old = cookie($number);
         }else{
-            $number = cookie('email');
+              // $number = cookie('mail');
         	$verify = I('request.email_code');//获取传递过来的验证码
-        	$old = cookie($number);
+         	$old = cookie(cookie('mail'));
         }
+        	//$this->ajaxReturn($old);exit;
 		if($old == $verify){            
 			echo "success";
+                        
 		}else{
+                  //  echo 2;exit;
 			echo '验证码输入不正确';
 		}
 		
@@ -185,18 +193,22 @@ class PropertyController extends Controller {
      * @return [type]                   [description]
      */
     public function sendEmail(){
-    	$code = cookie('email_time')+60000;
-    	if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
+        
+  //	$code = cookie('email_time')+60000;
+  //  	if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
 //  	$ip = get_client_ip();
+       
     	$mail = I('request.email');
         //给客户手机发送验证码
         $code = mt_rand(99999,999999);
-        cookie('email',$mail,7200);
+        $mail_add="mail";
+                cookie($mail_add,$mail,7200);
 		cookie($mail,$code,7200);
 		cookie('email_time',time(),3600);
         $msg = C('msg_start').$code.C('msg_end');
 	 	import('Org.Util.Mail');
         $back = SendMail($mail,'注册验证码',$msg,'慧享园');
+        
 		if($back){
 			$this->ajaxReturn(1);
 		}else{
@@ -229,12 +241,14 @@ class PropertyController extends Controller {
      * @return [type]                   [description]
      */
     public function ajax_check_email(){
+      
         $name = I('request.email');
         $bool = M('admin')->where(array('email'=>$name))->find();  
         // dump($name);
-        // dump($bool);      
+        // dump($bool);  
+       // $this->ajaxReturn($mail);
         if(is_null($bool)){
-            cookie('email',$mail);
+          cookie("mail",$name);
             echo "success";
         }else{
             echo '该邮箱已经注册，不能重复注册';
@@ -249,10 +263,11 @@ class PropertyController extends Controller {
      * @return [type]                   [description]
      */
     public function ajax_check_mobile(){
+        //   echo 1;exit;
         $name = I('request.mobile');
         $bool = M('admin')->where(array('mobile'=>$name))->find();        
         if(is_null($bool)){
-            cookie('mobile',$mobile);
+           cookie("mobile",$name);
             echo "success";
         }else{
             echo '该手机已经注册，不能重复注册';
@@ -267,6 +282,7 @@ class PropertyController extends Controller {
      * @return [type]                   [description]
      */
     public function ajax_check_vip(){
+       //    echo 1;exit;
         $name = I('request.name');
         $bool = M('developer_sum')->where(array('name'=>$name))->find();        
         if(is_null($bool)){

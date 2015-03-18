@@ -4,9 +4,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎登录后台管理系统</title>
-<link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/style.css">
-<script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-<script type="text/javascript" src="/default/App/Home/View/Public/Js/cloud.js"></script>
+<link rel="stylesheet" type="text/css" href="/whr_obj/App/Home/View/Public/Css/style.css">
+<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/jquery.js"></script>
+<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/cloud.js"></script>
 <script language="javascript">
 	$(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
@@ -33,7 +33,7 @@
 </style>
 </head>
 
-<body style="background-color:#1c77ac; background-image:url(/default/App/Home/View/Public/Images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+<body style="background-color:#1c77ac; background-image:url(/whr_obj/App/Home/View/Public/Images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
 
 

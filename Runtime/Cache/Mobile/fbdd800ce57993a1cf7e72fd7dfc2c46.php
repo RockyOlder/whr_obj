@@ -1,23 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>开发商注册页面</title>
-        <link href="__PUBLIC__/css/validate.css" rel="stylesheet" type="text/css">
-            <script src="__PUBLIC__/js/jquery-1.4.2.min.js"></script>
-            <script src="__PUBLIC__/js/easy_validator.pack.js"></script>
+        <link href="/whr_obj/Mobile/View/Public/css/validate.css" rel="stylesheet" type="text/css">
+            <script src="/whr_obj/Mobile/View/Public/js/jquery-1.4.2.min.js"></script>
+            <script src="/whr_obj/Mobile/View/Public/js/easy_validator.pack.js"></script>
             <style>
                 *{ padding:0px; margin:0px;}
                 body{ width:100%; margin:0 auto; font-family:"微软雅黑";}
                 .container{ width:700px; margin:0 auto;}
                 .title{ width:300px; margin:0 auto;}
                 .title h2{ width:300px; margin:0 auto; text-align:center; height:50px; line-height:50px; font-size:40px; color:#019386; font-weight:600;}
-                .menuset{ width:100%; margin:0 auto; padding:25px 15px 15px 15px;background:url(__PUBLIC__/images/ab--.png) center 70px no-repeat;}
+                .menuset{ width:100%; margin:0 auto; padding:25px 15px 15px 15px;background:url(/whr_obj/Mobile/View/Public/images/ab--.png) center 70px no-repeat;}
                 ul{list-style:none;}
                 .menuset .menu{padding-top:2px;width:800px; height:100px; margin:0 auto; }
                 .menuset .menu li{float:left; padding:10px 0px;  height:70px; width:240px; text-align:center;}
                 .menuset .menu li a{display:block;float:left;color:#666;height:55px;line-height:15px;padding:0 60px;margin-left:2px; text-decoration:none; font-size:16px;}
-                .menuset .menu .bg  {background:url(__PUBLIC__/images/gIco7.png)center 42px no-repeat;color:#666; font-weight:800;}
+                .menuset .menu .bg  {background:url(/whr_obj/Mobile/View/Public/images/gIco7.png)center 42px no-repeat;color:#666; font-weight:800;}
                 .content{ width:40%; margin:0 auto;}
                 .name{ width:60%; margin:50px 0px 30px 100px;}
                 .tel{width:60%; margin:0px 0px 30px 100px;}
@@ -132,22 +132,22 @@
         <div class="container">
             <div class="menuset">
                 <ul class="menu">
-                    <li class="bg"><a href="#"><img src="__PUBLIC__/images/tit1.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">设置登录名</a></li>
-                    <li><a href="#"><img src="__PUBLIC__/images/t2.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">填写信息</a></li>
-                    <li style=" padding:10px 0px 0px 0px;"><a href="#"><img src="__PUBLIC__/images/t3.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">注册成功</a></li>
+                    <li class="bg"><a href="#"><img src="/whr_obj/Mobile/View/Public/images/tit1.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">设置登录名</a></li>
+                    <li><a href="#"><img src="/whr_obj/Mobile/View/Public/images/t2.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">填写信息</a></li>
+                    <li style=" padding:10px 0px 0px 0px;"><a href="#"><img src="/whr_obj/Mobile/View/Public/images/t3.png" width="30" height="30" style=" float:left; margin-top:-7px; padding-right:5px;">注册成功</a></li>
                 </ul>
             </div>
             <div style="text-align:center;font-size:25px ;">慧享园-开发商注册页面</div>
             <div class="conten">
 
                 <form action="" method="post" >
-                    <div class="username"><span style=" margin-left:16px;">用户名：</span><input name="userName" type="text"  id="groupname" reg="[a-z | A-Z]\w{5,15}"  tip="英文字母开头，大于六位，小于16位"  url="{:U('ajax_check_name','','')}"/><p style="color:#666; float:right">*一旦注册不可更改</p></div>
+                    <div class="username"><span style=" margin-left:16px;">用户名：</span><input name="userName" type="text"  id="groupname" reg="[a-z | A-Z]\w{5,15}"  tip="英文字母开头，大于六位，小于16位"  url="<?php echo U('ajax_check_name','','');?>"/><p style="color:#666; float:right">*一旦注册不可更改</p></div>
                     <div class="password"><span>设置密码：</span><input name="passWord" type="password" id="groupname" reg="[0-9 | A-Z | a-z]{6,16}"  tip="请输入你的密码"/><p style="color:#666; float:right">*至少6位的数字字母</p></div>
                     <div class="newsword"><span>确认密码：</span><input name="passWordDemo" type="password" id="groupname" reg="[0-9 | A-Z | a-z]{6,16}" tip="请保证两次的密码一致"/></div>
                     <div class="username"><span>您的姓名：</span><input name="true_name" type="text"  id="flightno" reg="\S+"  tip="管理系统中显示的名字"/><p style="color:#666; float:right">*请输入你的姓名</p></div>
 
                     <div class="email">
-                        <span>邮箱验证：</span><input name="email" type="text" id="groupname" url="{:U('ajax_check_email','','')}" reg="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" tip="邮箱地址，如wrt_cloud@163.com">
+                        <span>邮箱验证：</span><input name="email" type="text" id="groupname" url="<?php echo U('ajax_check_email','','');?>" reg="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" tip="邮箱地址，如wrt_cloud@163.com">
                             <input name="" type="button" value="获取验证码" id="btn" style=" background-color:#019386; color:#fff; font-weight:bold; border:none; padding:8px">
                                 <script type="text/javascript">  
                                     var wait=60;  
@@ -173,12 +173,12 @@
 
                                 <div class="ma">
                                     <span style=" float:left; padding-left:22px;">验证码:</span>
-                                    <input name="email_code" type="text" / style="float:left; width:80px; margin:0px 5px;" id="flightno"  url="{:U('ajax_check',array('type'=>2),'')}" reg="^\d{6}$" tip="请输入邮箱收到的验证码">
+                                    <input name="email_code" type="text" / style="float:left; width:80px; margin:0px 5px;" id="flightno"  url="<?php echo U('ajax_check',array('type'=>2),'');?>" reg="^\d{6}$" tip="请输入邮箱收到的验证码">
 
                             </div>
 
                             <div class="phone">
-                                <span>手机号码：</span><input name="mobile" type="text" id="str" reg="^1\d{10}$"  url="{:U('ajax_check_mobile','','')}"  tip="国内手机号码">
+                                <span>手机号码：</span><input name="mobile" type="text" id="str" reg="^1\d{10}$"  url="<?php echo U('ajax_check_mobile','','');?>"  tip="国内手机号码">
                                     <input name="" type="button" value="获取验证码"  id="bton" style=" background-color:#019386; color:#fff; font-weight:bold; border:none; padding:8px">
                                         <script type="text/javascript">  
                                             var wait=60;  
@@ -203,7 +203,7 @@
 
                                         <div class="ma">
                                             <span style=" float:left; padding-left:22px;">验证码:</span>
-                                            <input name="mobile_code" type="text" / style="float:left; width:80px; margin:0px 5px;" id="flightno"  url="{:U('ajax_check',array('type'=>1),'')}" reg="^\d{6}$" tip="请输入手机收到的验证码">
+                                            <input name="mobile_code" type="text" / style="float:left; width:80px; margin:0px 5px;" id="flightno"  url="<?php echo U('ajax_check',array('type'=>1),'');?>" reg="^\d{6}$" tip="请输入手机收到的验证码">
 
                                     </div>
 
@@ -212,15 +212,15 @@
                                     <div class="btn">
                                         <div class="form-item" style=" margin-left:90px;">
                                             <input class="form-checkbox" type="checkbox" name="" id="J_Agreement" checked="">
-                                                <label>同意<a href="{:U('server')}" style="color:#019386;">《慧享园服务协议》</a></label>
+                                                <label>同意<a href="<?php echo U('server');?>" style="color:#019386;">《慧享园服务协议》</a></label>
                                         </div>
 
 
                                         <div class="form-item form-item-short" style="margin:20px 0px 0px 90px; height:50px;">
                                             <input type="submit"    id="next" value="下一步" style=" width:250px; padding:5px 0px; color:#fff; background-color:#019386; font-size:24px; font-weight:bold; border:none;"/>
                                             </form>
-                                            <input type="hidden" name="email_src" id="email_src" value="{:U('sendEmail','','')}" />
-                                            <input type="hidden" name="mobile_src" id="mobile_src" value="{:U('sendMsg','','')}" />
+                                            <input type="hidden" name="email_src" id="email_src" value="<?php echo U('sendEmail','','');?>" />
+                                            <input type="hidden" name="mobile_src" id="mobile_src" value="<?php echo U('sendMsg','','');?>" />
                                         </div>
                                     </div>
                                     </div>
