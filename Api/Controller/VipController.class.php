@@ -19,10 +19,14 @@ class VipController extends CommonController {
               // 更新下活动列表
               M('vip_activity')->where('end_time <'.time())->save(array('statue'=>1));
               // 获取活动的内容
-              $act = M('vip_activity')->where("statue=0")->select();
+              $act = M('vip_activity')->where("statue=0")->find();
+              
+              if (strlen($act['title']) > 12) {
+                $act['title'] = mb_strcut($act['title'], 0,12,'utf8')."...";
+              }
               // dump($act);
               if ($act) {
-                $act = current($act);
+                // $act = current($act);
                 $good = M('vip_act_good')->field('gid,price,o_price,pic')->where('aid ='.$act['id'])->order('sort desc')->limit(3)->select();
                 if ($good) {
                   foreach ($good as $k => $v) {
@@ -32,6 +36,8 @@ class VipController extends CommonController {
                   }
                   // dump($good);die();
                   $act['good'] = $good;
+                }else{
+                  $act = array();
                 }
                 $out['header'] = $act;
               }else{

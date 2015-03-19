@@ -179,6 +179,18 @@ class HomeController extends  CommonController{
                 }
                 // dump($sql);
                 $good = M()->query($sql);
+                foreach ($good as $k => $v) {
+                    // dump($v);
+                    // dump(strlen($v['title']));
+                    if (strlen($v['title']) > 15) {
+                    $v['title'] = mb_strcut($v['title'], 0,15,'utf8');
+                    }
+                    if (strlen($v['info']) > 30) {
+                    $v['info'] = mb_strcut($v['info'], 0,30,'utf8');
+                    }
+                    $good[$k] = $v;
+                    // dump($v);
+                }
                 S('homeShop_'.$type,$good,60);//添加进入缓存
                 $out['data']= $good;
                 

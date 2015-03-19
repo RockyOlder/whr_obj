@@ -78,15 +78,25 @@ class BalanceController extends CommonController {
       // dump(I('get.num'));
       $num = I('get.num');
       // 查找用户订单信息
-      $data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id')->where($where)->find();
+      $data = M('order')->field('type,statue,cate,totle,phone,number,check_number,user_id,totle')->where($where)->find();
       // dump($data);
-        if ($data['cate'] == 0) {//生活导航订单
+        if($data && $data['type']== 0){
+          $bool = M('user')->where(array('user_id'=>$uid))->setDec('user_money',$data['totle']);
+          $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+          if($sorce){
+            $str = current($sorce);
+            $str = explode('/', $str);  
+            $up = (int)$data['totle']*$str[1]/$str[0]; 
+            $bool0 = M('user')->where(array('user_id'=>$uid))->setInc('source',$up);    
+          }
+        }
+        if ($data['cate'] == 0 && $data['type'] == 0) {//生活导航订单
             //$data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id,goodid')->where($where)->find();
             $content = "尊敬的客户：你好！感谢你选择慧享园购物，您的".$data['number'].'号订单已经成功付款,你的消费验证码为:'.$data['check_number'].',请妥善保管,一经验证等同消费,请安排好验证时间！       【慧享园】';
             $phone = $data['phone'];
             $bool =sendMsg($phone,$content);
         }
-        if ($data['cate'] == 1) {//VIP订单
+        if ($data['cate'] == 1 && $data['type'] == 0) {//VIP订单
             $mail = current(M('user')->where(array('user_id'=>$data['user_id']))->find());
             $title = '慧享园付款通知';
             $author = '【慧享园】';
@@ -121,6 +131,7 @@ str;
  * @return [type]                   [description]
  */
     public function pay(){
+      
       $id = I('request.version',1);
       $uid = I('request.userId',0,'intval');
       $number = I('request.number');
@@ -163,6 +174,13 @@ str;
         // dump($bool);
         if ($bool) {
           $bool = M('user')->where(array('user_id'=>$uid))->setDec('user_money',$data['totle']);
+          $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+          if($sorce){
+            $str = current($sorce);
+            $str = explode('/', $str);  
+            $up = (int)$data['totle']*$str[1]/$str[0]; 
+            $bool0 = M('user')->where(array('user_id'=>$uid))->setInc('source',$up);    
+          }
           // dump(M('user')->getlastSql());
           // dump($bool);
           if (!$bool) {
@@ -227,6 +245,28 @@ str;
         $this->ajaxReturn($out);
       }
 
+
+    }
+    function unionpay(){
+      header ( 'Content-type:text/html;charset=utf-8' );
+      // $data = $_POST;
+      // dump($bool);
+      // $data = array('key1'=>'first','key2'=>'two');
+      // $str =implode(',', $data);
+      // $str = explode(delimiter, string)
+      // // dump($str);
+      // // dump($_SERVER["DOCUMENT_ROOT"]);
+      // $path = $_SERVER["DOCUMENT_ROOT"].'/unionpay/logs/put_log.php';
+      // // dump($path);
+      // $bool = file_put_contents($path, $str);
+      // $this->ajaxReturn($bool);
+      if (isset ( $_POST ['signature'] )) {
+        
+        echo verify ( $_POST ) ? '验签成功' : '验签失败';
+        $orderId = $_POST ['orderId']; //其他字段也可用类似方式获取
+      } else {
+        echo '签名为空';
+      }
 
     }
   

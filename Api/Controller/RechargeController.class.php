@@ -25,11 +25,16 @@ class RechargeController extends CommonController {
               $data[number] = getOrderId();
               $data[totle] = I('request.total');
               $data[type] = 1;
-              $out['success'] = 1;
-              
+              $out['success'] = 1;              
               $bool = M('order')->add($data);
-              
-              if($bool){
+              $recharge['uid']= $uid;
+              $recharge['number']= $data[number];
+              $recharge['total']= $data[totle];
+              $recharge['statue']= 0;
+              $recharge['time'] = time();
+              $bool1 = M('recharge')->add($recharge);
+              // dump($bool1);
+              if($bool && $bool1 && $bool){
                 $out['data'] = $data[number];
                 $out['msg'] = '成功';
               }else{
@@ -76,7 +81,14 @@ class RechargeController extends CommonController {
                 $data = M('recharge')->field('total,uid')->where($w)->find();
                 $w = array('user_id'=>$data[uid]);
                 // dump($data[total]);die();
-                $bool1 = M('user')->where($w)->setInc('user_money',$data[total]);
+                $bool1 = M('user')->where($w)->setInc('user_money',$data['total']);
+                $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+                if($sorce){
+                  $str = current($sorce);
+                  $str = explode('/', $str);  
+                  $up = (int)$data['totle']*$str[1]/$str[0]; 
+                  $bool0 = M('user')->where(array('user_id'=>$uid))->setInc('source',$up);    
+                }
                 // dump($bool);
                 // dump($bool1);
                 if ($bool && $bool1) {
@@ -128,11 +140,10 @@ class RechargeController extends CommonController {
                     $this->ajaxReturn($out);
                   }  
               $w = array('uid'=>$uid,'statue'=>1);
-              // 更新下活动列表
               $bool = M('recharge')->where($w)->select();
-
               // dump(M('recharge')->getlastSql());
-              // 获取活动的内容
+              // dump($bool);
+              // dump(M('recharge')->getlastSql());
               if($bool){
                 foreach ($bool as $k => $v) {
                   $v[time] = date('Y-m-d H:i:s',$v[time]);
@@ -149,87 +160,23 @@ class RechargeController extends CommonController {
               $this->ajaxReturn($out);
           }       
     }
-    public function pay(){
-      $alipay_config['partner']   = '2088411232819690';
-
-        //商户的私钥（后缀是.pen）文件相对路径
-        $alipay_config['private_key_path']  = 'key/rsa_private_key.pem';
-
-        //支付宝公钥（后缀是.pen）文件相对路径
-        $alipay_config['ali_public_key_path']= 'key/alipay_public_key.pem';
-
-        // $bool = file_exists($alipay_config['ali_public_key_path']);
-        //↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-        // dump($bool);
-
-        //签名方式 不需修改
-        $alipay_config['sign_type']    = strtoupper('RSA');
-
-        //字符编码格式 目前支持 gbk 或 utf-8
-        $alipay_config['input_charset']= strtolower('utf-8');
-
-        //ca证书路径地址，用于curl中ssl校验
-        //请保证cacert.pem文件在当前文件夹目录中
-        $alipay_config['cacert']    = getcwd().'\\cacert.pem';
-
-        //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
-        $alipay_config['transport']    = 'http';
-      // require_once("alipay.config.php");
-      import("Org.Zhibao.lib.alipay_notify");
-      // require_once("lib/alipay_notify.class.php");
-      //计算得出通知验证结果
-      $alipayNotify = new \AlipayNotify($alipay_config);
-      // dump($alipayNotify);die();
-      $verify_result = $alipayNotify->verifyNotify();
-      // dump($verify_result);die();
-
-      if($verify_result) {//验证成功
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //请在这里加上商户的业务逻辑程序代
-
-        
-        //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
-        
-          //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
-        
-        //商户订单号
-
-        $out_trade_no = $_POST['out_trade_no'];
-
-        //支付宝交易号
-
-        $trade_no = $_POST['trade_no'];
-
-        //交易状态
-        $trade_status = $_POST['trade_status'];
-        if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
-              // 用订单号作为查询条件
-              $w = array('number'=>$out_trade_no);
-              $data['statue'] = 1;
-
-              $data = M('order')->where($w)->save($data);
-              // dump($data);
-          }
-
-        //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-              
-        echo "success";   //请不要修改或删除
-        
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      }
-      else {
-          //验证失败
-          echo "fail";
-
-          //调试用，写文本函数记录程序运行情况是否正常
-          //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-      }
-    }
+    
     public function payfor(){
       // dump(I('get.num'));
       $num = I('get.num');
+      $where = array('number'=>$num);
       // 查找用户订单信息
       $data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id')->where($where)->find();
+      // if($data){
+      //     $bool = M('user')->where(array('user_id'=>$data['user_id']))->setDec('user_money',$data['totle']);
+      //     $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+      //     if($sorce){
+      //       $str = current($sorce);
+      //       $str = explode('/', $str);  
+      //       $up = (int)$data['totle']*$str[1]/$str[0]; 
+      //       $bool0 = M('user')->where(array('user_id'=>$uid))->setInc('source',$up);    
+      //     }
+      //   }
       // dump($data);
         if ($data['cate'] == 0) {//生活导航订单
             //$data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id,goodid')->where($where)->find();
@@ -238,7 +185,8 @@ class RechargeController extends CommonController {
             $bool =sendMsg($phone,$content);
         }
         if ($data['cate'] == 1) {//VIP订单
-            $mail = current(M('user')->where(array('user_id'=>$data['user_id']))->find());
+            $mail = current(M('user')->field('email')->where(array('user_id'=>$data['user_id']))->find());
+            // dump($mail);
             $title = '慧享园付款通知';
             $author = '【慧享园】';
             $time = date('Y年m月d日 H时i分',time());
@@ -259,7 +207,9 @@ class RechargeController extends CommonController {
 </html>
 str;
             $bool = sendEmail($mail,$title,$content,$author);
+            // dump($bool);
         }
+        return $bool;
 
     }
     
