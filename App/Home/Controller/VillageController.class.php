@@ -11,31 +11,49 @@ class VillageController extends IsloginController {
     public function index() {
         //  $data = $this->getdata();
 
-        if (session("admin.property")!=0) $where['p.id'] = array('LIKE', '%' . session("admin.property") . '%');
-        if (session("admin.village")!=0) $where['v.id'] = array('LIKE', '%' . session("admin.village") . '%');
-        if (session("admin.developer")!=0) $where['p.property_id'] = array('LIKE', '%' . session("admin.developer") . '%');
+        if (session("admin.property")!=0) $where[] = array('p.id'=>session("admin.property"));
+        if (session("admin.village")!=0) $where[] = array('v.id'=>session("admin.village") );
+        if (session("admin.developer")!=0) $where[] = array('p.property_id'=> session("admin.developer"));
         
-        $village = M("village v");
+   //    if (session("admin.pid")!=0) $where[] = array('a.pid'=>session("admin.pid"));
+        
+        $village = M("village v");  $admin=M("admin");
         $count = $village                
                 ->join('wrt_property AS p ON v.property_id=p.id')
                 ->join('wrt_admin AS a ON a.village=v.id')->where($where)->count();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
-        $find = $village->field('v.*,p.id as pid,p.pname,a.name as adminUser')
+        $find = $village->field('v.*,p.id as pid,p.pname')//,a.name as adminUser
                 //  $find = $village->field('v.*,h.id as hid,p.id as pid,p.pname,h.name as hname,r.REGION_ID,r.REGION_NAME')
          //       ->join('wrt_houses AS h ON v.house_id=h.id')
                 ->join('wrt_property AS p ON v.property_id=p.id')
-                ->join('wrt_admin AS a ON a.village=v.id')
+             //   ->join('wrt_admin AS a ON a.village=v.id')
               //  ->join('wrt_region AS r ON v.province=r.REGION_ID')
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
-     //   print_r($find);exit;
+        
+        foreach ($find as $value)
+        {
+            $arr = $admin->field("name as adminUser")->where("village=".$value['id'])->find();
+            
+            if(isset($arr))
+            {
+              
+                $value['adminUser'] = $arr['adminUser'];
+                
+            }
+            
+            $array[] = $value;
+            
+        }
+        
+     //   print_r($array);exit;
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
-        $this->assign('data', $find);
+        $this->assign('data', $array);
         $this->display();
     }
     /*小区

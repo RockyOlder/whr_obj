@@ -155,8 +155,8 @@
                 <li>维修报障</li>
             </ul>
         </div>
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/hinder" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/hinder" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
    <!--     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加维修报障"  onclick="javascript:;" /></li> -->
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">

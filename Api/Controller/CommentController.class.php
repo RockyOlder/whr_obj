@@ -2,30 +2,51 @@
 namespace Api\Controller;
 use Api\Controller\CommonController;
 class CommentController extends  CommonController{
-    // 添加评论
+    /**
+     * [add 添加评论]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T15:58:22+0800
+     */
     public function add()
     {
         $id = I('request.version',1,'intval');
+        $orderid = I('request.orderId',0,'intval');
         $goodid = I('request.goodid',0,'intval');
         $userid = I('request.userid',0,'intval');
         $shopid = I('request.shopid',0,'intval');
-        $content = I('request.content',1,'intval');
-        $star = I('request.star',1,'intval');
+        $content = I('request.content');
+        $star = I('request.star');
         $pic = I('request.pic');
         $time = time();
         if ($id == 1) {
-          if (!$goodid || !$userid ) {
+          if (!$goodid || !$userid || !$orderid) {
             $out['success'] = 0;
             $out['msg']=C('no_id');
             $this->ajaxReturn($out);
           }
-          $sql = "insert into ".C('DB_PREFIX')."comment set time=$time,shopid=$shopid,gid = $goodid,user_id=$userid,content ='$content',star =$star,pic='$pic'";
-         // dump($sql);
-          $bool = M()->execute($sql);
-          if ($bool) {
+          $arr['time']=$time;
+          $arr['shopid'] = $shopid;
+          $arr['gid'] = $goodid;
+          $arr['user_id'] = $userid;
+          $arr['content'] = $content;
+          $arr['star'] = $star;
+          $pic = uploadMore();
+          if (!is_null($pic)) {
+            $arr['pic'] = $pic;
+          } 
+          // dump($arr);
+          M()->startTrans();
+          $bool = M('comment')->add($arr);
+          // dump($bool);
+          $data = array('oid'=>$orderid,'statue'=>7);
+          $bool1 = M('order')->save($data);
+          if ($bool && $bool1) {
+            M()->commit();
              $out['success'] = 1;
             $out['msg']="评论成功";
           }else{
+            M()->rollback();
              $out['success'] = 0;
             $out['msg']="评论插入失败";
           }
@@ -33,7 +54,13 @@ class CommentController extends  CommonController{
         $this->ajaxReturn($out);
 	       
     }
-     //商品的评论
+     /**
+      * [good 商品的评论]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T15:58:40+0800
+      * @return [type]                   [description]
+      */
      public function good()
     {
         $id = I('request.version',1,'intval');
@@ -82,14 +109,25 @@ class CommentController extends  CommonController{
         $this->ajaxReturn($out);
          
     }
-     // 添加评论
+     /**
+      * [vipAdd 添加VIP评论]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T15:59:17+0800
+      * @return [type]                   [description]
+      */
     public function vipAdd()//2014-12-16
     {
         $id = I('request.version',1,'intval');
         $goodid = I('request.goodid',0,'intval');
         $userid = I('request.userid',0,'intval');
         $content = I('request.content');
-        $pic = I('request.pic');
+        $oid = I('request.orderId');
+        $pic = uploadMore();
+        if (!is_null($pic)) {
+          $arr['pic'] = $pic;
+        }   
+
         $star = I('request.star');
         $time = time();
         if ($id == 1) {
@@ -98,21 +136,70 @@ class CommentController extends  CommonController{
             $out['msg']=C('no_id');
             $this->ajaxReturn($out);
           }
-          $sql = "insert into ".C('DB_PREFIX')."vip_comment set time=$time,gid = $goodid,user_id=$userid,content ='$content',star =$star,pic='$pic'";
+          //组合出添加的数组
+          $arr['content'] = $content;
+          $arr['gid'] = $goodid;
+          $arr['user_id'] = $userid;
+          $arr['time'] = $time;
+          $arr['star'] = $star;
+          // dump($arr);die();
+          //$sql = "insert into ".C('DB_PREFIX')."vip_comment set time=$time,gid = $goodid,user_id=$userid,content ='$content',star =$star,pic='$pic'";
          // dump($sql);
-          $bool = M()->execute($sql);
-          if ($bool) {
+         $w = array('oid'=>$oid);
+         M()->startTrans();
+         // dump($arr);
+          $bool = M('vip_comment')->add($arr);
+          // dump(M('vip_comment')->getlastSql();)
+          // dump($bool);
+          $statue = M('order')->field('statue,number')->where($w)->find();
+          // dump($statue);
+          $sql = "UPDATE `wrt_order_info` SET `is_comm`=1 WHERE ( `good_id` = '".$goodid."' ) AND ( `order_number` = '".$statue['number']."' )";
+          $bool3 = M('order_info')->execute($sql);//修改商品评论状态
+          // dump(M('order_info')->getlastSql());
+          // dump($bool3);
+          if($bool3){//查找用户是否评论完所有的商品
+            $where = array('order_number'=>$statue['number']);
+            $num = M('order_info')->where($where)->count();//计算商品数量
+            // dump(M('order_info')->getlastSql());
+            $where['is_comm'] = 1;
+            // dump($num);
+            $sum = M('order_info')->where($where)->count();
+            // dump($sum);
+            if ($sum == $num) {
+                $bool1 = M('order')->where($w)->setInc('statue');
+               
+            }else{
+              $bool1 = 1;
+            }
+          }else{
+            $msg ="你已经评论过了，不能重复评论";
+          }
+          
+          // 
+          $w = array('goods_id'=>$goodid);
+          $bool2 = M('goods')->where($w)->setInc('comm_num');
+          // dump($bool2);
+          if ($bool && $bool1 && $bool2) {
+            M()->commit();
              $out['success'] = 1;
               $out['msg']="评论成功";
           }else{
+            M()->rollback();
              $out['success'] = 0;
-            $out['msg']="评论插入失败";
+            $out['msg']=$msg;
           }
         }
         $out['data'] =null;
         $this->ajaxReturn($out);
          
-    } // 获取商品的评论
+    } 
+    /**
+     * [getVip 获取VIP商品的评论]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T15:59:45+0800
+     * @return [type]                   [description]
+     */
     public function getVip()//2014-12-16
     {
         $id = I('request.version',1,'intval');

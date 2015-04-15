@@ -266,6 +266,8 @@
                                 <option class = "top_cate" value="0">未付款</option>    
                                 <option class = "top_cate" value="1">未消费</option>
                                 <option class = "top_cate" value="2">已消费</option>
+                                <option class = "top_cate" value="6">待评价</option>
+                                <option class = "top_cate" value="7">交易成功</option>
                                 <option class = "top_cate" value="3">退款</option>
 
                             </select>

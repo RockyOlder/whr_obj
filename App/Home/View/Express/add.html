@@ -30,7 +30,7 @@
 
                 <ul class="forminfo">
                     <li><label>快递公司名称</label><input name="name" id="name" type="text" class="dfinput" value="{$info.name}" url="{:U('ajax_check_name')}"/><i id="name_info">名称不能超过30个字符</i></li>
-                   
+                   <li><label>快递公司编码</label><input name="code" id="code" type="text" class="dfinput" value="{$info.code}"/><i id="name_info">快递公司编码信息</i></li>
                     <li><label>快递公司电话</label><input name="phone" reg="1\d{10}|0\d{2,3}-\d{7,8}" tip="请输入快递公司电话" type="text" class="dfinput"  value="{$info.phone}"/><i></i></li>
                     <li><label>每公斤价格</label><input name="price" type="text" class="dfinput"  value="{$info.price}"  reg="[1-9]\d*" tip="请输入每公斤价格" /><i></i></li>               
                     <if condition="$info['id'] neq ''"><input type="hidden" name="id" value="{$info.id}"></if>            
@@ -53,8 +53,11 @@ function check(){
     var name = $('input[name=name]').val();
     var phone = $('input[name=phone]').val();
     var price = $('input[name=price]').val();
+    var code = $('input[name=code]').val();
     if ($.trim(name) == '') {
         alert('快递公司名称不能为空')
+    }else if($.trim(code) == ''){
+        alert('快递公司编码不能为空')
     }else if($.trim(phone) == ''){
         alert('快递公司电话不能为空')
     }else if($.trim(price) == ''){

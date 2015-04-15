@@ -130,6 +130,7 @@ function getCertIdByCerPath($cert_path) {
 }
 
 /**
+ * 
  * 签名证书ID
  *
  * @return unknown
@@ -232,6 +233,54 @@ function encryptDateType($certDataType) {
 	openssl_public_encrypt ( $certDataType, $crypted, $public_key );
 
 	return base64_encode ( $crypted );
+}
+/**
+ * [getInfo 根据订单号获取订单的流水号和订单的提交时间]
+ *
+ 
+ * @author xujun
+ *
+ 
+ * @email  [jun0421@163.com]
+ * @time   2015-03-27T10:11:31+0800
+ * @return [type]                   [description]
+ */
+function getInfo($sql){
+	
+	return connectsql($sql);
+
+}
+function connectsql($sql){
+	// $connect = mysql_connect('127.0.0.1','root','root')or die('连接失败');;
+	$connect = mysql_connect('127.0.0.1','root','5ae5ee52b8')or die('连接失败');//5ae5ee52b8
+		//$connect = mysql_connect('127.0.0.1','root','root')or die('连接失败');//5ae5ee52b8
+			
+	mysql_select_db('wrtdata')or die('数据库选择失败！');
+	$result = mysql_query($sql,$connect);
+	$info = mysql_fetch_assoc($result);
+	mysql_free_result($result);
+	mysql_close($connect);
+	return $info;
+}
+/**
+ * [getInfo 生成用户订单号的tn号，并做好记录]
+ * @author xujun
+ * @email  [jun0421@163.com]
+ * @time   2015-03-27T10:11:31+0800
+ * @return [type]                   [description]
+ */
+function addInfo($sql){
+	connectsqladd($sql);
+
+}
+function connectsqladd($sql){
+	// $connect = mysql_connect('127.0.0.1','root','root')or die('连接失败');;
+	$connect = mysql_connect('127.0.0.1','root','5ae5ee52b8')or die('连接失败');//5ae5ee52b8
+		//$connect = mysql_connect('127.0.0.1','root','root')or die('连接失败');//5ae5ee52b8
+			
+	mysql_select_db('wrtdata')or die('数据库选择失败！');
+	$result = mysql_query($sql,$connect);
+	mysql_close($connect);
 }
 
 ?>

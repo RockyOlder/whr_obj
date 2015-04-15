@@ -10,19 +10,25 @@ class SellerController extends IsloginController {
      * @return [type]  
      * @author phper丶li     
     */
-    public function lifeGood() {
+     public function lifeGood() {
         $lifeGood = M("LifeGoods l");
-        $id = session("admin.shop_id");
+      //  $id = session("admin.shop_id");
         if (IS_POST) {
+            
+             $where[] = array('l.bid > 1');
+            
             $lgname = I('post.lgname');
 
             $type = I('post.cate_pid');
             if ($lgname)
-                $where['l.lgname'] = array('LIKE', '%' . $lgname . '%');
+                $where['l.lgname'] = array('LIKE', $lgname . '%');
 
             if ($type !== "请选择")
-                $where['l.cate_pid'] = array('LIKE', '%' . $type . '%');
+                $where['l.cate_pid'] = array('LIKE',  $type . '%');
+               
         }
+   
+         
         $count = $lifeGood->where($where)->count();
 
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
@@ -34,6 +40,7 @@ class SellerController extends IsloginController {
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+   //     dump($lifeGood->getLastSql());
         $this->assign('type', $type);
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
@@ -56,13 +63,13 @@ class SellerController extends IsloginController {
              $parent_id = I('post.parent_id');
             $name = I('post.name');  $cat_id = I('post.cat_id');
             if ($name)
-                $where['goods_name'] = array('LIKE', '%' . $name . '%');
+                $where['goods_name'] = array('LIKE',  $name . '%');
 
             if ($cat_id!=='请选择')
-              $where['g.cat_id'] = array('LIKE', '%' . $cat_id . '%');
+              $where['g.cat_id'] = array('LIKE',  $cat_id . '%');
             
             if ($parent_id!=='请选择')
-              $where['g.parent_id'] = array('LIKE', '%' . $parent_id . '%');
+              $where['g.parent_id'] = array('LIKE',  $parent_id . '%');
         }
         
         $category=M("category");
@@ -75,7 +82,7 @@ class SellerController extends IsloginController {
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img,num,vip_num')
+        $data = $goods->field('goods_id,goods_name,list_img,description,if_show,price,number,inventory,goods_img,num,vip_num,if_show')
                 ->join('wrt_category AS c ON g.cat_id=c.cat_id')
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)

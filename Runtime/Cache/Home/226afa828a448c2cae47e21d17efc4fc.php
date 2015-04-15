@@ -61,12 +61,12 @@
                 <p class="text"><span>VIP特享订单管理</span></p>
             </a>
         </div>
-  <div class="little"> 
+  <!-- <div class="little"> 
             <a href="<?php echo U('Category/cation');?>">
                 <img class="background" src="/App/Home/View/Public/Images/start/diao.png"width="100px" height="100px">
                 <p class="text"><span>商品规格</span></p>
             </a>
-        </div>
+        </div> -->
        </div>
        <!--  <div class="start">
         <div class="little"> 

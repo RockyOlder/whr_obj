@@ -166,14 +166,14 @@ class IndexController extends IsloginController {
      */
     public function developer() {
         if (session("admin.developer") != 0) {
-            $where['p.property_id'] = array('LIKE', '%' . session("admin.developer") . '%');
+            $where[] = array('p.property_id'=> session("admin.developer"));
         } else {
             $count['property'] = session("admin.property");
         }
         if (session("admin.village") != 0)
-            $where['w.property_id'] = array('LIKE', '%' . session("admin.village") . '%');
+            $where[] = array('w.property_id'=> session("admin.village") );
         if (session("admin.property") != 0)
-            $where['v.property_id'] = array('LIKE', '%' . session("admin.property") . '%');
+            $where[] = array('v.property_id'=> session("admin.property"));
     
         $w = array('property_id' => session('admin.developer'));
         

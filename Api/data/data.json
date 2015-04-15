@@ -678,6 +678,7 @@
 			"request" :
 			{
 				"version":"1",
+				"orderId":"订单id",
 				"goodid"    : "商品id",
 				"userid"    : "用户id",
 				"shopid":"商店id",
@@ -705,7 +706,8 @@
 				"content":"评论内容",
 				"star":"评论星级",
 				"pic":"图片地址",
-				"userName":"用户姓名"
+				"userName":"用户姓名",
+				"orderId":"订单id"
 			},
 			"response" :
 			{
@@ -859,7 +861,7 @@
 		}
 		,"POST Hotal/hotalList" :
 		{
-			"__desc__" : "获取酒店列表-1",
+			"__desc__" : "获取----",
 			"request" :
 			{
 				"version":"1",
@@ -879,7 +881,7 @@
 		}
 		,"POST Hotal/hotal" :
 		{
-			"__desc__" : "获取酒店列表-2",
+			"__desc__" : "获取----",
 			"request" :
 			{
 				"version":"1",
@@ -1615,6 +1617,8 @@
 				"userName":"用户名称",	
 				"phone":"电话号码",	
 				"picture":"图片",
+				"address":"地址",
+				"number":"人数限制",
 				"pid":"回复编号id（回复时输入）",
 				"id":"修改时添加此条"
 			},
@@ -2295,6 +2299,31 @@
 		,"POST Test/change":
 		{
 			"__desc__" : "修改服务器数据",
+			"request" :
+			{
+				
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Union/getCancelId":
+		{
+			"__desc__" : "获取撤销消费/退货订单号",
+			"request" :
+			{
+				"orderId":"需要撤销的订单的id",
+				"type":"1：撤销消费，2：退货"
+			},
+			"response" :
+			{
+				
+			}
+		}
+		,"POST Union/index":
+		{
+			"__desc__" : "银联后台通知接口",
 			"request" :
 			{
 				

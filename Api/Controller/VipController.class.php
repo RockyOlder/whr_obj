@@ -4,7 +4,7 @@ use Api\Controller\CommonController;
 class VipController extends CommonController {
 
     /**
-     * 获取vip首页信息
+     * [index 获取vip首页信息]
      * @author xujun
      * @email  [jun0421@163.com]
      * @date   2015-01-09T11:12:38+0800
@@ -20,7 +20,7 @@ class VipController extends CommonController {
               M('vip_activity')->where('end_time <'.time())->save(array('statue'=>1));
               // 获取活动的内容
               $act = M('vip_activity')->where("statue=0")->find();
-              
+              // dump($act);
               if (strlen($act['title']) > 12) {
                 $act['title'] = mb_strcut($act['title'], 0,12,'utf8')."...";
               }
@@ -28,6 +28,7 @@ class VipController extends CommonController {
               if ($act) {
                 // $act = current($act);
                 $good = M('vip_act_good')->field('gid,price,o_price,pic')->where('aid ='.$act['id'])->order('sort desc')->limit(3)->select();
+                // dump($good);
                 if ($good) {
                   foreach ($good as $k => $v) {
                     $v['zhe'] = round($v['price']/$v['o_price'],1);//计算出来折扣
@@ -76,7 +77,13 @@ class VipController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    //获取vip分类
+    /**
+     * [vipCate 获取vip分类]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T18:20:11+0800
+     * @return [type]                   [description]
+     */
     public function vipCate(){
         $id = I('request.version',1,'intval');
         if ($id == 1) {
@@ -102,7 +109,13 @@ class VipController extends CommonController {
         }
 
     }
-     //获取vip商品列表
+     /**
+      * [vipGoods 获取vip商品列表]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T18:20:28+0800
+      * @return [type]                   [description]
+      */
     public function vipGoods(){
         $id = I('request.version',1,'intval');
         $type = I('request.type',0,'intval');
@@ -140,6 +153,13 @@ class VipController extends CommonController {
         }
 
     }
+    /**
+     * [vipsearch VIP商品搜索提示]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T18:20:40+0800
+     * @return [type]                   [description]
+     */
         public function vipsearch(){
         $id = I('request.version',1,'intval');
         $search = I('request.search');
@@ -166,13 +186,20 @@ class VipController extends CommonController {
                 break;
             }           
             $out['data'] = M('goods')->field('goods_id,price,markdown,goods_name,list_img,number,store_id')->where("goods_name like '%$search%'")->order($s)->page($page,$pageSize)->select();
+            // dump(M('goods')->getlastSql());
             // dump($out);
             $out['success'] = 1;           
             $this->ajaxReturn($out);
         }
 
     }
-     //获取vip商品详情
+     /**
+      * [vipInfo 获取vip商品详情]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T18:21:31+0800
+      * @return [type]                   [description]
+      */
     public function vipInfo(){
         // echo time();
         // echo "<br/>";
@@ -186,15 +213,11 @@ class VipController extends CommonController {
           $this->ajaxReturn($out);
         }
         if ($id == 1) {
-           $data = M('goods')->field('goods_id,sales,store_id,goods_name,goods_img,description,price,weight')->where("goods_id ='$goodId'" )->find();
+           $data = M('goods')->field('goods_id,sales,store_id,goods_name,goods_img,description,price,weight,comm_num')->where("goods_id ='$goodId'" )->find();
            // dump($data['store_id']);
            // 获取商店的电话和qq
            $store = M('vip')->field('mobile_phone,qq')->where('store_id='.$data['store_id'])->find();
-           //获取商店的评论条数
-           $sum = M('vip_comment')->field('count(*) as sum')->where('shopid='.$data['store_id'])->select();
-           if ($sum) {
-             $store['sum'] = $sum[0]['sum'];
-           }
+           
            $data['shop'] = $store;
             
             if ($type == 1) { //表示是活动商品
@@ -208,7 +231,13 @@ class VipController extends CommonController {
         }
 
     }
-     //用户反馈信息
+     /**
+      * [userBack 用户反馈信息]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T18:21:50+0800
+      * @return [type]                   [description]
+      */
     public function userBack(){
         $id = I('request.version',1,'intval');
         $uid = I('request.userId',0,'intval');
@@ -234,7 +263,13 @@ class VipController extends CommonController {
         }
 
     }
-     //活动商品列表
+     /**
+      * [actAll 活动商品列表]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-26T11:06:12+0800
+      * @return [type]                   [description]
+      */
     public function actAll(){
         $id = I('request.version',1,'intval');
         $aid = I('request.activityId',0,'intval');
@@ -270,7 +305,13 @@ class VipController extends CommonController {
         }
 
     }
-    //vip商品的收藏
+    /**
+     * [comment vip商品的收藏]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T11:06:21+0800
+     * @return [type]                   [description]
+     */
     public function comment()
     {
          $id = I('request.version',1,'intval');
@@ -312,6 +353,13 @@ class VipController extends CommonController {
         }
         $this->ajaxReturn($out);         
     }
+    /**
+     * [commentDel 删除vip商品的收藏]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T11:06:30+0800
+     * @return [type]                   [description]
+     */
         public function commentDel()
     {
          $id = I('request.version',1,'intval');
@@ -347,7 +395,13 @@ class VipController extends CommonController {
         }
         $this->ajaxReturn($out);         
     }
-    // 获取收藏的列表
+    /**
+     * [commentList 获取收藏的列表]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T11:06:55+0800
+     * @return [type]                   [description]
+     */
      public function commentList()
     {
          $id = I('request.version',1,'intval');

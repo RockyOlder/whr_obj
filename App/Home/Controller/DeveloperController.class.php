@@ -19,14 +19,14 @@ class DeveloperController extends IsloginController {
         if (IS_POST) {
             $name = I('post.name');
             if ($name)
-                $where['name'] = array('LIKE', '%' . $name . '%');
+                $where['name'] = array('LIKE', $name . '%');
         }
 
         $count = $devop->where($where)->count();//->join('wrt_admin AS a ON a.developer=s.id')->field('s.*,a.name as adminUser')->join('wrt_admin AS a ON a.developer=s.id')
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 10);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $devop->where($where)->order('addtime desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+        $data = $devop->field('name,owner,phone,addtime,admin,id')->where($where)->order('addtime desc')->limit($page->firstRow . ',' . $page->listRows)->select();
 
         foreach ($data as $v){  $arr=$admin->field('name,developer')->where("developer=".$v['id'])->find();   if($v['id']==$arr['developer']){ $v['adminUser']=$arr['name']; } $add[]=$v; }
 

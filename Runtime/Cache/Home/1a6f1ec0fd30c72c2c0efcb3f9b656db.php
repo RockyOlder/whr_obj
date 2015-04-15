@@ -159,8 +159,8 @@
                             <li>邻里活动</li>
                         </ul>
                     </div>
-                    <input type="hidden" value="/server.php?s=/Home/ProInfo/active" id="examUpdate" name="examUpdate" />
-                    <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                    <input type="hidden" value="/index.php?s=/Home/ProInfo/active" id="examUpdate" name="examUpdate" />
+                    <input type="hidden" value="/index.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <!--    <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="添加"/></li> -->
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">

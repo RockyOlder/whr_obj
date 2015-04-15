@@ -77,7 +77,7 @@
             $.ajax({
             	type:"post",
             	url:url,
-            	data:{'id':id},
+            	data:{'id':id,'life':0},
             	success:function(data){
             		if(data){
             			alert('操作成功');

@@ -248,7 +248,7 @@ class PropertyController extends Controller {
         // dump($bool);  
        // $this->ajaxReturn($mail);
         if(is_null($bool)){
-          cookie("mail",$name);
+         // cookie("mail",$mail);
             echo "success";
         }else{
             echo '该邮箱已经注册，不能重复注册';
@@ -267,7 +267,7 @@ class PropertyController extends Controller {
         $name = I('request.mobile');
         $bool = M('admin')->where(array('mobile'=>$name))->find();        
         if(is_null($bool)){
-           cookie("mobile",$name);
+          //  cookie("mobile",$mobile);
             echo "success";
         }else{
             echo '该手机已经注册，不能重复注册';

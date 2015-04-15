@@ -10,13 +10,13 @@ class GiveController extends IsloginController {
      * @return [type]  
      * @author phper丶li     
     */
-    public function good() {
+     public function good() {
         //    echo 1;exit;
         $vip = M('GiveLifeGoods g');
         if (IS_POST) {
             $name = I('post.lgname');
             if ($name)
-                $where['w.lgname'] = array('LIKE', '%' . $name . '%');
+                $where['w.lgname'] = array('LIKE',  $name . '%');
         }
         $count = $vip->where($where)->count();
         // dump($count);
@@ -26,9 +26,9 @@ class GiveController extends IsloginController {
         $find = $vip->field('g.*,w.lgname,w.list_pic')
                 ->join('wrt_life_goods AS w ON w.lgid=g.goodid')
                 ->where($where)
-                ->order('sort desc')
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+      //   dump($vip->getLastSql());
         //循环数据设置推荐范围
         foreach ($find as $k => $v) {
             if ($v['is_all'] == 1) {
@@ -58,7 +58,7 @@ class GiveController extends IsloginController {
         if (IS_POST) {
             $name = I('post.name');
             if ($name)
-                $where['b.name'] = array('LIKE', '%' . $name . '%');
+                $where['b.name'] = array('LIKE', $name . '%');
         }
         
         

@@ -115,8 +115,9 @@
                                     <th>浏览量</th>
                                     <th>点击量</th>
                                     <th>购买数</th>
-                                    <th>开始时间</th>
-                                    <th>结束时间</th>
+                                    <th>类型</th>
+<!--                                    <th>开始时间</th>
+                                    <th>结束时间</th>-->
                                     <th colspan="2">操作</th>
                                 </tr>
                             </thead>
@@ -129,8 +130,9 @@
                                         <td><?php echo ($vo["skim"]); ?></td>
                                         <td><?php echo ($vo["click"]); ?></td>
                                         <td><?php echo ($vo["buy"]); ?></td>
-                                        <td><?php echo (date("Y-m-d H:i:s",$vo["start_time"])); ?></td>
-                                        <td><?php echo (date("Y-m-d H:i:s",$vo["end_time"])); ?></td>      
+                                        <td><?php echo ($vo["type"]); ?></td>
+<!--                                        <td><?php echo (date("Y-m-d H:i:s",$vo["start_time"])); ?></td>
+                                        <td><?php echo (date("Y-m-d H:i:s",$vo["end_time"])); ?></td>      -->
 
                                         <td width="20px" class="th_default" align="center"><a href="<?php echo U('add',array(id=>$vo['ad_id']),'');?>" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td>
                                         <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除"onclick="return cats_Shop(<?php echo ($vo["ad_id"]); ?>)"><span class="ui-icon ui-icon-minus"></span></div></td>

@@ -25,7 +25,7 @@
 
 
     <body style="background: none;">
-        <input type="hidden" value="/server.php?s=/Home/Owner/details" id="url_getTeacher" name="url_getTeacher" />
+        <input type="hidden" value="/index.php?s=/Home/Owner/details" id="url_getTeacher" name="url_getTeacher" />
         <input type="hidden" value="<?php echo U('ajax_del');?>" id="delete"/>
         <input type="hidden" value="<?php echo U('ajax_pass');?>" id="pass"/>
         <div class="place">

@@ -17,11 +17,11 @@ class AdminController extends IsloginController {
             $mobile = I('post.mobile');
             $address = I('post.address');
             if ($name)
-                $where['name'] = array('LIKE', '%' . $name . '%');
+                $where['name'] = array('LIKE',  $name . '%');
             if ($mobile)
-                $where['mobile'] = array('LIKE', '%' . $mobile . '%');
+                $where['mobile'] = array('LIKE', $mobile . '%');
             if ($address)
-                $where['address'] = array('LIKE', '%' . $address . '%');
+                $where['address'] = array('LIKE', $address . '%');
         }
         // dump($where);die();
         $count = $owner->where($where)
@@ -31,7 +31,7 @@ class AdminController extends IsloginController {
      //   print_r($show);exit;
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
         
-        $data = $owner//->field('id,name,mobile_phone,fax_mobile,user_name,address,star,lock,list_pic')
+        $data = $owner->field('id,name,mobile,email')
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();

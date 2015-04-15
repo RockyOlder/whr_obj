@@ -90,7 +90,7 @@
                         <ul class="placeul">
                             <!--<li>位置：</li> -->
                             <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
-                            <li><a href="/server.php?s=/Home/Property">物业管理</a></li>
+                            <li><a href="/index.php?s=/Home/Property">物业管理</a></li>
                             <li>添加物业</li>
                         </ul>
                     </div>

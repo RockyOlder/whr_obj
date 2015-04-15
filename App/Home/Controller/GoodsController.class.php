@@ -18,16 +18,16 @@ class GoodsController extends IsloginController {
            //  print_r($_REQUEST);exit;
             $name = I('post.name');  $cat_id = I('post.cat_id'); $parent_id = I('post.parent_id');
             if ($name)
-                $where['goods_name'] = array('LIKE', '%' . $name . '%');
+                $where['goods_name'] = array('LIKE',  $name . '%');
 
             if ($cat_id!=='请选择')
-              $where['g.cat_id'] = array('LIKE', '%' . $cat_id . '%');
+              $where['g.cat_id'] = array('LIKE',  $cat_id . '%');
             
             if ($parent_id!=='请选择')
-              $where['g.parent_id'] = array('LIKE', '%' . $parent_id . '%');
+              $where['g.parent_id'] = array('LIKE',  $parent_id . '%');
         }
             if ($id!=0)
-                $where['store_id'] = array('LIKE', '%' . $id . '%');
+                $where['store_id'] = array('LIKE',  $id . '%');
         $category=M("category");
         $categoryObjectSelect = $category->where("parent_id=0")->select();
         
@@ -110,7 +110,7 @@ class GoodsController extends IsloginController {
                 $goods = D('Goods');
                 if ($data = $goods->create()) {
                     $data["add_time"] = time(); $data["goods_img"] = $goods_img; $data['store_id']=session("admin.shop_id"); $data['intro']=$_POST['intro'];
-                    
+					$data["markdown"] = $data['price'];
                     if ($add = $goods->add($data)) {
                         admin_log("添加vip商品");
                         $specificationData = D("SpecificationData");

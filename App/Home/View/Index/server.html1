@@ -43,7 +43,7 @@
         <input type="hidden" value="{$count.pro}" id="url_ajaxCalendar"/>
         <input type="hidden" value="{$count.property}" id="session_Property"/>
         <div style="line-height:50px;font-size:15px;text-align:center">
-            {$Think.session.admin.true_name} 你好！欢迎你使用{$Think.session.admin.top_name}后台管理系统
+            {$Think.session.admin.true_name} 您好！欢迎你使用{$Think.session.admin.top_name}。
         </div>
         <div id="start">
             <div class="start">

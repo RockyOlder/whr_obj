@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 header ( 'Content-type:text/html;charset=utf-8' );
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/unionpay/utf8/func/common.php';
 include_once $_SERVER ['DOCUMENT_ROOT'] . '/unionpay/utf8/func/SDKConfig.php';
@@ -8,7 +8,10 @@ include_once $_SERVER ['DOCUMENT_ROOT'] . '/unionpay/utf8/func/log.class.php';
 /**
  * 预授权-控件 
  */
-
+$order = isset($_REQUEST['orderNo'])?$_REQUEST['orderNo']:0;
+if (!$order) {
+	echo "请传入订单号";
+}
 
 /**
  *	以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己需要，按照技术文档编写。该代码仅供参考
@@ -29,13 +32,13 @@ $params = array(
 		'signMethod' => '01',		//签名方法
 		'channelType' => '08',		//渠道类型，07-PC，08-手机
 		'accessType' => '0',		//接入类型
-		'merId' => '888888888888888',	//商户代码，请改自己的测试商户号
-		'orderId' => date('YmdHis'),	//商户订单号，8-40位数字字母
+		'merId' => '777290058111477',	//商户代码，请改自己的测试商户号
+		'orderId' => $order,	//商户订单号，8-40位数字字母
 		'txnTime' => date('YmdHis'),	//订单发送时间
 		'txnAmt' => '100',		//交易金额，单位分
 		'currencyCode' => '156',	//交易币种
 		'orderDesc' => '订单描述',  //订单描述，可不上送，上送时控件中会显示该信息
-		'reqReserved' =>' 透传信息', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
+		'reqReserved' =>'预授权测试', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
 		);
 
 

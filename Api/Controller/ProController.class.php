@@ -3,7 +3,13 @@ namespace Api\Controller;
 use Api\Controller\CommonController;
 class ProController extends CommonController {
   public $tem=array();
-    // 获取公告的内容
+    /**
+     * [notice 获取公告的内容]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:01:34+0800
+     * @return [type]                   [description]
+     */
     public function notice()
     {
      
@@ -31,11 +37,17 @@ class ProController extends CommonController {
 
           }
     }
-    // 
+    /**
+     * [noticelist 社区咨询列表]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:01:48+0800
+     * @return [type]                   [description]
+     */
     public function noticelist(){
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
-        $vid = I('request.vId',0,'intval');
+        $vid = I('request.vid',0,'intval');
         $userId = I('request.userId',0,'intval');
         $search = I('request.search');
         $page = I('request.page',1,'intval');
@@ -52,7 +64,7 @@ class ProController extends CommonController {
             $out['success'] = 1; 
             $where = array('proid'=>$proId, "pid" => 0,"sheild" =>0);
             if ($search) {
-              $where ="vid in (0,$vId) and proid = $proId and pid = 0 and sheild = 0 and ( title like '%$search%' or content like '%$search%')";
+              $where ="vid in (0,$vid) and proid = $proId and pid = 0 and sheild = 0 and ( title like '%$search%' or content like '%$search%')";
             }
             // 查找出用户的id
             if ($userId) {
@@ -74,7 +86,7 @@ class ProController extends CommonController {
             // dump($pageSize);
             $field = "id,title,content,add_time,author,pic,comment_num";
              $data= M('pro_notice')->field($field)->where($where)->order('add_time desc')->limit($page)->select();
-             //dump(M('pro_notice')->getLastSql());
+             // dump(M('pro_notice')->getLastSql());
              if ($data) {
                  foreach ($data as $k => $v) {
                  $v['add_time'] = date('m-d',$v['add_time']);
@@ -94,7 +106,13 @@ class ProController extends CommonController {
 
     }
     
-    //资讯详情数据
+    /**
+     * [noticeOne 资讯详情数据]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:02:12+0800
+     * @return [type]                   [description]
+     */
      public function noticeOne(){
         $id = I('request.version',1,'intval');
         $noticeId = I('request.noticeId',0,"intval");
@@ -130,7 +148,13 @@ class ProController extends CommonController {
         }
 
     }
-     // 回复资讯
+     /**
+      * [noticeBack 回复社区资讯]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-26T10:02:22+0800
+      * @return [type]                   [description]
+      */
     public function noticeBack(){
         $id = I('request.version',1,'intval');
         $uid = I('request.userId',0,'intval');
@@ -180,7 +204,13 @@ class ProController extends CommonController {
 
 
     }
-        // 邻里拼车列表
+        /**
+         * [carList 邻里拼车列表]
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-03-26T10:02:40+0800
+         * @return [type]                   [description]
+         */
     public function carList(){
       // $data = sendMsg('18691988421','测试看看成功不');
       // dump($data);
@@ -218,7 +248,13 @@ class ProController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-        // 邻里拼车列表
+        /**
+         * [activityList 邻里活动列表]
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-03-26T10:02:55+0800
+         * @return [type]                   [description]
+         */
     public function activityList(){
       // $data = sendMsg('18691988421','测试看看成功不');
       // dump($data);
@@ -260,7 +296,13 @@ class ProController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-    //邻里拼车详情
+    /**
+     * [carInfo 邻里拼车详情]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:03:12+0800
+     * @return [type]                   [description]
+     */
     public function carInfo(){
         $id = I('request.version',1,'intval');
         $aid = I('request.actionId',0,'intval');
@@ -300,7 +342,13 @@ class ProController extends CommonController {
         }
 
     }
-    //邻里活动详情
+    /**
+     * [activityInfo 邻里活动详情]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:03:24+0800
+     * @return [type]                   [description]
+     */
     public function activityInfo(){
         $id = I('request.version',1,'intval');
         $aid = I('request.actionId',0,'intval');
@@ -320,7 +368,7 @@ class ProController extends CommonController {
             // 更新浏览量
             M($table)->where($w)->setInc('views');
             
-            $field = "id,title,content,pic,author,add_time,pass_time,views,number,address,more_pic"; 
+            $field = "id,title,content,pic,author,add_time,pass_time,views,number,address,more_pic,uid"; 
             // dump($w);           
             // dump($field);
             $data = M($table)->field($field)->where($w)->find();
@@ -336,7 +384,13 @@ class ProController extends CommonController {
         }
 
     }
-     //邻里活动报名
+     /**
+      * [actionSign 邻里活动报名]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-26T10:03:38+0800
+      * @return [type]                   [description]
+      */
     public function actionSign(){
         $id = I('request.version',1,'intval');
         $aid = I('request.actionId',0,'intval');
@@ -380,7 +434,13 @@ class ProController extends CommonController {
         }
 
     }
-      //邻里活动是否已经报名
+      /**
+       * [isSign 检查邻里活动是否已经报名]
+       * @author xujun
+       * @email  [jun0421@163.com]
+       * @time   2015-03-26T10:03:48+0800
+       * @return boolean                  [description]
+       */
     public function isSign(){
         $id = I('request.version',1,'intval');
         $aid = I('request.actionId',0,'intval');
@@ -412,7 +472,13 @@ class ProController extends CommonController {
         }
 
     }
-    //邻里活动删除报名
+    /**
+     * [delSign 邻里活动删除报名]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:10:01+0800
+     * @return [type]                   [description]
+     */
     public function delSign(){
         $id = I('request.version',1,'intval');
         $aid = I('request.actionId',0,'intval');
@@ -444,7 +510,13 @@ class ProController extends CommonController {
         }
 
     }
-        // 邻里拼车添加
+        /**
+         * [carAdd 邻里拼车添加]
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-03-26T10:10:11+0800
+         * @return [type]                   [description]
+         */
     public function carAdd(){
       //echo time('2015-03-15');die();
         $id = I('request.version',1,'intval');
@@ -514,7 +586,13 @@ class ProController extends CommonController {
         }
     }
     
-        // 发布邻里活动
+        /**
+         * [activityAdd 发布邻里活动]
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-03-26T10:10:22+0800
+         * @return [type]                   [description]
+         */
     public function activityAdd(){
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
@@ -580,7 +658,13 @@ class ProController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-    //物管信息添加
+    /**
+     * [propertyAdd 物管信息发布]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:10:33+0800
+     * @return [type]                   [description]
+     */
     public function propertyAdd(){
         $id = I('request.version',1,'intval');
         $proId = I('request.proId',0,'intval');
@@ -589,6 +673,7 @@ class ProController extends CommonController {
         $arr['content'] = maskWord(I('request.content'));
         $arr['uid'] = I('request.userId',0,'intval');
         $arr['owner'] = I('request.userName');
+        $arr['author'] = I('request.userName');
         // $arr['pic'] = I('request.picture');
 
         $arr['address'] = I('request.address');
@@ -645,7 +730,13 @@ class ProController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-         // 物管信息
+         /**
+          * [property 物管信息列表]
+          * @author xujun
+          * @email  [jun0421@163.com]
+          * @time   2015-03-26T10:10:55+0800
+          * @return [type]                   [description]
+          */
     public function property(){
       // $data = sendMsg('18691988421','测试看看成功不');
       // dump($data);
@@ -703,6 +794,13 @@ class ProController extends CommonController {
         }
 
     }
+    /**
+     * [propertyInfo 物管信息详情]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:11:14+0800
+     * @return [type]                   [description]
+     */
       public function propertyInfo(){
       // $data = sendMsg('18691988421','测试看看成功不');
       // dump($data);
@@ -752,10 +850,10 @@ class ProController extends CommonController {
 
     }
     /**
-     * 删除物管信息
+     * [propertyDel 删除物管信息]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @time   2015-01-14T14:37:47+0800
+     * @time   2015-03-26T10:13:55+0800
      * @return [type]                   [description]
      */
     public function propertyDel(){
@@ -808,7 +906,6 @@ class ProController extends CommonController {
         }
         return $table;
     }
-    // 邻里拼车和活动详情
     private function twoTable($type){
         switch ($type) {
           case '1':
@@ -886,15 +983,7 @@ class ProController extends CommonController {
         }
         
     }
-        /**
-         
-         * //单张图片上传的方法
-         * @author xujun
-         * @email  [jun0421@163.com]
-         * @time   2015-01-20T08:50:38+0800
-         * @return [type]                   [description]
-         
-         */
+      //单张图片上传
 function uploud(){
     if (!empty($_FILES)) 
         {

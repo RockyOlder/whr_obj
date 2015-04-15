@@ -12,16 +12,31 @@ class PropertyController extends IsloginController {
     */
     public function index() {
 
-        if (session("admin.developer")!=0) $where['property_id'] = array('LIKE', '%' . session("admin.developer") . '%');
+        if (session("admin.developer")!=0) $where[] = array('property_id'=> session("admin.developer"));
     
-        $prop = M("Property p");
+        $prop = M("Property p"); $admin=M("admin");
         $count = $prop->join('wrt_admin AS a ON a.property=p.id')->where($where)->count();
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $prop->field('p.*,a.name as adminUser')->join('wrt_admin AS a ON a.property=p.id')->where($where)->limit($page->firstRow . ',' . $page->listRows)->select();
+        $data = $prop->field('p.*')->where($where)->limit($page->firstRow . ',' . $page->listRows)->select();//,a.name as adminUser->join('wrt_admin AS a ON a.property=p.id')
    
-        $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show); $this->assign('data', $data);
+        foreach ($data as $value)
+        {
+            $arr = $admin->field("name as adminUser")->where("property=".$value['id'])->find();//." and pid=".session("admin.pid")
+            
+            if(isset($arr))
+            {
+              
+                $value['adminUser'] = $arr['adminUser'];
+                
+            }
+            
+            $array[] = $value;
+            
+        }
+        
+        $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show); $this->assign('data', $array);
    
         $this->display();
     }

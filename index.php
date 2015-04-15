@@ -15,7 +15,7 @@
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 define('TYPE',1);
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',True);
+define('APP_DEBUG',true);
 
 //不设定的话，应用模式是普通模式（common）
 // 定义 应用模式为SAE（用于支持SAE平台）

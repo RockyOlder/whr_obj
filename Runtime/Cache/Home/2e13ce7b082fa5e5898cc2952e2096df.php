@@ -185,14 +185,14 @@
                         <span>位置： </span>
                         <ul class="placeul">
                             <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
-                            <li><a href="/vip.php?s=/Home/Goods">商品管理</a></li>
+                            <li><a href="/index.php?s=/Home/Goods">商品管理</a></li>
                             <li>添加商品</li>
                         </ul>
                     </div>
                     <form action="" method="post" name ="vform">
                         <input type ="hidden" name="goods_id" id="shopGoodsID" value="<?php echo ($info["goods_id"]); ?>">
                             <input type ="hidden" name="action" value="<?php echo ($data["action"]); ?>">
-                                <input type="hidden" value="/vip.php?s=/Home/Goods/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                                <input type="hidden" value="/index.php?s=/Home/Goods/url_ajaxhinder" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                                 <input type ="hidden" name="admin" value=<?php echo ($_SESSION['admin']['name']); ?>>
                                     <div class="formbody">
                                         <div class="formtitle"><span><?php echo ($data["title"]); ?></span></div>

@@ -115,8 +115,9 @@
                                     <th>浏览量</th>
                                     <th>点击量</th>
                                     <th>购买数</th>
-                                    <th>开始时间</th>
-                                    <th>结束时间</th>
+                                    <th>类型</th>
+<!--                                    <th>开始时间</th>
+                                    <th>结束时间</th>-->
                                     <th colspan="2">操作</th>
                                 </tr>
                             </thead>
@@ -130,8 +131,9 @@
                                         <td>{$vo.skim}</td>
                                         <td>{$vo.click}</td>
                                         <td>{$vo.buy}</td>
-                                        <td>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
-                                        <td>{$vo.end_time|date="Y-m-d H:i:s",###}</td>      
+                                        <td>{$vo.type}</td>
+<!--                                        <td>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
+                                        <td>{$vo.end_time|date="Y-m-d H:i:s",###}</td>      -->
 
                                         <td width="20px" class="th_default" align="center"><a href="{:U('add',array(id=>$vo['ad_id']),'')}" class="divBtn editBtn ui-state-default ui-corner-all" title="编辑" ><span class="ui-icon ui-icon-pencil"></span></a></td>
                                         <td width="20px" class="th_default" align="center"><div class="divBtn deleteBtn ui-state-default ui-corner-all" title="删除"onclick="return cats_Shop({$vo.ad_id})"><span class="ui-icon ui-icon-minus"></span></div></td>

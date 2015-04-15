@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>上传APK</title>
 <link href="__PUBLIC__/Css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="__PUBLIC__/Css/bootstrap.min.css">
 <link rel="stylesheet" href="__PUBLIC__/Css/uploadify.css">
@@ -122,7 +122,7 @@
 				<ul class="forminfo">
 					<li><label>版本号</label><input name="version" id="version"  type="text" class="dfinput"  value="{$info.version}" /><i id="version_info">纯数字</i></li>
                     <li><label>版本更新内容</label><input name="des" id="des"  type="text" class="dfinput"  value="{$info.des}" /><i id="des_info">版本更新内容</i></li>
-                    <li><label>版本更新内容</label><input name="url" id="url"  type="hidden" class="dfinput"  value="{$info.url}" /><i id="url_info">版本更新内容</i></li>
+                    <li><label>APP文件</label><input name="url" id="url"  type="hidden" class="dfinput"  value="{$info.url}" /><i id="url_info">请选择上传文件</i></li>
 					<li style="position: relative; margin-bottom: 5px; height: 55px"><input
 						name="file" id="upload_file" type="file" class="dfinput"
 						style="" value=""/></li>
@@ -147,6 +147,7 @@
                     //alert(data);
                     obj= $.parseJSON(data);
                     $('#url').val(obj);
+                    $('#url_info').text('文件已经选择');
                 }
             });
     

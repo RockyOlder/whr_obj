@@ -169,9 +169,9 @@
                 <li>添加/修改社区调查</li>
             </ul>
         </div>
-              <input type="hidden" value="/server.php?s=/Home/ProInfo/Sudel/id/" id="url_delete" name="url_ajaxCalendar" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/examine" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+              <input type="hidden" value="/index.php?s=/Home/ProInfo/Sudel/id/" id="url_delete" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/examine" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/url_ajaxCalendar" id="url_ajaxCalendar" name="url_ajaxCalendar" />
          <input type="hidden"  id="author_log" class="form-control" value="<?php echo ($data["name"]); ?>" />
         <form action="" method="post" name ="vform" id="from_sub">
             <div  id="tab2" class="tabson">

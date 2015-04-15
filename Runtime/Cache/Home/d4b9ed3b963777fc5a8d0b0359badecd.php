@@ -49,19 +49,19 @@
             <div class="start">
                 <?php if($data["village"] != 0): ?><div class="little">
                         <a href="<?php echo U('Owner/index');?>">
-                            <img class="background" src="/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
+                            <img class="background" src="/App/Home/View/Public/Images/start/action.png"width="100px" height="100px">
                                 <p class="text"><span>住户列表</span></p>
                         </a>
                     </div><?php endif; ?>  
                 <?php if($data["village"] != 0): ?><div class="little">
                         <a href="<?php echo U('Owner/get');?>">
-                            <img class="background" src="/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
+                            <img class="background" src="/App/Home/View/Public/Images/start/push.png"width="100px" height="100px">
                                 <p class="text"><span>导入住户信息</span></p>
                         </a>
                     </div><?php endif; ?>  
                 <?php if($data["village"] != 0): ?><div class="little">
                         <a href="<?php echo U('Owner/app');?>">
-                            <img class="background" src="/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
+                            <img class="background" src="/App/Home/View/Public/Images/start/vip.png"width="100px" height="100px">
                                 <p class="text"><span>住户申请列表</span></p>
                         </a>
                     </div><?php endif; ?>  
@@ -77,7 +77,7 @@
                                 <p class="text"><span>物业列表</span></p>
                         </a>
                     </div><?php endif; ?>    
-                <?php if($data["developer"] != 0 || $data["property"] != 0): ?><div class="little">
+                <?php if($data["village"] == 0): ?><div class="little">
                         <a href="<?php echo U('Village/index');?>">
                             <img class="background" src="/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
                                 <p class="text"><span>小区列表</span></p>

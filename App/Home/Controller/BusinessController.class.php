@@ -20,9 +20,9 @@ class BusinessController extends IsloginController {
             $parent_type = I('post.parent_type');
 
             if ($name)
-                $where['name'] = array('LIKE', '%' . $name . '%');
+                $where['name'] = array('LIKE', $name . '%');
             if ($parent_type!=='请选择')
-                $where['parent_type'] = array('LIKE', '%' . $parent_type . '%');
+                $where['parent_type'] = array('LIKE', $parent_type . '%');
         }
 
         $count = $business->where($where)
@@ -310,11 +310,11 @@ class BusinessController extends IsloginController {
             $number = I('post.number'); $user_name= I('post.user_name');   $statue = I('post.statue');
           
             if ($number)
-                 $where[] = array('o.number' => $number);
-              //  $where['o.number'] = array('LIKE', '%' . $number . '%');
+               //  $where[] = array('o.number' => $number);
+                $where['o.number'] = array('LIKE',  $number . '%');
             if ($user_name)
-                 $where[] = array('u.user_name' => $user_name);
-      //          $where['u.user_name'] = array('LIKE', '%' . $user_name . '%');
+             //    $where[] = array('u.user_name' => $user_name);
+                $where['u.user_name'] = array('LIKE',  $user_name . '%');
             if ($statue!=='')
                 $where[] = array('o.statue' => $statue);
           
@@ -353,7 +353,8 @@ class BusinessController extends IsloginController {
  
        $mycars=Array("未付款","未消费","已消费","退款");
       
-      if($info['statue']==0){$info['statue']=$mycars[0];} elseif($info['statue']==1){$info['statue']=$mycars[1];}  if($info['statue']==2){$info['statue']=$mycars[2];} elseif($info['statue']==3){$info['statue']=$mycars[3];}// if($info['statue']==4){$info['statue']=$mycars[4];} elseif($info['statue']==5){$info['statue']=$mycars[5];}  if($info['statue']==6){$info['statue']=$mycars[6];} elseif($info['statue']==7){$info['statue']=$mycars[7];}  if($info['statue']==8){$info['statue']=$mycars[8];} elseif($info['statue']==9){$info['statue']=$mycars[9];}       
+      if($info['statue']==0){$info['statue']=$mycars[0];}  elseif($info['statue']==1){$info['statue']=$mycars[1];} if($info['statue']==2){$info['statue']=$mycars[2];}
+      elseif($info['statue']==3){$info['statue']=$mycars[3];}  elseif($info['statue']==6){$info['statue']="待评价";} elseif($info['statue']==7){$info['statue']="交易成功";}
       
          foreach ($list as $value){ $total+=$value['info_totle']; }
         
@@ -387,7 +388,9 @@ class BusinessController extends IsloginController {
       
       foreach ($data as $v){
          if($v['statue']==0){$v['statue']=$mycars[0];} elseif($v['statue']==1){$v['statue']=$mycars[1];}
-         if($v['statue']==2){$v['statue']=$mycars[2];}
+         if($v['statue']==2){$v['statue']=$mycars[2];} elseif($v['statue']==6){$v['statue']="待评价";}
+         elseif($v['statue']==7){$v['statue']="交易完成";}
+   
 
          $arr[]=$v;
       }
@@ -413,13 +416,13 @@ class BusinessController extends IsloginController {
 
             $type = I('post.cate_pid');
             if ($lgname)
-                $where['l.lgname'] = array('LIKE', '%' . $lgname . '%');
+                $where['l.lgname'] = array('LIKE',  $lgname . '%');
 
             if ($type!=="请选择")
-                $where['l.cate_pid'] = array('LIKE', '%' . $type . '%');
+                $where['l.cate_pid'] = array('LIKE', $type . '%');
         } 
             if ($id!=0)
-                $where['bid'] = array('LIKE', '%' . $id . '%');
+                $where[] = array('l.bid'=> $id);
       
         $count = $lifeGood->where($where) ->count();
         
@@ -432,6 +435,8 @@ class BusinessController extends IsloginController {
                 ->where($where)
                 ->limit($page->firstRow . ',' . $page->listRows)
                 ->select();
+        
+      //  dump($lifeGood->getLastSql());
         $this->assign('type', $type);
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);

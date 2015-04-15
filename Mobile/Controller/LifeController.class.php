@@ -178,14 +178,14 @@ class LifeController extends Controller {
      * @return [type]                   [description]
      */
     public function sendMsg(){
-    	$code = cookie('mobile_time')+60;
-    	if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
+    	//$code = cookie('mobile_time')+60;
+    	//if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
     	$mobile = I('request.mobile');
         //给客户手机发送验证码
         $code = mt_rand(99999,999999);
 		cookie($mobile,$code,60);//存入手机验证码
         cookie('mobile',$mobile,60);//存入手机号码
-		cookie('mobile_time',time(),60);
+		//cookie('mobile_time',time(),60);
         $msg = C('msg_start').$code.C('msg_end');
         $bool = sendMsg($mobile,$msg);
 		if($bool){
@@ -230,15 +230,15 @@ class LifeController extends Controller {
      * @return [type]                   [description]
      */
     public function sendEmail(){
-    	$code = cookie('email_time')+60000;
-    	if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
+    	//$code = cookie('email_time')+60000;
+    	//if($code > time())$this->ajaxReturn('验证码已经发送，如果没有收到请检查你的手机号码刷新页面重新获取');
 //  	$ip = get_client_ip();
     	$mail = I('request.email');
         cookie('mail',$mail,7200);
         //给客户手机发送验证码
         $code = mt_rand(99999,999999);
 		cookie($mail,$code,7200);
-		cookie('email_time',$code,3600);
+		//cookie('email_time',$code,3600);
         $msg = C('msg_start').$code.C('msg_end');
 	 	import('Org.Util.Mail');
         $back = SendMail($mail,'注册验证码',$msg,'慧享园');

@@ -18,12 +18,26 @@ class AdController extends IsloginController {
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 8);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $find = $ad->limit($page->firstRow . ',' . $page->listRows)->select();
+        $find = $ad->order('type desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+        foreach ($find as $v)
+        {
+            if($v['type'] == 1)
+            {
+                $v['type']="生活导航";
+            }elseif ($v['type'] == 2) {
+                 $v['type']="vip特享";
+            }else{
+                 $v['type']="家园";
+            }
+            
+            $arr[]=$v;
+        }
+        
         //  print_r($adcount);exit;
         $this->assign("currentPage", $currentPage);
         $this->assign("totalPage", $page->totalPages);
         $this->assign("page", $show);
-        $this->assign('data', $find);
+        $this->assign('data', $arr);
         $this->display();
     }
 
@@ -37,14 +51,14 @@ class AdController extends IsloginController {
         $data['title'] = "添加";
         $data['btn'] = "添加广告";
         $action = I('post.action');
-        $vip = M('VipActivity');
+   //     $vip = M('VipActivity');
 
         if (IS_POST) {
             $ad = D('Ad');
             $data = $ad->create();
             if ($data) {
-                $data["start_time"] = strtotime(I('post.start_time'));
-                $data["end_time"] = strtotime(I('post.end_time'));
+             //   $data["start_time"] = strtotime(I('post.start_time'));
+            //   $data["end_time"] = strtotime(I('post.end_time'));
                 if ($action == "add") {
                     if ($ad->add($data)) {
                         admin_log("添加广告");
@@ -70,8 +84,8 @@ class AdController extends IsloginController {
             $data['btn'] = "编辑";
             $ad = M("Ad");
             $vipList = $ad->where("ad_id=$id")->find();
-            $vipList['start_time'] = date("Y-m-d H:i:s", $vipList['start_time']);
-            $vipList['end_time'] = date("Y-m-d H:i:s", $vipList['end_time']);
+       //     $vipList['start_time'] = date("Y-m-d H:i:s", $vipList['start_time']);
+        //    $vipList['end_time'] = date("Y-m-d H:i:s", $vipList['end_time']);
             //   print_r($vipList);exit;
             $this->assign('info', $vipList);
         }

@@ -4,9 +4,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎登录后台管理系统</title>
-<link rel="stylesheet" type="text/css" href="/whr_obj/App/Home/View/Public/Css/style.css">
-<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/jquery.js"></script>
-<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/cloud.js"></script>
+<link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/style.css">
+<script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/cloud.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/login.js"></script>
 <script language="javascript">
 	$(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
@@ -33,7 +34,7 @@
 </style>
 </head>
 
-<body style="background-color:#1c77ac; background-image:url(/whr_obj/App/Home/View/Public/Images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+<body style="background-color:#1c77ac; background-image:url(/App/Home/View/Public/Images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
 
 
@@ -58,11 +59,12 @@
     <div class="loginbox">
     
     <form name="form" method="post" action="">
+        <input type="hidden" valu="<?php echo U('Index/index');?>" id="form_action" name="url_go">
     <ul>
-    <li><input name="username" type="text" id="username" class="loginuser" value="<?php echo (cookie('login_name')); ?>" onclick="JavaScript:this.value=''"/><span id ="username_info"></span></li>
-    <li><input name="password" type="password" id="password" class="loginpwd" value="<?php echo (cookie('login_passwd')); ?>" onclick="JavaScript:this.value=''"/><span id ="password_info"></span></li>
-    <?php if($_SESSION['num']== 1): ?><li><input name="verify" type="text" class = "verify" value="验证码" onclick="JavaScript:this.value=''" style="width:200px;"/><img src="<?php echo U('verify','','');?>" style="width:150px;height:48px" onclick="this.src=this.src+'&'+Math.random(0,9999)"><span id ="verify_info"></span></li><?php endif; ?>
-    <li><input name="" type="submit" class="loginbtn" value="登录"  onclick="javascript:;"  /><label><input name="remeber" type="checkbox" value="1" checked="checked" />记住密码</label><label><a href="<?php echo U('Passwd/index');?>">忘记密码？</a></label></li>
+    <li><input name="username" type="text" id="username" class="loginuser" value="<?php echo ($remeber["name"]); ?>" onclick="JavaScript:this.value=''"/><span id ="username_info"></span></li>
+    <li><input name="password" type="password" id="password" class="loginpwd" value="<?php echo ($remeber["password"]); ?>" onclick="JavaScript:this.value=''"/><span id ="password_info"></span></li>
+    <?php if($_SESSION['num']== 1): ?><li><input name="verify" type="text" class = "verify" value="验证码" onclick="JavaScript:this.value=''" style="width:200px;"/><img src="<?php echo U('verify','','');?>" style="width:150px;height:48px" onclick="this.src=this.src+'&'+Math.random(0,9999)" id='verifyImg'><span id ="verify_info"></span></li><?php endif; ?>
+    <li><input type="button" class="loginbtn" value="登录"  onclick="checklogin()"  /><label><input name="remeber" type="checkbox" value="1" checked="checked" />记住密码</label><label><a href="<?php echo U('Passwd/index');?>">忘记密码？</a></label></li>
     </ul>
     
     </form>

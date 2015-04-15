@@ -2,7 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>慧享园登录帮助页面</title>
 
-<!--<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/xiala.js"></script>-->
+<!--<script type="text/javascript" src="/App/Home/View/Public/Js/xiala.js"></script>-->
 
 
 <style type="text/css">
@@ -17,7 +17,7 @@ body{ width:100%; background:#efefef; font-family:"微软雅黑";}
 .nav li a{ color:#333; text-decoration:none;}
 
 .menu_list{width:1000px;margin:auto; background:#FFF; border:1px solid #CCC;}
-.menu_head{height:40px;line-height:40px;padding-left:15px;font-size:14px;color:#525252;cursor:pointer;border-bottom:1px solid #e1e1e1;position:relative;margin:0px;font-weight:bold;background:url(/whr_obj/App/Home/View/Public/Images/help/btn_2.png)950px center no-repeat;}
+.menu_head{height:40px;line-height:40px;padding-left:15px;font-size:14px;color:#525252;cursor:pointer;border-bottom:1px solid #e1e1e1;position:relative;margin:0px;font-weight:bold;background:url(/App/Home/View/Public/Images/help/btn_2.png)950px center no-repeat;}
 
 .menu_body{line-height:38px;backguound:#fff;}
 .menu_body li{display:block; height:auto; line-height:38px;padding-left:15px; margin:10px;color:#777777;background:#fff;text-decoration:none;border-bottom:1px solid #e1e1e1;}
@@ -32,7 +32,7 @@ body{ width:100%; background:#efefef; font-family:"微软雅黑";}
 <body>
 
 <div class="header">
-<div class="logo"><img src="/whr_obj/App/Home/View/Public/Images/help/120.png"></div>
+<div class="logo"><img src="/App/Home/View/Public/Images/help/120.png"></div>
 <div class="title">慧享园后台帮助中心</div>
 </div>
 

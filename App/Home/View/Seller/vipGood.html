@@ -196,7 +196,7 @@
                                             <td>{$vo.number}</td>
                                             
                                             <td>{$vo.inventory}</td>
-                                            <td>{$vo.description}</td>
+                                            <td>{$vo.description|msubstr=0,20,'utf-8',true}</td>
                                             <!--   <td><a id="showlist{$vo.goods_id}" href="javascript:showDetail({$vo.goods_id})" title="详情">详情</a>
                                                 <a href="{:U('add',array(id=>$vo['goods_id']),'')}">编辑</a>
                                              <a class="tablelink" onclick="deleteSum('{$vo.goods_id}')"> 删除</a> 

@@ -193,7 +193,7 @@
                                             <td><?php echo ($vo["number"]); ?></td>
                                             
                                             <td><?php echo ($vo["inventory"]); ?></td>
-                                            <td><?php echo ($vo["description"]); ?></td>
+                                            <td><?php echo (msubstr($vo["description"],0,20,'utf-8',true)); ?></td>
                                             <!--   <td><a id="showlist<?php echo ($vo["goods_id"]); ?>" href="javascript:showDetail(<?php echo ($vo["goods_id"]); ?>)" title="详情">详情</a>
                                                 <a href="<?php echo U('add',array(id=>$vo['goods_id']),'');?>">编辑</a>
                                              <a class="tablelink" onclick="deleteSum('<?php echo ($vo["goods_id"]); ?>')"> 删除</a> 

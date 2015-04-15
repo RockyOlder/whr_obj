@@ -14,14 +14,14 @@ class LoginController extends Controller {
     */
 	public function index() {
 
-		if (IS_POST) {
-
+		if (IS_AJAX) {
+			$out['statue'] = 0;
 			if(isset($_POST['remeber']) && $_POST['remeber'] == 1){
 				cookie('login_passwd',$_POST[password],60*60*24*7);
 				cookie('login_name',$_POST[username],60*60*24*7);
 			}else{
-                            setcookie('PHPSESSID');setcookie('login_passwd');setcookie('login_name');
-                        }
+	            setcookie('PHPSESSID');setcookie('login_passwd');setcookie('login_name');
+	        }
 			
 			if (session('num') == 1) {
 				$code = I('post.verify');
@@ -29,7 +29,9 @@ class LoginController extends Controller {
 				$bool = $verify->check($code);
 
 				if(!$bool){
-					$this->error('验证码输入错误');
+					
+					$out['msg'] ="验证码输入有误";
+					$this->ajaxReturn($out);
 				}
 			}
 			session('num',1);
@@ -37,25 +39,33 @@ class LoginController extends Controller {
 			$model = D ( 'admin' );
 			
 			$name = I ( 'post.username', '' );
-            $w = array('name'=>$name,'statue'=>TYPE);
-            // dump($w);die();
+	        $w = array('name'=>$name,'statue'=>TYPE);
+	        // dump($w);die();
 			// 查询出来数据库中的数据
 			$data = $model->where ($w)->find ();
 			//dump()
 			//dump($data);die();
 
 			if (empty ( $data )) {
-				$this->error ( '不存在该管理员！' );
+				// $this->error ( '不存在该管理员！' );
+				$out['msg'] ="不存在该管理员！";
+				$this->ajaxReturn($out);
 			}
 			if ($data[flag] == 1) {
-				$this->error ( '该用户的申请还没有审核，请等待审核' );
+				// $this->error ( '该用户的申请还没有审核，请等待审核' );
+				$out['msg'] ="该用户的申请还没有审核，请等待审核";
+				$this->ajaxReturn($out);
 			}
 			if ($data[flag] == 2) {
-				$this->error ( '该用户的申请还没有通过，请联系慧锐通' );
+				// $this->error ( '该用户的申请还没有通过，请联系慧锐通' );
+				$out['msg'] ="该用户的申请还没有通过，请联系慧锐通";
+				$this->ajaxReturn($out);
 			}
 			// 判断用户是否被锁定
 			if ($data ['is_lock'] == 1) {
-				$this->error ( '用户被管理员锁定，请联系上级主管！' );
+				// $this->error ( '用户被管理员锁定，请联系上级主管！' );
+				$out['msg'] ="用户被管理员锁定，请联系上级主管！";
+				$this->ajaxReturn($out);
 			}
 			// dump($data);
 			// 加密用户密码
@@ -79,10 +89,15 @@ class LoginController extends Controller {
 				cookie ( 'user_auth', $auth ); 
 				                                // dump(session());
 				//admin_log('登录');//记录管理员日志
-				$this->redirect('Index/index','', 0, '');
+				$out['statue'] =TYPE;
+				$out['msg'] ="用户名成功登录";
+				$this->ajaxReturn($out);
+				// $this->redirect('Index/index','', 0, '');
 				//$this->success ( '登录成功', U ( 'Index/index', '', '' ) );
 			} else {
-				$this->error ( '用户名或者密码输入错误' );
+				// $this->error ( '用户名或者密码输入错误' );
+				$out['msg'] ="用户名或者密码输入错误";
+				$this->ajaxReturn($out);
 			}
 		}
 		$str = $this->logo();
@@ -93,6 +108,7 @@ class LoginController extends Controller {
 		if(TYPE == 4)$tpl = 'property';
 		$this->display ($tpl);
 	}
+	
 	// 异步验证验证码是否正确
 	public function check() {
 		if (! IS_AJAX) {

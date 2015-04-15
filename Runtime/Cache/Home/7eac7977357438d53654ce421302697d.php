@@ -41,7 +41,7 @@
 
 
     <body style="background: none;">
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/details" id="url_getTeacher" name="url_getTeacher" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/details" id="url_getTeacher" name="url_getTeacher" />
         <div class="place">
              <span>位置： </span>
             <ul class="placeul">

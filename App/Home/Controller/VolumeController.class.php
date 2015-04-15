@@ -6,10 +6,10 @@ use Home\Controller\IsloginController;
 
 class VolumeController extends IsloginController {
     /**
-     * 电子消费卷列表显示页面
+     * [index 电子消费卷列表显示页面]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-07T16:37:09+0800
+     * @time   2015-03-26T15:17:15+0800
      * @return [type]                   [description]
      */
     public function index() {
@@ -55,10 +55,10 @@ class VolumeController extends IsloginController {
     }
 
     /**
-     * 电子消费卷验证码
+     * [check 验证电子消费卷验证码]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-07T15:36:22+0800
+     * @time   2015-03-26T15:17:25+0800
      * @return [type]                   [description]
      */
     public function check() {
@@ -79,7 +79,7 @@ class VolumeController extends IsloginController {
                 $this->ajaxReturn($out);
             }
             if ($bool['statue'] == 1) {
-                $data = array('oid'=>$bool['oid'],'statue'=>2,'check_statue'=>1);
+                $data = array('oid'=>$bool['oid'],'statue'=>6,'check_statue'=>1);
                 $n = M('order')->save($data);
                 if($n){
                     $out['statue']=1;
@@ -90,7 +90,7 @@ class VolumeController extends IsloginController {
                 }
                 
 
-            }elseif($bool['statue'] == 2){
+            }elseif($bool['statue'] == 6){
                 $out['statue'] = 0;
                 $out['msg'] = "该电子劵已经验证使用";
             }else{
@@ -104,4 +104,75 @@ class VolumeController extends IsloginController {
     }
   
   
+
+
+public function check_num(){
+    if (!IS_AJAX)$this->error('你无权访问该页面！');
+    $number = I('post.data');
+    // 查找电子消费码是否未验证
+    // dump($number);
+    
+    $w = array('check_number'=>$number,'shop_id'=>session('admin.shop_id'));
+    $bool = M('order')->field('oid,number,statue,time,user_id,shop_id,totle,goodid,sum,price,check_number,check_statue,phone')->where($w)->find();
+    // dump(M('order')->getlastSql());
+    //查找出商品的名称和列表图片
+    
+    // dump($bool);
+    if (!$bool) {
+        $out['statue'] = 0;
+        $out['msg'] = "你输入的电子劵不存在，请查证后再验证！";
+        $this->ajaxReturn($out);
+    }else{
+        $data = M('lifeGoods')->field('list_pic,lgname')->where(array('lgid'=>$bool['goodid']))->find();
+        // dump(M(lifeGood))
+        // dump($data);
+        $bool['list_pic'] = $data['list_pic'];
+        $bool['lgname'] = $data['lgname'];
+        if ($bool['statue'] == 0) {
+            $bool['statue_msg'] = "未付款";
+        }else if($bool['statue'] == 1){
+            $bool['statue_msg'] = "已经付款";
+        }else if($bool['statue'] == 6){
+            $bool['statue_msg'] = "已经验证消费";
+        }
+        if ($bool['check_statue'] == 0) {
+            $bool['check_statue'] = "未消费";
+        }else if($bool['check_statue'] == 1){
+            $bool['check_statue'] = "已经消费";
+        }
+        $out['statue'] = 1;
+        $out['data'] = $bool;
+        $this->ajaxReturn($out);
+    }
+    
+   
+        
+}
+public function change_date(){
+    if (!IS_AJAX)$this->error('你无权访问该页面！');
+    $number = I('post.data');
+    $w = array('oid'=>$number,'shop_id'=>session('admin.shop_id'));
+    $bool = M('order')->field('oid,number,statue,time,user_id,shop_id,totle,goodid,sum,price,check_number,check_statue,phone')->where($w)->find();
+    
+    if ($bool['statue'] == 1) {
+        $data = array('oid'=>$bool['oid'],'statue'=>6,'check_statue'=>1);
+        $n = M('order')->save($data);
+        if($n){
+            $out['statue']=1;
+            $out['msg'] = "验证成功";
+        }else{
+            $out['statue']=0;
+            $out['msg'] = "验证失败，因为数据修改失败";
+        }
+        
+
+    }elseif($bool['statue'] == 6){
+        $out['statue'] = 0;
+        $out['msg'] = "该电子劵已经验证使用";
+    }else{
+        $out['statue'] = 0;
+        $out['msg'] = "你输入的电子劵不存在，请查证后再验证！";
+    }
+    $this->ajaxReturn($out);
+}
 }

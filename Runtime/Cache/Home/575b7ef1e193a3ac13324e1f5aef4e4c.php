@@ -3,17 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>无标题文档</title>
-        <link href="/default/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-        <link href="/default/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
-            <link id="artDialogSkin" href="/default/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/common.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/artDialog.js"></script>
-            <script type="text/javascript" src="/default/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-            <link href="/default/App/Home/View/Public/Css/topShow.css" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" type="text/css" href="/default/App/Home/View/Public/Css/bootstrap.min.css">
+        <link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/App/Home/View/Public/Css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+            <link id="artDialogSkin" href="/App/Home/View/Public/Css/skin/aero/aero.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/common.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/artDialog.js"></script>
+            <script type="text/javascript" src="/App/Home/View/Public/Js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+            <link href="/App/Home/View/Public/Css/topShow.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/bootstrap.min.css">
                 <script type="text/javascript" type="text/javascript">
                     function deleteSum(id){
                         if(confirm("确认删除"))
@@ -69,7 +69,7 @@
                 </style>
 
                 <body style="background: none;">
-                  <input type="hidden" value="/default/index.php?s=/Home/Category/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                  <input type="hidden" value="/index.php?s=/Home/Category/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
                      <span>位置： </span>
                         <ul class="placeul">
@@ -90,7 +90,7 @@
                             <thead>
                                 <tr>
 
-                                    <th>编号<i class="sort"><img src="/default/App/Home/View/Public/Images/px.gif" /></i></th>
+                                    <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
                                     <th>分类级别</th>
                                     <th>名称</th>
                                     <th>描述</th>
@@ -106,7 +106,7 @@
                                         <?php if($vo["lev"] == '0' ): ?><td><span>一级分类</span></td><?php endif; ?>
                                         <?php if($vo["lev"] > '0' ): ?><td ><span>二级分类</span></td><?php endif; ?>
                                         <td>  
-                                            <?php if($vo["parent_id"] == '0' ): ?><img src="/default/App/Home/View/Public/img/menu_minus.gif" id="icon_0_1" style="margin-left:<?php echo ($vo["lev"]); ?>px" /><?php echo ($vo["cat_name"]); ?></img><?php endif; ?> 
+                                            <?php if($vo["parent_id"] == '0' ): ?><img src="/App/Home/View/Public/img/menu_minus.gif" id="icon_0_1" style="margin-left:<?php echo ($vo["lev"]); ?>px" /><?php echo ($vo["cat_name"]); ?></img><?php endif; ?> 
                                             <?php if($vo["parent_id"] != '0' ): echo ($vo["cat_name"]); endif; ?> 
                                         </td>
                                         <td width="350px;"><?php echo ($vo["intro"]); ?></td>
@@ -137,7 +137,7 @@
                             <div class="tiptop"><span>提示信息</span><a></a></div>
 
                             <div class="tipinfo">
-                                <span><img src="/default/App/Home/View/Public/Images/ticon.png" /></span>
+                                <span><img src="/App/Home/View/Public/Images/ticon.png" /></span>
                                 <div class="tipright">
                                     <p>是否确认对信息的修改 ？</p>
                                     <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

@@ -154,9 +154,9 @@
                 <li>装修申请</li>
             </ul>
         </div>
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/decorate" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/ajax_rule" id="url_rule" name="url_rule" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/decorate" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/ajax_rule" id="url_rule" name="url_rule" />
         <input type="hidden" value="<?php echo ($obj); ?>" id="model" />
      <!--   <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="装修申请"  onclick="javascript:;" /></li> -->
             <form action="" method="post" name ="vform" id="from_sub">

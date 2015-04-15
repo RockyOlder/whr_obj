@@ -271,7 +271,7 @@
             <div  id="tab2" class="tabson">
                 <ul class="seachform">
                     <li><label>订单编号</label><input name="number" type="text" class="scinput"value="" /></li>
-                    <li><label>购买者</label>   <input name="user_name" type="text" class="scinput" value="" />  </li>
+                   <!-- <li><label>购买者</label>   <input name="user_name" type="text" class="scinput" value="" />  </li> -->
                     <li><label>订单状态</label>  
                         <div class="vocation">
                             <select class="form-control"name = 'statue' >

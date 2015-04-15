@@ -16,10 +16,11 @@ class OwnerController extends IsloginController {
      */
     public function index() {   
         $owner = M("proOwner w");
-        if (session("admin.village")!=0) $where['w.property_id'] = array('LIKE', '%' . session("admin.village") . '%');
+        if (session("admin.village")!=0) $where[] = array('w.property_id'=>session("admin.village"));
        // if (session("admin.pro_id")!=0) $where['p.id'] = array('LIKE', '%' . session("admin.pro_id") . '%');
-        if (session("admin.property")!=0) $where['v.property_id'] = array('LIKE', '%' . session("admin.property") . '%');
-      
+        if (session("admin.property")!=0) $where[] = array('v.property_id'=> session("admin.property"));
+ 
+        
         if (IS_POST) {
             $name = I('post.name');
             $mobile = I('post.mobile');
@@ -52,6 +53,86 @@ class OwnerController extends IsloginController {
         $this->display();
        
     }
+    
+    
+    public function consumption(){
+        
+        $owner = M("proOwner w");
+          
+        if (session("admin.village")!=0) $where[] = array('w.property_id'=>session("admin.village"));
+       // if (session("admin.pro_id")!=0) $where['p.id'] = array('LIKE', '%' . session("admin.pro_id") . '%');
+        if (session("admin.property")!=0) $where[] = array('v.property_id'=> session("admin.property"));
+           $where[] = array('o.cate'=> 0);
+        
+       $count_select =  $owner
+                      ->join('RIGHT JOIN wrt_village AS v ON w.property_id=v.id')
+                      ->join('LEFT JOIN wrt_order AS o ON w.uid=o.user_id')
+                      ->where($where)
+                      ->group("o.user_id")
+                      ->select();
+       $count=count($count_select);
+       //       dump($count);
+       // $count = $owner->distinct(true)->field("w.uid")->join('wrt_village AS v ON w.property_id=v.id')->where($where)->count();
+    // echo  $owner->getLastSql(); exit;
+        
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 20);
+        $show = $page->show();
+
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+
+//        $data = $owner->field('w.*,v.id as vid,v.name as vname,p.id as pid,p.pname')
+       
+        $data = $owner->field('w.*,v.id as vid,v.name as vname,sum(totle) as owner_price,o.cate')
+                      ->join('wrt_village AS v ON w.property_id=v.id')
+                      ->join('wrt_order AS o ON w.uid=o.user_id')
+                      ->where($where)
+                      ->limit($page->firstRow . ',' . $page->listRows)
+                      ->group("w.id")
+                      ->select();
+    //  echo  $owner->getLastSql(); exit;
+      $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show);$this->assign('data', $data);
+      $this->display();
+      }
+      
+  public function Vipconsumption(){
+        
+        //$a=$b=5;$b=++$a+$b++;echo $b;exit;
+        $owner = M("proOwner w");
+        
+        if (session("admin.village")!=0) $where[] = array('w.property_id'=>session("admin.village"));
+       // if (session("admin.pro_id")!=0) $where['p.id'] = array('LIKE', '%' . session("admin.pro_id") . '%');
+        if (session("admin.property")!=0) $where[] = array('v.property_id'=> session("admin.property"));
+           $where[] = array('o.cate'=> 1);
+        
+        
+       $count_select =  $owner
+                      ->join('RIGHT JOIN wrt_village AS v ON w.property_id=v.id')
+                      ->join('LEFT JOIN wrt_order AS o ON w.uid=o.user_id')
+                      ->where($where)
+                      ->group("o.user_id")
+                      ->select();
+       $count=count($count_select);
+  //echo  $owner->getLastSql(); exit;
+        // dumo($count);
+        $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 20);
+        $show = $page->show();
+
+        $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
+
+//        $data = $owner->field('w.*,v.id as vid,v.name as vname,p.id as pid,p.pname')
+       
+        $data = $owner->field('w.*,v.id as vid,v.name as vname,sum(totle) as owner_price,o.cate')
+                      ->join('wrt_village AS v ON w.property_id=v.id')
+                      ->join('wrt_order AS o ON w.uid=o.user_id')
+                      ->where($where)
+                      ->group("w.id")
+                      ->limit($page->firstRow . ',' . $page->listRows)
+                      ->select();
+  // echo  $owner->getLastSql(); exit;
+      $this->assign("currentPage", $currentPage); $this->assign("totalPage", $page->totalPages); $this->assign("page", $show);$this->assign('data', $data);
+      $this->display();
+      }
+
     /**
      * 添加或者修改单个的业主
      * @author xujun

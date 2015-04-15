@@ -149,7 +149,7 @@
 
 
                 <body style="background: none;">
-                    <input type="hidden" value="/server.php?s=/Home/Owner/details" id="url_getTeacher" name="url_getTeacher" />
+                    <input type="hidden" value="/index.php?s=/Home/Owner/details" id="url_getTeacher" name="url_getTeacher" />
                     <input type="hidden" value="<?php echo U('delbill');?>" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <input type="hidden" value="<?php echo U('backup');?>" id="url_comeback" name="url_ajaxCalendar" />
                     <div class="place">

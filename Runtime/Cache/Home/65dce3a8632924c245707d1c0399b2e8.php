@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>起始首页</title>
-<link href="/whr_obj/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/whr_obj/App/Home/View/Public/Js/jquery.js"></script>
+<link href="/App/Home/View/Public/Css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
 </head>
 <style type="text/css">
     #start{height: 620px;width: 93%;padding: 20px;}
@@ -41,21 +41,21 @@
         <div class="start">
             <div class="little">
                 <a href="<?php echo U('Vip/vlist');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/vip.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/vip.png"width="100px" height="100px">
                     <p class="text"><span>VIP特享商城商家管理</span></p>
                 </a>
             </div>
             <div class="little"> 
                
                 <a href="<?php echo U('Business/index');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/life.png"width="100px" height="100px;">
+                    <img class="background" src="/App/Home/View/Public/Images/start/life.png"width="100px" height="100px;">
                     <p class="text"><span>生活导航服务商家管理</span></p>
                 </a>
             </div>
             <div class="little">    
                 
                 <a href="<?php echo U('Developer/index');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/house.png"width="100px" height="100px">
                     <p class="text"><span>开发商管理</span></p>
                 </a>
             </div>
@@ -69,19 +69,19 @@
             
             <div class="little"> 
                 <a href="<?php echo U('User/index');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/user.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/user.png"width="100px" height="100px">
                     <p class="text"><span>会员列表</span></p>
                 </a>
             </div>
             <div class="little"> 
                 <a href="<?php echo U('Message/index');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/push.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/push.png"width="100px" height="100px">
                     <p class="text"><span>推送列表</span></p>
                 </a>
             </div>
             <div class="little"> 
                 <a href="<?php echo U('Activity/add');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/action.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/action.png"width="100px" height="100px">
                     <p class="text"><span>活动列表</span></p>
                 </a>
             </div>
@@ -93,7 +93,7 @@
         
             <div class="little"> 
                 <a href="<?php echo U('Month/index');?>">
-                    <img class="background" src="/whr_obj/App/Home/View/Public/Images/start/sum.png"width="100px" height="100px">
+                    <img class="background" src="/App/Home/View/Public/Images/start/sum.png"width="100px" height="100px">
                     <p class="text"><span>综合订单统计</span></p>
                 </a>
             </div>

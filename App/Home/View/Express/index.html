@@ -73,7 +73,7 @@
 </style>
 
 <body style="background: none;">
-  <input type="hidden" value="__CONTROLLER__/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+  <input type="hidden" value="{:U(del)}" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <div class="place">
            <span>位置： </span>
             <ul class="placeul">
@@ -104,8 +104,9 @@
                 <thead>
                     <tr>
                        
-                        <th>编号<i class="sort"><img src="__PUBLIC__/Images/px.gif" /></i></th>
+                        <th>编号</th>
                         <th>名称</th>
+                        <th>拼音编号</th>
                         <th>电话</th>
                         <th>每公斤价格</th>
                 
@@ -117,7 +118,9 @@
                     <volist name="data" id ="vo">
                         <tr>
                             <td>{$vo.id}</td>
+
                             <td>{$vo.name}</td>
+                            <td width="180px">{$vo.code}</td>
                             <td>{$vo.phone}</td>
                             <td>{$vo.price}</td>
             

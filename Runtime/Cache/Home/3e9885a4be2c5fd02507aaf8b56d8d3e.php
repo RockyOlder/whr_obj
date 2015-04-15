@@ -74,10 +74,10 @@
                 <body style="background: none;">
                     <input type="hidden" value="/index.php?s=/Home/Give/ajax_del_shop/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
-                       <span>位置： </span>
+             
                         <ul class="placeul">
                               <li><a href="<?php echo U('Index/start','','');?>">首页</a></li>
-                            <li>推荐商店列表</li>
+                            <li><a href="#">推荐商店列表</a></li>
                         </ul>
                     </div>
                     <div class="rightinfo">
@@ -88,7 +88,7 @@
                                     <li>商店名称</li>
                                     <li><input type="text" value="" class="form-control" name ="name" /></li>
                                     <li><span id="select_deve"><img src="/App/Home/View/Public/Images/ico06.png" width="25"/></span></li>
-                                    <a href="<?php echo U('Business/index');?>"><li class="click"><span><img src="/App/Home/View/Public/Images/t01.png" /></span>&nbsp;&nbsp;添加商店推荐</li></a>
+                                  
                                 </ul>
                             </form>
 
@@ -102,6 +102,7 @@
                                     <th>标题</th>
                                     <th>简介</th>
                                     <th>推荐范围</th>
+                                    <th>推荐状态</th>
                                     <th>开始时间</th>
                                     <th>结束时间</th>
                                     <th colspan="2">操作</th>
@@ -114,7 +115,8 @@
                                         <td><?php echo ($vo["name"]); ?></td>
                                         <td><?php echo ($vo["title"]); ?></td>
                                         <td><?php echo ($vo["info"]); ?></td>   
-                                        <td><?php echo ($vo["extent"]); ?></td>   
+                                        <td><?php echo ($vo["extent"]); ?></td>  
+                                        <td><?php echo ($vo["now_statue"]); ?></td> 
                                         <td><?php echo (date("Y-m-d H:i",$vo["add_time"])); ?></td>
                                         <td><?php echo (date("Y-m-d H:i",$vo["deadline"])); ?></td>
 

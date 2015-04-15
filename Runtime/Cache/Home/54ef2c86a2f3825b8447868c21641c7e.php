@@ -6,6 +6,7 @@
 <title>慧享园-小区管理系统</title>
 <link rel="stylesheet" type="text/css" href="/App/Home/View/Public/Css/login.css">
 <script type="text/javascript" src="/App/Home/View/Public/Js/jquery.js"></script>
+<script type="text/javascript" src="/App/Home/View/Public/Js/login.js"></script>
   
 </script> 
 <style type="text/css">
@@ -55,8 +56,9 @@
             <li><label class="title">账号登录</label></li>
         <li><input name="username" type="text" id="username" class="loginuser" value="<?php echo (cookie('login_username')); ?>" onclick="JavaScript:this.value=''"/><span id ="username_info"></span></li>
         <li><input name="password" type="password" id="password" class="loginpwd" value="<?php echo (cookie('login_passwd')); ?>" onclick="JavaScript:this.value=''"/><span id ="password_info"></span></li>
-        <?php if($_SESSION['num']== 1): ?><li><input name="verify" type="text" class = "verify" value="验证码" onclick="JavaScript:this.value=''" /><img src="<?php echo U('verify','','');?>" style="width:150px;height:48px" onclick="this.src=this.src+'&'+Math.random(0,9999)"><span id ="verify_info"></span></li><?php endif; ?>
-        <li><input name="" type="submit" class="loginbtn" value="登录"  onclick="javascript:;"  /><!-- <label><input name="remeber" type="checkbox" value="1" checked="checked" />记住密码</label> --><label><a href="<?php echo U('Passwd/index');?>">忘记密码？</a></label><label><a href="http://master.huishare.com/mobile.php?s=Property/register" >立即申请</a></label></li>
+        <?php if($_SESSION['num']== 1): ?><li><input name="verify" type="text" class = "verify" value="验证码" onclick="JavaScript:this.value=''" />
+            	<img src="<?php echo U('verify','','');?>"  id='verifyImg' style="width:150px;height:48px" onclick="this.src=this.src+'&'+Math.random(0,9999)"><span id ="verify_info"></span></li><?php endif; ?>
+        <li><input name="" type="button" class="loginbtn" value="登录"  onclick="checklogin()"   /><!-- <label><input name="remeber" type="checkbox" value="1" checked="checked" />记住密码</label> --><label><a href="<?php echo U('Passwd/index');?>">忘记密码？</a></label><label><a href="http://master.huishare.com/mobile.php?s=Property/register" >立即申请</a></label></li>
         </ul>
         
         </form> 

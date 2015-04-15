@@ -192,8 +192,8 @@
 
 
     <body style="background: none;">
-        <input type="hidden" value="/vip.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
-         <input type="hidden" value="/vip.php?s=/Home/Goods/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/Goods/details" id="url_getTeacher" name="url_getTeacher" />
+         <input type="hidden" value="/index.php?s=/Home/Goods/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <div class="place">
             <span>位置： </span>
             <ul class="placeul">

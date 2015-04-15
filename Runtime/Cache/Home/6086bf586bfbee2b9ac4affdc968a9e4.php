@@ -147,7 +147,7 @@
             </table>
         </div>
         <div id="detailDialog_edit">
-            <form action="/vip.php?s=/Home/Config/userEdit" method="post" name="vform" id="vform">
+            <form action="/index.php?s=/Home/Config/userEdit" method="post" name="vform" id="vform">
                 <table cellpadding="0" cellspacing="0" border="1">
                     <tr>
                         <td width="80px" class="label">商家名称</td>

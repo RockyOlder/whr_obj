@@ -67,7 +67,7 @@
                 </style>
 
                 <body style="background: none;">
-                   <input type="hidden" value="/server.php?s=/Home/Village/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+                   <input type="hidden" value="/index.php?s=/Home/Village/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
                     <div class="place">
                             <span>位置： </span>
                         <ul class="placeul">

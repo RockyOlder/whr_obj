@@ -2,7 +2,13 @@
 namespace Api\Controller;
 use Api\Controller\CommonController;
 class OrderController extends CommonController {
-    // 添加用户地址
+    /**
+     * [address 添加用户地址]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T16:28:02+0800
+     * @return [type]                   [description]
+     */
     public function address()
     {
       // echo time();die();
@@ -46,7 +52,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取收货地址
+    /**
+     * [getAddress 获取收货地址]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T16:28:25+0800
+     * @return [type]                   [description]
+     */
      public function getAddress()
     {
         $id = I('request.version',1,'intval');
@@ -71,7 +83,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取运费
+    /**
+     * [getFree 获取商品订单运费]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-25T16:28:41+0800
+     * @return [type]                   [description]
+     */
      public function getFree()
     {
         $id = I('request.version',1,'intval');
@@ -146,7 +164,13 @@ class OrderController extends CommonController {
           // 搜索出用户选择的快递的内容            
         }    
     }
-     // 获取默认收货地址
+     /**
+      * [getDefault 获取默认收货地址]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-25T16:29:25+0800
+      * @return [type]                   [description]
+      */
      public function getDefault()
     {
         $id = I('request.version',1,'intval');
@@ -173,7 +197,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 设置默认地址
+    /**
+     * [isDefault 设置默认收货地址]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:55:58+0800
+     * @return boolean                  [description]
+     */
      public function isDefault()
     {
         $id = I('request.version',1);
@@ -199,7 +229,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 删除用户地址
+    /**
+     * [addressDel 删除用户收货地址]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:56:19+0800
+     * @return [type]                   [description]
+     */
       public function addressDel()
     {
         $id = I('request.version',1);
@@ -234,7 +270,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取快递方式
+    /**
+     * [getExpress 获取快递方式]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:56:42+0800
+     * @return [type]                   [description]
+     */
     public function getExpress()
     {
         $id = I('request.version',1);                  
@@ -255,10 +297,10 @@ class OrderController extends CommonController {
           }       
     }
     /**
-     * 添加vip订单
+     * [orderAdd 添加vip订单]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-09T18:32:15+0800
+     * @time   2015-03-26T09:56:53+0800
      * @return [type]                   [description]
      */
     public function orderAdd()
@@ -358,7 +400,7 @@ class OrderController extends CommonController {
           }       
     }
     /**
-     * 添加生活导航订单
+     * [lifeAdd 添加生活导航订单]
      * @author xujun
      * @email  [jun0421@163.com]
      * @date   2015-01-09T18:32:57+0800
@@ -390,7 +432,7 @@ class OrderController extends CommonController {
             'check_number' =>$num
           );
           //更新商品销售数量
-          M('life_goods')->where(array('lgid'=>$goodId))->setInc('sold',$sum);
+         // M('life_goods')->where(array('lgid'=>$goodId))->setInc('sold',$sum);
           if ($id == 1) {  
               if (!$userId) {
                 $out['msg'] = C('no_id');
@@ -414,11 +456,11 @@ class OrderController extends CommonController {
            } 
      
     }
-    /**orderInfo
-     * 订单付款
+    /**
+     * [orderPay 订单付款]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-09T19:58:37+0800
+     * @time   2015-03-26T09:58:09+0800
      * @return [type]                   [description]
      */
      public function orderPay()
@@ -433,20 +475,32 @@ class OrderController extends CommonController {
           }  
           if ($id == 1) {
               $data = array('oid'=>$oid,'statue'=>1);
+              $mobile = M('order') ->field('phone,price,check_number,shop_id,goodid,sum,number')->where(array('oid'=>$oid))->find();
               if ($type == 1) {//是生活导航的订单
                 $num = $this->getNumber($oid);//获取电子验证码
                 $data['check_number'] = $num; 
-                $mobile = M('order') ->field('phone,price,check_number,shop_id,goodid')->where(array('oid'=>$oid))->find();
+                
                 //查找消费卷的商品信息
+                 //更新商品销售数量
+                M('life_goods')->where(array('lgid'=>$mobile['goodId']))->setInc('sold',$mobile['sum']);
                 // 根据商店的id查询商店的电话
                $b_mobile = M('business')->field('mobile_phone')->where(array('id'=>$mobile['shop_id']))->find();
                 // dump($mobile);die();
-                $content = "您购买的$mobile[price]元【商品名】消费券为：$mobile[check_number],一经验证不能代表消费，不能退款，请你安排好你的验证时间，商家电话：$b_mobile[mobile_phone].客服电话： 400-700-8828<br/>【慧享园】";
+                $content = "您购买的$mobile[price]元【商品名】消费券为：$mobile[check_number],一经验证即代表消费，不能退款，请你安排好你的验证时间，商家电话：$b_mobile[mobile_phone].客服电话： 400-700-8828<br/>【慧享园】";
                 // dump($content);die();
                 sendMsg($mobile[phone],$content);   //给客户发送提示编码           
+              }else{//更新用户的vip商品的的消费
+                $w=array('order_number'=>$mobile['number']);
+                $info = M('order_info')->where($w)->select();
+                if (is_array($info)) {
+                  foreach ($info as $k => $v) {
+                    M('goods')->where(array('goods_id'=>$v['good_id']))->setInc('num',$v['number']);
+                  }
+                }
               }
-              // dump($data);
+              // dump($data);die();
               $bool = M('order')->save($data);
+              // dump
               // dump($bool);
               if ($bool) {
                 
@@ -459,11 +513,11 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    /**orderInfo
-     * 收货确认
+    /**
+     * [receipt 收货确认]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-09T19:58:37+0800
+     * @time   2015-03-26T09:57:56+0800
      * @return [type]                   [description]
      */
      public function receipt()
@@ -493,7 +547,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
         }       
     }
-    // 取消订单
+    /**
+     * [orderDel 取消订单]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:58:20+0800
+     * @return [type]                   [description]
+     */
      public function orderDel()
     {
         $id = I('request.version',1);
@@ -505,8 +565,15 @@ class OrderController extends CommonController {
           }          
           // dump($number);
           if ($id == 1) {
-              $sql = "update ".C('DB_PREFIX')."order set is_end = 1  where oid =$oid";
-              $bool = M()->execute($sql);
+              $statue = M('order')->field('statue')->where(array('oid'=>$oid))->find();
+              if ($statue == 0) {
+                $bool = M('order')->delete($oid);
+              }else{
+                $data = array('oid'=>$oid,'is_end'=>1);
+                $bool = M('order')->save($data);
+              }
+              // $sql = "update ".C('DB_PREFIX')."order set is_end = 1  where oid =$oid";
+              
               if ($bool) {
                   $out['success'] = 1;
                   $out['msg'] ='成功删除';
@@ -517,7 +584,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取用户的订单
+    /**
+     * [userOrder 获取用户的订单]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:59:01+0800
+     * @return [type]                   [description]
+     */
      public function userOrder()
     {
         $id = I('request.version',1);
@@ -556,7 +629,7 @@ class OrderController extends CommonController {
                       $v['son'] = $son;
                       // 查找出快递的名字
                       // dump($v['express']);
-                      $v['express_name'] = current(M('express')->field('name')->where(array('id'=>$v['express']))->find());
+                      $v['express_name'] = M('express')->field('name,code')->where(array('id'=>$v['express']))->find();
                       $bool[$k]=$v;                  
                   }
                   $out['success'] = 1;
@@ -570,7 +643,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取用户所有订单
+    /**
+     * [userAll 获取用户所有订单]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:59:12+0800
+     * @return [type]                   [description]
+     */
      public function userAll()
     {
          $id = I('request.version',1);
@@ -602,6 +681,8 @@ class OrderController extends CommonController {
                       $bool[$k]=$v;
                     }else{
                       $son = M('order_info')->where('order_number='.$v['number'])->select();
+                      $v['express_name'] = M('express')->field('name,code')->where(array('id'=>$v['express']))->find();
+                      // $bool[$k]=$v;
                       $v['son'] = $son;
                       $bool[$k]=$v;
                     }
@@ -615,7 +696,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }      
     }
-     // 获取单个订单
+     /**
+      * [orderInfo 获取单个订单]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-26T09:59:23+0800
+      * @return [type]                   [description]
+      */
      public function orderInfo()
     {
          $id = I('request.version',1);
@@ -643,7 +730,7 @@ class OrderController extends CommonController {
                     $son['sum'] = $data['sum'];
                     $son['statue'] = ($data['statue'] == 0)?'未付款':'付款成功';
                     $son['number'] = $data['number'];
-                    $son['time'] = date('Y-m-d H:i:s',$data['add_time']);
+                    $son['time'] = date('Y-m-d H:i:s',$data['time']);
                     $son['check_number'] = $data['check_number'];
                     $son['check_statue'] =  ($data['check_statue'] == 0)?'未验证':'已使用';
                     // dump($son);die();
@@ -656,6 +743,7 @@ class OrderController extends CommonController {
                     $box['freight'] = $data['freight'];
                     $box['statue'] = $data['statue'];
                     $box['totle'] = $data['totle'];
+                    $box['time'] = date('Y-m-d H:i:s',$data['time']);
                     $box['express_num'] = $data['express_num'];
                     $express = M('express')->field('id,name')->where(array('id'=>$data['express']))->find();
                     $box[express] = $express[name];
@@ -670,7 +758,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }      
     }
-     // 设置用户发票
+     /**
+      * [userBill 设置用户发票]
+      * @author xujun
+      * @email  [jun0421@163.com]
+      * @time   2015-03-26T09:59:33+0800
+      * @return [type]                   [description]
+      */
      public function userBill()
     {
         $id = I('request.version',1);
@@ -716,7 +810,13 @@ class OrderController extends CommonController {
                $this->ajaxReturn($out);
           }       
     }
-    // 获取用户发票
+    /**
+     * [getBill 获取用户发票]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T09:59:43+0800
+     * @return [type]                   [description]
+     */
      public function getBill()
     {
         $id = I('request.version',1);
@@ -748,11 +848,12 @@ class OrderController extends CommonController {
           }       
     }
     /**
-     * 生成一个电子吗
+     * [getNumber 生成一个电子吗]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @date   2015-01-09T20:10:53+0800
-     * @return [type]                   [description]
+     * @time   2015-03-26T09:59:55+0800
+     * @param  [type]                   $oid [description]
+     * @return [type]                        [description]
      */
     public function getNumber($oid){
       $num=mt_rand(999,9999);
@@ -761,10 +862,10 @@ class OrderController extends CommonController {
       return $num;
     }
     /**
-     * 生活导航用户设置订单号
+     * [phone 生活导航用户设置手机号码]
      * @author xujun
      * @email  [jun0421@163.com]
-     * @time   2015-01-11T19:23:07+0800
+     * @time   2015-03-26T10:01:21+0800
      * @return [type]                   [description]
      */
     public function phone(){

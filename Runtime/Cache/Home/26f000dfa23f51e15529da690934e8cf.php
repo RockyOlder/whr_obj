@@ -73,7 +73,7 @@
 </style>
 
 <body style="background: none;">
-  <input type="hidden" value="/index.php?s=/Home/Express/del/id/" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+  <input type="hidden" value="<?php echo U(del);?>" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <div class="place">
            <span>位置： </span>
             <ul class="placeul">
@@ -104,8 +104,9 @@
                 <thead>
                     <tr>
                        
-                        <th>编号<i class="sort"><img src="/App/Home/View/Public/Images/px.gif" /></i></th>
+                        <th>编号</th>
                         <th>名称</th>
+                        <th>拼音编号</th>
                         <th>电话</th>
                         <th>每公斤价格</th>
                 
@@ -116,7 +117,9 @@
                 <tbody id="table_ajax_list">
                     <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
                             <td><?php echo ($vo["id"]); ?></td>
+
                             <td><?php echo ($vo["name"]); ?></td>
+                            <td width="180px"><?php echo ($vo["code"]); ?></td>
                             <td><?php echo ($vo["phone"]); ?></td>
                             <td><?php echo ($vo["price"]); ?></td>
             

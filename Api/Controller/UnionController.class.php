@@ -1,0 +1,408 @@
+<?php
+namespace Api\Controller;
+use Api\Controller\CommonController;
+class UnionController extends CommonController {
+  public function getCancelId(){
+    $table = $this->chaoceTable(I('post.type',1,'intval'));
+    $order = I('post.orderId');
+    $w = array('o.number'=>$order);
+    $data = M('order o')
+          ->field('o.user_id,o.number,o.totle,u.query_id')
+          ->join('wrt_union as u on o.number=u.order_id')
+          ->where($w)
+          ->find();
+          //dump(M()->getlastSql());
+      //dump($data);
+    $data['time']=date('YmdHis',time());
+    $data['c_number']=getOrderId();
+    // dump($table);
+    // dump($data);
+    $bool = M($table)->add($data);
+    // dump(M($table)->getlastSql());
+    // dump($bool);die();
+    if ($bool) {
+      $out['success'] = 1;
+      $out['data'] = $data;
+      $out['msg'] = '成功';
+
+    }else{
+      $out['success'] = 0;
+      $out['data'] = array();
+      $out['msg'] = '失败';
+    }
+    $this->ajaxReturn($out);
+  }
+  function chaoceTable($num){
+
+    switch ($num) {
+      case '1':
+        return "union_cancle";
+        break;
+      case '2':
+        return "union_refund";
+        break;
+      
+      default:
+        # code...
+        break;
+    }
+  }
+  /**
+   * [setting 银联操作通知后台路径]
+   * @author xujun
+   * @email  [jun0421@163.com]
+   * @time   2015-03-02T15:44:31+0800
+   * @return [type]                   [description]
+   */
+  public function index(){
+    $data = $_POST;
+    if (!empty($data)) {
+      $arr = array('info'=>json_encode($data));
+      M('test')->add($arr);
+    }
+    //$json = '{"accessType":"0","bizType":"000201","certId":"21267647932558653966460913033289351200","currencyCode":"156","encoding":"utf-8","merId":"898111457340127","orderId":"2015040152579997","queryId":"201504011353269339998","respCode":"00","respMsg":"Success!","settleAmt":"1","settleCurrencyCode":"156","settleDate":"0401","signMethod":"01","traceNo":"933999","traceTime":"0401135326","txnAmt":"1","txnSubType":"01","txnTime":"20150401135326","txnType":"01","version":"5.0.0","signature":"aV+HnxjMCALPBDgE6AMlMZSaNB7RzpIEgYtMN9hp3rVt8YT6kxh9U5rhUn3GlfbsoXWjqtf5zvkVcZ7p\/jwULrMWLiWwPDGrGvHAB\/2dJ26O2oXNN3PBAaIK7K+OsOV0eTC1mrwlxF\/z3IMaQR\/DQiFBoJ9nRTvtY15ywhP2eBpR7vT1g0lgc1p5CLG9ha3a93afi0OKtt+ersZjTSsH83Apx1hWq\/mLaH1e6lHu0+KK6UVyPFEZrvGIgnbAbpaePX4\/zqLi7g8427B+NNvKp77yXUDy9\/7kn9e91mJ+Dta32yMH4YYE3khq3iHIMHglxLZdt0JielE0Q+D+9ygZ5g=="}';
+    // $json = '{"accNo":"6216***********0018","accessType":"0","bizType":"000201","certId":"3474813271258769001041842579301293446","currencyCode":"156","encoding":"utf-8","merId":"777290058111477","orderId":"2015032856535410","queryId":"201503271534048013208","respCode":"00","respMsg":"Success!","settleAmt":"100","settleCurrencyCode":"156","settleDate":"0327","signMethod":"01","traceNo":"801320","traceTime":"20150327153404","txnAmt":"100","txnSubType":"01","txnTime":"20150327153404","txnType":"01","version":"5.0.0","signature":"ifp2fpTrpy+Nh0i946lrxN0RApClpBZFF8O5zovXGxH0r8rEQcR\/+WrkiSwlB5DTqTrIYHDii9cMjAQum9E9MDTgXFtPwbWVJFTMBbUm2jQMDjDwszdaM1RZmb7k4aFhmwU5MJSgDE+LOMv8TO\/OUfykHk+ke5GvLCFcTWR6doE42Oq6n1QYqVEl3Tgd7Jx\/YF0CB1xaSbh\/uU2A\/+0eVNX1Ok33GNJ0v15SQO8L1XuM9CIh2VebNxBVe4vBvVf3xJblhua+mI3WcsJEN9CKc02Hma48CrzgkrHzcKiKpD80dpaNuwinLGnP0hzYUVYqs0ONhkwMamkgiTT+5NvAXg=="}';
+    //$json = '{"accNo":"6216***********0018","accessType":"0","bizType":"000201","certId":"3474813271258769001041842579301293446","currencyCode":"156","encoding":"utf-8","merId":"777290058111477","orderId":"2015032856535410","queryId":"201503271534048013208","respCode":"00","respMsg":"Success!","settleAmt":"100","settleCurrencyCode":"156","settleDate":"0327","signMethod":"01","traceNo":"801320","traceTime":"20150327153404","txnAmt":"100","txnSubType":"01","txnTime":"20150327153404","txnType":"31","version":"5.0.0","signature":"ifp2fpTrpy+Nh0i946lrxN0RApClpBZFF8O5zovXGxH0r8rEQcR\/+WrkiSwlB5DTqTrIYHDii9cMjAQum9E9MDTgXFtPwbWVJFTMBbUm2jQMDjDwszdaM1RZmb7k4aFhmwU5MJSgDE+LOMv8TO\/OUfykHk+ke5GvLCFcTWR6doE42Oq6n1QYqVEl3Tgd7Jx\/YF0CB1xaSbh\/uU2A\/+0eVNX1Ok33GNJ0v15SQO8L1XuM9CIh2VebNxBVe4vBvVf3xJblhua+mI3WcsJEN9CKc02Hma48CrzgkrHzcKiKpD80dpaNuwinLGnP0hzYUVYqs0ONhkwMamkgiTT+5NvAXg=="}';
+
+    //$data = json_decode($json,true);
+    // dump($data);die();
+    if ($data['respCode'] = "00") {//返回的结果成功
+      switch ($data['txnType']) {//取值： 00：查询交易 01：消费 02：预授权
+    // 03：预授权完成 04：退货 05：圈存 11：代收  // 12：代付 13：账单支付 14：转账（保留） 
+    // 21：批量交易 22：批量查询 31：消费撤销 // 32：预授权撤销 33：预授权完成撤销 71：余额查询 72：实名认证-建立绑定关系 73：账单查询 74：解除绑定关系 75：查询绑定关系 77：发送短信验证码交易 78：开通查询交易 79：开通交易 94：IC卡脚本通知 
+        case '01'://消费
+            if ($data['respCode'] == '00') { //消费付款成功
+                $this->pay($data);
+            }
+        case '31'://31：消费撤销
+            if ($data['respCode'] == '00') { //31：消费撤销
+              // dump($data);
+                $this->payback($data);
+            }
+          
+          break;
+        case '04'://31：退货
+            if ($data['respCode'] == '00') { //退货
+                $this->refund($data);
+            }
+          
+          break;
+        case '32'://32：预授权
+            if ($data['respCode'] == '00') { //32：预授权
+                $this->authDeal($data);
+            }
+          
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+    }
+    
+
+  }
+
+/**
+ * [payfor 支付宝付款后发送消息通知客户]
+ * @author xujun
+ * @email  [jun0421@163.com]
+ * @time   2015-02-12T10:05:46+0800
+ * @return [type]                   [description]
+ */
+    public function pay($num){
+      // dump($num);
+      $where = array('number'=>$num['orderId']);
+      // dump($where);
+      $data = M('order')->where($where)->find();
+      // dump($data);//die();
+      $statue = array('statue'=>1);
+      // dump($where);die();
+      M()->startTrans();
+      $bool = M('order')->where($where)->save($statue);
+      $statue['query_id']=$num['queryId'];
+      // dump($bool);
+      $bool1 = M('union')->where(array('order_id'=>$num['orderId']))->save($statue);
+      // dump($bool1);
+      if ($data['type'] == 1) {
+          $bool2 = M('recharge')->where($where)->save(array('statue'=>1));
+          // dump($bool2);
+          $bool3 = M('user')->where(array('user_id'=>$data['user_id']))->setInc('user_money',$data['totle']);
+          // dump($bool3);
+          
+          $bool = $bool && $bool1 && $bool2 && $bool3;
+      }else{
+        $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+        // dump($sorce);
+          if($sorce){
+            $str = current($sorce);
+            $str = explode('/', $str);  
+            $up = (int)$data['totle']*$str[1]/$str[0]; 
+            // dump($up);
+            if ($up != 0) {
+              $bool4 = M('user')->where(array('user_id'=>$data['user_id']))->setInc('source',$up); 
+            }else{
+              $bool4 = 1;
+            }
+              
+            // dump($bool4); 
+
+          }
+          $bool = $bool && $bool1 && $bool4;
+      }
+      // dump($bool1);
+      if ($bool) {
+            M()->commit();
+            // $this->ajaxReturn('数据更改成功');
+        }else{
+            
+            M()->rollback();
+            $this->ajaxReturn('数据更改失败');
+        }
+      if (!$bool) $this->ajaxReturn('更新用户订单状态失败');
+      // 查找用户订单信息
+      $data = M('order')->field('type,statue,cate,totle,phone,number,check_number,user_id,totle')->where($where)->find();
+      // dump($data);
+        
+        if ($data['cate'] == 0 && $data['type'] == 0) {//生活导航订单
+            //$data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id,goodid')->where($where)->find();
+            $content = "尊敬的客户：你好！感谢你选择慧享园购物，您的".$data['number'].'号订单已经成功付款,你的消费验证码为:'.$data['check_number'].',请妥善保管,一经验证等同消费,请安排好验证时间！       【慧享园】';
+            $phone = $data['phone'];
+            $bool =sendMsg($phone,$content);
+        }
+        if ($data['cate'] == 1 && $data['type'] == 0) {//VIP订单
+            $mail = current(M('user')->where(array('user_id'=>$data['user_id']))->find());
+            $title = '慧享园付款通知';
+            $author = '【慧享园】';
+            $time = date('Y年m月d日 H时i分',time());
+            $content=<<<str
+<html>
+<head>
+  <title>慧享园付款通知</title>
+</head>
+<body>
+<div style="">
+  <p>尊敬的顾客你好</p>
+  <div style="text-indent: 2em;">你的{$data[number]}号账单已经成功付款，感谢你对慧享园的支持，请静待卖家发货，祝你购物愉快！</div>
+  <div style="text-align: right;">{$time}</div>
+  <div style="text-align: right;">【慧享园】</div>
+</div>
+
+</body>
+</html>
+str;
+            $bool = sendEmail($mail,$title,$content,$author);
+        }
+
+    }
+   
+
+public function payback($data){
+  //accessType=0&bizType=000301&certId=3474813271258769001041842579301293446
+  //&encoding=utf-8&merId=777290058111477&orderId=2015032848495197
+  //&origQryId=201503280938398045088&queryId=201503280941260645868
+  //&reqReserved= 消费撤销&respCode=00
+  //&respMsg=成功[0000000]&signMethod=01&txnAmt=100&txnSubType=00
+  //&txnTime=20150328094126&txnType=31&version=5.0.0
+  //&signature=hvr4GQMrP9Zt5i6aelvf6jQcXwLBooz8ceGBwakMava+wRNad4BNrKGbJ1V3OCjdzb2EMlvgkFXNT/fv8UCFhZMR1+pM1jMnZoxGHv3vl50nQJOYxzEVfK3JZ6k4hf9+2xC0KP+ZPlqoVS6pUcs2yt9AUWiSI6ImHmbTbPmr2bAMrZiYUBwXVYZUEWvsm0Xvx+eOA3IQf4wj8DmOK+F2DxqTwwULzQ+Ofo4jp16brmUEnLgSBg/xGnkUIc4ogli0e2M+ZWGyIY7LA/frCyZnvxBgLE1rT4il9N31fvH1vWh1SMCMaaykrIo4WX58sqVbfR3GbSesyHaycuhVr/Ytug==验签成功 
+  M()->startTrans;
+  $where = array('c_number'=>$data['orderId']);
+  $bool = M('union_cancle')->where($where)->save(array('statue'=>1));
+  $info = M('union_cancle')->where($where)->find();
+  $bool1 = M('order')->where(array('number'=>$info['order_id']))->save(array('statue'=>10,'is_end'=>1));
+
+
+
+  if ($bool && $bool1) {
+      M()->commit();
+      // $this->ajaxReturn('数据更改成功');
+  }else{
+      
+      M()->rollback();
+      $this->ajaxReturn('数据更改失败');
+  }
+}
+public function refund(){
+  //accessType=0&bizType=000201&certId=3474813271258769001041842579301293446
+  //&encoding=utf-8&merId=777290058111477&orderId=2015032897975010
+  //&origQryId=201503281032108045608&queryId=201503281042230647728
+  //&reqReserved=退货通知&respCode=00&respMsg=成功[0000000]
+  //&signMethod=01&txnAmt=100&txnSubType=00&txnTime=20150328104223
+  //&txnType=04&version=5.0.0
+  //&signature=sbd8cA6F408WxbtM7A9ibNZyJbsFOfMGV5UZKsduNkwxFYxabhlJEApuUTuvxSre7CyED/rHQZ/tlU0Ac36ADk0JAP9U/csQovAhzd+Ex0GR8/zlpCvrHmiLrghOdc2qzTQub5x9c+TAXtxAxqimHJOVOVY8Tm/6S/JQhJSoLMvzpRir3UBKlzKJKp4XlWAxvsaAZfOWsjRtUCQV8Bw3E/janzM0PQTfztg3UfLxTSwjVQwkYxvpsRf5axBr9oeDlR9kBt7V43WEZS2GILfdSp+Z3tT56Pl/QNmb2eqyw7NWdNuKwhlVI1SLNf/IlFjL/3ydJpsG4CmyWQ6PugXwjg==
+  M()->startTrans;
+  $where = array('c_number'=>$data['orderId']);
+  $bool = M('union_refund')->where($where)->save(array('statue'=>1));
+  $info = M('union_refund')->where($where)->find();
+  $bool1 = M('order')->where(array('number'=>$info['order_id']))->save(array('statue'=>9,'is_end'=>1));
+
+
+
+  if ($bool && $bool1) {
+      M()->commit();
+      // $this->ajaxReturn('数据更改成功');
+  }else{
+      
+      M()->rollback();
+      $this->ajaxReturn('数据更改失败');
+  }
+}
+public function authDeal(){
+  //应答：accessType=0&bizType=000201&certId=3474813271258769001041842579301293446
+  //&encoding=utf-8&merId=777290058111477&orderId=2015032856535410
+  //&reqReserved=预授权测试&respCode=00&respMsg=成功[0000000]
+  //&signMethod=01
+  //&tn=201503281108489906808
+  //&txnSubType=01
+  //&txnTime=20150328110848&txnType=02&version=5.0.0
+  //&signature=Hr4IuZK7d3FAtsMqo0M3R9cC1Tv7ufIrfq24tbcT3mENaF02ZfYwLOTZCiR5xSsvgEOpMOXz+2Xfb2pMNvsVY5Mbg0F+hshKmR+PpLRV8PFhKrf00YQYvc1sCpo0BUvRdEZ6DwbYz9RoYYVwv64VRxBVmP93cZtlvw1k2hNwWXxqGdkVPIRwESKCMDnQT8ByDK+IRR6CRtqej87faPFvQOmlAX3t0km1HzNRGVyrmRd1fDGOpzB8DoA86gXWpOV+8EVUA0jnUSS51r/w8QIa/IPxE/pnpW/INSTMPgjymYvi9CohsRJcnEjsV+7HohkEBoIfy29jLzTxq9laIiz0tA==
+  
+}
+/**
+ * [pay 用户余额付款]
+ * @author xujun
+ * @email  [jun0421@163.com]
+ * @time   2015-02-12T10:05:46+0800
+ * @return [type]                   [description]
+ */
+    public function payllllll(){
+      
+      $id = I('request.version',1);
+      $uid = I('request.userId',0,'intval');
+      $number = I('request.number');
+      $password = md5(I('request.password'));
+     if (!$uid) {
+        $out['msg'] = C('no_id');
+        $out['data'] = null;
+        $out['success'] = 0;
+        $this->ajaxReturn($out);
+      }
+      $arr = array('pay_password'=>$password,'user_id'=>$uid);
+      $check = M('user')->where($arr)->find();
+      // dump($check);
+      // dump(!$check);
+      if (!$check) {
+        $out['msg'] = '付款密码输入错误！';
+        $out['data'] = null;
+        $out['success'] = 0;
+        $this->ajaxReturn($out);
+      }
+      $where = array('number'=>$number);
+      // dump($where);
+      // dump(I('get.num'));
+      
+      // 查找用户订单信息
+      $data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id')->where($where)->find();
+      // dump(M('order')->getlastSql());
+      //查找出用户的余额进行比较
+      $usermoney = M('user')->field('user_money')->where(array('user_id'=>$uid))->find();
+      $usermoney = current($usermoney);
+      // dump($usermoney);
+      if ($usermoney < $data['totle']) {
+        $out['msg'] = '用户余额不足请先充值再来付款';
+        $out['data'] = null;
+        $out['success'] = 0;
+        $this->ajaxReturn($out);
+      }else{
+        $update = array('statue'=>1);
+        $bool = M('order')->where($where)->save($update);
+        // dump($bool);
+        if ($bool) {
+          $bool = M('user')->where(array('user_id'=>$uid))->setDec('user_money',$data['totle']);
+          $sorce = M('goods_integral')->field('name')->where(array('id'=>1))->find();
+          if($sorce){
+            $str = current($sorce);
+            $str = explode('/', $str);  
+            $up = (int)$data['totle']*$str[1]/$str[0]; 
+            $bool0 = M('user')->where(array('user_id'=>$uid))->setInc('source',$up);    
+          }
+          // dump(M('user')->getlastSql());
+          // dump($bool);
+          if (!$bool) {
+            $update = array('statue'=>0);
+            $bool1 = M('order')->where($where)->save($update);
+          }
+        }else{
+          $out['msg'] = '该订单已经付款或者不存在';
+          $out['data'] = null;
+          $out['success'] = 0;
+          $this->ajaxReturn($out);
+        }
+      }
+      if ($bool) {
+            if ($data['cate'] == 0) {//生活导航订单
+            //$data = M('order')->field('statue,cate,totle,phone,number,check_number,user_id,goodid')->where($where)->find();
+            $content = "尊敬的客户：你好！感谢你选择慧享园购物，您的".$data['number'].'号订单已经成功付款,你的消费验证码为:'.$data['check_number'].',请妥善保管,一经验证等同消费,请安排好验证时间！       【慧享园】';
+            $phone = $data['phone'];
+            $bool =sendMsg($phone,$content);
+        }
+        if ($data['cate'] == 1) {//VIP订单
+            $w = array('user_id'=>$uid);
+            // dump($w);
+            $mail = current(M('user')->field('email')->where($w)->find());
+            $title = '慧享园付款通知';
+            $author = '【慧享园】';
+            $time = date('Y年m月d日 H时i分',time());
+            $content=<<<str
+<html>
+<head>
+  <title>慧享园付款通知</title>
+</head>
+<body>
+	
+<div style="">
+	<div id="big_box" style="width: 40%;margin: 80px auto;">
+		<div id="header">
+			<img src="http://master.huishare.com/App/Home/View/Public/Images/help/120.png" alt="" /> <span style="font-family: 微软雅黑;font-weight: 700;font-size: 25;">慧享园</span>
+		</div>
+		<div style="border: #019386 3px solid;padding: 10px;">
+			<p>尊敬的顾客你好</p><br/>
+		  <div style="text-indent: 2em;">你的{$data[number]}号账单已经成功付款，感谢你对慧享园的支持，请静待卖家发货，祝你购物愉快！</div>
+		  <div style="text-align: right;">{$time}</div>
+		  <div style="text-align: right;">【慧享园】</div>
+		</div>
+		  
+	</div>
+  
+</div>
+
+</body>
+</html>
+str;
+            sendEmail($mail,$title,$content,$author);
+            $bool = true;
+        }
+      }
+      if ($bool) {
+        $out['msg'] = '用户付款成功';
+        $out['data'] = null;
+        $out['success'] = 1;
+        $this->ajaxReturn($out);
+      }
+
+
+    }
+    // function unionpay(){
+    //   header ( 'Content-type:text/html;charset=utf-8' );
+    //   // $data = $_POST;
+    //   // dump($bool);
+    //   // $data = array('key1'=>'first','key2'=>'two');
+    //   // $str =implode(',', $data);
+    //   // $str = explode(delimiter, string)
+    //   // // dump($str);
+    //   // // dump($_SERVER["DOCUMENT_ROOT"]);
+    //   // $path = $_SERVER["DOCUMENT_ROOT"].'/unionpay/logs/put_log.php';
+    //   // // dump($path);
+    //   // $bool = file_put_contents($path, $str);
+    //   // $this->ajaxReturn($bool);
+    //   if (isset ( $_POST ['signature'] )) {
+        
+    //     echo verify ( $_POST ) ? '验签成功' : '验签失败';
+    //     $orderId = $_POST ['orderId']; //其他字段也可用类似方式获取
+    //   } else {
+    //     echo '签名为空';
+    //   }
+
+    // }
+  
+}

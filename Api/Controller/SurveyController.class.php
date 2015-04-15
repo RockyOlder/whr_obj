@@ -6,7 +6,13 @@ class SurveyController extends CommonController {
   public $tem=array();
  
 
-        // 社区调查列表
+        /**
+         * [index 社区调查列表]
+         * @author xujun
+         * @email  [jun0421@163.com]
+         * @time   2015-03-26T10:54:00+0800
+         * @return [type]                   [description]
+         */
     public function index(){
         $id = I('request.version',1,'intval');
         $proId = I('request.propertyId',0,'intval');
@@ -58,7 +64,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     } 
-    //闲置交换列表
+    /**
+     * [fetchList 闲置交换列表]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:54:14+0800
+     * @return [type]                   [description]
+     */
     public function fetchList(){
       //dump(time('2015-05-10'));
         $id = I('request.version',1,'intval');
@@ -89,6 +101,7 @@ class SurveyController extends CommonController {
             // dump($pageSize);
 
             $data = M($table)->field($field)->where($where)->order('add_time asc')->limit($page)->select();
+            // dump($data);
             if (is_array($data)) {
               $out['success'] = 1;
               $out['msg'] = "获取数据成功";
@@ -109,7 +122,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     } 
-    //闲置交换删除
+    /**
+     * [fetchDel 闲置交换删除]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:54:24+0800
+     * @return [type]                   [description]
+     */
     public function fetchDel(){
         $id = I('request.version',1,'intval');
        if ($id == 1) {
@@ -132,7 +151,13 @@ class SurveyController extends CommonController {
        }
         
     } 
-    // 用户添/修改加用户通讯录
+    /**
+     * [addressAdd 用户添/修改加用户通讯录]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:54:35+0800
+     * @return [type]                   [description]
+     */
     public function addressAdd(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
@@ -195,7 +220,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     } 
-    //获取用户通讯录
+    /**
+     * [getAddress 获取用户通讯录]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:54:57+0800
+     * @return [type]                   [description]
+     */
     public function getAddress(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
@@ -228,7 +259,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-    //搜索用户通讯录
+    /**
+     * [searchPhone 搜索用户通讯录]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:55:05+0800
+     * @return [type]                   [description]
+     */
     public function searchPhone(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
@@ -260,7 +297,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-    //修改用户通讯录
+    /**
+     * [changePhone 修改用户通讯录]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:55:13+0800
+     * @return [type]                   [description]
+     */
     public function changePhone(){
         $id = I('request.version',1,'intval');
         $aid = I('request.phoneId',0,'intval'); //用户id
@@ -300,7 +343,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
-    //修改用户通讯录
+    /**
+     * [delPhone 删除用户通讯录]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:55:29+0800
+     * @return [type]                   [description]
+     */
     public function delPhone(){
         $id = I('request.version',1,'intval');
         $aid = I('request.phoneId',0,'intval');
@@ -331,6 +380,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     }
+    /**
+     * [fetchAdd 发布闲置交换]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:55:42+0800
+     * @return [type]                   [description]
+     */
     public function fetchAdd(){
         $id = I('request.version',1,'intval');
         $userId = I('request.userId',0,'intval'); //用户id
@@ -376,6 +432,11 @@ class SurveyController extends CommonController {
                 $arr['more_pic'] = $pic;
                 $pic = json_decode($pic,true);
                 $arr['pic']=$pic[0]['path'];
+              }else{
+                $a['path'] = "http://www.huishare.com/Uploads/face/default.png";
+                $a['name'] ="系统默认图片";
+                $arr['more_pic'] = json_encode($a);
+                $arr['pic'] = "http://www.huishare.com/Uploads/face/default.png";
               }              
               // dump($arr);die();
                 $data = M($table)->field('id')->where($arr)->find();
@@ -402,6 +463,13 @@ class SurveyController extends CommonController {
             $this->ajaxReturn($out);
         }
     } 
+    /**
+     * [fetchInfo 闲置教皇详情]
+     * @author xujun
+     * @email  [jun0421@163.com]
+     * @time   2015-03-26T10:56:01+0800
+     * @return [type]                   [description]
+     */
      public function fetchInfo(){
         $id = I('request.version',1,'intval');
         $fid = I('request.fetchId',0,'intval');

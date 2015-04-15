@@ -144,8 +144,8 @@
                 <li><a href="#">投诉建议</a></li>
             </ul>
         </div>
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
-        <input type="hidden" value="/server.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/repair" id="examUpdate" name="examUpdate" />
+        <input type="hidden" value="/index.php?s=/Home/ProInfo/url_ajaxdecorate" id="url_ajaxCalendar" name="url_ajaxCalendar" />
         <!--     <li><label>&nbsp;</label><input id="ig_primary" type="submit" class="btn btn-primary" value="投诉建议"  onclick="javascript:;" /></li>  -->
             <form action="" method="post" name ="vform" id="from_sub">
                 <div  id="tab2" class="tabson">

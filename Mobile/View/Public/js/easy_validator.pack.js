@@ -6,7 +6,7 @@
 $(function(){
 	var xOffset = -20; // x distance from mouse
     var yOffset = 20; // y distance from mouse  
-
+	
 	//input tips
 	$("[reg],[url]:not([reg])").hover(
 		function(e) {
@@ -41,7 +41,6 @@ $(function(){
 	$("form").submit(function(){
 		var isSubmit = true;
 		$(this).find("[reg],[url]:not([reg])").each(function(){
-                    console.log($(this))
 			if($(this).attr("reg") == undefined){
 				if(!ajax_validate($(this),this.tagName)){
 					isSubmit = false;
@@ -94,9 +93,7 @@ function ajax_validate(obj,tagName){
 	}
 	var feed_back = $.ajax({url: url_str,cache: false,async: false}).responseText;
 	feed_back = feed_back.replace(/(^\s*)|(\s*$)/g, "");
-        console.log(feed_back)
 	if(feed_back == 'success'){
-               
 		change_error_style(obj,tagName,"remove");
 		if(obj.attr("is_tip_null") == "yes"){
 			obj.removeAttr("tip");

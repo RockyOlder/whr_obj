@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>vip商品详情</title>
+        <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <link href="__PUBLIC__/css/tableList.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/jquery-ui/css/pepper-grinder/jquery-ui.min.css">
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+
+        <style>
+
+            html, body { padding: 0; margin: 0; background: #f8f8f8;}
+            .imgtd{ float: right;  position:  absolute;}
+            #timeDate{ float: right; }
+            .commentsData{margin-top:20px; }
+            .commentsData span,i{ font-size: 14px; color:  silver;}
+            .contentData{color:  silver;font-size: 13px; margin-left: 35px; }
+            .star{position:relative;margin:20px auto;height:24px; margin-top: -20px;}
+            .star ul,#star span{float:left;display:inline;height:19px;line-height:19px;}
+            .star ul{margin:0 10px;}
+            .star li{float:left;width:24px;cursor:pointer;text-indent:-9999px;background:url(__PUBLIC__/images/star.png) no-repeat;}
+            .star strong{color:#f60;padding-left:10px;}
+            .star li.on{background-position:0 -28px;}
+
+            .star p em{color:#f60;display:block;font-style:normal;}
+         
+     
+        </style>
+        <script type="text/javascript">
+            $(function(){
+                var starLength=$(".star").length;
+                var star=$(".star");
+                //                $(".star").each(function(){
+                //                 //  console.log($(this).length) 
+                //                  //  alert(1)
+                //                    
+                //                })
+                for(var i=0;i<starLength;i++)
+                {
+                    star[i].index=star.eq(i).prev().val()
+                    // var li_length=star.eq(i).children().children().length;
+                    var li_for=star.eq(i).children().children();
+                    // console.log()
+                    //                    for(var j=0;i<star.eq(i).children().children().length;j++)
+                    //                    {
+                    //                          console.log(li_for.eq(j).text())      
+                    //                                
+                    //                    }
+                    star.eq(i).children().children().each(function(){
+                        // alert($(this).text());
+                        //   
+                        
+                        if(parseInt($(this).text())<= parseInt(star[i].index))
+                        {
+                            //   alert(1)
+                            $(this).addClass("on");
+                            //   return false;
+                        }
+                        //   alert($(this).text())
+                        
+                    })
+                        
+                        
+                    // alert($(this).text())
+                    //  console.log($(this).length) 
+                    //  alert(1)
+                                  
+                   
+                }
+                initPager();
+            });  
+            
+            
+        </script>
+    </head>
+    <body>
+
+        <div data-role="page" id = "pageTwo"> 
+
+            <div data-role="navbar">
+                <div data-role="content">
+
+                    <volist name="data" id ="vo">
+                        <div class="commentsData">
+
+                            <span><img src="{$vo.face}" height="35px;" width="35px"/></span>
+                            <i id="timeDate">{$vo.time|date="Y-m-d",###}</i>
+                            <span class="imgtd">{$vo.user_name}</span> 
+                            <input type="hidden" value="{$vo.star}">
+                            <div class="star">
+                                <ul>
+                                    <li><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">4</a></li>
+                                    <li><a href="javascript:;">5</a></li>
+                                </ul>
+
+                            </div>
+                            <p class="contentData">{$vo.content}</p>
+
+                            <hr style="height:1px;border:none;border-top:1px solid silver;" />
+
+                        </div> 
+
+                    </volist>   
+
+                    <!--<table>
+                      <volist name="info.type" id ="vo" key="k">
+                      <tr>
+                        <td>{$vo}</td>
+                      </tr>
+                      </volist>
+                    </table> -->
+
+                </div>
+
+            </div>
+                            <div id="pager" class="pager">
+                                <div class="fanye">
+                                    <div class="fanye1">
+                                        {$page}
+                                    </div>
+
+                                </div>
+                            </div>
+
+        </div>
+
+
+    </body>
+</html>

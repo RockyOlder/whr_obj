@@ -25,14 +25,14 @@ class UserController extends IsloginController {
          
             $name = I('post.user_name');
             if ($name)
-                $where['u.user_name'] = array('LIKE', '%' . $name . '%');
+                $where['u.user_name'] = array('LIKE', $name . '%');
         }
 
         $count = $user->where($where)->count();
         $page = initPage($count, $_COOKIE['n'] ? $_COOKIE['n'] : 15);
         $show = $page->show();
         $currentPage = empty($_GET['p']) ? 1 : intval($_GET['p']);
-        $data = $user ->where($where)->limit($page->firstRow . ',' . $page->listRows) ->select();
+        $data = $user->field('user_id,user_name,fax_phone,email,user_rank,address,reg_time')->where($where)->limit($page->firstRow . ',' . $page->listRows) ->select();
         foreach ($data as $v){if($v['user_rank']==1){$v['user_rank']='普通会员';}elseif($v['user_rank']==2){$v['user_rank']='VIP会员';}   $arr[]=$v; }
 
         $this->assign("currentPage", $currentPage);
